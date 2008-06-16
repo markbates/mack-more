@@ -7,10 +7,9 @@ require 'find'
 require 'rubyforge'
 require 'rubygems'
 require 'rubygems/gem_runner'
-
-GEM_VERSION = "0.0.1"
-GEM_NAME = "mack-active_record"
-GEM_RUBYFORGE_PROJECT = "magrathea"
+require 'spec'
+require 'spec/rake/spectask'
+require 'pathname'
 
 gem_spec = Gem::Specification.new do |s|
   s.name = "mack-active_record"
@@ -48,12 +47,10 @@ Rake::GemPackageTask.new(gem_spec) do |pkg|
   rm_f FileList['pkg/**/*.*']
 end
 
-# rake
-desc "Run test code"
-Rake::TestTask.new(:default) do |t|
-  t.libs << "test"
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
+desc 'Run specifications'
+Spec::Rake::SpecTask.new(:default) do |t|
+  t.spec_opts << '--options' << 'spec/spec.opts' if File.exists?('spec/spec.opts')
+  t.spec_files = Pathname.glob(Pathname.new(__FILE__).dirname + 'spec/**/*_spec.rb')
 end
 
 desc "Install the gem"
