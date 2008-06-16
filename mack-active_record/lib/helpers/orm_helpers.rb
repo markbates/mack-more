@@ -24,7 +24,7 @@ module Mack
         object_names = [object_names]
         object_names.flatten!
         app_errors = []
-        object_names.each do |name| 
+        object_names.each do |name|
           object = instance_variable_get("@#{name}")
           if object
             object.errors.each do |key, value|
@@ -55,8 +55,8 @@ module Mack
             end
           end
         end
-        File.join(Mack.root, "app", "views", "application", "_error_messages.html.erb")
         unless app_errors.empty?
+          app_errors.uniq!
           if view_partial.nil?
             if File.exist?(File.join(Mack.root, "app", "views", "application", "_error_messages.html.erb"))
               render(:partial, "application/error_messages", :locals => {:errors => app_errors})

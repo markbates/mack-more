@@ -24,9 +24,7 @@ class ViewTemplate
   end
   
   def method_missing(sym, *args)
-    puts "self.options[:locals]: #{self.options[:locals].inspect}"
     if self.options[:locals]
-      puts "self.options[:locals][#{sym}]: #{self.options[:locals][sym].inspect}"
       return self.options[:locals][sym]
     end
     raise NoMethodError.new(sym.to_s)
@@ -76,3 +74,5 @@ def configuration_directory
 end
 
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-active_record'
+
+ViewTemplate.send(:include, Mack::ViewHelpers::OrmHelpers)
