@@ -29,20 +29,17 @@ describe Mack::ViewHelpers::OrmHelpers do
         end
       end
       CreateOrmHelpersModels.up
+      
+      @user = User.new
+      @user.save.should == false
+      
     end
 
     after(:all) do
       CreateOrmHelpersModels.down
     end
     
-    before :each do
-      @user = nil
-      @person = nil
-    end
-    
     it "should default to the inline ERB template" do
-      @user = User.new
-      @user.save.should == false
       error_messages_for(:user).should == %{
 <div>
   <div class="errorExplanation" id="errorExplanation">
@@ -58,9 +55,7 @@ describe Mack::ViewHelpers::OrmHelpers do
     end
     
     it "should handle multiple models" do
-      @user = User.new
       @person = Person.new
-      @user.save.should == false
       @person.save.should == false
       error_messages_for([:user, :person]).should == %{
 <div>
@@ -78,7 +73,9 @@ describe Mack::ViewHelpers::OrmHelpers do
       }
     end
     
-    it "should allow you to pass in a partial"
+    it "should allow you to pass in a partial" do
+      pending
+    end
     
     it "should find and use the default partial"
     
