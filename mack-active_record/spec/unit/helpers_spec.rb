@@ -73,9 +73,7 @@ describe Mack::ViewHelpers::OrmHelpers do
       }
     end
     
-    it "should allow you to pass in a partial" do
-      pending
-    end
+    it "should allow you to pass in a partial"
     
     it "should find and use the default partial"
     

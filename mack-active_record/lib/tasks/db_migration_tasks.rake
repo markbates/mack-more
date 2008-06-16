@@ -1,0 +1,86 @@
+require 'rake'
+namespace :db do
+  
+  desc "Migrate the database through scripts in db/migrations"
+  task :migrate => "db:schema:create" do
+    migration_files.each do |migration|
+      require migration
+      migration = File.basename(migration, ".rb")
+      m_number = migration_number(migration)
+      if m_number > @schema_info.version
+        migration_name(migration).camelcase.constantize.up
+        @schema_info.version += 1
+        @schema_info.save
+      end
+    end # each
+  end # migrate
+  
+  desc "Rolls the schema back to the previous version. Specify the number of steps with STEP=n"
+  task :rollback => ["db:schema:create", "db:abort_if_pending_migrations"] do
+    migrations = migration_files.reverse
+    (ENV["STEP"] || 1).to_i.times do |step|
+      migration = migrations[step]
+      require migration
+      migration = File.basename(migration, ".rb")
+      m_number = migration_number(migration)
+      if m_number == @schema_info.version
+        migration_name(migration).camelcase.constantize.down
+        @schema_info.version -= 1
+        @schema_info.save
+      end
+    end
+
+  end # rollback
+  
+  desc "Raises an error if there are pending migrations"
+  task :abort_if_pending_migrations do
+    migrations = migration_files.reverse
+    return if migrations.empty?
+    migration = migrations.first
+    migration = File.basename(migration, ".rb")
+    m_number = migration_number(migration)
+    if m_number > @schema_info.version
+      raise Mack::Errors::UnrunMigrations.new(m_number - @schema_info.version)
+    end
+  end
+  
+  desc "Displays the current schema version of your database"
+  task :version => "db:schema:create" do
+    puts "\nYour database is currently at version: #{@schema_info.version}\n"
+  end
+  
+  private
+  namespace :schema do
+    
+    task :create => "mack:environment" do
+      require 'active_record/migration'
+      class CreateSchemaInfo < ActiveRecord::Migration # :nodoc:
+        def self.up
+          create_table :schema_info do |t|
+            t.column :version, :integer, :default => 0
+          end
+        end # up
+      end # CreateSchemaInfo
+      unless SchemaInfo.table_exists?
+        CreateSchemaInfo.up
+        SchemaInfo.create(:version => 0)
+      end
+      @schema_info = SchemaInfo.find(:first)
+    end # create
+    
+  end # schema
+  
+  
+  def migration_files
+    Dir.glob(File.join(Mack.root, "db", "migrations", "*.rb"))
+  end
+  
+  def migration_number(migration)
+    migration.match(/(^\d+)/).captures.last.to_i
+  end
+  
+  def migration_name(migration)
+    migration.match(/^\d+_(.+)/).captures.last
+  end
+  
+end # db

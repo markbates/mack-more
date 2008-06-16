@@ -1,0 +1,3 @@
+class <%= param(:name).singular.camelcase %> < ActiveRecord::Base
+
+end
