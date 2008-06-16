@@ -3,37 +3,37 @@ require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 
 describe Mack::ViewHelpers::OrmHelpers do
   
-  before do
-    write_database_yml
-    Mack::Database.establish_connection
-    class User < ActiveRecord::Base
-      validates_presence_of :username
-    end
-    class Person < ActiveRecord::Base
-      validates_presence_of :full_name
-    end
-    class CreateOrmHelpersModels < ActiveRecord::Migration
-      def self.up
-        create_table :users do |t|
-          t.column :username, :string
-        end
-        create_table :people do |t|
-          t.column :full_name, :string
-        end
-      end
-      def self.down
-        drop_table :users
-        drop_table :people
-      end
-    end
-    CreateOrmHelpersModels.up
-  end
-  
-  after do
-    CreateOrmHelpersModels.down
-  end
-  
   describe "error_messages_for" do
+    
+    before(:all) do
+      write_database_yml
+      Mack::Database.establish_connection
+      class User < ActiveRecord::Base
+        validates_presence_of :username
+      end
+      class Person < ActiveRecord::Base
+        validates_presence_of :full_name
+      end
+      class CreateOrmHelpersModels < ActiveRecord::Migration
+        def self.up
+          create_table :users do |t|
+            t.column :username, :string
+          end
+          create_table :people do |t|
+            t.column :full_name, :string
+          end
+        end
+        def self.down
+          drop_table :users
+          drop_table :people
+        end
+      end
+      CreateOrmHelpersModels.up
+    end
+
+    after(:all) do
+      CreateOrmHelpersModels.down
+    end
     
     before :each do
       @user = nil
@@ -77,6 +77,10 @@ describe Mack::ViewHelpers::OrmHelpers do
 </div>
       }
     end
+    
+    it "should allow you to pass in a partial"
+    
+    it "should find and use the default partial"
     
   end
   
