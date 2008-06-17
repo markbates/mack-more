@@ -1,0 +1,12 @@
+version 0.5.1:
+* Formatter is now more extensible through the use of engine registry
+  - Out of the box, the gem will support 5 languages for the formatter (date and number/currency formatter),
+    but developer can easily extend the formatter to different languages, see the files in 
+    format_engine folder on how to write the language support.
+* Updated the view_helper to better use default argument list.
+* Updated gem loader file so it will dynamically load all .rb files
+* Added example application
+* Added multibyte support (requires unicodechars gem)
+* Content files are now in YAML format
+* Translator and formatter are now singleton objects
+* README take 2

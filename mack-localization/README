@@ -1,0 +1,110 @@
+Mack-Localization
+-----------------------------------------------------------------------------
+
+== Summary
+Mack-Localization gem provides localization support for the Mack Framework.
+Multi-byte support is provided by unicodechars gem.
+
+== Installation #TODO: gem must be uploaded to rubyforge
+sudo gem install mack-localization
+
+== Using The Gem
+
+{Configuration File}
+
+Several of the localization framework settings can be overwritten by the application
+if the application has the localization.yml file.
+
+If you want to configure the localization settings, you will need to add 
+the localization.yml file to your mack framework in [APP_ROOT]/config/localization.
+
+The following settings are configurable:
+    'base_directory'
+    This will tell the framework where to start looking for the content file.
+    The root of the content files is configurable, but the file structure in that
+    folder is assumed.  The framework will assume the following file structure in the
+    content folder:
+        [CONTENT_ROOT]/views/...
+
+    'base_language'
+    This will tell the framework what is the default supported language
+    
+    'supported_languages'
+    This provides the list languages that the application support. For each
+    language specified in this list, please make sure that there is a corresponding
+    content file provided.  
+    
+    'char_encoding'
+    This tells the framework what is the default character encoding it should be using.
+    NOTE: this feature is not yet implemented.
+    
+    'dynamic_translation'
+    If this feature is set, then when a request for translated string cannot be found in
+    the language file, the system will perform a dynamic lookup to translation service,
+    and cache the content for future uses.  This feature is yet to be implemented
+    
+    'content_expiry'
+    This will tell the framework how long it should wait before expiring the cached content.
+    
+The following is an example of the localization.yml file:
+    base_language: 'fr'
+
+    supported_languages: 
+      - bp
+      - en
+      - fr
+      - it
+      - es
+      - de
+
+    char_encoding: 'utf-8'
+
+    dynamic_translation: true
+
+    content_expiry: 10
+
+{Convenience Routines provided by the framework}
+
+The following is the list of globally accessible convenient methods provided to all application using this framework:
+    'l10n_config'
+    Let the application access to the configuration of the localization framework.
+    Accessing this will give you the set values of read from localization.yml file
+    
+    'l10n_translator'
+    Let the application access to the translator instance.
+    
+    '10n_formatter'
+    Let the application access the formatter instance.
+    
+The following is the list of convenient methods provided to all application as view helpers:
+    'l10n_gets(key, view_sym, lang)'
+    Get the string for a specific key in a view with the specified language
+    
+    'l10n_getimg(key, view_sym, lang)'
+    Get the image path mapped to the specified key in the specified language and view
+    
+    'l10n_date(time, type, lang)'
+    Format the date using the specified type (:short, :medium, :long)
+    
+    'l10n_currency(amt, lang)'
+    Apply currency format to the given amount in the specified language.
+    
+The third utility is programming the view code in a view/language context:
+
+l10n_context(view_sym, lang) do |ctx|
+    ...HTML...
+    <%= ctx.gets(key) %>
+    ..........
+end
+
+== Contact
+Please mail bugs, suggestions, and patches to darsono.sutedja@gmail.com
+
+== Copyright Notices
+Copyright (c) 2008 Darsono Sutedja
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

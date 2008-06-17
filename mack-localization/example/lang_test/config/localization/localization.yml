@@ -1,0 +1,18 @@
+base_language: 'en'
+
+supported_languages: 
+  - bp
+  - en
+  - fr
+  - it
+  - es
+  - jp
+
+char_encoding: 'us-ascii'
+
+dynamic_translation: false
+
+#base_directory: '/Users/dsutedja/dev-git/mack_proj/lang_test_content'
+
+content_expiry: 5
+  

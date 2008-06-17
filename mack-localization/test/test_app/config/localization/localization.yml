@@ -1,0 +1,15 @@
+base_language: 'fr'
+
+supported_languages: 
+  - bp
+  - en
+  - fr
+  - it
+  - es
+  - de
+
+char_encoding: 'utf-8'
+
+dynamic_translation: true
+
+content_expiry: 10

@@ -1,0 +1,38 @@
+# development:
+#   default:
+#     adapter: mysql
+#     database: test_app_development
+#     host: localhost
+#     username: root
+#     password: 
+#     
+# test:
+#   default:
+#     adapter: mysql
+#     database: test_app_test
+#     host: localhost
+#     username: root
+#     password:
+# 
+# production:
+#   default:
+#     adapter: mysql
+#     database: test_app_production
+#     host: localhost
+#     username: root
+#     password:
+
+development:
+  default:
+    adapter: sqlite3
+    database: db/test_app_development.db 
+
+test:
+  default:
+    adapter: sqlite3
+    database: db/test_app_test.db 
+
+production:
+  default:
+    adapter: sqlite3
+    database: db/test_app_production.db 
