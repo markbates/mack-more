@@ -1,26 +1,30 @@
 require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
 
-describe "db" do
+describe "rake" do
+
+  describe "db" do
   
-  describe "migrate" do
+    describe "migrate" do
     
-    it "should migrate the database with the migrations in the db/migrations folder"
+      it "should migrate the database with the migrations in the db/migrations folder"
     
-  end
+    end
   
-  describe "rollback" do
+    describe "rollback" do
     
-    it "should rollback the database by a default of 1 step"
+      it "should rollback the database by a default of 1 step"
     
-    it "should rollback the database by n steps if ENV['STEP'] is set"
+      it "should rollback the database by n steps if ENV['STEP'] is set"
     
-  end
+    end
   
-  describe "version" do
+    describe "version" do
     
-    it "should return the current version number of the database"
+      it "should return the current version number of the database"
     
+    end
+  
   end
   
 end
