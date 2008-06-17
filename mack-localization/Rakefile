@@ -2,11 +2,18 @@ require 'rake'
 require 'rake/gempackagetask'
 require 'rake/clean'
 require 'rake/testtask'
+require 'rake/rdoctask'
 require 'find'
+require 'rubyforge'
+require 'rubygems'
+require 'rubygems/gem_runner'
+require 'spec'
+require 'spec/rake/spectask'
+require 'pathname'
 
-gem_spec = Gem::Specification.new do |s|
+spec = Gem::Specification.new do |s|
   s.name = 'mack-localization'
-  s.version = '0.5.1'
+  s.version = '0.5.2'
   s.summary = %{mack-localization}
   s.description = %{Localization support for Mack Framework}
   s.author = "Darsono Sutedja"
@@ -33,15 +40,53 @@ gem_spec = Gem::Specification.new do |s|
   #s.rubyforge_project = "mack-localization"
 end
 
-Rake::GemPackageTask.new(gem_spec) do |pkg|
+Rake::GemPackageTask.new(spec) do |pkg|
   pkg.need_zip = false
   pkg.need_tar = false
   rm_f FileList['pkg/**/*.*']
 end
 
-desc "Run test code"
-Rake::TestTask.new(:default) do |t|
-  t.libs << "test"
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = true
+desc "Install the gem"
+task :install => :package do |t|
+  puts `sudo gem install --local pkg/#{spec.name}-#{spec.version}.gem --no-update-sources`
+end
+
+desc "Release the gem"
+task :release => :install do |t|
+  begin
+    rf = RubyForge.new
+    rf.login
+    begin
+      rf.add_release(spec.rubyforge_project, spec.name, spec.version, File.join("pkg", "#{spec.name}-#{spec.version}.gem"))
+    rescue Exception => e
+      if e.message.match("Invalid package_id") || e.message.match("no <package_id> configured for")
+        puts "You need to create the package!"
+        rf.create_package(spec.rubyforge_project, spec.name)
+        rf.add_release(spec.rubyforge_project, spec.name, spec.version, File.join("pkg", "#{spec.name}-#{spec.version}.gem"))
+      else
+        raise e
+      end
+    end
+  rescue Exception => e
+    puts e
+  end
+end
+
+desc 'Run specifications'
+Spec::Rake::SpecTask.new(:default) do |t|
+  puts "running spec task"
+  t.spec_opts << '--options' << 'spec/spec.opts' if File.exists?('spec/spec.opts')
+  t.spec_files = Pathname.glob(Pathname.new(__FILE__).dirname + 'spec/**/*_spec.rb')
+end
+
+Rake::RDocTask.new do |rd|
+  rd.main = "README"
+  files = Dir.glob("**/*.rb")
+  files = files.collect {|f| f unless f.match("test/") || f.match("doc/") }.compact
+  files << "README"
+  rd.rdoc_files = files
+  rd.rdoc_dir = "doc"
+  rd.options << "--line-numbers"
+  rd.options << "--inline-source"
+  rd.title = "mack-data_mapper"
 end

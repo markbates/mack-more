@@ -1,3 +1,7 @@
+version 0.5.2:
+* Moved to mack-more
+* Test cases are now written using rspec
+
 version 0.5.1:
 * Formatter is now more extensible through the use of engine registry
   - Out of the box, the gem will support 5 languages for the formatter (date and number/currency formatter),
