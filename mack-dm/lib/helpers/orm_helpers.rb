@@ -2,16 +2,16 @@ module Mack
   module ViewHelpers
     module OrmHelpers
       DEFAULT_PARTIAL = %{
-        <div>
-          <div class="errorExplanation" id="errorExplanation">
-            <h2><%= pluralize_word(errors.size, "error") %> occured.</h2>
-            <ul>
-              <% for error in errors %>
-                <li><%= error %></li>
-              <% end %>  
-            </ul>
-          </div>
-        </div>
+<div>
+  <div class="errorExplanation" id="errorExplanation">
+    <h2><%= pluralize_word(errors.size, "error") %> occured.</h2>
+    <ul>
+      <% for error in errors %>
+        <li><%= error %></li>
+      <% end %>  
+    </ul>
+  </div>
+</div>
       } unless Mack::ViewHelpers::OrmHelpers.const_defined?("DEFAULT_PARTIAL")
   
       def error_messages_for(object_names = [], view_partial = nil)

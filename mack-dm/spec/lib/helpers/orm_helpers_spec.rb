@@ -17,14 +17,14 @@ describe Mack::ViewHelpers::OrmHelpers do
     
     it "should default to the inline ERB template" do
       # pending
-      post users_create_url, :user => {}
+      post users_create_url, :user => {:id => 1}
       
       response.body.should == %{
 <div>
   <div class="errorExplanation" id="errorExplanation">
     <h2>1 error occured.</h2>
     <ul>
-        <li>User username can't be blank</li>
+        <li>Username must not be blank</li>
     </ul>
   </div>
 </div>
@@ -33,15 +33,15 @@ describe Mack::ViewHelpers::OrmHelpers do
     
     it "should handle multiple models" do
       # pending
-      post people_and_users_create_url, :user => {}, :person => {}
+      post people_and_users_create_url, :user => {:id => 1}, :person => {:id => 1}
       
       response.body.should == %{
 <div>
   <div class="errorExplanation" id="errorExplanation">
     <h2>2 errors occured.</h2>
     <ul>
-        <li>User username can't be blank</li>
-        <li>Person full name can't be blank</li>
+        <li>Username must not be blank</li>
+        <li>Full name must not be blank</li>
     </ul>
   </div>
 </div>
