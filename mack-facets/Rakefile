@@ -14,7 +14,7 @@ require 'pathname'
 spec = Gem::Specification.new do |s|
   s.name = "mack-facets"
   s.version = "0.5.5.101"
-  s.summary = "ActiveRecord ORM support for Mack"
+  s.summary = "Ruby language extensions for Mack"
   s.description = "mack-facets was developed by: markbates"
   s.author = "markbates"
   s.email = "mark@mackframework.com"
@@ -29,7 +29,8 @@ spec = Gem::Specification.new do |s|
   #s.executables << "mack-facets"
   #s.default_executable = ""
   #s.add_dependency("", "")
-  s.add_dependency("activerecord", ">=2.0.2")
+  s.add_dependency("facets", "2.4.1")
+  s.add_dependency("english", "0.2.0")
   #s.extensions << ""
   s.extra_rdoc_files = ["README"]
   s.has_rdoc = true

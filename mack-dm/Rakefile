@@ -14,7 +14,7 @@ require 'pathname'
 spec = Gem::Specification.new do |s|
   s.name = "mack-dm"
   s.version = "0.5.5.101"
-  s.summary = "ActiveRecord ORM support for Mack"
+  s.summary = "DataMapper ORM support for Mack"
   s.description = "mack-dm was developed by: markbates"
   s.author = "markbates"
   s.email = "mark@mackframework.com"
@@ -29,7 +29,8 @@ spec = Gem::Specification.new do |s|
   #s.executables << "mack-dm"
   #s.default_executable = ""
   #s.add_dependency("", "")
-  s.add_dependency("activerecord", ">=2.0.2")
+  s.add_dependency("dm-core", "0.9.2")
+  s.add_dependency("dm-more", "0.9.2")
   #s.extensions << ""
   s.extra_rdoc_files = ["README"]
   s.has_rdoc = true
