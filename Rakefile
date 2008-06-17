@@ -1,6 +1,6 @@
 require 'rake'
 
-GEMS = %w{active_record}
+GEMS = %w{active_record dm}
 
 namespace :install do
   

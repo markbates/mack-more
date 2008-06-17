@@ -14,4 +14,4 @@ end
 
 ActiveRecord::Base.logger = Mack.logger
 
-Mack::Database.establish_connection
+Mack::Database.establish_connection(Mack::Configuration.env)
