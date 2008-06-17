@@ -6,11 +6,11 @@ describe Mack::ViewHelpers::OrmHelpers do
   describe "error_messages_for" do
     
     before(:all) do
-      CreateOrmHelpersModels.up
+      ActiveRecord::Migrator.up(migrations_directory)
     end
 
     after(:all) do
-      CreateOrmHelpersModels.down
+      ActiveRecord::Migrator.down(migrations_directory)
     end
     
     it "should default to the inline ERB template" do

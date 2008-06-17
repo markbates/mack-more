@@ -1,4 +1,4 @@
-class CreateOrmHelpersModels < ActiveRecord::Migration
+class CreateOrmHelperModels < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
       t.column :username, :string

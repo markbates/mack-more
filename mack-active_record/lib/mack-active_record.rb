@@ -12,4 +12,6 @@ require File.join(fl, "helpers", "orm_helpers")
   require File.join(fl, "#{gen}_generator", "#{gen}_generator")
 end
 
+ActiveRecord::Base.logger = Mack.logger
+
 Mack::Database.establish_connection
