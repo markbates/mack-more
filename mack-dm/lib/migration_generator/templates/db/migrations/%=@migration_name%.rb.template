@@ -1,0 +1,31 @@
+migration <%= @current_migration_number.to_i %>, :<%= param(:name) %> do
+
+  up do
+<%
+    unless columns.empty?
+-%>
+    create_table :<%= @table_name %> do
+<%
+      for column in migration_columns
+-%>
+      column :<%= column.column_name %>, <%= get_column_type(column) %>
+<%
+      end
+-%>
+    end
+<%
+    end
+-%>
+  end
+
+  down do
+<%
+    unless columns.empty?
+-%>
+    drop_table :<%= @table_name %>
+<%
+    end
+-%>
+  end
+
+end

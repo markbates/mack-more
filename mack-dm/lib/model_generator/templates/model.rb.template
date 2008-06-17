@@ -1,0 +1,12 @@
+class <%= param(:name).singular.camelcase %>
+  include DataMapper::Resource
+  
+  property :id, Integer, :serial => true, :key => true
+<% 
+for column in columns
+-%>
+  property :<%= column.column_name %>, <%= column.column_type.camelcase %>
+<%
+end
+-%>
+end

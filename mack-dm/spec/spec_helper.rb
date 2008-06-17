@@ -11,6 +11,8 @@ require 'dm-core'
 require 'dm-validations'
 require 'dm-migrations'
 
+$: << File.expand_path(File.dirname(__FILE__) + "/../lib")
+
 require 'mack'
 
 self.send(:include, Mack::Routes::Urls)

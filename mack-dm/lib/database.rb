@@ -2,7 +2,6 @@ module Mack
   module Database
     def self.establish_connection(env)
       dbs = YAML::load(ERB.new(IO.read(File.join(Mack::Configuration.root, "config", "database.yml"))).result)
-      puts "dbs: #{dbs.inspect}"
       settings = dbs[env]
       settings.symbolize_keys!
       if settings[:default]
