@@ -1,0 +1,19 @@
+<% l10n_context(:items) do |ctx| %>
+
+  <h3><%= ctx.gets(:demo)%> </h3>
+
+  <%= ctx.gets(:sale)%> <%= ctx.currency(120000000.00)%><br>
+
+  <%= ctx.gets(:today) %> <%= ctx.date(Time.now, :medium)%><br>
+  
+  <%= l10n_translator.pluralize(:demo1, @lang, @supported_languages.size) %><p>
+  
+  <p><%= language_links %></p>
+
+  <h3><%= ctx.gets(:title) %></h3>
+
+  <p>
+    <%= ctx.gets(:content).squeeze.gsub("\n", "<p>") %>
+  </p>
+
+<% end -%>

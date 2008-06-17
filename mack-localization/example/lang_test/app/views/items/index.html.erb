@@ -1,0 +1,23 @@
+<h3><%= l10n_gets(:demo)%> </h3>
+
+<div style="background:#e0e0e0;padding:10px">
+  Multibyte test: <br>
+  <% str = l10n_gets(:sale) %>
+  
+  The string: "<%= str %>" has <%= str.size %> characters <br>
+  Let's reverse the string: "<%= str.reverse %>"
+</div>
+<p>
+<%= l10n_gets(:sale)%> <%= l10n_currency(120000000.00)%><br>
+
+<%= l10n_gets(:today) %> <%= l10n_date(Time.now, :medium)%><br>
+  
+<%= l10n_translator.pluralize(:demo1, @lang, @supported_languages.size) %><p>
+  
+<p><%= language_links %></p>
+
+<h3><%= l10n_gets(:title) %></h3>
+
+<p>
+  <%= l10n_gets(:content).squeeze.gsub("\n", "<p>") %>
+</p>
