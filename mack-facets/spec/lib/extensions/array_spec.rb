@@ -22,6 +22,10 @@ describe Array do
       foo(nil).should == nil
     end
     
+    def foo(*args)
+      return args.parse_splat_args
+    end
+    
   end
   
   describe "randomize" do
@@ -45,8 +49,59 @@ describe Array do
     
   end
   
-  def foo(*args)
-    return args.parse_splat_args
+  describe "pick_random" do
+    
+    it "should pick a random value from an array" do
+      a = (0..1000).to_a
+      a.pick_random.should_not == 0
+    end
+    
+  end
+  
+  describe "random_each" do
+    a = (0..1000).to_a
+    b = []
+    a.random_each {|i| b << i}
+    a.should_not == b
+  end
+  
+  describe "subset?" do
+    
+    before(:all) do
+      @subset_a = [1,2,3,4,5]
+      @subset_b = [2,3] 
+    end
+    
+    it "should return true if the second array is a subset of the first array" do
+      @subset_b.subset?(@subset_a).should == true
+    end
+    
+    it "should return true if the two arrays are equal" do
+      @subset_b.subset?(@subset_b).should == true
+    end
+    
+    it "should return false if the second array is not a subset of the first array" do
+      @subset_a.subset?(@subset_b).should_not == true
+    end
+    
+  end
+  
+  describe "count" do
+    
+    it "should return a hash containing the count of each item in the array" do
+      a = %w{spam spam eggs ham eggs spam}
+      a.count.should == {"eggs" => 2, "ham" => 1, "spam" => 3}
+    end
+    
+  end
+  
+  describe "invert" do
+    
+    it "should return a hash with the key being the array value and the value being the array index" do
+      a = %w{red yellow orange}
+      a.invert.should == {"red" => 0, "orange" => 2, "yellow" => 1}
+    end
+    
   end
   
 end
