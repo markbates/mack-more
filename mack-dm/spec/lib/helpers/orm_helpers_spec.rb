@@ -6,6 +6,8 @@ describe Mack::ViewHelpers::OrmHelpers do
   describe "error_messages_for" do
     
     before(:all) do
+      User.auto_migrate!
+      Person.auto_migrate!
       # ActiveRecord::Migrator.up(migrations_directory)
     end
 
@@ -14,7 +16,7 @@ describe Mack::ViewHelpers::OrmHelpers do
     end
     
     it "should default to the inline ERB template" do
-      pending
+      # pending
       post users_create_url, :user => {}
       
       response.body.should == %{
@@ -30,7 +32,7 @@ describe Mack::ViewHelpers::OrmHelpers do
     end
     
     it "should handle multiple models" do
-      pending
+      # pending
       post people_and_users_create_url, :user => {}, :person => {}
       
       response.body.should == %{
