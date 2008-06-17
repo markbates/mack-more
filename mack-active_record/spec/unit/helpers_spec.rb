@@ -29,18 +29,15 @@ describe Mack::ViewHelpers::OrmHelpers do
     end
     
     it "should handle multiple models" do
-      @person = Person.new
-      @person.save.should == false
-      error_messages_for([:user, :person]).should == %{
+      post people_and_users_create_url, :user => {}, :person => {}
+      
+      response.body.should == %{
 <div>
   <div class="errorExplanation" id="errorExplanation">
     <h2>2 errors occured.</h2>
     <ul>
-      
         <li>User username can't be blank</li>
-      
         <li>Person full name can't be blank</li>
-      
     </ul>
   </div>
 </div>
