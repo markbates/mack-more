@@ -12,10 +12,10 @@ require 'spec/rake/spectask'
 require 'pathname'
 
 spec = Gem::Specification.new do |s|
-  s.name = "mack-active_record"
+  s.name = "mack-facets"
   s.version = "0.5.5.101"
   s.summary = "ActiveRecord ORM support for Mack"
-  s.description = "mack-active_record was developed by: markbates"
+  s.description = "mack-facets was developed by: markbates"
   s.author = "markbates"
   s.email = "mark@mackframework.com"
   s.homepage = "http://www.mackframework.com"
@@ -26,7 +26,7 @@ spec = Gem::Specification.new do |s|
   s.require_paths << 'lib'
 
   #s.bindir = "bin"
-  #s.executables << "mack-active_record"
+  #s.executables << "mack-facets"
   #s.default_executable = ""
   #s.add_dependency("", "")
   s.add_dependency("activerecord", ">=2.0.2")
@@ -89,5 +89,5 @@ Rake::RDocTask.new do |rd|
   rd.rdoc_dir = "doc"
   rd.options << "--line-numbers"
   rd.options << "--inline-source"
-  rd.title = "mack-active_record"
+  rd.title = "mack-facets"
 end

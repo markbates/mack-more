@@ -11,7 +11,7 @@ require 'spec'
 require 'spec/rake/spectask'
 require 'pathname'
 
-gem_spec = Gem::Specification.new do |s|
+spec = Gem::Specification.new do |s|
   s.name = "mack-dm"
   s.version = "0.5.5.101"
   s.summary = "ActiveRecord ORM support for Mack"
@@ -41,7 +41,7 @@ gem_spec = Gem::Specification.new do |s|
 end
 
 # rake package
-Rake::GemPackageTask.new(gem_spec) do |pkg|
+Rake::GemPackageTask.new(spec) do |pkg|
   pkg.need_zip = false
   pkg.need_tar = false
   rm_f FileList['pkg/**/*.*']
