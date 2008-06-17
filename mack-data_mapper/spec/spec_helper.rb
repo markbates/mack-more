@@ -14,7 +14,7 @@ require 'mack'
 self.send(:include, Mack::Routes::Urls)
 self.send(:include, Mack::TestHelpers)
 
-require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-dm'
+require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-data_mapper'
 
 def migrations_directory
   File.join(Mack::Configuration.root, "db", "migrations")
