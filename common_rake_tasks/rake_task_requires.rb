@@ -1,0 +1,13 @@
+require 'rake'
+require 'rake/gempackagetask'
+require 'rake/clean'
+require 'rake/testtask'
+require 'rake/rdoctask'
+require 'find'
+require 'rubyforge'
+require 'rubygems'
+require 'rubygems/gem_runner'
+require 'spec'
+require 'spec/rake/spectask'
+require 'pathname'
+require File.join(File.dirname(__FILE__), 'gem_version')
