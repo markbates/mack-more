@@ -76,9 +76,17 @@ describe String do
   
   describe "uri_escape" do
     
+    it "should escape a String to make it url 'safe'" do
+      "Hello World!@!".uri_escape.should == "Hello+World%21%40%21"
+    end
+    
   end
   
   describe "uri_unescape" do
+    
+    it "should unescape a url 'safe' String" do
+      "Hello+World%21%40%21".uri_unescape.should == "Hello World!@!"
+    end
     
   end
   
