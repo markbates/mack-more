@@ -15,6 +15,9 @@ require File.join(fl, "resource")
 require File.join(fl, "runner")
 require File.join(fl, "test_extensions")
 
+require File.join(fl, "model_column")
+require File.join(fl, "genosaurus_helpers")
+
 
 [:helpers, :migration_generator, :model_generator, :scaffold_generator].each do |folder|
   Dir.glob(File.join(File.dirname(__FILE__), folder.to_s, "**/*.rb")).each {|f| require f}

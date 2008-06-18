@@ -24,7 +24,6 @@
 #   class User
 #     include DataMapper::Resource
 # 
-#     property :id, Integer, :serial => true
 #     property :username, String
 #     property :email_address, String
 #     property :created_at, DateTime
@@ -34,7 +33,6 @@
 #   migration <number>, :create_users do
 #     up do
 #       create_table :users do
-#         column :id, Integer, :serial => true
 #         column :username, String, :size => 50
 #         column :email, String, :size => 50
 #         column :created_at, DateTime

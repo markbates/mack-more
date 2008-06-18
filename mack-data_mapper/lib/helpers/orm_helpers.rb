@@ -26,7 +26,6 @@ module Mack
           end
         end
         app_errors.flatten!
-        File.join(Mack::Configuration.views_directory, "application", "_error_messages.html.erb")
         unless app_errors.empty?
           if view_partial.nil?
             if File.exist?(File.join(Mack::Configuration.views_directory, "application", "_error_messages.html.erb"))
