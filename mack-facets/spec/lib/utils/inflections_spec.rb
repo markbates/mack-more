@@ -44,30 +44,13 @@ describe Mack::Utils::Inflector do
   
   describe "irregular" do
     
-    it "should return the irregular version of a given word"
-    
-  end
-  
-  describe "rules" do
-    
-    describe "plural" do
-      
-      it "should except a pluralization rule and add it to the list"
-      
-    end
-    
-    describe "singular" do
-      
-      it "should except a singularization rule and add it to the list"
-      
-    end
-    
-    describe "irregular" do
-      
-      it "should except an irregular rule and add it to the list"
-      
+    it "should return the irregular version of a given word" do
+      inflect.singularize("equipment").should == "equipment"
+      inflect.pluralize("equipment").should == "equipment"
+      inflect.singularize("knowledge").should == "knowledge"
+      inflect.pluralize("knowledge").should == "knowledge"
     end
     
   end
-  
+    
 end
