@@ -49,15 +49,15 @@ describe String do
   describe "hexdigest" do
     
     it "should return a Digest::SHA1.hexdigest version of the String" do
-      "Hello World".hexdigest.should == "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"
+      "Hello World".hexdigest.should == "0a4d55a8d778e5022fab701977c5d840bbc486d0"
     end
     
     describe "!" do
       
       it "should destructively replace the string with a Digest::SHA1.hexdigest version" do
         x = "Hello World"
-        x.hexdigest!.should == "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"
-        x.should == "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"
+        x.hexdigest!.should == "0a4d55a8d778e5022fab701977c5d840bbc486d0"
+        x.should == "0a4d55a8d778e5022fab701977c5d840bbc486d0"
       end
       
     end
