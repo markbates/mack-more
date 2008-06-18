@@ -41,11 +41,26 @@ module Mack
       end
       
       #
+      # Raise this error when the formatter cannot find the engine for the given language
+      #
+      class FormatEngineNotFound < StandardError
+        def initialize(lang)
+          super("Format engine not found for '#{lang}'")
+        end
+      end
+      
+      #
       # Raise this error when the user is calling method that doesn't exist (similar to NoMethodError)
       #
       class InvalidMethodName < StandardError
         def initialize(method_name)
           super("Unknown method: #{method_name}")
+        end
+      end
+      
+      class InvalidArgument < StandardError
+        def initialize(param_name)
+          super("Invalid argument passed into method: param_name")
         end
       end
       

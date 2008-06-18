@@ -10,6 +10,8 @@ module Mack
           month        = time.month
           year         = time.year
 
+          raise Mack::Localization::Errors::InvalidArgument.new(type) if date_format_template(type).nil?
+          
           template = date_format_template(type).dup
           template.gsub!("mm", "%02d" % month.to_s)
           template.gsub!("MM", months(type)[month-1])

@@ -45,7 +45,8 @@ module Mack
       #   date_format(time, :long, :en) will produce "Tuesday, December 01, 2008"
       #
       def date_format(time, type, lang)
-        engine = @reg.get_engine(lang, :date_format)
+        engine = @reg.get_engine(lang, date_format_registry_key)
+        raise Mack::Localization::Errors::FormatEngineNotFound.new(lang.to_s) if engine.nil?
         return u(engine.format(time, type))
       end
       
@@ -66,7 +67,8 @@ module Mack
       #   number_format(10000.00, :en) will produce "10,000.00"
       #
       def number_format(num, lang)
-        engine = @reg.get_engine(lang, :currency_format)
+        engine = @reg.get_engine(lang, currency_format_registry_key)
+        raise Mack::Localization::Errors::FormatEngineNotFound.new(lang.to_s) if engine.nil?
         return u(engine.format_number(num, lang))
       end
       
@@ -87,7 +89,8 @@ module Mack
       #   currency_format(10000.00, :en) will produce "$10,000.00"
       #
       def currency_format(num, lang)
-        engine = @reg.get_engine(lang, :currency_format)
+        engine = @reg.get_engine(lang, currency_format_registry_key)
+        raise Mack::Localization::Errors::FormatEngineNotFound.new(lang.to_s) if engine.nil?
         return u(engine.format_currency(num, lang))
       end
       
