@@ -34,6 +34,10 @@ class Orange < Citrus
     end
   end
   
+  def to_s
+    "I'm an Orange"
+  end
+  
 end
 
 module Animals

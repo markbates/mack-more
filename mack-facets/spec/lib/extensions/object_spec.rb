@@ -5,14 +5,19 @@ describe Object do
   
   describe "with_options" do
     
-    before do
-      class Regis
-        needs_method :kelly
+    it "should append the given hash onto the end of the method called" do
+      route = Route.new
+      route.with_options(:controller => :users) do |r|
+        r.add(:action => :index)
       end
-    end
-    
-    it "should raise NoMethodError" do
-      lambda{Regis.new.kelly}.should raise_error(NoMethodError)
+      route.list.should have(1).item
+      route.list.should include({:controller => :users, :action => :index})
+      route.with_options(:controller => :posts) do |r|
+        r.add(:action => :new)
+      end
+      route.list.should have(2).items
+      route.list.first.should == {:controller => :users, :action => :index}
+      route.list.last.should == {:controller => :posts, :action => :new}
     end
     
   end
@@ -28,13 +33,24 @@ describe Object do
   
   describe "to_param" do
     
+    it "should return to_s by default" do
+      "hello".to_param.should == "hello"
+      Orange.new.to_param.should == "I'm an Orange"
+    end
+    
   end
   
   describe "needs_method" do
     
-  end
-  
-  describe "running_time" do
+    before do
+      class Regis
+        needs_method :kelly
+      end
+    end
+    
+    it "should raise NoMethodError" do
+      lambda{Regis.new.kelly}.should raise_error(NoMethodError)
+    end
     
   end
   
@@ -68,21 +84,6 @@ describe Object do
       o.say_hi("hi there").should == "hi"      
     end
     
-    # assert @foo.nil?
-    # ivar_cache("foo") do
-    #   "hello world"
-    # end
-    # assert_equal "hello world", @foo
-    # o = Orange.new
-    # assert_equal 10, o.add(3, 7)
-    # assert_equal 10, o.instance_variable_get("@results")
-    # assert_equal 10, o.add(33, 17)
-    # assert_equal 10, o.instance_variable_get("@results")
-    # o.ivar_cache_clear("results")
-    # assert o.instance_variable_get("@results").nil?
-    # assert_equal "hello world", o.say_hi("hello world")
-    # assert_equal "hello world", o.say_hi("hello world, again")
-    # assert_equal "hello world", o.instance_variable_get("@say_hi")
   end
   
   describe "ivar_cache_clear" do
@@ -99,7 +100,10 @@ describe Object do
   end
   
   describe "namespaces" do
-    
+    dog = Animals::Dog.new 
+    dog.namespaces.should == ["Animals"]
+    poodle = Animals::Dog::Poodle.new
+    poodle.namespaces.should == ["Animals", "Dog"]
   end
   
 end
