@@ -1,91 +1,29 @@
-require 'rake'
-require 'rake/gempackagetask'
-require 'rake/clean'
-require 'rake/testtask'
-require 'rake/rdoctask'
-require 'find'
-require 'rubyforge'
-require 'rubygems'
-require 'rubygems/gem_runner'
-require 'spec'
-require 'spec/rake/spectask'
-require 'pathname'
+crt = File.join(File.dirname(__FILE__), "..", "common_rake_tasks")
+require File.join(crt, "rake_task_requires")
 
-spec = Gem::Specification.new do |s|
-  s.name = 'mack-localization'
-  s.version = '0.5.2'
-  s.summary = %{mack-localization}
-  s.description = %{Localization support for Mack Framework}
+@gem_spec = Gem::Specification.new do |s|
+  s.name = "mack-localization"
+  s.version = GEM_VERSION
+  s.summary = "Localization support for Mack Framework"
+  s.description = "Localization support for Mack Framework"
   s.author = "Darsono Sutedja"
   s.email = "Darsono.Sutedja@gmail.com"
+  s.homepage = "http://www.mackframework.com"
 
   s.test_files = FileList['test/**/*']
 
-  s.files = FileList['lib/**/*.rb', 'README', 'doc/**/*.*']
+  s.files = FileList['lib/**/*.rb', 'README', 'doc/**/*.*', 'bin/**/*.*']
   s.require_paths << 'lib'
 
-  #s.bindir = "bin"
-  #s.executables = "mack-localization"
-  #s.default_executable = ""
   s.add_dependency("unicodechars", "0.0.2")
   s.add_dependency("utf8proc", "1.0.3")
-  #s.add_dependency("", "")
-  #s.extensions << ""
-  #s.extra_rdoc_files = ["README"]
+  s.extra_rdoc_files = ["README"]
   s.has_rdoc = true
-  #s.platform = "Gem::Platform::Ruby"
-  #s.required_ruby_version = ">= 1.8.5"
-  #s.requirements << "An ice cold beer."
-  #s.requirements << "Some free time!"
-  #s.rubyforge_project = "mack-localization"
+  s.required_ruby_version = ">= 1.8.6"
+  s.rubyforge_project = "magrathea"
 end
 
-Rake::GemPackageTask.new(spec) do |pkg|
-  pkg.need_zip = false
-  pkg.need_tar = false
-  rm_f FileList['pkg/**/*.*']
-end
-
-desc "Install the gem"
-task :install => :package do |t|
-  puts `sudo gem install --local pkg/#{spec.name}-#{spec.version}.gem --no-update-sources`
-end
-
-desc "Release the gem"
-task :release => :install do |t|
-  begin
-    rf = RubyForge.new
-    rf.login
-    begin
-      rf.add_release(spec.rubyforge_project, spec.name, spec.version, File.join("pkg", "#{spec.name}-#{spec.version}.gem"))
-    rescue Exception => e
-      if e.message.match("Invalid package_id") || e.message.match("no <package_id> configured for")
-        puts "You need to create the package!"
-        rf.create_package(spec.rubyforge_project, spec.name)
-        rf.add_release(spec.rubyforge_project, spec.name, spec.version, File.join("pkg", "#{spec.name}-#{spec.version}.gem"))
-      else
-        raise e
-      end
-    end
-  rescue Exception => e
-    puts e
-  end
-end
-
-desc 'Run specifications'
-Spec::Rake::SpecTask.new(:default) do |t|
-  t.spec_opts << '--options' << 'spec/spec.opts' if File.exists?('spec/spec.opts')
-  t.spec_files = Pathname.glob(Pathname.new(__FILE__).dirname + 'spec/**/*_spec.rb')
-end
-
-Rake::RDocTask.new do |rd|
-  rd.main = "README"
-  files = Dir.glob("**/*.rb")
-  files = files.collect {|f| f unless f.match("test/") || f.match("doc/") }.compact
-  files << "README"
-  rd.rdoc_files = files
-  rd.rdoc_dir = "doc"
-  rd.options << "--line-numbers"
-  rd.options << "--inline-source"
-  rd.title = "mack-data_mapper"
+# Require all the necessary rake tasks:
+[:install, :package, :rdoc, :release, :test].each do |t|
+  load(File.join(crt, "#{t}.rake"))
 end
