@@ -7,7 +7,6 @@ ENV["MACK_ENV"] = "development"
 
 $: << File.expand_path(File.dirname(__FILE__) + "/../lib")
 
-puts "requiring mack"
 require 'mack'
 
 self.send(:include, Mack::Routes::Urls)
