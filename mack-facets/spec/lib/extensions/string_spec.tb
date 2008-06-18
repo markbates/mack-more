@@ -66,6 +66,12 @@ describe String do
   
   describe "randomize" do
     
+    it "should return a random String with a specified length" do
+      String.randomize.size.should == 10
+      String.randomize(5).size.should == 5
+      String.randomize.should_not be_nil
+    end
+    
   end
   
   describe "uri_escape" do
