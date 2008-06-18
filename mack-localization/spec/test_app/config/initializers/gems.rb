@@ -4,10 +4,7 @@
 # :version, optional, is the version of the gem you want to use.
 # :libs, optional, is an array of files you want to require.
 # :source, options, is the source you want to use to install a particular gem.
-require_gems do |gem|
-  
-  gem.add "mack-localization", :version => ">= 0.5.0"
-  
+require_gems do |gem|  
   # examples:
   # gem.add :redgreen, :version => "1.2.2", :libs => :redgreen
   # gem.add :termios
