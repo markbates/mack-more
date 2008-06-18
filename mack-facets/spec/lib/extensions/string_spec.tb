@@ -39,23 +39,26 @@ describe String do
   
   describe "constantize" do
     
-  end
-  
-  describe "linkify" do
-    
-  end
-  
-  describe "breakify" do
-    
-    describe "!" do
-      
+    it "should return a Constant based on the String" do
+      "Orange".constantize.should == Orange
+      "Animals::Dog::Poodle".constantize.should == Animals::Dog::Poodle
     end
     
   end
   
   describe "hexdigest" do
     
+    it "should return a Digest::SHA1.hexdigest version of the String" do
+      "Hello World".hexdigest.should == "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"
+    end
+    
     describe "!" do
+      
+      it "should destructively replace the string with a Digest::SHA1.hexdigest version" do
+        x = "Hello World"
+        x.hexdigest!.should == "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"
+        x.should == "2aae6c35c94fcfb415dbe95f408b9ce91ee846ed"
+      end
       
     end
     

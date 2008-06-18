@@ -84,83 +84,8 @@ class String
     Module.instance_eval("::#{self}")
   end
   
-  def linkify(enabled = true, options = {}, &block)
-    text = self.dup
-    m = text.match(/\"([^"]+)\"\:([^:]+\:\S+)/)
-    until m.nil?
-      y = m.to_s
-      t = m[1]
-      url = m[2]
-
-      # The code below handles punctuation or p tags being mistakenly added to the url when the link is at the end of a sentence or body
-      url_punct_match = /\W*[&nbsp;]*[\<\/p\>]*$/.match(url)
-      punct = ''
-      if url_punct_match && url_punct_match[0] != ""
-        url.chomp!(url_punct_match[0])
-        punct = url_punct_match[0] unless url_punct_match == "="
-      end
-
-      if block_given?
-        if enabled
-          ret = yield t, url, options
-          text.gsub!(y, ret)
-        else
-          text.gsub!(y, t.to_s)
-        end
-      else
-        if enabled
-          text.gsub!(y, "<a href=\"#{url}\" #{options.join("%s=\"%s\"", " ")}>#{t}</a>#{punct}")# punct places punctuation back into proper place
-        else
-          text.gsub!(y, t.to_s)
-        end
-      end
-      m = text.match(/\"([^"]+)\"\:([^:]+\:\S+)/)
-    end
-    return text
-  end
-  
-  # makes long strings of unbroken characters wrap inside elements (hopefully! tested in Safari, Firefox, and IE for Windows)
-  # For documentation about this kind of workaround to this browser compatibility problem please see the following URL's:
-  # http://www.quirksmode.org/oddsandends/wbr.html
-  # http://krijnhoetmer.nl/stuff/css/word-wrap-break-word/
-  # note: if the txt has spaces, this will only try to break up runs of non-space characters longer than "every" characters
-  def breakify(every = 30)
-    every = 1 if every < 1
-    text = self
-    textile_regex = /([^\"]+\"):([^:]*:[\/\/]{0,1}[^ ]*)/
-    long_regex = /\S{#{every},}/
-    brokentxt = text.gsub(long_regex) do |longword|
-      if longword =~ textile_regex #if the longword is a textile link...ignore and recheck for the link text only
-        textile_link = textile_regex.match(longword)[0]
-        link_text = textile_regex.match(longword)[1]
-
-        if link_text[0].to_i == 34 #adds the double quote back if missing from above regex
-          longword = link_text
-        else
-          textile_link = "\"" + textile_link
-          longword = "\"" + link_text
-        end
-
-        if longword =~ long_regex #link text is long...allow break
-          textile_link.scan(/.{1,#{every}}/).join("<wbr/>")
-        else
-          textile_link #the url is what triggered the match...so leave it alone
-        end
-      else
-        longword.scan(/.{1,#{every}}/).join("<wbr/>") #no textile link matched
-      end
-    end
-    #text = %Q[<span style='word-wrap:break-word;wbr:after{content:"\\00200B"}'>#{brokentxt}</span>]
-    #brokentxt.gsub("<wbr/>", "<br />")
-    brokentxt.gsub("<wbr/>", " ")
-  end
-  
-  def breakify!(every = 30)
-    self.replace(self.breakify(every))
-  end
-  
   def hexdigest
-    Digest::SHA1.hexdigest(self.downcase)
+    Digest::SHA1.hexdigest(self)
   end                                    
   
   def hexdigest!
