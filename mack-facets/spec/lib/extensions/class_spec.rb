@@ -43,15 +43,6 @@ describe Class do
       Fruit.parents.should == [Object]
     end
     
-    describe "class_parents" do
-      
-      it "should return an Array of Class objects for a class, ordered by ancestory" do
-        Orange.new.class_parents == [Citrus, Fruit, Object]
-        Fruit.new.class_parents == [Object]
-      end
-      
-    end
-    
   end
   
 end
