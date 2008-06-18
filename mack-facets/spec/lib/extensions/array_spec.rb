@@ -19,7 +19,7 @@ describe Array do
     end
     
     it "should return nil from a nil value" do
-      foo(nil).should == nil
+      foo(nil).should be_nil
     end
     
     def foo(*args)
@@ -73,15 +73,15 @@ describe Array do
     end
     
     it "should return true if the second array is a subset of the first array" do
-      @subset_b.subset?(@subset_a).should == true
+      @subset_b.subset?(@subset_a).should be_true
     end
     
     it "should return true if the two arrays are equal" do
-      @subset_b.subset?(@subset_b).should == true
+      @subset_b.subset?(@subset_b).should be_true
     end
     
     it "should return false if the second array is not a subset of the first array" do
-      @subset_a.subset?(@subset_b).should_not == true
+      @subset_a.subset?(@subset_b).should be_false
     end
     
   end

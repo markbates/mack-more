@@ -6,20 +6,20 @@ describe Class do
   describe "class_is_a?" do
     
     it "should return true if passed itself" do
-      Orange.class_is_a?(Orange).should == true
+      Orange.should be_class_is_a(Orange)
     end
     
     it "should return false if the class is not part of the ancestor chain " do
-      Orange.class_is_a?(Array).should_not == true
+      Orange.should_not be_class_is_a(Array)
     end
     
     it "should return false if the class is lower in the ancestor chain" do
-      Fruit.class_is_a?(Orange).should_not == true
+      Fruit.should_not be_class_is_a(Orange)
     end
     
     it "should return true if the class is higher in the ancestor chain" do
-      Orange.class_is_a?(Citrus).should == true
-      Orange.class_is_a?(Fruit).should == true
+      Orange.should be_class_is_a(Citrus)
+      Orange.should be_class_is_a(Fruit)
     end
     
   end
@@ -27,11 +27,11 @@ describe Class do
   describe "new_instance_of" do
     
     it "should create a new instance of a class from a String" do
-      Class.new_instance_of("Orange").is_a?(Orange)
+      Class.new_instance_of("Orange").should be_instance_of(Orange)
     end
     
     it "should create a new instance of a class from a String with a module" do
-      Class.new_instance_of("Animals::Dog").is_a?(Animals::Dog)
+      Class.new_instance_of("Animals::Dog").should be_instance_of(Animals::Dog)
     end
     
   end
