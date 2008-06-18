@@ -1,6 +1,6 @@
 require 'rake'
 
-GEMS = %w{active_record data_mapper facets localization}
+GEMS = %w{active_record data_mapper facets localization more}
 
 namespace :install do
   
@@ -13,6 +13,22 @@ namespace :install do
   GEMS.each do |gem|
     task "#{gem}" do
       sh("cd mack-#{gem} && rake install")
+    end
+  end
+  
+end
+
+namespace :rdoc do
+  
+  task :all do
+    GEMS.each do |gem|
+      sh("cd mack-#{gem} && rake rerdoc")
+    end
+  end
+  
+  GEMS.each do |gem|
+    task "#{gem}" do
+      sh("cd mack-#{gem} && rake rerdoc")
     end
   end
   

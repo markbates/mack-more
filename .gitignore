@@ -5,3 +5,4 @@ pkg
 doc
 tmp
 *.db
+mack-more.rb

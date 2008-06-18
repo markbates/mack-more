@@ -1,0 +1,39 @@
+crt = File.join(File.dirname(__FILE__), "..", "common_rake_tasks")
+require File.join(crt, "rake_task_requires")
+
+ALL_GEMS = %w{active_record data_mapper facets localization}
+REQUIRE_GEMS = %w{facets localization}
+
+File.open(File.join(File.dirname(__FILE__), "lib", "mack-more.rb"), "w") do |f|
+  REQUIRE_GEMS.each do |g|
+    f.puts "gem 'mack-#{g}', '#{GEM_VERSION}'"
+    f.puts "require 'mack-#{g}'"
+  end
+end
+
+@gem_spec = Gem::Specification.new do |s|
+  s.name = "mack-more"
+  s.version = GEM_VERSION
+  s.summary = "All the nice extras you could want for Mack"
+  s.description = "mack-mack was developed by: markbates"
+  s.author = "markbates"
+  s.email = "mark@mackframework.com"
+  s.homepage = "http://www.mackframework.com"
+
+  s.test_files = FileList['test/**/*']
+
+  s.files = FileList['lib/**/*.rb', 'README', 'doc/**/*.*', 'bin/**/*.*']
+  s.require_paths << 'lib'
+  ALL_GEMS.each do |g|
+    s.add_dependency("mack-#{g}", GEM_VERSION)
+  end
+  s.extra_rdoc_files = ["README"]
+  s.has_rdoc = true
+  s.required_ruby_version = ">= 1.8.6"
+  s.rubyforge_project = "magrathea"
+end
+
+# Require all the necessary rake tasks:
+[:install, :package, :rdoc, :release, :test].each do |t|
+  load(File.join(crt, "#{t}.rake"))
+end
