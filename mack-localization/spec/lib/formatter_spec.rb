@@ -52,17 +52,7 @@ class JPNumberCurrencyFormat < Mack::Localization::NumberAndCurrencyFormatEngine
 end
 
 module FormatterTestHelper
-  
-  def ensure_exception(expected_ex_class, &block)
-    valid_ex = false
-    begin
-      yield
-    rescue expected_ex_class
-      valid_ex = true
-    end
-    valid_ex.should == true
-  end
-  
+    
   def ensure_reg_not_nil(reg_key)
     reg = Mack::Localization::FormatEngineRegistry.instance
     [:en, :bp, :fr, :it, :de, :es].each do |lang|
@@ -124,19 +114,27 @@ describe "Formatter Engine" do
     include FormatterTestHelper
     
     it "should catch a valid exception if date_format is called with unknown language" do
-      ensure_exception(Mack::Localization::Errors::FormatEngineNotFound) { l10n_formatter.date_format(Time.now, :long, :foo) }
+      lambda { 
+        l10n_formatter.date_format(Time.now, :long, :foo) 
+      }.should raise_error(Mack::Localization::Errors::FormatEngineNotFound)
     end
     
     it "should catch a valid exception if date_format is called with unknown type" do
-      ensure_exception(Mack::Localization::Errors::InvalidArgument) { l10n_formatter.date_format(Time.now, :bar, :en) }
+      lambda {
+        l10n_formatter.date_format(Time.now, :bar, :en)
+      }.should raise_error(Mack::Localization::Errors::InvalidArgument)
     end
     
     it "should catch a valid exception if currency_format is called with unknown language" do
-      ensure_exception(Mack::Localization::Errors::FormatEngineNotFound) { l10n_formatter.currency_format(1000.00, :foo) }
+      lambda {
+        l10n_formatter.currency_format(1000.00, :foo)
+      }.should raise_error(Mack::Localization::Errors::FormatEngineNotFound)
     end
     
     it "should catch a valid exception if number_format is called with unknown language" do
-      ensure_exception(Mack::Localization::Errors::FormatEngineNotFound) { l10n_formatter.number_format(1000.00, :foo) }
+      lambda {
+        l10n_formatter.number_format(1000.00, :foo)
+      }.should raise_error(Mack::Localization::Errors::FormatEngineNotFound)
     end
   end
   
