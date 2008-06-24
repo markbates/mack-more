@@ -12,13 +12,20 @@ require 'facets/infinity'
 require 'english/inflect'
 require 'english/numerals'
 [:inflector, :inflections, :options_merger].each do |k|
-  require "utils/#{k}"
+  path = File.join File.dirname(__FILE__), "utils", "#{k}"
+  #puts "requiring #{path}"
+  require path
 end
 
 [:array, :class, :hash, :kernel, :math, :module, :object, :string, :symbol].each do |k|
-  require "extensions/#{k}"
+  path = File.join File.dirname(__FILE__), "extensions", "#{k}"
+  #puts "requiring #{path}"
+  require path
 end
 
 [:numerals, :inflect].each do |k|
-  require "english_extensions/#{k}"
+  path = File.join File.dirname(__FILE__), "english_extensions", "#{k}"
+  #puts "requiring #{path}"
+  require path
 end
+

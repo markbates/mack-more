@@ -27,3 +27,4 @@ end
 [:install, :package, :rdoc, :release, :test].each do |t|
   load(File.join(crt, "#{t}.rake"))
 end
+

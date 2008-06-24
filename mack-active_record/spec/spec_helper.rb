@@ -2,7 +2,7 @@ require 'rubygems'
 require 'pathname'
 require 'spec'
 
-gem 'mack_ruby_core_extensions', '0.1.28.100'
+#gem 'mack_ruby_core_extensions', '0.2.0'
 
 ENV["_mack_root"] = File.join(File.dirname(__FILE__), "fake_application")
 ENV["MACK_ENV"] = "development"

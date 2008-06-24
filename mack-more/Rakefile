@@ -4,6 +4,10 @@ require File.join(crt, "rake_task_requires")
 ALL_GEMS = %w{active_record data_mapper facets localization}
 REQUIRE_GEMS = %w{facets localization}
 
+if !File.exists?(File.join(File.dirname(__FILE__), "lib"))
+  FileUtils.mkdir(File.join(File.dirname(__FILE__), "lib"))
+end
+
 File.open(File.join(File.dirname(__FILE__), "lib", "mack-more.rb"), "w") do |f|
   REQUIRE_GEMS.each do |g|
     f.puts "gem 'mack-#{g}', '#{GEM_VERSION}'"
