@@ -26,4 +26,4 @@ end
 
 Mack::Rendering::ViewTemplate.send(:include, Mack::Rendering::Engine::Markaby::ViewHelpers)
 # Register the engine with Mack's Renderer Registry
-Mack::Rendering::Engine::Registry.instance.register(:action, :haml)
+Mack::Rendering::Engine::Registry.instance.register(:action, :markaby)
