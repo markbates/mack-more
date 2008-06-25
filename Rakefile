@@ -1,6 +1,6 @@
 require 'rake'
 
-GEMS = %w{active_record data_mapper facets localization haml_renderer more}
+GEMS = %w{active_record data_mapper facets localization haml_renderer markaby_renderer more}
 
 namespace :install do
   
