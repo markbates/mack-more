@@ -1,28 +1,21 @@
 crt = File.join(File.dirname(__FILE__), "..", "common_rake_tasks")
 require File.join(crt, "rake_task_requires")
 
-puts "in mack-10n rakefile"
-
 @gem_spec = Gem::Specification.new do |s|
-  s.name = "mack-localization"
+  s.name = 'mack-haml_renderer'
   s.version = GEM_VERSION
-  s.summary = "Localization support for Mack Framework"
-  s.description = "Localization support for Mack Framework"
+  s.summary = %{Rendering Engine}
+  s.description = %{Haml Rendering Engine for Mack Framework}
   s.author = "Darsono Sutedja"
-  s.email = "Darsono.Sutedja@gmail.com"
+  s.email = "darsono.sutedja@gmail.com"
   s.homepage = "http://www.mackframework.com"
 
   s.test_files = FileList['test/**/*']
 
-  s.files = FileList['lib/**/*.rb', 'README', 'doc/**/*.*', 'bin/**/*.*']
+  s.files = FileList['lib/**/*.rb', 'README', 'doc/**/*.*']
   s.require_paths << 'lib'
-
-  s.add_dependency("unicodechars", "0.0.2")
-  s.add_dependency("utf8proc", "1.0.3")
-  s.extra_rdoc_files = ["README"]
+  
   s.has_rdoc = true
-  s.required_ruby_version = ">= 1.8.6"
-  s.rubyforge_project = "magrathea"
 end
 
 # Require all the necessary rake tasks:
