@@ -1,0 +1,12 @@
+pdf.select_font "Times-Roman"
+pdf.fill_color(Color::RGB::Red)
+pdf.text "Hello!", :font_size => 24, :justification => :center
+pdf.fill_color(Color::RGB::Black)
+pdf.text "Helloooooooooooooooooooooooo!", :font_size => 12, :justification => :center
+pdf.with_options(:font_size => 10, :justification => :left) do |p|
+  p.text "\n\n"
+  p.text "Bla bla bla"
+  p.text "\n\n"
+  p.text "Created at: #{Time.now}"
+  p.text "Updated at: #{Time.now}"
+end
