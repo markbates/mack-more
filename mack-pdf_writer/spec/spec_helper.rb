@@ -24,7 +24,7 @@ require(File.join(File.dirname(__FILE__), "fake_application", "config", "routes.
 self.send(:include, Mack::Routes::Urls)
 self.send(:include, Mack::TestHelpers)
 
-require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-haml_renderer'
+require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-pdf_writer'
 
 #-------------- HELPER MODULES --------------------------#
 

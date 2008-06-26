@@ -2,10 +2,10 @@ crt = File.join(File.dirname(__FILE__), "..", "common_rake_tasks")
 require File.join(crt, "rake_task_requires")
 
 @gem_spec = Gem::Specification.new do |s|
-  s.name = 'mack-haml_renderer'
+  s.name = 'mack-markaby'
   s.version = GEM_VERSION
   s.summary = %{Rendering Engine}
-  s.description = %{Haml Rendering Engine for Mack Framework}
+  s.description = %{PDF Rendering Engine for Mack Framework}
   s.author = "Darsono Sutedja"
   s.email = "darsono.sutedja@gmail.com"
   s.homepage = "http://www.mackframework.com"
@@ -13,7 +13,7 @@ require File.join(crt, "rake_task_requires")
   s.test_files = FileList['test/**/*']
 
   s.files = FileList['lib/**/*.rb', 'README', 'doc/**/*.*']
-  s.add_dependency("haml", "1.8.2")
+  s.add_dependency("pdf-writer", "1.1.8")
   s.require_paths << 'lib'
   
   s.has_rdoc = true
