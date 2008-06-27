@@ -27,10 +27,3 @@ self.send(:include, Mack::TestHelpers)
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-pdf_writer'
 
 #-------------- HELPER MODULES --------------------------#
-
-class Object
-  alias_method :old_puts, :puts
-  def puts(*args)
-    old_puts args
-  end
-end
