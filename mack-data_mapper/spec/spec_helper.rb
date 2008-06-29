@@ -9,9 +9,6 @@ $: << File.expand_path(File.dirname(__FILE__) + "/../lib")
 
 require 'mack'
 
-self.send(:include, Mack::Routes::Urls)
-self.send(:include, Mack::TestHelpers)
-
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-data_mapper'
 
 def migrations_directory
