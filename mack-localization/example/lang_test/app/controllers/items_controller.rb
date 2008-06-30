@@ -16,8 +16,8 @@ class ItemsController < DefaultController
   end
   
   def set_lang
-    puts "id = #{params(:id)}"
-    session[:lang] = params(:id)
+    puts "id = #{params[:id]}"
+    session[:lang] = params[:id]
     redirect_to(items_index_url)
   end
 end
