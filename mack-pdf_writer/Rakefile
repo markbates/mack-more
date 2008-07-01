@@ -2,7 +2,7 @@ crt = File.join(File.dirname(__FILE__), "..", "common_rake_tasks")
 require File.join(crt, "rake_task_requires")
 
 @gem_spec = Gem::Specification.new do |s|
-  s.name = 'mack-markaby'
+  s.name = 'mack-pdf_writer'
   s.version = GEM_VERSION
   s.summary = %{Rendering Engine}
   s.description = %{PDF Rendering Engine for Mack Framework}

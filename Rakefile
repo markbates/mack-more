@@ -1,6 +1,5 @@
-require 'rake'
-
-GEMS = %w{active_record data_mapper facets localization haml markaby pdf_writer more}
+require File.join(File.dirname(__FILE__), "common_rake_tasks", "rake_task_requires")
+GEMS = full_gem_list
 
 namespace :install do
   

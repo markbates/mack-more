@@ -1,8 +1,8 @@
 crt = File.join(File.dirname(__FILE__), "..", "common_rake_tasks")
 require File.join(crt, "rake_task_requires")
 
-ALL_GEMS = %w{active_record data_mapper facets localization}
-REQUIRE_GEMS = %w{facets localization}
+ALL_GEMS = gem_list_without_more
+REQUIRE_GEMS = gem_list_without_orm_and_more
 
 if !File.exists?(File.join(File.dirname(__FILE__), "lib"))
   FileUtils.mkdir(File.join(File.dirname(__FILE__), "lib"))
