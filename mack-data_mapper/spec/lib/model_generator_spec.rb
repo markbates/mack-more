@@ -6,10 +6,12 @@ describe ModelGenerator do
   before(:each) do
     @model_file = File.join(Mack::Configuration.root, "app", "models", "zoo.rb")
     FileUtils.rm_rf(@model_file)
+    FileUtils.rm_rf(migrations_directory)
   end
   
   after(:each) do
     FileUtils.rm_rf(@model_file)
+    FileUtils.rm_rf(migrations_directory)
   end
   
   it "should require a name for the model" do
@@ -35,6 +37,11 @@ describe ModelGenerator do
   
   it "should create a stub rspec test for the model if rspec is testing framework"
   
-  it "should create a migration file"
+  it "should create a migration file" do
+    mig_file = File.join(migrations_directory, "001_create_zoos.rb")
+    File.should_not be_exists(mig_file)
+    ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,created_at:date_time,updated_at:date_time")
+    File.should be_exists(mig_file)
+  end
   
 end
