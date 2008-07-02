@@ -2,7 +2,7 @@ class <%= param(:name).singular.camelcase %>
   include DataMapper::Resource
 
 <% 
-for column in columns
+for column in migration_columns
 -%>
   property :<%= column.column_name %>, <%= column.column_type.camelcase %>
 <%

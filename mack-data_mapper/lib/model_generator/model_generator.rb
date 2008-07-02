@@ -52,4 +52,8 @@ class ModelGenerator < Genosaurus
     MigrationGenerator.run(@options.merge({"name" => "create_#{param(:name).plural}"}))
   end
   
+  def migration_columns
+    [Mack::Genosaurus::ModelColumn.new(param(:name), "id:serial"), columns].flatten
+  end
+  
 end
