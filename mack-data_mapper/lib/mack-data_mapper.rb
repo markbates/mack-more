@@ -22,11 +22,29 @@ require File.join(fl, "genosaurus_helpers")
 [:helpers, :migration_generator, :model_generator, :scaffold_generator].each do |folder|
   Dir.glob(File.join(File.dirname(__FILE__), folder.to_s, "**/*.rb")).each {|f| require f}
 end
-# Dir.glob(File.join(File.dirname(__FILE__), "tasks", "**/*.rake")).each {|f| load f}
 
 English::Inflect.word 'email_address'
 English::Inflect.word 'address' 
 
-DataMapper.logger = Mack.logger
+module DataMapper
+  class Logger
+    
+    [:debug, :info, :warn, :error, :fatal].each do |m|
+      unless method_defined?(m)
+        eval %{
+          alias_method :dm_#{m}, :#{m}
+    
+          def #{m}(message)
+            Mack.logger.#{m}(message)
+            dm_#{m}(message)
+          end
+        }
+      end
+    end
+    
+  end
+end
+
+DataMapper.logger = DataMapper::Logger.new(StringIO.new, 0)
 
 Mack::Database.establish_connection(Mack::Configuration.env)
