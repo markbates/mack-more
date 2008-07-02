@@ -15,3 +15,11 @@ $genosaurus_output_directory = Mack::Configuration.root
 def migrations_directory
   File.join(Mack::Configuration.root, "db", "migrations")
 end
+
+def fixture(name)
+  read_file(File.join(File.dirname(__FILE__), "fixtures", "#{name}.fixture"))
+end
+
+def read_file(name)
+  File.open(name).read
+end

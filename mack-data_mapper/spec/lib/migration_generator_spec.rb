@@ -21,6 +21,7 @@ describe MigrationGenerator do
     File.should_not be_exist(@migration_file)
     MigrationGenerator.run("NAME" => "create_zoos")
     File.should be_exist(@migration_file)
+    read_file(@migration_file).should == fixture("create_zoos_empty.rb")
   end
   
   it "should create a 'full' migration file if columns are specified"
