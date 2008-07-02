@@ -8,11 +8,9 @@ describe Mack::ViewHelpers::OrmHelpers do
     before(:all) do
       User.auto_migrate!
       Person.auto_migrate!
-      # ActiveRecord::Migrator.up(migrations_directory)
     end
 
     after(:all) do
-      # ActiveRecord::Migrator.down(migrations_directory)
     end
     
     it "should default to the inline ERB template" do

@@ -47,7 +47,7 @@ class MigrationGenerator < Genosaurus
   
   def get_column_type(column)
     if column.column_name == "id"
-      return "Integer, :serial => true"
+      return "Serial"
     else
       type = column.column_type.camelcase
       case type
