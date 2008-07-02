@@ -1,4 +1,5 @@
-class Vtt::ViewTemplateController < Mack::Controller::Base
+class Vtt::ViewTemplateController
+  include Mack::Controller
     
   def marge_html_markaby_with_layout
     @last_name = "Simpson"

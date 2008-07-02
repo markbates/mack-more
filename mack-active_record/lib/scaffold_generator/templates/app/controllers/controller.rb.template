@@ -1,4 +1,5 @@
-class <%= @name_plural_camel %>Controller < Mack::Controller::Base
+class <%= @name_plural_camel %>Controller
+  Mack::Controller
 
   # GET /<%= @name_plural %>
   def index

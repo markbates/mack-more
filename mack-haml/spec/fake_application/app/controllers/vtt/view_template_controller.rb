@@ -1,4 +1,5 @@
-class Vtt::ViewTemplateController < Mack::Controller::Base
+class Vtt::ViewTemplateController
+  include Mack::Controller
   
   def maggie_html_haml_with_layout
     @last_name = "Simpson"

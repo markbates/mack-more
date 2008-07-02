@@ -1,4 +1,5 @@
-class PeopleAndUsersController < Mack::Controller::Base
+class PeopleAndUsersController
+  include Mack::Controller
   
   def create
     @user = User.create(params[:user])
