@@ -12,7 +12,7 @@ require File.join(crt, "rake_task_requires")
 
   s.test_files = FileList['test/**/*']
 
-  s.files = FileList['lib/**/*.rb', 'README', 'doc/**/*.*']
+  s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*']
   s.add_dependency("pdf-writer", "1.1.8")
   s.require_paths << 'lib'
   

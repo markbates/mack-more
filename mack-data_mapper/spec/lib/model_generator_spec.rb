@@ -23,14 +23,14 @@ describe ModelGenerator do
     File.should_not be_exists(@model_file)
     ModelGenerator.run("NAME" => "zoo")
     File.should be_exists(@model_file)
-    read_file(@model_file).should == fixture("zoo_empty.rb")
+    File.read(@model_file).should == fixture("zoo_empty.rb")
   end
   
   it "should create a full file for the model" do
     File.should_not be_exists(@model_file)
     ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,created_at:date_time,updated_at:date_time")
     File.should be_exists(@model_file)
-    read_file(@model_file).should == fixture("zoo.rb")
+    File.read(@model_file).should == fixture("zoo.rb")
   end
   
   it "should create a stub test/unit test for the model if test/unit is testing framework"

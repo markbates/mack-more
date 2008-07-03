@@ -42,25 +42,11 @@ class MigrationGenerator < Genosaurus
   end
   
   def migration_columns
-    [Mack::Genosaurus::ModelColumn.new(param(:name), "id:integer"), columns].flatten
+    [Mack::Genosaurus::ModelColumn.new(param(:name), "id:serial"), columns].flatten
   end
   
   def get_column_type(column)
-    if column.column_name == "id"
-      return "Serial"
-    else
-      type = column.column_type.camelcase
-      case type
-      when "TrueClass", "String", "Float", "Integer", "BigDecimal", "DateTime", "Date", "Time", "Object", "Class"
-        return type
-      else
-        if DataMapper::Types.const_defined?(type)
-          return "DataMapper::Types::#{type}"
-        else
-          return type
-        end
-      end
-    end
+    column.column_type.camelcase
   end
   
 end

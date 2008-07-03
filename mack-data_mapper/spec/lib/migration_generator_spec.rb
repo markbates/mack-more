@@ -21,12 +21,12 @@ describe MigrationGenerator do
     File.should_not be_exist(@migration_file)
     MigrationGenerator.run("NAME" => "create_zoos")
     File.should be_exist(@migration_file)
-    read_file(@migration_file).should == fixture("create_zoos_empty.rb")
+    File.read(@migration_file).should == fixture("create_zoos_empty.rb")
   end
   
   it "should create a 'full' migration file if columns are specified" do
     MigrationGenerator.run("NAME" => "create_zoos", "cols" => "name:string,description:text,created_at:date_time,updated_at:date_time")
-    read_file(@migration_file).should == fixture("create_zoos.rb")
+    File.read(@migration_file).should == fixture("create_zoos.rb")
   end
   
   it "should name the migration file with the next available number" do
