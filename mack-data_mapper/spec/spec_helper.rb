@@ -17,9 +17,5 @@ def migrations_directory
 end
 
 def fixture(name)
-  read_file(File.join(File.dirname(__FILE__), "fixtures", "#{name}.fixture"))
-end
-
-def read_file(name)
-  File.open(name).read
+  File.read(File.join(File.dirname(__FILE__), "fixtures", "#{name}.fixture"))
 end
