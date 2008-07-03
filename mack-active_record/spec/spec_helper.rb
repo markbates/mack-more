@@ -10,6 +10,8 @@ ENV["MACK_ENV"] = "development"
 $: << File.expand_path(File.dirname(__FILE__) + "/../lib")
 
 require 'mack'
+require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-active_record'
+$genosaurus_output_directory = Mack::Configuration.root
 
 def migrations_directory
   File.join(Mack::Configuration.root, "db", "migrations")

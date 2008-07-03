@@ -43,4 +43,8 @@ class ModelGenerator < Genosaurus
     MigrationGenerator.run(@options.merge({"name" => "create_#{param(:name).plural}"}))
   end
   
+  def testing_framework
+    app_config.mack.testing_framework
+  end
+  
 end
