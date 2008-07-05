@@ -19,6 +19,30 @@ describe Mack::Paths do
     
   end
   
+  describe "images" do
+    
+    it "should give the path to the images directory" do
+      Mack::Paths.images.should == File.join(Mack::Paths.public, "images", "")
+    end
+    
+  end
+  
+  describe "javascripts" do
+    
+    it "should give the path to the javascripts directory" do
+      Mack::Paths.javascripts.should == File.join(Mack::Paths.public, "javascripts", "")
+    end
+    
+  end
+  
+  describe "stylesheets" do
+    
+    it "should give the path to the stylesheets directory" do
+      Mack::Paths.stylesheets.should == File.join(Mack::Paths.public, "stylesheets", "")
+    end
+    
+  end
+  
   describe "app" do
     
     it "should give the path to the app directory" do

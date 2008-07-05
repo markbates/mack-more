@@ -6,6 +6,21 @@ module Mack
       File.join(Mack.root, "public", files)
     end
     
+    # ./public/images
+    def self.images(*files)
+      File.join(Mack::Paths.public, "images", files)
+    end
+    
+    # ./public/javascripts
+    def self.javascripts(*files)
+      File.join(Mack::Paths.public, "javascripts", files)
+    end
+    
+    # ./public/stylesheets
+    def self.stylesheets(*files)
+      File.join(Mack::Paths.public, "stylesheets", files)
+    end
+    
     # ./app
     def self.app(*files)
       File.join(Mack.root, "app", files)
