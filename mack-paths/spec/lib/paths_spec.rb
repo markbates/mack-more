@@ -59,6 +59,14 @@ describe Mack::Paths do
     
   end
   
+  describe "initializers" do
+    
+    it "should give the path to the initializers directory" do
+      Mack::Paths.initializers.should == File.join(Mack::Paths.config, "initializers", "")
+    end
+    
+  end
+  
   describe "views" do
     
     it "should give the path to the views directory" do

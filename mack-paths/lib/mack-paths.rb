@@ -61,6 +61,11 @@ module Mack
       File.join(Mack::Paths.config, "app_config", files)
     end
     
+    # ./config/initializers
+    def self.initializers(*files)
+      File.join(Mack::Paths.config, "initializers", files)
+    end
+    
     # ./vendor
     def self.vendor(*files)
       File.join(Mack.root, "vendor", files)
