@@ -2,94 +2,68 @@ module Mack
   module Paths
     
     # ./public
-    def self.public
-      ivar_cache do
-        File.join(Mack.root, "public")
-      end
+    def self.public(*file)
+      File.join(Mack.root, "public", file)
     end
     
     # ./app
-    def self.app
-      ivar_cache do
-        File.join(Mack.root, "app")
-      end
+    def self.app(*file)
+      File.join(Mack.root, "app", file)
     end
     
     # ./app/views
-    def self.views
-      ivar_cache do
-        File.join(Mack::Paths.app, "views")
-      end
+    def self.views(*file)
+      File.join(Mack::Paths.app, "views", file)
     end
     
     # ./app/views/layouts
-    def self.layouts
-      ivar_cache do
-        File.join(Mack::Paths.views, "layouts")
-      end
+    def self.layouts(*file)
+      File.join(Mack::Paths.views, "layouts", file)
     end
     
     # ./app/controllers
-    def self.controllers
-      ivar_cache do
-        File.join(Mack::Paths.app, "controllers")
-      end
+    def self.controllers(*file)
+      File.join(Mack::Paths.app, "controllers", file)
     end
     
     # ./app/models
-    def self.models
-      ivar_cache do
-        File.join(Mack::Paths.app, "models")
-      end
+    def self.models(*file)
+      File.join(Mack::Paths.app, "models", file)
     end
     
     # ./app/helpers
-    def self.helpers
-      ivar_cache do
-        File.join(Mack::Paths.app, "helpers")
-      end
+    def self.helpers(*file)
+      File.join(Mack::Paths.app, "helpers", file)
     end
 
     # ./lib
-    def self.lib
-      ivar_cache do
-        File.join(Mack.root, "lib")
-      end
+    def self.lib(*file)
+      File.join(Mack.root, "lib", file)
     end
     
     # ./db
-    def self.db
-      ivar_cache do
-        File.join(Mack.root, "db")
-      end
+    def self.db(*file)
+      File.join(Mack.root, "db", file)
     end
     
     # ./db/migrations
-    def self.migrations
-      ivar_cache do
-        File.join(Mack::Paths.db, "migrations")
-      end
+    def self.migrations(*file)
+      File.join(Mack::Paths.db, "migrations", file)
     end
     
     # ./config
-    def self.config
-      ivar_cache do
-        File.join(Mack.root, "config")
-      end
+    def self.config(*file)
+      File.join(Mack.root, "config", file)
     end
     
     # ./vendor
-    def self.vendor
-      ivar_cache do
-        File.join(Mack.root, "vendor")
-      end
+    def self.vendor(*file)
+      File.join(Mack.root, "vendor", file)
     end
     
     # ./vendor/plugins
-    def self.plugins
-      ivar_cache do
-        File.join(Mack::Paths.vendor, "plugins")
-      end
+    def self.plugins(*file)
+      File.join(Mack::Paths.vendor, "plugins", file)
     end
     
   end # Paths
