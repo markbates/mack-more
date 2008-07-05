@@ -12,5 +12,5 @@ $: << File.expand_path(File.dirname(__FILE__) + "/../lib")
 require 'mack'
 
 def migrations_directory
-  File.join(Mack::Configuration.root, "db", "migrations")
+  File.join(Mack.root, "db", "migrations")
 end

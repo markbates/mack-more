@@ -3,7 +3,7 @@ namespace :db do
   
   desc "Create the database for your environment."
   task :create => :environment do
-    Mack::Configuration.load_database_configurations(Mack::Configuration.env)
+    Mack::Configuration.load_database_configurations(Mack.env)
     repository(:default) do
       drop_create_database
     end
@@ -65,7 +65,7 @@ def drop_create_database
       end
     when 'DataMapper::Adapters::Sqlite3Adapter'
       puts "Dropping (SQLite3): #{uri.basename}"
-      db_dir = File.join(Mack::Configuration.root, "db")
+      db_dir = File.join(Mack.root, "db")
       FileUtils.rm_rf(File.join(db_dir.to_s, uri.basename))
       puts "Creating (SQLite3): #{uri.basename}"
       FileUtils.mkdir_p(db_dir)

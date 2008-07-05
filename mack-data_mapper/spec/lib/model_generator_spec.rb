@@ -4,7 +4,7 @@ require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 describe ModelGenerator do
   
   before(:each) do
-    @model_file = File.join(Mack::Configuration.root, "app", "models", "zoo.rb")
+    @model_file = File.join(Mack.root, "app", "models", "zoo.rb")
     FileUtils.rm_rf(@model_file)
     FileUtils.rm_rf(migrations_directory)
   end

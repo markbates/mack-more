@@ -47,4 +47,4 @@ end
 
 DataMapper.logger = DataMapper::Logger.new(StringIO.new, 0)
 
-Mack::Database.establish_connection(Mack::Configuration.env)
+Mack::Database.establish_connection(Mack.env)
