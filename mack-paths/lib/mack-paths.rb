@@ -41,6 +41,11 @@ module Mack
       File.join(Mack.root, "lib", files)
     end
     
+    # ./lib/tasks
+    def self.tasks(*files)
+      File.join(Mack::Paths.lib, "tasks", files)
+    end
+    
     # ./db
     def self.db(*files)
       File.join(Mack.root, "db", files)

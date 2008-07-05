@@ -43,6 +43,14 @@ describe Mack::Paths do
     
   end
   
+  describe "tasks" do
+    
+    it "should give the path to the tasks directory" do
+      Mack::Paths.tasks.should == File.join(Mack::Paths.lib, "tasks", "")
+    end
+    
+  end
+  
   describe "config" do
     
     it "should give the path to the config directory" do
