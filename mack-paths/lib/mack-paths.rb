@@ -26,6 +26,11 @@ module Mack
       File.join(Mack.root, "app", files)
     end
     
+    # ./log
+    def self.log(*files)
+      File.join(Mack.root, "log", files)
+    end
+    
     # ./app/views
     def self.views(*files)
       File.join(Mack::Paths.app, "views", files)

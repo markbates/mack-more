@@ -67,6 +67,14 @@ describe Mack::Paths do
     
   end
   
+  describe "log" do
+    
+    it "should give the path to the log directory" do
+      Mack::Paths.log.should == File.join(Mack.root, "log", "")
+    end
+    
+  end
+  
   describe "tasks" do
     
     it "should give the path to the tasks directory" do
