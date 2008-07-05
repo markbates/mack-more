@@ -43,10 +43,50 @@ describe Mack::Paths do
     
   end
   
+  describe "controllers" do
+    
+    it "should give the path to the controllers directory" do
+      Mack::Paths.controllers.should == File.join(Mack::Paths.app, "controllers")
+    end
+    
+  end
+  
+  describe "helpers" do
+    
+    it "should give the path to the helpers directory" do
+      Mack::Paths.helpers.should == File.join(Mack::Paths.app, "helpers")
+    end
+    
+  end
+  
+  describe "models" do
+    
+    it "should give the path to the models directory" do
+      Mack::Paths.models.should == File.join(Mack::Paths.app, "models")
+    end
+    
+  end
+  
   describe "layouts" do
     
     it "should give the path to the layouts directory" do
       Mack::Paths.layouts.should == File.join(Mack::Paths.views, "layouts")
+    end
+    
+  end
+  
+  describe "db" do
+    
+    it "should give the path to the db directory" do
+      Mack::Paths.db.should == File.join(Mack.root, "db")
+    end
+    
+  end
+  
+  describe "migrations" do
+    
+    it "should give the path to the migrations directory" do
+      Mack::Paths.migrations.should == File.join(Mack::Paths.db, "migrations")
     end
     
   end
