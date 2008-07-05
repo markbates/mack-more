@@ -1,6 +1,11 @@
 module Mack
   module Paths
     
+    # ./ Maps to Mack.root
+    def self.root(*files)
+      File.join(Mack.root, files)
+    end
+    
     # ./public
     def self.public(*files)
       File.join(Mack.root, "public", files)
@@ -29,6 +34,11 @@ module Mack
     # ./log
     def self.log(*files)
       File.join(Mack.root, "log", files)
+    end
+    
+    # ./log
+    def self.test(*files)
+      File.join(Mack.root, "test", files)
     end
     
     # ./app/views

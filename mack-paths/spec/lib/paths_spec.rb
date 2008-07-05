@@ -75,6 +75,14 @@ describe Mack::Paths do
     
   end
   
+  describe "test" do
+    
+    it "should give the path to the test directory" do
+      Mack::Paths.test.should == File.join(Mack.root, "test", "")
+    end
+    
+  end
+  
   describe "tasks" do
     
     it "should give the path to the tasks directory" do
