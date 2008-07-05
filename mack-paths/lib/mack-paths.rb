@@ -2,68 +2,68 @@ module Mack
   module Paths
     
     # ./public
-    def self.public(*file)
-      File.join(Mack.root, "public", file)
+    def self.public(*files)
+      File.join(Mack.root, "public", files)
     end
     
     # ./app
-    def self.app(*file)
-      File.join(Mack.root, "app", file)
+    def self.app(*files)
+      File.join(Mack.root, "app", files)
     end
     
     # ./app/views
-    def self.views(*file)
-      File.join(Mack::Paths.app, "views", file)
+    def self.views(*files)
+      File.join(Mack::Paths.app, "views", files)
     end
     
     # ./app/views/layouts
-    def self.layouts(*file)
-      File.join(Mack::Paths.views, "layouts", file)
+    def self.layouts(*files)
+      File.join(Mack::Paths.views, "layouts", files)
     end
     
     # ./app/controllers
-    def self.controllers(*file)
-      File.join(Mack::Paths.app, "controllers", file)
+    def self.controllers(*files)
+      File.join(Mack::Paths.app, "controllers", files)
     end
     
     # ./app/models
-    def self.models(*file)
-      File.join(Mack::Paths.app, "models", file)
+    def self.models(*files)
+      File.join(Mack::Paths.app, "models", files)
     end
     
     # ./app/helpers
-    def self.helpers(*file)
-      File.join(Mack::Paths.app, "helpers", file)
+    def self.helpers(*files)
+      File.join(Mack::Paths.app, "helpers", files)
     end
 
     # ./lib
-    def self.lib(*file)
-      File.join(Mack.root, "lib", file)
+    def self.lib(*files)
+      File.join(Mack.root, "lib", files)
     end
     
     # ./db
-    def self.db(*file)
-      File.join(Mack.root, "db", file)
+    def self.db(*files)
+      File.join(Mack.root, "db", files)
     end
     
     # ./db/migrations
-    def self.migrations(*file)
-      File.join(Mack::Paths.db, "migrations", file)
+    def self.migrations(*files)
+      File.join(Mack::Paths.db, "migrations", files)
     end
     
     # ./config
-    def self.config(*file)
-      File.join(Mack.root, "config", file)
+    def self.config(*files)
+      File.join(Mack.root, "config", files)
     end
     
     # ./vendor
-    def self.vendor(*file)
-      File.join(Mack.root, "vendor", file)
+    def self.vendor(*files)
+      File.join(Mack.root, "vendor", files)
     end
     
     # ./vendor/plugins
-    def self.plugins(*file)
-      File.join(Mack::Paths.vendor, "plugins", file)
+    def self.plugins(*files)
+      File.join(Mack::Paths.vendor, "plugins", files)
     end
     
   end # Paths
