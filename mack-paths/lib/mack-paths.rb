@@ -56,6 +56,11 @@ module Mack
       File.join(Mack.root, "config", files)
     end
     
+    # ./config/app_config
+    def self.app_config(*files)
+      File.join(Mack::Paths.config, "app_config", files)
+    end
+    
     # ./vendor
     def self.vendor(*files)
       File.join(Mack.root, "vendor", files)

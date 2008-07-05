@@ -25,6 +25,14 @@ describe Mack::Paths do
       Mack::Paths.app.should == File.join(Mack.root, "app", "")
     end
     
+    it "should join the file name given with the app directory path" do
+      Mack::Paths.app("index.html").should == File.join(Mack.root, "app", "index.html")
+    end
+    
+    it "should join the file names given with the public directory path" do
+      Mack::Paths.app("foo", "index.html").should == File.join(Mack.root, "app", "foo", "index.html")
+    end
+    
   end
   
   describe "lib" do
@@ -39,6 +47,14 @@ describe Mack::Paths do
     
     it "should give the path to the config directory" do
       Mack::Paths.config.should == File.join(Mack.root, "config", "")
+    end
+    
+  end
+  
+  describe "app_config" do
+    
+    it "should give the path to the app_config directory" do
+      Mack::Paths.app_config.should == File.join(Mack::Paths.config, "app_config", "")
     end
     
   end
