@@ -1,6 +1,5 @@
 require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
-puts "in render spec"
 
 module RenderActionHelper
   def validate_content(file_name)

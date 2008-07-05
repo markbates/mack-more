@@ -2,8 +2,6 @@ require 'rubygems'
 require 'pathname'
 require 'spec'
 
-puts "spec_helper in mack-l10n"
-
 ENV["_mack_root"] = File.join(File.dirname(__FILE__), "test_app")
 ENV["MACK_ENV"] = "development"
 
