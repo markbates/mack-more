@@ -20,7 +20,7 @@ class ScaffoldGenerator < Genosaurus
   
   def update_routes_file
     # update routes.rb
-    routes = File.join(Mack::Configuration.config_directory, "routes.rb")
+    routes = File.join(Mack.root, "config", "routes.rb")
     rf = File.open(routes).read
     unless rf.match(".resource :#{@name_plural}")
       puts "Updating routes.rb"
