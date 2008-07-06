@@ -83,6 +83,22 @@ describe Mack::Paths do
     
   end
   
+  describe "functional" do
+    
+    it "should give the path to the functional directory" do
+      Mack::Paths.functional.should == File.join(Mack::Paths.test, "functional", "")
+    end
+    
+  end
+  
+  describe "unit" do
+    
+    it "should give the path to the unit directory" do
+      Mack::Paths.unit.should == File.join(Mack::Paths.test, "unit", "")
+    end
+    
+  end
+  
   describe "tasks" do
     
     it "should give the path to the tasks directory" do

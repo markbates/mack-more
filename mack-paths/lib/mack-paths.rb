@@ -36,9 +36,19 @@ module Mack
       File.join(Mack.root, "log", files)
     end
     
-    # ./log
+    # ./test
     def self.test(*files)
       File.join(Mack.root, "test", files)
+    end
+    
+    # ./test/functional
+    def self.functional(*files)
+      File.join(Mack::Paths.test, "functional", files)
+    end
+    
+    # ./test/unit
+    def self.unit(*files)
+      File.join(Mack::Paths.test, "unit", files)
     end
     
     # ./app/views
