@@ -15,13 +15,13 @@ module Mack
           "supported_languages"  => %w{bp en fr it de es},
           "char_encoding"       => 'us-ascii',
           "dynamic_translation" => false,
-          "base_directory"      => File.join(Mack::Configuration.app_directory, "lang"),
+          "base_directory"      => File.join(Mack.root, "app", "lang"),
           "content_expiry"      => 3600
         }
       end
       
       app_config.load_hash(L10N_DEFAULTS, "l10n_defaults")
-      path = File.join(Mack::Configuration.config_directory, "localization", "localization.yml")
+      path = File.join(Mack::Paths.config , "localization", "localization.yml")
       if File.exists?(path)
         app_config.load_file(path)
       end
