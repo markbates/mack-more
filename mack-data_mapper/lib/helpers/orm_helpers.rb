@@ -28,12 +28,12 @@ module Mack
         app_errors.flatten!
         unless app_errors.empty?
           if view_partial.nil?
-            if File.exist?(File.join(Mack::Configuration.views_directory, "application", "_error_messages.html.erb"))
+            if File.exist?(File.join(Mack.root, "app", "views", "application", "_error_messages.html.erb"))
               render(:partial, "application/error_messages", :locals => {:errors => app_errors})
             else
               render(:inline, DEFAULT_PARTIAL, :locals => {:errors => app_errors})
             end
-          else        
+          else
             render(:partial, view_partial, :locals => {:errors => app_errors})
           end
         else

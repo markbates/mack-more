@@ -4,7 +4,6 @@ module Mack
       class Haml < Mack::Rendering::Engine::Base
         
         def render(io, binding)
-          puts "Haml render...."
           ::Haml::Engine.new(io).render(binding)
         end
         

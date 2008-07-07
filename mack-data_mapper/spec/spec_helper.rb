@@ -10,10 +10,10 @@ $: << File.expand_path(File.dirname(__FILE__) + "/../lib")
 require 'mack'
 
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-data_mapper'
-$genosaurus_output_directory = Mack::Configuration.root
+$genosaurus_output_directory = Mack.root
 
 def migrations_directory
-  File.join(Mack::Configuration.root, "db", "migrations")
+  File.join(Mack.root, "db", "migrations")
 end
 
 def fixture(name)

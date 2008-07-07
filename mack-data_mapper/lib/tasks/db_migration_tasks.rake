@@ -41,7 +41,7 @@ namespace :db do
   private
   
   def migration_files
-    Dir.glob(File.join(Mack::Configuration.root, "db", "migrations", "*.rb"))
+    Dir.glob(File.join(Mack.root, "db", "migrations", "*.rb"))
   end
   
   def migration_number(migration)

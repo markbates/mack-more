@@ -17,36 +17,20 @@ describe Mack::ViewHelpers::OrmHelpers do
       # pending
       post users_create_url, :user => {:id => 1}
       
-      response.body.should == %{
-<div>
-  <div class="errorExplanation" id="errorExplanation">
-    <h2>1 error occured.</h2>
-    <ul>
-        <li>Username must not be blank</li>
-    </ul>
-  </div>
-</div>
-      }
+      response.body.should == fixture("default_single_model_error.html.erb")
     end
     
     it "should handle multiple models" do
       # pending
       post people_and_users_create_url, :user => {:id => 1}, :person => {:id => 1}
       
-      response.body.should == %{
-<div>
-  <div class="errorExplanation" id="errorExplanation">
-    <h2>2 errors occured.</h2>
-    <ul>
-        <li>Username must not be blank</li>
-        <li>Full name must not be blank</li>
-    </ul>
-  </div>
-</div>
-      }
+      response.body.should == fixture("default_multiple_model_errors.html.erb")
     end
     
-    it "should allow you to pass in a partial"
+    it "should allow you to pass in a partial" do
+      put users_update_url(:id => 1), :user => {:id => 1}
+      response.body.should == fixture("partial_single_model_error.html.erb")
+    end
     
     it "should find and use the default partial"
     

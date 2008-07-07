@@ -30,7 +30,7 @@ module DataMapper
   class Logger
     
     [:debug, :info, :warn, :error, :fatal].each do |m|
-      unless method_defined?(m)
+      unless method_defined?("dm_#{m}")
         eval %{
           alias_method :dm_#{m}, :#{m}
     
@@ -47,4 +47,4 @@ end
 
 DataMapper.logger = DataMapper::Logger.new(StringIO.new, 0)
 
-Mack::Database.establish_connection(Mack::Configuration.env)
+Mack::Database.establish_connection(Mack.env)
