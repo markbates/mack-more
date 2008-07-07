@@ -16,3 +16,7 @@ $genosaurus_output_directory = Mack.root
 def migrations_directory
   File.join(Mack.root, "db", "migrations")
 end
+
+def cleanup(file)
+  File.delete(file) if !file.nil? and File.exists?(file)
+end

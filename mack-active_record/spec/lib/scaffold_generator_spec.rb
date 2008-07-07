@@ -16,7 +16,7 @@ describe ScaffoldGenerator do
     
     @mig_file = File.join(migrations_directory, "#{next_migration_number}_create_zoos.rb")
     @cont_test_file = File.join(Mack.root, "test", "functional", "zoos_controller_test.rb")
-    @model_test_file = File.join(Mack.root, "test", "uni", "zoo_test.rb")
+    @model_test_file = File.join(Mack.root, "test", "unit", "zoo_test.rb")
     
     @routes_file = File.join(Mack.root, "config", "routes.rb")
     @orig_routes_content = File.read(@routes_file)
@@ -67,6 +67,7 @@ describe ScaffoldGenerator do
     temp_app_config("mack::testing_framework" => "rspec") do
       ScaffoldGenerator.run("NAME" => "zoo")
       @cont_test_file = File.join(Mack.root, "test", "functional", "zoos_controller_spec.rb")
+      @model_test_file = File.join(Mack.root, "test", "unit", "zoo_spec.rb")
       File.exists?(@cont_test_file).should == true    
     end
   end
@@ -92,12 +93,6 @@ describe ScaffoldGenerator do
   it "should create a migration file" do
     ScaffoldGenerator.run("NAME" => "zoo")
     File.exists?(@mig_file).should == true
-  end
-  
-  private
-  
-  def cleanup(file)
-    File.delete(file) if !file.nil? and File.exists?(file)
   end
   
 end

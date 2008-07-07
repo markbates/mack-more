@@ -3,11 +3,7 @@ require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 
 describe MigrationGenerator do
   include Mack::Genosaurus::Helpers
-  
-  def validate_content(file)
-    File.read(file).should == File.read(@mig_file)
-  end
-  
+    
   before(:each) do
     @content_path = File.join(File.dirname(__FILE__), "contents")
     @mig_path = File.join(Mack.root, "db", "migrations")
@@ -37,6 +33,11 @@ describe MigrationGenerator do
     next_mig_file = File.join(@mig_path, "#{next_migration_number}_create_zoos.rb")
     MigrationGenerator.run("NAME" => "create_zoos")
     File.exists?(next_mig_file).should == true
+  end
+  
+  private 
+  def validate_content(file)
+    File.read(file).should == File.read(@mig_file)
   end
   
 end
