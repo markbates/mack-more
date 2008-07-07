@@ -27,7 +27,12 @@ describe ScaffoldGenerator do
   
   it "should create a stub rspec test for the controller if rspec is testing framework"
   
-  it "should create a controller file"
+  it "should create a controller file" do
+    File.should_not be_exist(@controller_file)
+    ScaffoldGenerator.run("NAME" => "zoo")
+    File.should be_exist(@controller_file)
+    File.read(@controller_file).should == fixture("zoos_controller.rb")
+  end
   
   it "should create the proper view files"
   

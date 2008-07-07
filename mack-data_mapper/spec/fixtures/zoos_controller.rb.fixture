@@ -1,0 +1,51 @@
+class ZoosController
+  include Mack::Controller
+  
+  # GET /zoos
+  def index
+    @zoos = Zoo.all
+  end
+
+  # GET /zoos/1
+  def show
+    @zoo = Zoo[params[:id]]
+  end
+
+  # GET /zoos/new
+  def new
+    @zoo = Zoo.new
+  end
+
+  # GET /zoos/1/edit
+  def edit
+    @zoo = Zoo[params[:id]]
+  end
+
+  # POST /zoos
+  def create
+    @zoo = Zoo.new(params[:zoo])
+    if @zoo.save
+      redirect_to(zoos_show_url(:id => @zoo))
+    else
+      render(:action, "new")
+    end
+  end
+
+  # PUT /zoos/1
+  def update
+    @zoo = Zoo[params[:id]]
+    if @zoo.update_attributes(params[:zoo])
+      redirect_to(zoos_show_url(:id => @zoo))
+    else
+      render(:action, "edit")
+    end
+  end
+
+  # DELETE /zoos/1
+  def delete
+    @zoo = Zoo[params[:id]]
+    @zoo.destroy
+    redirect_to(zoos_index_url)
+  end
+
+end
