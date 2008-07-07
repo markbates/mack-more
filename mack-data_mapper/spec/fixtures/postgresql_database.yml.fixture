@@ -1,0 +1,23 @@
+development:
+  default:
+    adapter: postgresql
+    database: mack_data_mapper_development
+    host: localhost
+    username: ruby
+    password: password
+    
+test:
+  default:
+    adapter: postgresql
+    database: mack_data_mapper_test
+    host: localhost
+    username: ruby
+    password: password
+
+production:
+  default:
+    adapter: postgresql
+    database: mack_data_mapper_production
+    host: localhost
+    username: ruby
+    password: password

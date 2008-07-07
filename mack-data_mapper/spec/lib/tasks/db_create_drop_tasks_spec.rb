@@ -6,32 +6,84 @@ describe "rake" do
   describe "db" do
   
     describe "create" do
-    
-      it "should create a MySQL db for the current environment"
-    
-      it "should create a PostgreSQL db for the current environment"
-    
-      it "should drop/create a MySQL db if it already exists for the current environment"
-    
-      it "should drop/create a PostgreSQL db if it already exists for the current environment"
-    
-      it "should create a MySQL db for the specified environment"
-    
-      it "should create a PostgreSQL db for the specified environment"
-    
-      it "should drop/create a MySQL db if it already exists for the specified environment"
-    
-      it "should drop/create a PostgreSQL db if it already exists for the specified environment"
+      
+      describe "(MySQL)" do
+        
+        before(:all) do
+          @db_yml = File.read(Mack::Paths.config("database.yml"))
+          File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts fixture("mysql_database.yml")}
+        end
+        
+        after(:all) do
+          File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts @db_yml}
+        end
+        
+        it "should create a db for the current environment"
+        
+        it "should drop/create a db if it already exists for the current environment"
+        
+        it "should create a db for the specified environment"
+        
+        it "should drop/create a db if it already exists for the specified environment"
+        
+      end
+      
+      describe "(PostgreSQL)" do
+        
+        before(:all) do
+          @db_yml = File.read(Mack::Paths.config("database.yml"))
+          File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts fixture("postgresql_database.yml")}
+        end
+        
+        after(:all) do
+          File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts @db_yml}
+        end
+        
+        it "should create a db for the current environment"
+        
+        it "should drop/create a db if it already exists for the current environment"
+        
+        it "should create a db for the specified environment"
+        
+        it "should drop/create a db if it already exists for the specified environment"
+        
+      end
     
       describe "all" do
-      
-        it "should create a MySQL db for all environments"
+        
+        describe "(MySQL)" do
+          
+          before(:all) do
+            @db_yml = File.read(Mack::Paths.config("database.yml"))
+            File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts fixture("mysql_database.yml")}
+          end
 
-        it "should create a PostgreSQL db for all environments"
+          after(:all) do
+            File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts @db_yml}
+          end
+          
+          it "should create a db for all environments"
+          
+          it "should drop/create a db all environments"
+          
+        end
+        
+        describe "(PostgreSQL)" do
+          
+          before(:all) do
+            @db_yml = File.read(Mack::Paths.config("database.yml"))
+            File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts fixture("postgresql_database.yml")}
+          end
 
-        it "should drop/create a MySQL db all environments"
-
-        it "should drop/create a PostgreSQL db all environments"
+          after(:all) do
+            File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts @db_yml}
+          end
+          
+          it "should create a db for all environments"
+          
+          it "should drop/create a db all environments"
+          
+        end
       
       end
     
