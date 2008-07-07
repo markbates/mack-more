@@ -1,5 +1,5 @@
-Mack::Routes.build do |r|
-  
+Mack::Routes.build do |r| 
+
   r.resource :users
   r.resource :people_and_users
   

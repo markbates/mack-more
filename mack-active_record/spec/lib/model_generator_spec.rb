@@ -41,6 +41,7 @@ describe ModelGenerator do
       ModelGenerator.run("NAME" => "zoo")
       File.exists?(test_file).should == true
       File.delete(test_file)
+      File.exists?(test_file).should_not == true
     end
   end
   

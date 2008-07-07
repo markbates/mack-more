@@ -10,7 +10,8 @@ class ScaffoldGenerator < Genosaurus
     @name_singular = param(:name).singular.underscore
     @name_plural = param(:name).plural.underscore
     @name_singular_camel = @name_singular.camelcase
-    @name_plural_camel = @name_plural.camelcase    
+    @name_plural_camel = @name_plural.camelcase
+    @test_framework = app_config.mack.testing_framework
   end
   
   def after_generate

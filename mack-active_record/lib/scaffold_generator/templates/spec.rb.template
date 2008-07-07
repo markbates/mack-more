@@ -1,0 +1,7 @@
+require File.join(File.dirname(__FILE__), "..", "spec_helper.rb")
+
+describe '<%= @name_plural_camel %>Controller' do
+  it "should not blow up" do
+     true
+  end
+end
