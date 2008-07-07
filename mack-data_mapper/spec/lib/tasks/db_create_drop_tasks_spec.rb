@@ -14,11 +14,13 @@ describe "rake" do
           File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts fixture("mysql_database.yml")}
           DataMapper.setup(:test_tmp, "mysql://root@localhost/mysql")
           repository(:test_tmp).adapter.execute "DROP DATABASE IF EXISTS `mack_data_mapper_development`"
+          repository(:test_tmp).adapter.execute "DROP DATABASE IF EXISTS `mack_data_mapper_test`"
         end
       
         after(:all) do
           File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts @db_yml}
           repository(:test_tmp).adapter.execute "DROP DATABASE IF EXISTS `mack_data_mapper_development`"
+          repository(:test_tmp).adapter.execute "DROP DATABASE IF EXISTS `mack_data_mapper_test`"
         end
       
         it "should create a db for the current environment" do

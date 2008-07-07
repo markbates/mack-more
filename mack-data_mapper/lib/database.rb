@@ -15,7 +15,7 @@ module Mack
     end # establish_connection
     
     def self.create(env)
-      Mack::Database.establish_connection(Mack.env)
+      Mack::Database.establish_connection(env)
       repository(:default) do
         drop_create_database
       end
