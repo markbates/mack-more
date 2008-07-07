@@ -4,14 +4,14 @@ require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 describe ModelGenerator do
   
   before(:each) do
-    @model_file = File.join(Mack.root, "app", "models", "zoo.rb")
+    @model_file = Mack::Paths.models("zoo.rb")
     FileUtils.rm_rf(@model_file)
-    FileUtils.rm_rf(migrations_directory)
+    FileUtils.rm_rf(Mack::Paths.migrations)
   end
   
   after(:each) do
     FileUtils.rm_rf(@model_file)
-    FileUtils.rm_rf(migrations_directory)
+    FileUtils.rm_rf(Mack::Paths.migrations)
   end
   
   it "should require a name for the model" do
@@ -38,7 +38,7 @@ describe ModelGenerator do
   it "should create a stub rspec test for the model if rspec is testing framework"
   
   it "should create a migration file" do
-    mig_file = File.join(migrations_directory, "001_create_zoos.rb")
+    mig_file = Mack::Paths.migrations("001_create_zoos.rb")
     File.should_not be_exists(mig_file)
     ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,created_at:date_time,updated_at:date_time")
     File.should be_exists(mig_file)
