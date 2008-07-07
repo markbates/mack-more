@@ -33,7 +33,7 @@ module Mack
             else
               render(:inline, DEFAULT_PARTIAL, :locals => {:errors => app_errors})
             end
-          else        
+          else
             render(:partial, view_partial, :locals => {:errors => app_errors})
           end
         else

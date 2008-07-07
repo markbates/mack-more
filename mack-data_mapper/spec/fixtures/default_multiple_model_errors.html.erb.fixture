@@ -1,0 +1,11 @@
+
+<div>
+  <div class="errorExplanation" id="errorExplanation">
+    <h2>2 errors occured.</h2>
+    <ul>
+        <li>Username must not be blank</li>
+        <li>Full name must not be blank</li>
+    </ul>
+  </div>
+</div>
+      

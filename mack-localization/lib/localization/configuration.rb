@@ -21,7 +21,7 @@ module Mack
       end
       
       app_config.load_hash(L10N_DEFAULTS, "l10n_defaults")
-      path = File.join(Mack::Paths.config , "localization", "localization.yml")
+      path = File.join(Mack.root, "config" , "localization", "localization.yml")
       if File.exists?(path)
         app_config.load_file(path)
       end
