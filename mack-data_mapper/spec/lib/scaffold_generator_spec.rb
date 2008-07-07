@@ -19,17 +19,29 @@ describe ScaffoldGenerator do
     ScaffoldGenerator.new(zoo_options).should be_instance_of(ScaffoldGenerator)
   end
   
-  it "should handle plural/singular names correctly"
-  
   it "should update the routes.rb file with the resource name" do
     File.read(Mack::Paths.config("routes.rb")).should_not match(/r\.resource :zoos/)
     ScaffoldGenerator.run(zoo_options)
     File.read(Mack::Paths.config("routes.rb")).should match(/r\.resource :zoos/)
   end
   
-  it "should create a stub test/unit test for the controller if test/unit is testing framework"
+  it "should create a stub test/unit test for the controller if test/unit is testing framework" do
+    temp_app_config("mack::testing_framework" => "test_case") do
+      File.should_not be_exist(Mack::Paths.functional("zoos_controller_test.rb"))
+      ScaffoldGenerator.run(zoo_options)
+      File.should be_exist(Mack::Paths.functional("zoos_controller_test.rb"))
+      File.read(Mack::Paths.functional("zoos_controller_test.rb")).should == fixture("zoos_controller_test.rb")
+    end
+  end
   
-  it "should create a stub rspec test for the controller if rspec is testing framework"
+  it "should create a stub rspec test for the controller if rspec is testing framework" do
+    temp_app_config("mack::testing_framework" => "rspec") do
+      File.should_not be_exist(Mack::Paths.functional("zoos_controller_spec.rb"))
+      ScaffoldGenerator.run(zoo_options)
+      File.should be_exist(Mack::Paths.functional("zoos_controller_spec.rb"))
+      File.read(Mack::Paths.functional("zoos_controller_spec.rb")).should == fixture("zoos_controller_spec.rb")
+    end
+  end
   
   it "should create a controller file" do
     File.should_not be_exist(@controller_file)
@@ -42,11 +54,29 @@ describe ScaffoldGenerator do
     File.should_not be_exist(Mack::Paths.views("zoos"))
     ScaffoldGenerator.run(zoo_options)
     File.should be_exist(Mack::Paths.views("zoos"))
+    File.should be_exist(Mack::Paths.views("zoos", "edit.html.erb"))
+    File.read(Mack::Paths.views("zoos", "edit.html.erb")).should == fixture("zoo_edit.html.erb")
+    File.should be_exist(Mack::Paths.views("zoos", "index.html.erb"))
+    File.read(Mack::Paths.views("zoos", "index.html.erb")).should == fixture("zoo_index.html.erb")
+    File.should be_exist(Mack::Paths.views("zoos", "new.html.erb"))
+    File.read(Mack::Paths.views("zoos", "new.html.erb")).should == fixture("zoo_new.html.erb")
+    File.should be_exist(Mack::Paths.views("zoos", "show.html.erb"))
+    File.read(Mack::Paths.views("zoos", "show.html.erb")).should == fixture("zoo_show.html.erb")
   end
   
-  it "should create a model file"
+  it "should create a model file" do
+    File.should_not be_exist(@model_file)
+    ScaffoldGenerator.run(zoo_options)
+    File.should be_exist(@model_file)
+    File.read(@model_file).should == fixture("zoo.rb")
+  end
   
-  it "should create a migration file"
+  it "should create a migration file" do
+    File.should_not be_exist(Mack::Paths.migrations("001_create_zoos.rb"))
+    ScaffoldGenerator.run(zoo_options)
+    File.should be_exist(Mack::Paths.migrations("001_create_zoos.rb"))
+    File.read(Mack::Paths.migrations("001_create_zoos.rb")).should == fixture("create_zoos.rb")
+  end
   
   def common_cleanup
     FileUtils.rm_rf(@model_file)
