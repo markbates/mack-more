@@ -35,9 +35,23 @@ describe ModelGenerator do
     File.read(@model_file).should == fixture("zoo.rb")
   end
   
-  it "should create a stub test/unit test for the model if test/unit is testing framework"
+  it "should create a stub test/unit test for the model if test/unit is testing framework" do
+    temp_app_config("mack::testing_framework" => "test_case") do
+      File.should_not be_exist(Mack::Paths.unit("zoo_test.rb"))
+      ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,created_at:date_time,updated_at:date_time")
+      File.should be_exist(Mack::Paths.unit("zoo_test.rb"))
+      File.read(Mack::Paths.unit("zoo_test.rb")).should == fixture("zoo_test.rb")
+    end
+  end
   
-  it "should create a stub rspec test for the model if rspec is testing framework"
+  it "should create a stub rspec test for the model if rspec is testing framework" do
+    temp_app_config("mack::testing_framework" => "rspec") do
+      File.should_not be_exist(Mack::Paths.unit("zoo_spec.rb"))
+      ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,created_at:date_time,updated_at:date_time")
+      File.should be_exist(Mack::Paths.unit("zoo_spec.rb"))
+      File.read(Mack::Paths.unit("zoo_spec.rb")).should == fixture("zoo_spec.rb")
+    end
+  end
   
   it "should create a migration file" do
     mig_file = Mack::Paths.migrations("001_create_zoos.rb")
