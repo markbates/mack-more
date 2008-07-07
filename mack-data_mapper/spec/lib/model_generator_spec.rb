@@ -7,11 +7,13 @@ describe ModelGenerator do
     @model_file = Mack::Paths.models("zoo.rb")
     FileUtils.rm_rf(@model_file)
     FileUtils.rm_rf(Mack::Paths.migrations)
+    FileUtils.rm_rf(Mack::Paths.unit)
   end
   
   after(:each) do
     FileUtils.rm_rf(@model_file)
     FileUtils.rm_rf(Mack::Paths.migrations)
+    FileUtils.rm_rf(Mack::Paths.unit)
   end
   
   it "should require a name for the model" do
