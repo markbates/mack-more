@@ -1,122 +1,122 @@
 module Mack
   module Paths
     
-    # ./ Maps to Mack.root
+    # <MACK_PROJECT_ROOT>
     def self.root(*files)
       File.join(Mack.root, files)
     end
     
-    # ./public
+    # <MACK_PROJECT_ROOT>/public
     def self.public(*files)
       File.join(Mack.root, "public", files)
     end
     
-    # ./public/images
+    # <MACK_PROJECT_ROOT>/public/images
     def self.images(*files)
       File.join(Mack::Paths.public, "images", files)
     end
     
-    # ./public/javascripts
+    # <MACK_PROJECT_ROOT>/public/javascripts
     def self.javascripts(*files)
       File.join(Mack::Paths.public, "javascripts", files)
     end
     
-    # ./public/stylesheets
+    # <MACK_PROJECT_ROOT>/public/stylesheets
     def self.stylesheets(*files)
       File.join(Mack::Paths.public, "stylesheets", files)
     end
     
-    # ./app
+    # <MACK_PROJECT_ROOT>/app
     def self.app(*files)
       File.join(Mack.root, "app", files)
     end
     
-    # ./log
+    # <MACK_PROJECT_ROOT>/log
     def self.log(*files)
       File.join(Mack.root, "log", files)
     end
     
-    # ./test
+    # <MACK_PROJECT_ROOT>/test
     def self.test(*files)
       File.join(Mack.root, "test", files)
     end
     
-    # ./test/functional
+    # <MACK_PROJECT_ROOT>/test/functional
     def self.functional(*files)
       File.join(Mack::Paths.test, "functional", files)
     end
     
-    # ./test/unit
+    # <MACK_PROJECT_ROOT>/test/unit
     def self.unit(*files)
       File.join(Mack::Paths.test, "unit", files)
     end
     
-    # ./app/views
+    # <MACK_PROJECT_ROOT>/app/views
     def self.views(*files)
       File.join(Mack::Paths.app, "views", files)
     end
     
-    # ./app/views/layouts
+    # <MACK_PROJECT_ROOT>/app/views/layouts
     def self.layouts(*files)
       File.join(Mack::Paths.views, "layouts", files)
     end
     
-    # ./app/controllers
+    # <MACK_PROJECT_ROOT>/app/controllers
     def self.controllers(*files)
       File.join(Mack::Paths.app, "controllers", files)
     end
     
-    # ./app/models
+    # <MACK_PROJECT_ROOT>/app/models
     def self.models(*files)
       File.join(Mack::Paths.app, "models", files)
     end
     
-    # ./app/helpers
+    # <MACK_PROJECT_ROOT>/app/helpers
     def self.helpers(*files)
       File.join(Mack::Paths.app, "helpers", files)
     end
 
-    # ./lib
+    # <MACK_PROJECT_ROOT>/lib
     def self.lib(*files)
       File.join(Mack.root, "lib", files)
     end
     
-    # ./lib/tasks
+    # <MACK_PROJECT_ROOT>/lib/tasks
     def self.tasks(*files)
       File.join(Mack::Paths.lib, "tasks", files)
     end
     
-    # ./db
+    # <MACK_PROJECT_ROOT>/db
     def self.db(*files)
       File.join(Mack.root, "db", files)
     end
     
-    # ./db/migrations
+    # <MACK_PROJECT_ROOT>/db/migrations
     def self.migrations(*files)
       File.join(Mack::Paths.db, "migrations", files)
     end
     
-    # ./config
+    # <MACK_PROJECT_ROOT>/config
     def self.config(*files)
       File.join(Mack.root, "config", files)
     end
     
-    # ./config/app_config
+    # <MACK_PROJECT_ROOT>/config/app_config
     def self.app_config(*files)
       File.join(Mack::Paths.config, "app_config", files)
     end
     
-    # ./config/initializers
+    # <MACK_PROJECT_ROOT>/config/initializers
     def self.initializers(*files)
       File.join(Mack::Paths.config, "initializers", files)
     end
     
-    # ./vendor
+    # <MACK_PROJECT_ROOT>/vendor
     def self.vendor(*files)
       File.join(Mack.root, "vendor", files)
     end
     
-    # ./vendor/plugins
+    # <MACK_PROJECT_ROOT>/vendor/plugins
     def self.plugins(*files)
       File.join(Mack::Paths.vendor, "plugins", files)
     end
