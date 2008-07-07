@@ -14,7 +14,10 @@ describe ScaffoldGenerator do
     common_cleanup
   end
   
-  it "should require a name for the scaffold"
+  it "should require a name for the scaffold" do
+    lambda{ScaffoldGenerator.new}.should raise_error(ArgumentError)
+    ScaffoldGenerator.new("NAME" => "zoo").should be_instance_of(ScaffoldGenerator)
+  end
   
   it "should handle plural/singular names correctly"
   
