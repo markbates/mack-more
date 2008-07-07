@@ -16,7 +16,7 @@ module Mack
       end
 
       def db_directory
-        File.join(Mack::Configuration.root, "db")
+        File.join(Mack.root, "db")
       end
       
       def migrations_directory

@@ -8,9 +8,9 @@ describe ModelGenerator do
   end
   
   after(:each) do
-    cleanup(File.join(Mack::Configuration.root, "app", "models", "zoo.rb"))
-    cleanup(File.join(Mack::Configuration.root, "db", "migrations", "002_create_zoos.rb"))
-    cleanup(File.join(Mack::Configuration.root, "test", "unit", "zoo_test.rb"))
+    cleanup(File.join(Mack.root, "app", "models", "zoo.rb"))
+    cleanup(File.join(Mack.root, "db", "migrations", "002_create_zoos.rb"))
+    cleanup(File.join(Mack.root, "test", "unit", "zoo_test.rb"))
   end
   
   it "should require a name for the model" do
@@ -22,7 +22,7 @@ describe ModelGenerator do
   end
   
   it "should create a file for the model" do
-    file = File.join(Mack::Configuration.root, "app", "models", "zoo.rb")
+    file = File.join(Mack.root, "app", "models", "zoo.rb")
     File.exists?(file).should_not == true
     ModelGenerator.run("NAME" => "zoo")
     File.exists?(file).should == true
@@ -30,14 +30,14 @@ describe ModelGenerator do
   end
   
   it "should create a stub test/unit test for the model if test_case is testing framework" do
-    test_file = File.join(Mack::Configuration.root, "test", "unit", "zoo_test.rb")    
+    test_file = File.join(Mack.root, "test", "unit", "zoo_test.rb")    
     ModelGenerator.run("NAME" => "zoo")
     File.exists?(test_file).should == true
   end
   
   it "should create a stub rspec test for the model if rspec is testing framework" do
     temp_app_config("mack::testing_framework" => "rspec") do
-      test_file = File.join(Mack::Configuration.root, "test", "spec", "lib", "zoo_spec.rb")
+      test_file = File.join(Mack.root, "test", "spec", "lib", "zoo_spec.rb")
       ModelGenerator.run("NAME" => "zoo")
       File.exists?(test_file).should == true
       File.delete(test_file)
