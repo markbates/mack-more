@@ -1,23 +1,11 @@
 development:
-  default:
-    adapter: mysql
-    database: mack_data_mapper_development
-    host: localhost
-    username: root
-    password: 
-    
+  adapter: sqlite3
+  database: <%= File.join(Mack.root, "db", "fake_application.db") %>
+
 test:
-  default:
-    adapter: mysql
-    database: mack_data_mapper_test
-    host: localhost
-    username: root
-    password:
+  adapter: sqlite3
+  database: <%= File.join(Mack.root, "db", "fake_application.db") %>
 
 production:
-  default:
-    adapter: mysql
-    database: mack_data_mapper_production
-    host: localhost
-    username: root
-    password:
+  adapter: sqlite3
+  database: <%= File.join(Mack.root, "db", "fake_application.db") %>
