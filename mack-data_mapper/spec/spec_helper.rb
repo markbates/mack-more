@@ -10,6 +10,7 @@ $: << File.expand_path(File.dirname(__FILE__) + "/../lib")
 require 'mack'
 
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-data_mapper'
+require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-data_mapper_tasks'
 $genosaurus_output_directory = Mack.root
 
 require File.join(File.dirname(__FILE__), "..", "..", "mack-paths", "lib", "mack-paths")
