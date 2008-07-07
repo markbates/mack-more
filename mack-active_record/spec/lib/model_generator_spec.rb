@@ -9,7 +9,7 @@ describe ModelGenerator do
   
   after(:each) do
     cleanup(File.join(Mack::Configuration.root, "app", "models", "zoo.rb"))
-    cleanup(File.join(Mack::Configuration.root, "db", "migrations", "001_create_zoos.rb"))
+    cleanup(File.join(Mack::Configuration.root, "db", "migrations", "002_create_zoos.rb"))
     cleanup(File.join(Mack::Configuration.root, "test", "unit", "zoo_test.rb"))
   end
   
@@ -45,7 +45,7 @@ describe ModelGenerator do
   end
   
   it "should create a migration file" do
-    mig_file = File.join(migrations_directory, "001_create_zoos.rb")
+    mig_file = File.join(migrations_directory, "002_create_zoos.rb")
     File.exists?(mig_file).should_not == true
     ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,created_at:date_time,updated_at:date_time")
     File.exists?(mig_file).should == true
