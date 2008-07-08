@@ -6,35 +6,43 @@ describe "rake" do
   describe "db" do
   
     describe "create" do
-
+      
+      def common_mysql_cleanup
+        repository(:test_tmp) do |repo|
+          repo.adapter.execute "DROP DATABASE IF EXISTS `mack_data_mapper_development`"
+          repo.adapter.execute "DROP DATABASE IF EXISTS `mack_data_mapper_test`"
+        end        
+      end
       
       describe "(MySQL)" do
         before(:all) do
           @db_yml = File.read(Mack::Paths.config("database.yml"))
           File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts fixture("mysql_database.yml")}
           DataMapper.setup(:test_tmp, "mysql://root@localhost/mysql")
-          repository(:test_tmp).adapter.execute "DROP DATABASE IF EXISTS `mack_data_mapper_development`"
-          repository(:test_tmp).adapter.execute "DROP DATABASE IF EXISTS `mack_data_mapper_test`"
+          common_mysql_cleanup
         end
       
         after(:all) do
           File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts @db_yml}
-          repository(:test_tmp).adapter.execute "DROP DATABASE IF EXISTS `mack_data_mapper_development`"
-          repository(:test_tmp).adapter.execute "DROP DATABASE IF EXISTS `mack_data_mapper_test`"
+          common_mysql_cleanup
         end
       
         it "should create a db for the current environment" do
-          repository(:test_tmp).adapter.query("show databases;").should_not include("mack_data_mapper_development")
-          Mack::Database.create("development")
-          repository(:test_tmp).adapter.query("show databases;").should include("mack_data_mapper_development")
+          repository(:test_tmp) do |repo|
+            repo.adapter.query("show databases;").should_not include("mack_data_mapper_development")
+            Mack::Database.create("development")
+            repo.adapter.query("show databases;").should include("mack_data_mapper_development")
+          end
         end
       
         it "should drop/create a db if it already exists for the current environment"
       
         it "should create a db for the specified environment" do
-          repository(:test_tmp).adapter.query("show databases;").should_not include("mack_data_mapper_test")
-          Mack::Database.create("test")
-          repository(:test_tmp).adapter.query("show databases;").should include("mack_data_mapper_test")
+          repository(:test_tmp) do |repo|
+            repo.adapter.query("show databases;").should_not include("mack_data_mapper_test")
+            Mack::Database.create("test")
+            repo.adapter.query("show databases;").should include("mack_data_mapper_test")
+          end
         end
       
         it "should drop/create a db if it already exists for the specified environment"
