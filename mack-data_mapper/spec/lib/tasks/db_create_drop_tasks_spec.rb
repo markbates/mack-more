@@ -11,7 +11,15 @@ describe "rake" do
         repository(:test_tmp) do |repo|
           repo.adapter.execute "DROP DATABASE IF EXISTS `mack_data_mapper_development`"
           repo.adapter.execute "DROP DATABASE IF EXISTS `mack_data_mapper_test`"
-        end        
+          repo.adapter.execute "DROP DATABASE IF EXISTS `mack_data_mapper_production`"
+        end
+      end
+      
+      class Zombie
+        include DataMapper::Resource
+        
+        property :id, Serial
+        property :name, String
       end
       
       describe "(MySQL)" do
@@ -29,23 +37,41 @@ describe "rake" do
       
         it "should create a db for the current environment" do
           repository(:test_tmp) do |repo|
-            repo.adapter.query("show databases;").should_not include("mack_data_mapper_development")
-            Mack::Database.create("development")
-            repo.adapter.query("show databases;").should include("mack_data_mapper_development")
-          end
-        end
-      
-        it "should drop/create a db if it already exists for the current environment"
-      
-        it "should create a db for the specified environment" do
-          repository(:test_tmp) do |repo|
             repo.adapter.query("show databases;").should_not include("mack_data_mapper_test")
-            Mack::Database.create("test")
+            Mack::Database.create
             repo.adapter.query("show databases;").should include("mack_data_mapper_test")
           end
         end
       
-        it "should drop/create a db if it already exists for the specified environment"
+        it "should drop/create a db if it already exists for the current environment" do
+          repository(:test_tmp) do |repo|
+            Mack::Database.create
+            Zombie.should_not be_storage_exist
+            Zombie.auto_migrate!
+            Zombie.should be_storage_exist
+            Mack::Database.create
+            Zombie.should_not be_storage_exist
+          end
+        end
+      
+        it "should create a db for the specified environment" do
+          repository(:test_tmp) do |repo|
+            repo.adapter.query("show databases;").should_not include("mack_data_mapper_production")
+            Mack::Database.create("production")
+            repo.adapter.query("show databases;").should include("mack_data_mapper_production")
+          end
+        end
+      
+        it "should drop/create a db if it already exists for the specified environment" do
+          repository(:test_tmp) do |repo|
+            Mack::Database.create("production")
+            Zombie.should_not be_storage_exist
+            Zombie.auto_migrate!
+            Zombie.should be_storage_exist
+            Mack::Database.create("production")
+            Zombie.should_not be_storage_exist
+          end
+        end
         
       end
       
