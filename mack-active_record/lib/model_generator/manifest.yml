@@ -7,15 +7,13 @@ model_template:
   output_path: <%= File.join("app", "models", "#{param(:name).singular.underscore}.rb") %>
   
 <% if testing_framework == "test_case" %>
-<% puts "test_case" %>
 test_template:
   type: file
-  template_path: <%= File.join(templates_directory_path, "test.rb.template") %>
+  template_path: <%= File.join(templates_directory_path, "controller_test.rb.template") %>
   output_path: <%= File.join("test", "unit", "#{param(:name).singular.underscore}_test.rb") %>
 <% elsif testing_framework == "rspec" %>
-<% puts "rspec" %>
 test_template:
   type: file
-  template_path: <%= File.join(templates_directory_path, "test_spec.rb.template") %>
+  template_path: <%= File.join(templates_directory_path, "controller_spec.rb.template") %>
   output_path: <%= File.join("test", "unit", "#{param(:name).singular.underscore}_spec.rb") %>
 <% end %>

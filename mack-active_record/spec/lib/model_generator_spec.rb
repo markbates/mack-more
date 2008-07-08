@@ -27,7 +27,6 @@ describe ModelGenerator do
     File.exists?(@model_file).should_not == true
     ModelGenerator.run("NAME" => "zoo")
     File.exists?(@model_file).should == true
-    
   end
   
   it "should create a stub test/unit test for the model if test_case is testing framework" do

@@ -1,9 +1,0 @@
-require File.join(File.dirname(__FILE__), "..", "spec_helper.rb")
-
-describe "<%= param(:name).singular.camelcase %>" do
-
-  it "should assert truth" do
-    true
-  end
-  
-end
