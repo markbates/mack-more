@@ -1,1 +1,1 @@
-
+log_level: debug

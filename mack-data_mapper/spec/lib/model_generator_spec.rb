@@ -4,21 +4,28 @@ require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 describe ModelGenerator do
   
   before(:each) do
+    @transaction = DataMapper::Transaction.new
     @model_file = Mack::Paths.models("zoo.rb")
     FileUtils.rm_rf(@model_file)
     FileUtils.rm_rf(Mack::Paths.migrations)
     FileUtils.rm_rf(Mack::Paths.unit)
+    # Mack::Testing::DmTestTransactionWrapper.transaction.begin
+    @transaction.begin
   end
   
   after(:each) do
     FileUtils.rm_rf(@model_file)
     FileUtils.rm_rf(Mack::Paths.migrations)
     FileUtils.rm_rf(Mack::Paths.unit)
+    # Mack::Testing::DmTestTransactionWrapper.rollback
+    @transaction.rollback
   end
   
   it "should require a name for the model" do
-    lambda{ModelGenerator.new}.should raise_error(ArgumentError)
-    ModelGenerator.new("NAME" => "zoo").should be_instance_of(ModelGenerator)
+    # rollback_transaction do
+      lambda{ModelGenerator.new}.should raise_error(ArgumentError)
+      ModelGenerator.new("NAME" => "zoo").should be_instance_of(ModelGenerator)
+    # end
   end
   
   it "should create an empty file for the model" do
