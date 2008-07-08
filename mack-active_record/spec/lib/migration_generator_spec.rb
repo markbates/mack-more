@@ -21,12 +21,12 @@ describe MigrationGenerator do
   
   it "should create an empty migration file if no columns are specified" do
     MigrationGenerator.run("NAME" => "create_zoos")
-    validate_content(File.join(@content_path, "mig_create_zoos_empty.rb"))
+    validate_content("mig_create_zoos_empty")
   end
   
   it "should create a 'full' migration file if columns are specified" do
     MigrationGenerator.run("NAME" => "create_zoos", "cols" => "name:string,description:text,created_at:date_time,updated_at:date_time")
-    validate_content(File.join(@content_path, "mig_create_zoos_full.rb"))
+    validate_content("mig_create_zoos_full")
   end
   
   it "should name the migration file with the next available number" do
@@ -36,8 +36,9 @@ describe MigrationGenerator do
   end
   
   private 
+  
   def validate_content(file)
-    File.read(file).should == File.read(@mig_file)
+    fixture(file).should == File.read(@mig_file)
   end
   
 end
