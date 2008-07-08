@@ -1,4 +1,9 @@
-require 'ruby-debug'
+#
+# AR db create/drop.
+# Currently it supports 3 adapters: sqlite3, postgresql, and mysql
+#
+# ds - July 2008
+#
 
 module Mack
   module Database
@@ -15,6 +20,11 @@ module Mack
       ActiveRecord::Base.establish_connection(dbs)
     end
     
+    # Perform db create or drop
+    # 
+    # By default the mode is drop then create, but caller will be able to 
+    # call this routine with a specific action (:drop, :create, or :drop_and_create)
+    # 
     def self.drop_or_create_database(env, mode = :drop_and_create)
       dbs = db_settings(env)
       case dbs[:adapter]
@@ -60,6 +70,7 @@ module Mack
     end
     
     def self.establish_mysql_connection
+      # connect to mysql meta database
       ActiveRecord::Base.establish_connection(
         :adapter => "mysql",
         :host => "localhost",
