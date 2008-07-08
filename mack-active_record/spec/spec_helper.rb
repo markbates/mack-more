@@ -20,3 +20,7 @@ end
 def cleanup(file)
   File.delete(file) if !file.nil? and File.exists?(file)
 end
+
+def fixture(file)
+  File.read(File.join(File.dirname(__FILE__), "lib", "fixtures", file + ".fixtures"))
+end
