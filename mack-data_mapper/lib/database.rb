@@ -14,7 +14,7 @@ module Mack
       end
     end # establish_connection
     
-    def self.create(env)
+    def self.create(env = Mack.env)
       Mack::Database.establish_connection(env)
       repository(:default) do
         drop_create_database
@@ -33,12 +33,12 @@ module Mack
             :username => ENV["DB_USERNAME"] || "root",
             :password => ENV["DB_PASSWORD"] || ""
           })
-          # repository(:tmp) do |repo|
+          repository(:tmp) do |repo|
             puts "Dropping (MySQL): #{uri.basename}"
-            repository(:tmp).adapter.execute "DROP DATABASE IF EXISTS `#{uri.basename}`"
+            repo.adapter.execute "DROP DATABASE IF EXISTS `#{uri.basename}`"
             puts "Creating (MySQL): #{uri.basename}"
-            repository(:tmp).adapter.execute "CREATE DATABASE `#{uri.basename}` DEFAULT CHARACTER SET `utf8`"
-          # end
+            repo.adapter.execute "CREATE DATABASE `#{uri.basename}` DEFAULT CHARACTER SET `utf8`"
+          end
         when "DataMapper::Adapters::PostgresAdapter"
           ENV['PGHOST']     = uri.host if uri.host
           ENV['PGPORT']     = uri.port.to_s if uri.port
