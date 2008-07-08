@@ -1,6 +1,6 @@
 development:
   default:
-    adapter: postgresql
+    adapter: postgres
     database: mack_data_mapper_development
     host: localhost
     username: ruby
@@ -8,7 +8,7 @@ development:
     
 test:
   default:
-    adapter: postgresql
+    adapter: postgres
     database: mack_data_mapper_test
     host: localhost
     username: ruby
@@ -16,7 +16,7 @@ test:
 
 production:
   default:
-    adapter: postgresql
+    adapter: postgres
     database: mack_data_mapper_production
     host: localhost
     username: ruby
