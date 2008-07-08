@@ -4,12 +4,12 @@ require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 describe MigrationGenerator do
   
   before(:each) do
-    @migration_file = File.join(migrations_directory, "001_create_zoos.rb")
-    FileUtils.rm_rf(migrations_directory)
+    @migration_file = Mack::Paths.migrations("001_create_zoos.rb")
+    FileUtils.rm_rf(Mack::Paths.migrations)
   end
   
   after(:each) do
-    FileUtils.rm_rf(migrations_directory)
+    FileUtils.rm_rf(Mack::Paths.migrations)
   end
   
   it "should require a name for the migration" do
@@ -32,7 +32,7 @@ describe MigrationGenerator do
   it "should name the migration file with the next available number" do
     MigrationGenerator.run("NAME" => "create_zoos")
     MigrationGenerator.run("NAME" => "create_animals")
-    File.should be_exist(File.join(migrations_directory, "002_create_animals.rb"))
+    File.should be_exist(Mack::Paths.migrations("002_create_animals.rb"))
   end
   
 end

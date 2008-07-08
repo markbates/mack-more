@@ -1,0 +1,26 @@
+<h1>Listing Zoos</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>CreatedAt</th>
+    <th>UpdatedAt</th>
+  </tr>
+
+<% for zoo in @zoos %>
+  <tr>
+    <td><%= zoo.name %></td>
+    <td><%= zoo.description %></td>
+    <td><%= zoo.created_at %></td>
+    <td><%= zoo.updated_at %></td>
+    <td><%= link_to("Show", zoos_show_url(:id => zoo)) %></td>
+    <td><%= link_to("Edit", zoos_edit_url(:id => zoo)) %></td>
+    <td><%= link_to("Delete", zoos_delete_url(:id => zoo), :method => :delete, :confirm => "Are you sure?") %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to("New Zoo", zoos_new_url) %>

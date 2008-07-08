@@ -1,0 +1,22 @@
+<p>
+  <h1>Zoo</h1>
+</p>
+<p>
+  <b>Name</b><br />
+  <%= @zoo.name %>
+</p>
+<p>
+  <b>Description</b><br />
+  <%= @zoo.description %>
+</p>
+<p>
+  <b>CreatedAt</b><br />
+  <%= @zoo.created_at %>
+</p>
+<p>
+  <b>UpdatedAt</b><br />
+  <%= @zoo.updated_at %>
+</p>
+
+<%= link_to("Edit", zoos_edit_url(:id => @zoo)) %> |
+<%= link_to("Back", zoos_index_url) %>
