@@ -24,13 +24,3 @@ end
 def fixture(file)
   File.read(File.join(File.dirname(__FILE__), "lib", "fixtures", file + ".fixtures"))
 end
-
-def config_db(adapter)
-  config_file = File.join(Mack.root, "config", "database.yml")
-  orig_db_yml = File.read(config_file)
-  temp_db_yml = fixture("#{adapter.to_s.downcase}")
-  File.open(config_file, "w") { |f| f.write(temp_db_yml) }
-  yield
-  puts "reverting database.yml to: \n#{orig_db_yml}"
-  File.open(config_file, "w") { |f| f.write(orig_db_yml) }
-end
