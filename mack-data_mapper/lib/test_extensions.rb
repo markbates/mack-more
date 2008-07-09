@@ -14,6 +14,7 @@ unless Mack::Testing.const_defined?("DmTestTransactionWrapper")
         alias_method :mack_rake_task, :rake_task
         
         def rake_task(name, env = {})
+          DataMapper::MigrationRunner.reset!
           mack_rake_task(name, env, [File.join(File.dirname(__FILE__), "..", "lib", "tasks", "db_create_drop_tasks.rake"),
                                      File.join(File.dirname(__FILE__), "..", "lib", "tasks", "db_migration_tasks.rake")])
         end

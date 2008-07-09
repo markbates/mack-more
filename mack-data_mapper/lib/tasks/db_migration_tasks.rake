@@ -7,6 +7,7 @@ namespace :db do
   task :migrate => "mack:environment" do
     require 'migration_runner'
     include DataMapper::Types
+    DataMapper::MigrationRunner.reset!
     migration_files.each { |mig| load mig }
     DataMapper::MigrationRunner.migrate_up!
   end # migrate
@@ -16,6 +17,7 @@ namespace :db do
     require 'dm-core/types'
     require 'migration_runner'
     include DataMapper::Types
+    DataMapper::MigrationRunner.reset!
     migration_files.each { |mig| load mig }
     step = (ENV["STEP"] || 1).to_i
     size = DataMapper::MigrationRunner.migrations.size

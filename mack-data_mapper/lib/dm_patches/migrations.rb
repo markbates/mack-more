@@ -1,7 +1,15 @@
+module DataMapper # :nodoc:
+  module MigrationRunner # :nodoc:
+    
+    def reset!
+      @@migrations = []
+    end
+    
+  end
+end
+
 module SQL # :nodoc:
-
   class TableCreator # :nodoc:
-
     class Column # :nodoc:
 
       def build_type(type_class)
@@ -11,7 +19,5 @@ module SQL # :nodoc:
       end
 
     end
-
   end
-
 end
