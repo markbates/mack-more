@@ -5,7 +5,7 @@ describe "rake" do
 
   describe "db" do
   
-    describe "create" do
+    describe "recreate" do
       
       class Zombie
         include DataMapper::Resource
@@ -34,18 +34,18 @@ describe "rake" do
         it "should create a db for the current environment" do
           repository(:mysql_test_tmp) do |repo|
             repo.adapter.query("show databases;").should_not include("mack_data_mapper_test")
-            rake_task("db:create")
+            rake_task("db:recreate")
             repo.adapter.query("show databases;").should include("mack_data_mapper_test")
           end
         end
       
         it "should drop/create a db if it already exists for the current environment" do
           repository(:mysql_test_tmp) do |repo|
-            rake_task("db:create")
+            rake_task("db:recreate")
             Zombie.should_not be_storage_exists
             Zombie.auto_migrate!
             Zombie.should be_storage_exist
-            rake_task("db:create")
+            rake_task("db:recreate")
             Zombie.should_not be_storage_exists
           end
         end
@@ -53,18 +53,18 @@ describe "rake" do
         it "should create a db for the specified environment" do
           repository(:mysql_test_tmp) do |repo|
             repo.adapter.query("show databases;").should_not include("mack_data_mapper_production")
-            rake_task("db:create", "MACK_ENV" => "production")
+            rake_task("db:recreate", "MACK_ENV" => "production")
             repo.adapter.query("show databases;").should include("mack_data_mapper_production")
           end
         end
       
         it "should drop/create a db if it already exists for the specified environment" do
           repository(:mysql_test_tmp) do |repo|
-            rake_task("db:create", "MACK_ENV" => "production")
+            rake_task("db:recreate", "MACK_ENV" => "production")
             Zombie.should_not be_storage_exists
             Zombie.auto_migrate!
             Zombie.should be_storage_exist
-            rake_task("db:create", "MACK_ENV" => "production")
+            rake_task("db:recreate", "MACK_ENV" => "production")
             Zombie.should_not be_storage_exists
           end
         end
@@ -92,7 +92,7 @@ describe "rake" do
           repository(:mysql_test_tmp) do |repo|
             repo.adapter.query("show databases;").should_not include("mack_data_mapper_test")
             repo.adapter.query("show databases;").should_not include("mack_data_mapper_development")
-            rake_task("db:create:all")
+            rake_task("db:recreate:all")
             repo.adapter.query("show databases;").should include("mack_data_mapper_test")
             repo.adapter.query("show databases;").should include("mack_data_mapper_development")
           end
