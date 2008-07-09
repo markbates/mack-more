@@ -8,14 +8,12 @@ describe ModelGenerator do
     FileUtils.rm_rf(@model_file)
     FileUtils.rm_rf(Mack::Paths.migrations)
     FileUtils.rm_rf(Mack::Paths.unit)
-    @transaction.begin
   end
   
   after(:each) do
     FileUtils.rm_rf(@model_file)
     FileUtils.rm_rf(Mack::Paths.migrations)
     FileUtils.rm_rf(Mack::Paths.unit)
-    @transaction.rollback
   end
   
   it "should require a name for the model" do
