@@ -4,7 +4,7 @@ require 'spec'
 
 #gem 'mack_ruby_core_extensions', '0.2.0'
 
-ENV["_mack_root"] = File.join(File.dirname(__FILE__), "fake_application")
+ENV["MACK_ROOT"] = File.join(File.dirname(__FILE__), "fake_application")
 ENV["MACK_ENV"] = "development"
 
 $: << File.expand_path(File.dirname(__FILE__) + "/../lib")
@@ -23,4 +23,15 @@ end
 
 def fixture(file)
   File.read(File.join(File.dirname(__FILE__), "lib", "fixtures", file + ".fixtures"))
+end
+
+def config_db(adapter)
+  config_file = File.join(Mack.root, "config", "database.yml")
+  orig_db_yml = File.read(config_file)
+  temp_db_yml = fixture("#{adapter.to_s.downcase}")
+  debugger
+  File.open(config_file, "w") { |f| f.write(temp_db_yml) }
+  yield
+  puts "reverting database.yml to: \n#{orig_db_yml}"
+  File.open(config_file, "w") { |f| f.write(orig_db_yml) }
 end
