@@ -8,7 +8,7 @@ ENV["MACK_ENV"] = "test"
 $: << File.expand_path(File.dirname(__FILE__) + "/../lib")
 
 require 'mack'
-Mack.logger.add(Log4r::StdoutOutputter.new('console'))
+# Mack.logger.add(Log4r::StdoutOutputter.new('console'))
 
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-data_mapper'
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-data_mapper_tasks'
@@ -33,9 +33,19 @@ unless Mack::Testing.const_defined?("DmTestTransactionWrapper")
   
   module Mack
     module Testing
+      module Helpers
+        alias_method :mack_rake_task, :rake_task
+        
+        def rake_task(name, env = {})
+          mack_rake_task(name, env, [File.join(File.dirname(__FILE__), "..", "lib", "tasks", "db_create_drop_tasks.rake"),
+                                     File.join(File.dirname(__FILE__), "..", "lib", "tasks", "db_migration_tasks.rake")])
+        end
+      end # Helpers
+      
       class DmTestTransactionWrapper
         include DataMapper::Resource
       end
+      
       module DataMapperHelpers
         def rollback_transaction
           begin
@@ -44,7 +54,6 @@ unless Mack::Testing.const_defined?("DmTestTransactionWrapper")
               raise "Rollback!"
             end
           rescue => ex
-            puts ex
             # we need to do this so we can throw up actual errors!
             unless ex.to_s == "Rollback!"
               raise ex
@@ -103,7 +112,7 @@ end
 
 
 
-#---------------------
+##---------------------
 require 'set'
 require 'thread'
 

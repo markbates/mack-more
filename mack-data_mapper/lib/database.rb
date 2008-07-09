@@ -19,7 +19,14 @@ module Mack
       drop_create_database
     end
     
+    def self.drop(env = Mack.evn)
+      Mack::Database.establish_connection(env)
+    end
+    
     private
+    
+    
+    
     def self.drop_create_database
       uri = repository(:default).adapter.uri
       case repository(:default).adapter.class.name
@@ -51,21 +58,6 @@ module Mack
             puts "Creating (PostgreSQL): #{uri.basename}"
             repo.adapter.execute "CREATE DATABASE #{uri.basename} ENCODING = 'utf8'"
           end
-          # ENV['PGHOST']     = uri.host if uri.host
-          # ENV['PGPORT']     = uri.port.to_s if uri.port
-          # ENV['PGPASSWORD'] = uri.password.to_s if uri.password
-          # 
-          # begin
-          #   puts "Dropping (PostgreSQL): #{uri.basename}"
-          #   `dropdb -U "#{uri.user}" #{uri.basename}`
-          # rescue Exception => e
-          # end
-          # 
-          # begin
-          #   puts "Creating (PostgreSQL): #{uri.basename}"
-          #   `createdb -U "#{uri.user}" #{uri.basename}`
-          # rescue Exception => e
-          # end
         when 'DataMapper::Adapters::Sqlite3Adapter'
           puts "Dropping (SQLite3): #{uri.basename}"
           db_dir = File.join(Mack.root, "db")
