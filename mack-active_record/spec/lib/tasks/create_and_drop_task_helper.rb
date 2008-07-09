@@ -13,9 +13,16 @@ module Spec
           orig_db_yml = File.read(config_file)
           temp_db_yml = fixture("#{adapter.to_s.downcase}")
           File.open(config_file, "w") { |f| f.write(temp_db_yml) }
-          yield
-          orig_db_yml.should match(/sqlite3/)
+          
+          begin
+            yield
+          rescue Exception => ex
+            # make sure we still execute the code below that 
+            # revert the database.yml file even though there's error
+          end
+        
           File.open(config_file, "w") { |f| f.write(orig_db_yml) }
+          File.read(config_file).should match(/sqlite3/)
         end
         
         def cleanup_db_by_adapter(adapter)
