@@ -77,17 +77,12 @@ describe "rake" do
         
         after(:all) do
           File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts @db_yml}
-        end
-        
-        before(:each) do
-          puts "before...."
-          @transaction = repository.transaction
-          @transaction.begin
-        end
-
-        after(:each) do
-          puts "after..."
-          @transaction.rollback
+          # Mack::Database.establish_connection
+          # repository(:postgres_test_tmp) do |repo|
+          #   repo.adapter.execute("DROP DATABASE IF EXISTS mack_data_mapper_test")
+          #   repo.adapter.execute("DROP DATABASE IF EXISTS mack_data_mapper_development")
+          #   repo.adapter.execute("DROP DATABASE IF EXISTS mack_data_mapper_production")
+          # end
         end
         
         it "should create a db for the current environment" do
@@ -118,6 +113,7 @@ describe "rake" do
         end
       
         it "should drop/create a db if it already exists for the specified environment" do
+          raise 'asdfasfadf'
           # repository(:postgres_test_tmp) do |repo|
             Mack::Database.create("production")
             Zombie.should_not be_storage_exist
@@ -128,7 +124,7 @@ describe "rake" do
           # end
         end
         
-      end
+      end 
     
       # describe "all" do
       #   

@@ -1,4 +1,12 @@
 class Object
+  
+  # Prints out the methods associated with this object in alphabetical order.
+  def print_methods
+    m = "----- #{self} (methods) -----\n"
+    m << methods.sort.join("\n")
+    puts m
+    m
+  end
 
   # An elegant way to refactor out common options
   # 

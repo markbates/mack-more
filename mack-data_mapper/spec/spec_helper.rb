@@ -30,65 +30,53 @@ end
 
 # Wrap it so we don't accidentally alias the run method n times and run out of db connections!
 unless Mack::Testing.const_defined?("DmTestTransactionWrapper")
-
-  class Mack::Testing::DmTestTransactionWrapper
-    include DataMapper::Resource
-  end
-
-  def rollback_transaction
-    begin
-      Mack::Testing::DmTestTransactionWrapper.transaction do
-        puts "block_given?: #{block_given?}"
-        yield if block_given?
-        raise "Rollback!"
+  
+  module Mack
+    module Testing
+      class DmTestTransactionWrapper
+        include DataMapper::Resource
       end
-    rescue => ex
-      puts ex
-      # we need to do this so we can throw up actual errors!
-      unless ex.to_s == "Rollback!"
-        raise ex
-      end
-    end
-  end
+      module DataMapperHelpers
+        def rollback_transaction
+          begin
+            Mack::Testing::DmTestTransactionWrapper.transaction do
+              yield if block_given?
+              raise "Rollback!"
+            end
+          rescue => ex
+            puts ex
+            # we need to do this so we can throw up actual errors!
+            unless ex.to_s == "Rollback!"
+              raise ex
+            end
+          end
+        end # rollback_transaction
+      end # DataMapperHelpers
+    end # Testing
+  end # Mack
+
 
   module Spec
     module Example
-      module ExampleGroupMethods
-        alias_method :rspec_it, :it
-        
-         # def it(description = nil, &implementation)
-         #   # rspec_it(description) do
-         #   #   rollback_transaction(&implementation)
-         #   # end
-         #   # rollback_transaction do
-         #   #   implementation.call
-         #   # end
-         #   # puts "implementation: #{implementation.inspect}"
-         #   b = Proc.new {
-         #     rollback_transaction do
-         #       implementation.call(self)
-         #     end
-         #   }
-         #   rspec_it(description, &b)
-         # end
-         
+      module ExampleMethods
+        include Mack::Testing::DataMapperHelpers
 
-  
-      end
-    end
-  end
-  
-  # before(:each) do
-  #   puts "before"
-  # end
-  # 
-  # after(:each) do
-  #   puts "after"
-  # end
+        alias_method :spec_execute, :execute
+
+        def execute(options, instance_variables)
+          rollback_transaction do
+            spec_execute(options, instance_variables)
+          end
+        end
+
+      end # ExampleGroup
+    end # Example
+  end # Spec
   
   module Test
     module Unit # :nodoc:
       class TestCase # :nodoc:
+        include Mack::Testing::DataMapperHelpers
   
         # Let's alias the run method in the class above us so we can create a new one here
         # but still reference it.

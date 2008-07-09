@@ -1,7 +1,7 @@
 module Mack
   module Database
     
-    def self.establish_connection(env)
+    def self.establish_connection(env = Mack.env)
       dbs = YAML::load(ERB.new(IO.read(File.join(Mack.root, "config", "database.yml"))).result)
       settings = dbs[env]
       settings.symbolize_keys!
@@ -16,9 +16,7 @@ module Mack
     
     def self.create(env = Mack.env)
       Mack::Database.establish_connection(env)
-      repository(:default) do
-        drop_create_database
-      end
+      drop_create_database
     end
     
     private
@@ -40,21 +38,34 @@ module Mack
             repo.adapter.execute "CREATE DATABASE `#{uri.basename}` DEFAULT CHARACTER SET `utf8`"
           end
         when "DataMapper::Adapters::PostgresAdapter"
-          ENV['PGHOST']     = uri.host if uri.host
-          ENV['PGPORT']     = uri.port.to_s if uri.port
-          ENV['PGPASSWORD'] = uri.password.to_s if uri.password
-
-          begin
+          DataMapper.setup(:tmp, {
+            :adapter => "postgres",
+            :host => "localhost",
+            :database => "postgres",
+            :username => ENV["DB_USERNAME"] || uri.user,
+            :password => ENV["DB_PASSWORD"] || uri.password
+          })
+          repository(:tmp) do |repo|
             puts "Dropping (PostgreSQL): #{uri.basename}"
-            `dropdb -U "#{uri.user}" #{uri.basename}`
-          rescue Exception => e
-          end
-
-          begin
+            repo.adapter.execute "DROP DATABASE IF EXISTS #{uri.basename}"
             puts "Creating (PostgreSQL): #{uri.basename}"
-            `createdb -U "#{uri.user}" #{uri.basename}`
-          rescue Exception => e
+            repo.adapter.execute "CREATE DATABASE #{uri.basename} ENCODING = 'utf8'"
           end
+          # ENV['PGHOST']     = uri.host if uri.host
+          # ENV['PGPORT']     = uri.port.to_s if uri.port
+          # ENV['PGPASSWORD'] = uri.password.to_s if uri.password
+          # 
+          # begin
+          #   puts "Dropping (PostgreSQL): #{uri.basename}"
+          #   `dropdb -U "#{uri.user}" #{uri.basename}`
+          # rescue Exception => e
+          # end
+          # 
+          # begin
+          #   puts "Creating (PostgreSQL): #{uri.basename}"
+          #   `createdb -U "#{uri.user}" #{uri.basename}`
+          # rescue Exception => e
+          # end
         when 'DataMapper::Adapters::Sqlite3Adapter'
           puts "Dropping (SQLite3): #{uri.basename}"
           db_dir = File.join(Mack.root, "db")
