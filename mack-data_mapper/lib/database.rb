@@ -24,8 +24,14 @@ module Mack
     end
     
     private
-    def tmp_mysql_config
-      
+    def self.setup_temp(uri, adapter)
+      DataMapper.setup(:tmp, {
+        :adapter => adapter,
+        :host => "localhost",
+        :database => adapter,
+        :username => ENV["DB_USERNAME"] || uri.user,
+        :password => ENV["DB_PASSWORD"] || uri.password
+      })
     end
     
     
@@ -33,13 +39,7 @@ module Mack
       uri = repository(:default).adapter.uri
       case repository(:default).adapter.class.name
         when /Mysql/
-          DataMapper.setup(:tmp, {
-            :adapter => "mysql",
-            :host => "localhost",
-            :database => "mysql",
-            :username => ENV["DB_USERNAME"] || "root",
-            :password => ENV["DB_PASSWORD"] || ""
-          })
+          setup_temp(uri, "mysql")
           repository(:tmp) do |repo|
             puts "Dropping (MySQL): #{uri.basename}"
             repo.adapter.execute "DROP DATABASE IF EXISTS `#{uri.basename}`"
@@ -47,13 +47,7 @@ module Mack
             repo.adapter.execute "CREATE DATABASE `#{uri.basename}` DEFAULT CHARACTER SET `utf8`"
           end
         when /Postgres/
-          DataMapper.setup(:tmp, {
-            :adapter => "postgres",
-            :host => "localhost",
-            :database => "postgres",
-            :username => ENV["DB_USERNAME"] || uri.user,
-            :password => ENV["DB_PASSWORD"] || uri.password
-          })
+          setup_temp(uri, "postgres")
           repository(:tmp) do |repo|
             puts "Dropping (PostgreSQL): #{uri.basename}"
             repo.adapter.execute "DROP DATABASE IF EXISTS #{uri.basename}"
