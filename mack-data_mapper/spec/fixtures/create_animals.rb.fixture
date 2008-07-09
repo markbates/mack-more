@@ -1,0 +1,13 @@
+migration 2, :create_animals do
+
+  up do
+    create_table :animals do
+      column :id, Serial
+    end
+  end
+
+  down do
+    drop_table :animals
+  end
+
+end

@@ -20,12 +20,9 @@ namespace :db do
     DataMapper::MigrationRunner.reset!
     migration_files.each { |mig| load mig }
     step = (ENV["STEP"] || 1).to_i
-    size = DataMapper::MigrationRunner.migrations.size
-    index = size - step
-    if index < 0
-      DataMapper::MigrationRunner.migrate_down!
-    else
-      DataMapper::MigrationRunner.migrations[index].perform_down
+    migrations = DataMapper::MigrationRunner.migrations.sort.reverse
+    step.times do |i|
+      migrations[migrations.size - (i + 1)].perform_down
     end
   end # rollback
   
@@ -44,14 +41,6 @@ namespace :db do
   
   def migration_files
     Dir.glob(File.join(Mack.root, "db", "migrations", "*.rb"))
-  end
-  
-  def migration_number(migration)
-    migration.match(/(^\d+)/).captures.last.to_i
-  end
-  
-  def migration_name(migration)
-    migration.match(/^\d+_(.+)/).captures.last
   end
   
 end # db

@@ -15,6 +15,12 @@ describe "rake" do
       property :updated_at, DateTime
     end
     
+    class Animal
+      include DataMapper::Resource
+      
+      property :id, Serial
+    end
+    
     before(:each) do
       FileUtils.rm_rf(Mack::Paths.migrations)
       FileUtils.mkdir_p(Mack::Paths.migrations)
@@ -46,20 +52,19 @@ describe "rake" do
       end
     
       it "should rollback the database by n steps if ENV['STEP'] is set" do
-        pending
-        "".should == "asdf"
+        Zoo.should_not be_storage_exists
+        Animal.should_not be_storage_exists
+        File.open(Mack::Paths.migrations("002_create_animals.rb"), "w") {|f| f.puts fixture("create_animals.rb")}
+        rake_task("db:migrate")
+        Zoo.should be_storage_exists
+        Animal.should be_storage_exists
+        rake_task("db:rollback", "STEP" => "2")
+        Zoo.should_not be_storage_exists
+        Animal.should_not be_storage_exists
       end
     
     end
-  
-    describe "version" do
-    
-      it "should return the current version number of the database" do
-        pending
-        raise "asdfasdfa"
-      end
-    
-    end
+
   
   end
   
