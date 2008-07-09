@@ -8,6 +8,7 @@ ENV["MACK_ENV"] = "test"
 $: << File.expand_path(File.dirname(__FILE__) + "/../lib")
 
 require 'mack'
+# Mack.logger.add(Log4r::StdoutOutputter.new('console'))
 
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-data_mapper'
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-data_mapper_tasks'

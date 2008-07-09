@@ -1,51 +1,74 @@
 require "test/unit"
-# Wrap it so we don't accidentally alias the run method n times and run out of db connections!
-unless Test::Unit::TestCase.const_defined?("TestTransactionWrapper")
-  
-  def rollback_transaction
-    begin
-      Test::Unit::TestCase::TestTransactionWrapper.transaction do
-        yield if block_given?
-        raise "Rollback!"
-      end
-    rescue => ex
-      # we need to do this so we can throw up actual errors!
-      unless ex.to_s == "Rollback!"
-        raise ex
-      end
-    end
+
+module Mack
+  module Testing
   end
+end
+
+# Wrap it so we don't accidentally alias the run method n times and run out of db connections!
+unless Mack::Testing.const_defined?("DmTestTransactionWrapper")
+  
+  module Mack
+    module Testing
+      module Helpers
+        alias_method :mack_rake_task, :rake_task
+        
+        def rake_task(name, env = {})
+          mack_rake_task(name, env, [File.join(File.dirname(__FILE__), "..", "lib", "tasks", "db_create_drop_tasks.rake"),
+                                     File.join(File.dirname(__FILE__), "..", "lib", "tasks", "db_migration_tasks.rake")])
+        end
+      end # Helpers
+      
+      class DmTestTransactionWrapper
+        include DataMapper::Resource
+      end
+      
+      module DataMapperHelpers
+        def rollback_transaction
+          begin
+            Mack::Testing::DmTestTransactionWrapper.transaction do
+              yield if block_given?
+              raise "Rollback!"
+            end
+          rescue => ex
+            # we need to do this so we can throw up actual errors!
+            unless ex.to_s == "Rollback!"
+              raise ex
+            end
+          end
+        end # rollback_transaction
+      end # DataMapperHelpers
+    end # Testing
+  end # Mack
+
 
   module Spec
     module Example
-      module ExampleGroupMethods
-        alias_method :rspec_it, :it
+      module ExampleMethods
+        include Mack::Testing::DataMapperHelpers
 
-        def it(description=nil, &implementation)
-          block = lambda {
-            rollback_transaction do
-              implementation
-            end
-          }
-          rspec_it(description, &block)
+        alias_method :spec_execute, :execute
+
+        def execute(options, instance_variables)
+          rollback_transaction do
+            @__res = spec_execute(options, instance_variables)
+          end
+          @__res
         end
 
-      end
-    end
-  end
+      end # ExampleGroup
+    end # Example
+  end # Spec
   
   module Test
     module Unit # :nodoc:
       class TestCase # :nodoc:
-
-        class TestTransactionWrapper
-          include DataMapper::Resource
-        end
-
+        include Mack::Testing::DataMapperHelpers
+  
         # Let's alias the run method in the class above us so we can create a new one here
         # but still reference it.
         alias_method :super_duper_run, :run # :nodoc:
-
+  
         # We need to wrap the run method so we can do things like
         # run a cleanup method if it exists
         def run(result, &progress_block) # :nodoc:
@@ -53,7 +76,7 @@ unless Test::Unit::TestCase.const_defined?("TestTransactionWrapper")
             super_duper_run(result, &progress_block)
           end
         end
-
+  
       end # TestCase
     end # Unit
   end # Test
