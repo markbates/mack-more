@@ -74,8 +74,9 @@ unless Mack::Testing.const_defined?("DmTestTransactionWrapper")
 
         def execute(options, instance_variables)
           rollback_transaction do
-            spec_execute(options, instance_variables)
+            @__res = spec_execute(options, instance_variables)
           end
+          @__res
         end
 
       end # ExampleGroup

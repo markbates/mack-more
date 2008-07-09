@@ -15,13 +15,19 @@ describe "rake" do
     
       it "should rollback the database by a default of 1 step"
     
-      it "should rollback the database by n steps if ENV['STEP'] is set"
+      it "should rollback the database by n steps if ENV['STEP'] is set" do
+        pending
+        "".should == "asdf"
+      end
     
     end
   
     describe "version" do
     
-      it "should return the current version number of the database"
+      it "should return the current version number of the database" do
+        pending
+        raise "asdfasdfa"
+      end
     
     end
   
