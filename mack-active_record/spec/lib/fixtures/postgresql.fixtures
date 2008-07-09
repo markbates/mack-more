@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  username: ruby
+  host: 127.0.0.1
+  password: password
+  port: 5432
+  database: foo_development
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  username: ruby
+  host: 127.0.0.1
+  password: password
+  port: 5432
+  database: foo_test

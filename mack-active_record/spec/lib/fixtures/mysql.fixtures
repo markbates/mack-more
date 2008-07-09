@@ -1,0 +1,13 @@
+development:
+  adapter: mysql
+  database: foo_development
+  host: localhost
+  username: root
+  password: 
+    
+test:
+  adapter: mysql
+  database: foo_test
+  host: localhost
+  username: root
+  password:

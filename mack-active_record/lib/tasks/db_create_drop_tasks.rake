@@ -4,6 +4,7 @@ namespace :db do
   
   desc "Create the database for your environment."
   task :create => :environment do
+    puts Mack.env
     Mack::Database.drop_or_create_database(Mack.env)
   end
   
