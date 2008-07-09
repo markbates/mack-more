@@ -19,19 +19,16 @@ describe "rake" do
       FileUtils.rm_rf(Mack::Paths.migrations)
       FileUtils.mkdir_p(Mack::Paths.migrations)
       File.open(Mack::Paths.migrations("001_create_zoos.rb"), "w") {|f| f.puts fixture("create_zoos.rb")}
-      DataMapper::MigrationRunner.reset!
     end
 
     after(:each) do
       FileUtils.rm_rf(Mack::Paths.migrations)
-      DataMapper::MigrationRunner.reset!
     end
   
     describe "migrate" do
     
       it "should migrate the database with the migrations in the db/migrations folder" do
         Zoo.should_not be_storage_exists
-        DataMapper::MigrationRunner.reset!
         rake_task("db:migrate")
         Zoo.should be_storage_exists
       end
@@ -42,10 +39,8 @@ describe "rake" do
     
       it "should rollback the database by a default of 1 step" do
         Zoo.should_not be_storage_exists
-        DataMapper::MigrationRunner.reset!
         rake_task("db:migrate")
         Zoo.should be_storage_exists
-        DataMapper::MigrationRunner.reset!
         rake_task("db:rollback")
         Zoo.should_not be_storage_exists
       end
