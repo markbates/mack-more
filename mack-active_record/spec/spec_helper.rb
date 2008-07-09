@@ -13,6 +13,9 @@ require 'mack'
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-active_record'
 $genosaurus_output_directory = Mack.root
 
+require File.join(File.dirname(__FILE__), "..", "..", "mack-paths", "lib", "mack-paths")
+
+
 def migrations_directory
   File.join(Mack.root, "db", "migrations")
 end
