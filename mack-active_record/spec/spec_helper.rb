@@ -29,7 +29,6 @@ def config_db(adapter)
   config_file = File.join(Mack.root, "config", "database.yml")
   orig_db_yml = File.read(config_file)
   temp_db_yml = fixture("#{adapter.to_s.downcase}")
-  debugger
   File.open(config_file, "w") { |f| f.write(temp_db_yml) }
   yield
   puts "reverting database.yml to: \n#{orig_db_yml}"
