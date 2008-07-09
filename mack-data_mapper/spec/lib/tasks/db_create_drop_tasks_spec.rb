@@ -28,6 +28,7 @@ describe "rake" do
             repo.adapter.execute("DROP DATABASE IF EXISTS `mack_data_mapper_development`")
             repo.adapter.execute("DROP DATABASE IF EXISTS `mack_data_mapper_production`")
           end
+          Mack::Database.establish_connection
         end
       
         it "should create a db for the current environment" do
@@ -41,11 +42,11 @@ describe "rake" do
         it "should drop/create a db if it already exists for the current environment" do
           repository(:mysql_test_tmp) do |repo|
             rake_task("db:create")
-            Zombie.should_not be_storage_exist
+            Zombie.should_not be_storage_exists
             Zombie.auto_migrate!
             Zombie.should be_storage_exist
             rake_task("db:create")
-            Zombie.should_not be_storage_exist
+            Zombie.should_not be_storage_exists
           end
         end
       
@@ -60,11 +61,11 @@ describe "rake" do
         it "should drop/create a db if it already exists for the specified environment" do
           repository(:mysql_test_tmp) do |repo|
             rake_task("db:create", "MACK_ENV" => "production", "_mack_env" => "production")
-            Zombie.should_not be_storage_exist
+            Zombie.should_not be_storage_exists
             Zombie.auto_migrate!
             Zombie.should be_storage_exist
             rake_task("db:create", "MACK_ENV" => "production", "_mack_env" => "production")
-            Zombie.should_not be_storage_exist
+            Zombie.should_not be_storage_exists
           end
         end
         
@@ -84,6 +85,7 @@ describe "rake" do
             repo.adapter.execute("DROP DATABASE IF EXISTS `mack_data_mapper_development`")
             repo.adapter.execute("DROP DATABASE IF EXISTS `mack_data_mapper_production`")
           end
+          Mack::Database.establish_connection
         end
         
         it "should create a db for all environments" do
