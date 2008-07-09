@@ -24,13 +24,15 @@ module Mack
     end
     
     private
-    
+    def tmp_mysql_config
+      
+    end
     
     
     def self.drop_create_database
       uri = repository(:default).adapter.uri
       case repository(:default).adapter.class.name
-        when "DataMapper::Adapters::MysqlAdapter"
+        when /Mysql/
           DataMapper.setup(:tmp, {
             :adapter => "mysql",
             :host => "localhost",
@@ -44,7 +46,7 @@ module Mack
             puts "Creating (MySQL): #{uri.basename}"
             repo.adapter.execute "CREATE DATABASE `#{uri.basename}` DEFAULT CHARACTER SET `utf8`"
           end
-        when "DataMapper::Adapters::PostgresAdapter"
+        when /Postgres/
           DataMapper.setup(:tmp, {
             :adapter => "postgres",
             :host => "localhost",
@@ -58,7 +60,7 @@ module Mack
             puts "Creating (PostgreSQL): #{uri.basename}"
             repo.adapter.execute "CREATE DATABASE #{uri.basename} ENCODING = 'utf8'"
           end
-        when 'DataMapper::Adapters::Sqlite3Adapter'
+        when /Sqlite3/
           puts "Dropping (SQLite3): #{uri.basename}"
           db_dir = File.join(Mack.root, "db")
           FileUtils.rm_rf(File.join(db_dir.to_s, uri.basename))
