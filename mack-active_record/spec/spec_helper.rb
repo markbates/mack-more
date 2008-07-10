@@ -5,7 +5,7 @@ require 'spec'
 #gem 'mack_ruby_core_extensions', '0.2.0'
 
 ENV["MACK_ROOT"] = File.join(File.dirname(__FILE__), "fake_application")
-ENV["MACK_ENV"] = "development"
+ENV["MACK_ENV"] = "test"
 
 $: << File.expand_path(File.dirname(__FILE__) + "/../lib")
 
