@@ -17,7 +17,7 @@ describe "rake" do
       it "should migrate the database with the migrations in the db/migrations folder" do
         config_db(:mysql) do
           db_exists?("foo_development").should_not == true
-          rake_task("db:create")
+          rake_task("db:recreate")
           db_exists?("foo_development").should == true
           table_exists?("zoos").should_not == true
           
@@ -45,7 +45,7 @@ describe "rake" do
       it "should rollback the database by a default of 1 step" do
         config_db(:mysql) do
           db_exists?("foo_development").should_not == true
-          rake_task("db:create")
+          rake_task("db:recreate")
           db_exists?("foo_development").should == true
           table_exists?("zoos").should_not == true
           table_exists?("animals").should_not == true
@@ -77,7 +77,7 @@ describe "rake" do
       it "should rollback the database by n steps if ENV['STEP'] is set" do
         config_db(:mysql) do
           db_exists?("foo_development").should_not == true
-          rake_task("db:create")
+          rake_task("db:recreate")
           db_exists?("foo_development").should == true
           table_exists?("zoos").should_not == true
           table_exists?("animals").should_not == true
@@ -119,7 +119,7 @@ describe "rake" do
       it "should return the current version number of the database" do
         config_db(:mysql) do
           db_exists?("foo_development").should_not == true
-          rake_task("db:create")
+          rake_task("db:recreate")
           db_exists?("foo_development").should == true
           
           rake_task("db:migrate")

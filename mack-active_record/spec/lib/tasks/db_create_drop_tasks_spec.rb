@@ -22,14 +22,14 @@ describe "rake" do
         
         it "should create a MySQL db for the current environment" do
           config_db(:mysql) do
-            rake_task("db:create")
+            rake_task("db:recreate")
             db_exists?("foo_development").should == true
           end
         end
         
         it "should drop/create a MySQL db if it already exists for the current environment" do
           config_db(:mysql) do
-            rake_task("db:create")
+            rake_task("db:recreate")
             db_exists?("foo_development").should == true
             rake_task("db:drop")
             db_exists?("foo_development").should == false
@@ -38,16 +38,16 @@ describe "rake" do
         
         it "should create a MySQL db for the specified environment" do
           config_db(:mysql) do
-            rake_task("db:create", {"MACK_ENV" => "test"})
+            rake_task("db:recreate", {"MACK_ENV" => "test"})
             db_exists?("foo_test").should == true
           end
         end
         
         it "should drop/create a MySQL db if it already exists for the specified environment" do
           config_db(:mysql) do
-            rake_task("db:create", {"MACK_ENV" => "test"})
+            rake_task("db:recreate", {"MACK_ENV" => "test"})
             db_exists?("foo_test").should == true
-            rake_task("db:create", {"MACK_ENV" => "test"})
+            rake_task("db:recreate", {"MACK_ENV" => "test"})
             db_exists?("foo_test").should == true
           end
         end
@@ -66,14 +66,14 @@ describe "rake" do
       
         it "should create a PostgreSQL db for the current environment" do
           config_db(:postgresql) do
-            rake_task("db:create")
+            rake_task("db:recreate")
             db_exists?("foo_development").should == true
           end
         end
         
         it "should drop a PostgreSQL db for the current environment" do
           config_db(:postgresql) do
-            rake_task("db:create")
+            rake_task("db:recreate")
             db_exists?("foo_development").should == true
             rake_task("db:drop")
             db_exists?("foo_development").should == false
@@ -82,14 +82,14 @@ describe "rake" do
       
         it "should create a PostgreSQL db for the specified environment" do
           config_db(:postgresql) do
-            rake_task("db:create", {"MACK_ENV" => "test"})
+            rake_task("db:recreate", {"MACK_ENV" => "test"})
             db_exists?("foo_test", "test").should == true
           end
         end
         
         it "should drop a PostgreSQL db for the specified environment" do
           config_db(:postgresql) do
-            rake_task("db:create", {"MACK_ENV" => "test"})
+            rake_task("db:recreate", {"MACK_ENV" => "test"})
             db_exists?("foo_test", "test").should == true
             rake_task("db:drop", {"MACK_ENV" => "test"})
             db_exists?("foo_test", "test").should == false
@@ -114,7 +114,7 @@ describe "rake" do
         
         it "should create a MySQL db for all environments" do
           config_db(:mysql) do
-            rake_task("db:create:all")
+            rake_task("db:recreate:all")
             db_exists?("foo_development").should == true
             db_exists?("foo_test").should == true
           end
@@ -135,12 +135,12 @@ describe "rake" do
         
         it "should create a PostgreSQL db for all environments" do
           config_db(:postgresql) do
-            rake_task("db:create:all")
+            rake_task("db:recreate:all")
             db_exists?("foo_test", "test").should == true
             db_exists?("foo_development").should == true
             
-            # running db:create again should be successful
-            rake_task("db:create:all")
+            # running db:recreate again should be successful
+            rake_task("db:recreate:all")
             db_exists?("foo_test", "test").should == true
             db_exists?("foo_development").should == true
           end
@@ -148,7 +148,7 @@ describe "rake" do
         
         it "should drop a PostgreSQL db for all environments" do
           config_db(:postgresql) do
-            rake_task("db:create:all")
+            rake_task("db:recreate:all")
             db_exists?("foo_test", "test").should == true
             db_exists?("foo_development").should == true
             rake_task("db:drop:all")
