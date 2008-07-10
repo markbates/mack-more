@@ -11,7 +11,8 @@ describe "rake" do
       describe "MySQL" do
         include Spec::CreateAndDropTask::Helper::MySQL
         
-        before(:all) do
+        before(:each) do
+          ENV["MACK_ENV"] = "development"
           clear_connection
         end
         
