@@ -7,6 +7,26 @@
 
 module Mack
   module Database
+    
+    module Migrator
+      def self.version
+        ActiveRecord::Migrator.current_version
+      end
+      
+      def self.migrate
+        ActiveRecord::Migrator.up(File.join(Mack.root, "db", "migrations"))
+      end
+      
+      def self.rollback(step = 1)
+        step = (ENV["STEP"] || step).to_i
+        cur_version = version.to_i
+        target_version = cur_version - step 
+        target_version = 0 if target_version < 0
+        
+        ActiveRecord::Migrator.down(File.join(Mack.root, "db", "migrations"), target_version)
+      end
+      
+    end
         
     def self.db_settings(env)
       dbs = YAML::load(ERB.new(IO.read(File.join(Mack.root, "config", "database.yml"))).result)

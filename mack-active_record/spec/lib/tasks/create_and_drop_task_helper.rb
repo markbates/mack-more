@@ -9,6 +9,7 @@ module Spec
         end
         
         def config_db(adapter)
+          last_err = nil
           config_file = File.join(Mack.root, "config", "database.yml")
           orig_db_yml = File.read(config_file)
           temp_db_yml = fixture("#{adapter.to_s.downcase}")
@@ -17,12 +18,14 @@ module Spec
           begin
             yield
           rescue Exception => ex
+            last_err = ex
             # make sure we still execute the code below that 
             # revert the database.yml file even though there's error
           end
         
           File.open(config_file, "w") { |f| f.write(orig_db_yml) }
           File.read(config_file).should match(/sqlite3/)
+          raise last_err if last_err
         end
         
         def cleanup_db_by_adapter(adapter)
@@ -49,6 +52,24 @@ module Spec
         end
         
         private 
+        
+        def table_exists?(name, env = "development")
+          ret_val = false
+          begin
+            ENV["MACK_ENV"] = env
+            Mack::Database.establish_connection(env)
+            result = ActiveRecord::Base.connection.execute "show tables"
+            result.each do |table|
+              if table[0] == name
+                ret_val = true
+              end
+            end
+          rescue Exception => ex
+            ret_val = false
+          end
+          ret_val
+        end
+        
         def db_exists?(name)
           ret_val = false
           ActiveRecord::Base.establish_connection(
