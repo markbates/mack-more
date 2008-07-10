@@ -1,12 +1,14 @@
 require 'rubygems'
 require 'genosaurus'
 
-gem 'dm-core', '0.9.2'
-require 'dm-core'
-gem 'dm-validations', '0.9.2'
-require 'dm-validations'
-gem 'dm-migrations', '0.9.2'
-require 'dm-migrations'
+# gem 'dm-core', '0.9.2'
+# require 'dm-core'
+# gem 'dm-validations', '0.9.2'
+# require 'dm-validations'
+# gem 'dm-migrations', '0.9.2'
+# require 'dm-migrations'
+$: << File.expand_path(File.join(File.dirname(__FILE__), "dm_patches"))
+require 'data_mapper'
 
 fl = File.dirname(__FILE__)
 require File.join(fl, "database")

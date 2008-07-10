@@ -8,7 +8,7 @@ class ZoosController
 
   # GET /zoos/1
   def show
-    @zoo = Zoo[params[:id]]
+    @zoo = Zoo.get(params[:id])
   end
 
   # GET /zoos/new
@@ -18,7 +18,7 @@ class ZoosController
 
   # GET /zoos/1/edit
   def edit
-    @zoo = Zoo[params[:id]]
+    @zoo = Zoo.get(params[:id])
   end
 
   # POST /zoos
@@ -33,7 +33,7 @@ class ZoosController
 
   # PUT /zoos/1
   def update
-    @zoo = Zoo[params[:id]]
+    @zoo = Zoo.get(params[:id])
     if @zoo.update_attributes(params[:zoo])
       redirect_to(zoos_show_url(:id => @zoo))
     else
@@ -43,7 +43,7 @@ class ZoosController
 
   # DELETE /zoos/1
   def delete
-    @zoo = Zoo[params[:id]]
+    @zoo = Zoo.get(params[:id])
     @zoo.destroy
     redirect_to(zoos_index_url)
   end

@@ -8,7 +8,7 @@ class <%= @name_plural_camel %>Controller
 
   # GET /<%= @name_plural %>/1
   def show
-    @<%= @name_singular %> = <%= @name_singular_camel %>[params[:id]]
+    @<%= @name_singular %> = <%= @name_singular_camel %>.get(params[:id])
   end
 
   # GET /<%= @name_plural %>/new
@@ -18,7 +18,7 @@ class <%= @name_plural_camel %>Controller
 
   # GET /<%= @name_plural %>/1/edit
   def edit
-    @<%= @name_singular %> = <%= @name_singular_camel %>[params[:id]]
+    @<%= @name_singular %> = <%= @name_singular_camel %>.get(params[:id])
   end
 
   # POST /<%= @name_plural %>
@@ -33,7 +33,7 @@ class <%= @name_plural_camel %>Controller
 
   # PUT /<%= @name_plural %>/1
   def update
-    @<%= @name_singular %> = <%= @name_singular_camel %>[params[:id]]
+    @<%= @name_singular %> = <%= @name_singular_camel %>.get(params[:id])
     if @<%= @name_singular %>.update_attributes(params[:<%= @name_singular %>])
       redirect_to(<%= @name_plural %>_show_url(:id => @<%= @name_singular %>))
     else
@@ -43,7 +43,7 @@ class <%= @name_plural_camel %>Controller
 
   # DELETE /<%= @name_plural %>/1
   def delete
-    @<%= @name_singular %> = <%= @name_singular_camel %>[params[:id]]
+    @<%= @name_singular %> = <%= @name_singular_camel %>.get(params[:id])
     @<%= @name_singular %>.destroy
     redirect_to(<%= @name_plural %>_index_url)
   end

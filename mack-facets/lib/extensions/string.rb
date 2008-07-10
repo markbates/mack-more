@@ -115,6 +115,21 @@ class String
     }
   end
   
+  def truncate(length = 30, truncate_string = "...")
+    if self.nil? then return end
+    l = length - truncate_string.length
+    if $KCODE == "NONE"
+      self.length > length ? self[0...l] + truncate_string : self
+    else
+      chars = self.split(//)
+      chars.length > length ? chars[0...l].join + truncate_string : self
+    end
+  end
+  
+  def truncate!(length = 30, truncate_string = "...")
+    self.replace(self.truncate(length, truncate_string))
+  end
+  
 end
 # require 'digest'
 # class String
