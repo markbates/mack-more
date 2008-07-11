@@ -2,7 +2,7 @@ require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
 
 describe Mack::ViewHelpers::OrmHelpers do
-  
+  include Mack::ViewHelpers::OrmHelpers
   describe "error_messages_for" do
     
     before(:all) do
@@ -32,6 +32,22 @@ describe Mack::ViewHelpers::OrmHelpers do
       post users_create_url, :user => {:id => 1}
       response.body.should == fixture("partial_single_model_error.html.erb")
       FileUtils.rm_rf(Mack::Paths.views("application"))
+    end
+    
+  end
+  
+  describe "text_field" do
+    
+    before(:all) do
+      @user = User.new(:username => "markbates")
+    end
+    
+    it "should generate a text_field tag for the model's property" do
+      text_field(@user, :username).should == %{<input id="user_username" name="user[username]" type="text" value="markbates" />}
+    end
+    
+    it "should generate a password_field tag for the model's property" do
+      password_field(@user, :username).should == %{<input id="user_username" name="user[username]" type="password" value="markbates" />}
     end
     
   end

@@ -1,6 +1,7 @@
 module Mack
   module ViewHelpers
     module OrmHelpers
+      include Mack::ViewHelpers::HtmlHelpers
       DEFAULT_PARTIAL = %{
 <div>
   <div class="errorExplanation" id="errorExplanation">
@@ -40,7 +41,16 @@ module Mack
           ""
         end
       end
-      # self.include_safely_into(Mack::ViewBinder)
+      
+      def text_field(model, property, options = {})
+        m_name = model.class.to_s.underscore
+        non_content_tag(:input, {:type => :text, :name => "#{m_name}[#{property}]", :id => "#{m_name}_#{property}", :value => model.send(property)}.merge(options))
+      end
+      
+      def password_field(model, property, options = {})
+        text_field(model, property, {:type => :password}.merge(options))
+      end
+
     end # OrmHelpers
   end # ViewHelpers
 end # Mack
