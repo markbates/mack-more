@@ -52,4 +52,12 @@ describe Mack::ViewHelpers::OrmHelpers do
     
   end
   
+  describe "textarea_field" do
+    
+    it "should generate a textarea tag" do
+      textarea_field(@user, :username).should == %{<textarea id="user_username" name="user[username]">markbates</textarea>}
+    end
+    
+  end
+  
 end

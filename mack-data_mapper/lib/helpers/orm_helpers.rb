@@ -58,6 +58,13 @@ module Mack
       def password_field(model, property, options = {})
         text_field(model, property, {:type => :password}.merge(options))
       end
+      
+      def textarea_field(model, property, options = {})
+        m_name = model.class.to_s.underscore
+        content_tag(:textarea, {:name => "#{m_name}[#{property}]", :id => "#{m_name}_#{property}"}.merge(options)) do
+          model.send(property)
+        end
+      end
 
     end # OrmHelpers
   end # ViewHelpers
