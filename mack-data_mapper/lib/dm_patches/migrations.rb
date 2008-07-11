@@ -6,13 +6,6 @@ module DataMapper # :nodoc:
     end
     
   end
-  class Migration # :nodoc:
-    include Comparable
-    
-    def <=>(other)
-      self.position <=> other.position
-    end
-  end
 end
 
 module SQL # :nodoc:
