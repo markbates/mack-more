@@ -75,6 +75,16 @@ module Mack
     def self.helpers(*files)
       File.join(Mack::Paths.app, "helpers", files)
     end
+    
+    # <MACK_PROJECT_ROOT>/app/helpers/controllers
+    def self.controller_helpers(*files)
+      File.join(Mack::Paths.helpers, "controllers", files)
+    end
+    
+    # <MACK_PROJECT_ROOT>/app/helpers/controllers
+    def self.view_helpers(*files)
+      File.join(Mack::Paths.helpers, "views", files)
+    end
 
     # <MACK_PROJECT_ROOT>/lib
     def self.lib(*files)

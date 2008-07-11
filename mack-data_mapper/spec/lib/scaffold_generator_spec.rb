@@ -5,6 +5,7 @@ describe ScaffoldGenerator do
   
   before(:each) do
     @model_file = Mack::Paths.models("zoo.rb")
+    @controller_helper_file = Mack::Paths.controller_helpers("zoos_controller_helper.rb")
     @controller_file = Mack::Paths.controllers("zoos_controller.rb")
     @old_route_file = File.read(Mack::Paths.config("routes.rb"))
     common_cleanup
@@ -50,6 +51,13 @@ describe ScaffoldGenerator do
     File.read(@controller_file).should == fixture("zoos_controller.rb")
   end
   
+  it "should create a controller helper file" do
+    File.should_not be_exist(@controller_helper_file)
+    ScaffoldGenerator.run(zoo_options)
+    File.should be_exist(@controller_helper_file)
+    File.read(@controller_helper_file).should == fixture("zoos_controller_helper.rb")
+  end
+  
   it "should create the proper view files" do
     File.should_not be_exist(Mack::Paths.views("zoos"))
     ScaffoldGenerator.run(zoo_options)
@@ -85,6 +93,7 @@ describe ScaffoldGenerator do
     FileUtils.rm_rf(Mack::Paths.views("zoos"))
     FileUtils.rm_rf(Mack::Paths.unit)
     FileUtils.rm_rf(Mack::Paths.functional)
+    FileUtils.rm_rf(Mack::Paths.controller_helpers)
     File.open(Mack::Paths.config("routes.rb"), "w") {|f| f.puts @old_route_file}
   end
   
