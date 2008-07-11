@@ -3,6 +3,47 @@ require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
 
 describe Object do
   
+  class Boat
+  end
+  
+  class Car
+  end
+  
+  module BoatMethods
+    def foo
+    end
+  end
+  
+  module CarMethods
+    def bar
+    end
+  end
+  
+  describe "safely_include_module" do
+    
+    it "should include a single modules methods as protected" do
+      Boat.public_instance_methods.should_not include("foo")
+      class Boat
+        safely_include_module(BoatMethods)
+      end
+      Boat.public_instance_methods.should_not include("foo")
+      Boat.protected_instance_methods.should include("foo")
+    end
+    
+    it "should include multiple modules methods as protected" do
+      Car.public_instance_methods.should_not include("foo")
+      Car.public_instance_methods.should_not include("bar")
+      class Car
+        safely_include_module(BoatMethods, CarMethods)
+      end
+      Car.public_instance_methods.should_not include("foo")
+      Car.public_instance_methods.should_not include("bar")
+      Car.protected_instance_methods.should include("foo")
+      Car.protected_instance_methods.should include("bar")
+    end
+    
+  end
+  
   describe "with_options" do
     
     it "should append the given hash onto the end of the method called" do

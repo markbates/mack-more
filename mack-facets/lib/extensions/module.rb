@@ -6,7 +6,7 @@ class Module
     self
   end
   
-  # Includes this module into an Object, and changes all public methods to protected.
+  # Includes this module into a Class, and changes all public methods to protected.
   # 
   # Examples:
   #   module MyCoolUtils

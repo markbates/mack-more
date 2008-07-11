@@ -1,5 +1,17 @@
 class Object
   
+  # Includes a module into the current Class, and changes all the module's public methods to protected.
+  # 
+  # Example:
+  #   class FooController
+  #     safely_include_module(MyCoolUtils, MyOtherModule)
+  #   end
+  def safely_include_module(*modules)
+    [modules].flatten.each do |mod|
+      mod.include_safely_into(self)
+    end
+  end
+  
   # Prints out the methods associated with this object in alphabetical order.
   def print_methods
     m = "----- #{self} (methods) -----\n"
