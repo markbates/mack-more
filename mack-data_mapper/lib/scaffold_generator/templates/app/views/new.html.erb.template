@@ -12,7 +12,7 @@
 <% end -%>
 <% end -%>
   <p>
-    <input id="<%= @name_singular %>_submit" name="commit" type="submit" value="Create" />
+    <%%= submit_tag("Create") %>
   </p>
 <%% end %>
 

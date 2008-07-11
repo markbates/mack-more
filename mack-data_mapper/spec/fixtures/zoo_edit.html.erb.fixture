@@ -5,14 +5,14 @@
 <% form(zoos_update_url(:id => @zoo), :class => "edit_zoo", :id => "edit_zoo", :method => :put) do %>
   <p>
     <b>Name</b><br />
-    <input type="text" name="zoo[name]" id="zoo_name" size="30" value="<%= @zoo.name %>" />
+    <%= text_field(@zoo, :name) %>
   </p>
   <p>
     <b>Description</b><br />
     <textarea name="zoo[description]" id="zoo_description" cols="60" rows="20"><%= @zoo.description %></textarea>
   </p>
   <p>
-    <input id="zoo_submit" name="commit" type="submit" value="Update" />
+    <%= submit_tag("Update") %>
   </p>
 <% end %>
 
