@@ -4,13 +4,15 @@ require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 describe "Transactional Tests" do
   
   describe "rollback_transaction" do
+
+    class Canoe
+      include DataMapper::Resource
+      property :id, Serial
+    end
+    Canoe.auto_migrate!
     
     before(:all) do
-      class Canoe
-        include DataMapper::Resource
-        property :id, Serial
-      end
-      Canoe.auto_migrate!
+      
     end
     
     it "should roll back the database after the test is finished (1)" do
