@@ -36,28 +36,28 @@ describe Mack::ViewHelpers::OrmHelpers do
     
   end
   
-  describe "text_field" do
+  describe "model_text_field" do
     
-    it "should generate a text_field tag for the model's property" do
-      get text_field_test_url
+    it "should generate a model_text_field tag for the model's property" do
+      get model_text_field_test_url
       response.body.should == %{<input id="user_username" name="user[username]" type="text" value="markbates" />}
     end
     
   end
   
-  describe "password_field" do
+  describe "model_password_field" do
     
-    it "should generate a password_field tag for the model's property" do
-      get password_field_test_url
+    it "should generate a model_password_field tag for the model's property" do
+      get model_password_field_test_url
       response.body.should == %{<input id="user_username" name="user[username]" type="password" value="markbates" />}
     end
     
   end
   
-  describe "textarea_field" do
+  describe "model_textarea" do
     
     it "should generate a textarea tag" do
-      get text_area_test_url
+      get model_textarea_test_url
       response.body.should == %{<textarea id="user_username" name="user[username]">markbates</textarea>}
     end
     

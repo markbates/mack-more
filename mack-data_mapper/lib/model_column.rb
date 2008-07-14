@@ -45,7 +45,7 @@ module Mack
         when "text"
           %{<textarea name="#{self.form_element_name}" id="#{self.form_element_id}" cols="60" rows="20"><%= @#{self.model_name}.#{self.column_name} %></textarea>}
         else
-          %{<%= text_field(@#{self.model_name}, :#{self.column_name}) %>}
+          %{<%= model_text_field(@#{self.model_name}, :#{self.column_name}) %>}
         end
       end
       

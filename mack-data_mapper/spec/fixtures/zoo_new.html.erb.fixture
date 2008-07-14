@@ -5,7 +5,7 @@
 <% form(zoos_create_url, :class => "new_zoo", :id => "new_zoo") do %>
   <p>
     <b>Name</b><br />
-    <%= text_field(@zoo, :name) %>
+    <%= model_text_field(@zoo, :name) %>
   </p>
   <p>
     <b>Description</b><br />
