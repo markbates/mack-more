@@ -22,7 +22,7 @@ if Mack.env == "test"
           end
         end # Helpers
       
-        class DmTestTransactionWrapper
+        class DmTestTransactionWrapper # :nodoc:
           include DataMapper::Resource
         end
       
@@ -30,6 +30,7 @@ if Mack.env == "test"
           def rollback_transaction
             begin
               Mack::Testing::DmTestTransactionWrapper.transaction do
+              # DataMapper::Transaction.new.commit do
                 yield if block_given?
                 raise "Rollback!"
               end
@@ -45,9 +46,9 @@ if Mack.env == "test"
     end # Mack
 
 
-    module Spec
-      module Example
-        module ExampleMethods
+    module Spec # :nodoc:
+      module Example # :nodoc:
+        module ExampleMethods # :nodoc:
           include Mack::Testing::DataMapperHelpers
 
           alias_method :spec_execute, :execute
