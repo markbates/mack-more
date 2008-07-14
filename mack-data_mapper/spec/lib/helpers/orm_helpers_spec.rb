@@ -58,7 +58,7 @@ describe Mack::ViewHelpers::OrmHelpers do
     
     it "should generate a textarea tag" do
       get model_textarea_test_url
-      response.body.should == %{<textarea id="user_username" name="user[username]">markbates</textarea>}
+      response.body.should == %{<textarea cols="60" id="user_username" name="user[username]" rows="20">markbates</textarea>}
     end
     
   end

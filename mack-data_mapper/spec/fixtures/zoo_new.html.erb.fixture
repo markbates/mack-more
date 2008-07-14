@@ -9,7 +9,7 @@
   </p>
   <p>
     <b>Description</b><br />
-    <textarea name="zoo[description]" id="zoo_description" cols="60" rows="20"><%= @zoo.description %></textarea>
+    <%= model_textarea(@zoo, :description) %>
   </p>
   <p>
     <%= submit_tag("Create") %>

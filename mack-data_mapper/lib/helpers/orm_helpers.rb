@@ -61,7 +61,7 @@ module Mack
       
       def model_textarea(model, property, options = {})
         m_name = model.class.to_s.underscore
-        content_tag(:textarea, {:name => "#{m_name}[#{property}]", :id => "#{m_name}_#{property}"}.merge(options), model.send(property))
+        content_tag(:textarea, {:name => "#{m_name}[#{property}]", :id => "#{m_name}_#{property}", :cols => 60, :rows => 20}.merge(options), model.send(property))
       end
 
     end # OrmHelpers
