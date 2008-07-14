@@ -11,10 +11,6 @@ describe "Transactional Tests" do
     end
     Canoe.auto_migrate!
     
-    before(:all) do
-      
-    end
-    
     it "should roll back the database after the test is finished (1)" do
       Canoe.count.should == 0
       Canoe.create
