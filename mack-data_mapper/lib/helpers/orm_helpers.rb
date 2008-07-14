@@ -1,7 +1,7 @@
 module Mack
   module ViewHelpers
     module OrmHelpers
-      include Mack::ViewHelpers::HtmlHelpers
+
       DEFAULT_PARTIAL = %{
 <div>
   <div class="errorExplanation" id="errorExplanation">
@@ -61,9 +61,7 @@ module Mack
       
       def textarea_field(model, property, options = {})
         m_name = model.class.to_s.underscore
-        content_tag(:textarea, {:name => "#{m_name}[#{property}]", :id => "#{m_name}_#{property}"}.merge(options)) do
-          model.send(property)
-        end
+        content_tag(:textarea, {:name => "#{m_name}[#{property}]", :id => "#{m_name}_#{property}"}.merge(options), model.send(property))
       end
 
     end # OrmHelpers

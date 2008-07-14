@@ -38,16 +38,18 @@ describe Mack::ViewHelpers::OrmHelpers do
   
   describe "text_field" do
     
-    before(:all) do
-      @user = User.new(:username => "markbates")
+    it "should generate a text_field tag for the model's property" do
+      get text_field_test_url
+      response.body.should == %{<input id="user_username" name="user[username]" type="text" value="markbates" />}
     end
     
-    it "should generate a text_field tag for the model's property" do
-      text_field(@user, :username).should == %{<input id="user_username" name="user[username]" type="text" value="markbates" />}
-    end
+  end
+  
+  describe "password_field" do
     
     it "should generate a password_field tag for the model's property" do
-      password_field(@user, :username).should == %{<input id="user_username" name="user[username]" type="password" value="markbates" />}
+      get password_field_test_url
+      response.body.should == %{<input id="user_username" name="user[username]" type="password" value="markbates" />}
     end
     
   end
@@ -55,7 +57,8 @@ describe Mack::ViewHelpers::OrmHelpers do
   describe "textarea_field" do
     
     it "should generate a textarea tag" do
-      textarea_field(@user, :username).should == %{<textarea id="user_username" name="user[username]">markbates</textarea>}
+      get text_area_test_url
+      response.body.should == %{<textarea id="user_username" name="user[username]">markbates</textarea>}
     end
     
   end
