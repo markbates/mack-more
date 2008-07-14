@@ -43,9 +43,9 @@ module Mack
       def form_field
         case self.column_type
         when "text"
-          %{<textarea name="#{self.form_element_name}" id="#{self.form_element_id}" cols="60" rows="20"><%= @#{self.model_name}.#{self.column_name} %></textarea>}
+          %{<%= model_textarea(@#{self.model_name}, :#{self.column_name}) %>}
         else
-          %{<%= text_field(@#{self.model_name}, :#{self.column_name}) %>}
+          %{<%= model_text_field(@#{self.model_name}, :#{self.column_name}) %>}
         end
       end
       
