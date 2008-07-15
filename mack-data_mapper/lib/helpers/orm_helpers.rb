@@ -14,7 +14,14 @@ module Mack
   </div>
 </div>
       } unless Mack::ViewHelpers::DataMapperHelpers.const_defined?("DEFAULT_PARTIAL")
-  
+      
+      # Provides view level support for printing out all the errors associated with the
+      # models you tell it. 
+      # The DEFAULT_PARTIAL constant provides a simple, default, set of HTML for displaying
+      # the errors. If you wish to change this HTML there are two simple ways of doing it.
+      # First if you have a partial named: app/views/application/_error_messages.html.erb,
+      # then it will use that default, and not DEFAULT_PARTIAL. The other option is to pass
+      # in a path to partial as the second argument and that partial will be rendered.
       def error_messages_for(object_names = [], view_partial = nil)
         object_names = [object_names].flatten
         app_errors = []
