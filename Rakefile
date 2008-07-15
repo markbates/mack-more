@@ -31,23 +31,27 @@ namespace :rdoc do
     end
   end
   
+  task :integrated do
+    sh("rdoc --force --line-numbers --inline-source --exclude spec --exclude example --title 'mack-more'")
+  end
+  
 end
 
-# namespace :release do
-#   
-#   task :all do
-#     GEMS.each do |gem|
-#       sh("cd mack-#{gem} && rake release")
-#     end
-#   end
-#   
-#   GEMS.each do |gem|
-#     task "#{gem}" do
-#       sh("cd mack-#{gem} && rake release")
-#     end
-#   end
-#   
-# end
+namespace :release do
+  
+  task :all do
+    GEMS.each do |gem|
+      sh("cd mack-#{gem} && rake release")
+    end
+  end
+  
+  GEMS.each do |gem|
+    task "#{gem}" do
+      sh("cd mack-#{gem} && rake release")
+    end
+  end
+  
+end
 
 namespace :test do
   
