@@ -19,7 +19,7 @@ module Mack
       create_database
     end
     
-    def self.drop(env = Mack.evn)
+    def self.drop(env = Mack.env)
       Mack::Database.establish_connection(env)
       drop_database
     end
