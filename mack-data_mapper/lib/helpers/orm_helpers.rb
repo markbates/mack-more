@@ -1,5 +1,5 @@
 module Mack
-  module ViewHelpers
+  module ViewHelpers # :nodoc:
     module DataMapperHelpers
 
       DEFAULT_PARTIAL = %{

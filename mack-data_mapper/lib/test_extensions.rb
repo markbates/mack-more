@@ -64,7 +64,7 @@ if Mack.env == "test"
       end # Example
     end # Spec
   
-    module Test
+    module Test # :nodoc:
       module Unit # :nodoc:
         class TestCase # :nodoc:
           include Mack::Testing::DataMapperHelpers
