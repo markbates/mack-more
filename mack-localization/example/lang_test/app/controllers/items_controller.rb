@@ -1,6 +1,8 @@
 require 'ruby-debug'
 
-class ItemsController < DefaultController
+class ItemsController 
+  include Mack::Controller
+  
   before_filter :init_session
   
   def init_session
