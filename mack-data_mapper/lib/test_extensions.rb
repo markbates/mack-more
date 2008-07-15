@@ -3,7 +3,7 @@ require 'spec'
 
 if Mack.env == "test"
   module Mack
-    module Testing
+    module Testing # :nodoc: 
     end
   end
 

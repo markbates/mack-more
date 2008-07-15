@@ -1,5 +1,5 @@
 module Mack
-  module Localization
+  module Localization # :nodoc:
     class FormatEngineRegistry
       include Singleton
       

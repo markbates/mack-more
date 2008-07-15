@@ -1,6 +1,6 @@
 module Mack
-  module Localization
-    module NumberAndCurrencyFormatEngine
+  module Localization # :nodoc:
+    module NumberAndCurrencyFormatEngine # :nodoc:
       class DE < Base
         def delimiter
           return "."

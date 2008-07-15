@@ -1,6 +1,6 @@
 module Mack
-  module Localization
-    module Errors
+  module Localization # :nodoc:
+    module Errors # :nodoc:
       
       #
       # Raise this error when caller specified unsupported language.

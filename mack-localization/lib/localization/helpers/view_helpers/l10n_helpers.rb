@@ -1,5 +1,5 @@
 module Mack
-  module ViewHelpers
+  module ViewHelpers # :nodoc:
     module L10NHelpers
       
       class Context

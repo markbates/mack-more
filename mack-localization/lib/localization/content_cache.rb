@@ -1,6 +1,6 @@
 module Mack
-  module Localization
-    class ContentCache < Cachetastic::Caches::Base      
+  module Localization # :nodoc:
+    class ContentCache < Cachetastic::Caches::Base
     end
   end
 end
