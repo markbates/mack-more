@@ -32,7 +32,7 @@ namespace :rdoc do
   end
   
   task :integrated do
-    sh("rdoc --force --line-numbers --inline-source --exclude spec --exclude example --exclude common_rake_tasks --title 'mack-more'")
+    sh("rdoc --force --line-numbers --inline-source --exclude spec --exclude example --exclude common_rake_tasks --title 'mack-more' --op mack-more/doc")
   end
   
 end
