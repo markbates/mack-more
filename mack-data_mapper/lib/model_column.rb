@@ -1,6 +1,6 @@
 module Mack
   module Genosaurus
-      module DataMapper
+    module DataMapper
       # Used to represent a 'column' from the param cols or columns for generators.
       class ModelColumn
       
@@ -18,28 +18,14 @@ module Mack
           self.column_name = cols.first#.underscore
           self.column_type = cols.last#.underscore
         end
-      
-        # Examples:
-        #   Mack::Generator::ColumnObject.new("user", "username:string").form_element_name # => "user[username]"
-        #   Mack::Generator::ColumnObject.new("Post", "body:text").form_element_name # => "post[body]"
-        def form_element_name
-          "#{self.model_name}[#{self.column_name}]"
-        end
-
-        # Examples:
-        #   Mack::Generator::ColumnObject.new("user", "username:string").form_element_id # => "user_username"
-        #   Mack::Generator::ColumnObject.new("Post", "body:text").form_element_id # => "post_body"
-        def form_element_id
-          "#{self.model_name}_#{self.column_name}"
-        end
 
         # Generates the appropriate HTML form field for the type of column represented.
         # 
         # Examples:
         #   Mack::Generator::ColumnObject.new("user", "username:string").form_field 
-        #     => "<input type="text" name="user[username]" id="user_username" size="30" value="<%= user.username %>" />"
+        #     => "<%= model_text_field(@user, :username) %>"
         #   Mack::Generator::ColumnObject.new("Post", "body:text").form_field
-        #     => "<textarea name="post[body]" id="post_id"><%= post.body %></textarea>"
+        #     => "<%= model_textarea(@user, :username) %>"
         def form_field
           case self.column_type
           when "text"
