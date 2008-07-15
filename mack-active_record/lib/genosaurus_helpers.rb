@@ -1,6 +1,6 @@
 module Mack
-  module Genosaurus
-    module ActiveRecord
+  module Genosaurus # :nodoc:
+    module ActiveRecord # :nodoc:
       module Helpers
       
         def columns(name = param(:name))

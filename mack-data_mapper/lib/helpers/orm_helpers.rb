@@ -1,6 +1,6 @@
 module Mack
   module ViewHelpers
-    module OrmHelpers
+    module DataMapperHelpers
 
       DEFAULT_PARTIAL = %{
 <div>
@@ -13,7 +13,7 @@ module Mack
     </ul>
   </div>
 </div>
-      } unless Mack::ViewHelpers::OrmHelpers.const_defined?("DEFAULT_PARTIAL")
+      } unless Mack::ViewHelpers::DataMapperHelpers.const_defined?("DEFAULT_PARTIAL")
   
       def error_messages_for(object_names = [], view_partial = nil)
         object_names = [object_names].flatten

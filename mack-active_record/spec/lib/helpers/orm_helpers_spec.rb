@@ -1,7 +1,7 @@
 require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
 
-describe Mack::ViewHelpers::OrmHelpers do
+describe Mack::ViewHelpers::ActiveRecordHelpers do
   
   describe "error_messages_for" do
     

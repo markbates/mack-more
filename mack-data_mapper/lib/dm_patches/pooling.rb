@@ -65,13 +65,13 @@ module Extlib # :nodoc:
       @lock ||= Mutex.new
     end
 
-    class CrossPoolError < StandardError
+    class CrossPoolError < StandardError # :nodoc:
     end
 
-    class OrphanedObjectError < StandardError
+    class OrphanedObjectError < StandardError # :nodoc:
     end
 
-    class ThreadStopError < StandardError
+    class ThreadStopError < StandardError # :nodoc:
     end
 
     def self.included(target)
@@ -105,7 +105,7 @@ module Extlib # :nodoc:
       @__pool.release(self)
     end
 
-    class Pool
+    class Pool # :nodoc:
       def initialize(max_size, resource, args)
         raise ArgumentError.new("+max_size+ should be a Fixnum but was #{max_size.inspect}") unless Fixnum === max_size
         raise ArgumentError.new("+resource+ should be a Class but was #{resource.inspect}") unless Class === resource

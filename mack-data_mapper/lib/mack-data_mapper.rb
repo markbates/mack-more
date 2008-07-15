@@ -28,8 +28,8 @@ end
 English::Inflect.word 'email_address'
 English::Inflect.word 'address' 
 
-module DataMapper
-  class Logger
+module DataMapper # :nodoc:
+  class Logger # :nodoc:
     
     [:debug, :info, :warn, :error, :fatal].each do |m|
       unless method_defined?("dm_#{m}")

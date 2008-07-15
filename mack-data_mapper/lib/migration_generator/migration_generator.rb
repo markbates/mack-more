@@ -42,7 +42,7 @@ class MigrationGenerator < Genosaurus
   end
   
   def migration_columns
-    [Mack::Genosaurus::ModelColumn.new(param(:name), "id:serial"), columns].flatten
+    [Mack::Genosaurus::DataMapper::ModelColumn.new(param(:name), "id:serial"), columns].flatten
   end
   
   def get_column_type(column)

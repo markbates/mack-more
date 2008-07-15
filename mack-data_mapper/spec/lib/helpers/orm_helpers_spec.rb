@@ -1,8 +1,8 @@
 require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
 
-describe Mack::ViewHelpers::OrmHelpers do
-  include Mack::ViewHelpers::OrmHelpers
+describe Mack::ViewHelpers::DataMapperHelpers do
+  include Mack::ViewHelpers::DataMapperHelpers
   describe "error_messages_for" do
     
     before(:all) do

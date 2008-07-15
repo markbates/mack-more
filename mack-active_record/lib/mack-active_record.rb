@@ -3,6 +3,9 @@ require 'genosaurus'
 
 require 'activerecord'
 
+module ActiveRecord # :nodoc:
+end
+
 fl = File.join(File.dirname(__FILE__))
 
 require File.join(fl, "database")
