@@ -33,7 +33,7 @@ class MigrationGenerator < Genosaurus
 
   require_param :name
   
-  def setup
+  def setup # :nodoc:
     @table_name = param(:name).underscore.plural.gsub("create_", "")
     @migration_name = "#{next_migration_number}_#{param(:name).underscore}"
   end

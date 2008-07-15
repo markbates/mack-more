@@ -39,11 +39,11 @@ class ModelGenerator < Genosaurus
   
   require_param :name
 
-  def after_generate
+  def after_generate # :nodoc:
     MigrationGenerator.run(@options.merge({"name" => "create_#{param(:name).plural}"}))
   end
   
-  def testing_framework
+  def testing_framework # :nodoc:
     app_config.mack.testing_framework
   end
   
