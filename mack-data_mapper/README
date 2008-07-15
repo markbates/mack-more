@@ -1,3 +1,9 @@
 README
 ========================================================================
 mack-data_mapper was developed by: markbates
+
+This gem provides Mack integration with the ORM Framework, DataMapper.
+
+For more information on DataMapper please visit:
+
+http://www.datamapper.org
