@@ -63,11 +63,11 @@ module Mack # :nodoc:
           class_eval do
             alias_method "hookable_#{name}", name
             eval %{
-              def #{name}(*args)
+              def #{name}(*args, &block)
                 hookable_class.hooks_for(:before, :#{name}).each do |p|
                   p.call
                 end
-                hookable_#{name}(*args)
+                hookable_#{name}(*args, &block)
                 hookable_class.hooks_for(:after, :#{name}).each do |p|
                   p.call
                 end
@@ -83,11 +83,11 @@ module Mack # :nodoc:
             eval %{
               class << self
                 alias_method :hookable_#{name}, :#{name}
-                def #{name}(*args)
+                def #{name}(*args, &block)
                   hookable_class.hooks_for(:before_class_method, :#{name}).each do |p|
                     p.call
                   end
-                  self.hookable_#{name}(*args)
+                  self.hookable_#{name}(*args, &block)
                   hookable_class.hooks_for(:after_class_method, :#{name}).each do |p|
                     p.call
                   end
