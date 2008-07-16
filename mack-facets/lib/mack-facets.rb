@@ -11,7 +11,7 @@ require 'facets/module'
 require 'facets/infinity'
 require 'english/inflect'
 require 'english/numerals'
-[:inflector, :inflections, :options_merger].each do |k|
+[:inflector, :inflections, :options_merger, :hookable].each do |k|
   path = File.join File.dirname(__FILE__), "utils", "#{k}"
   #puts "requiring #{path}"
   require path
