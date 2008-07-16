@@ -1,5 +1,18 @@
 module Mack # :nodoc:
   module Utils # :nodoc:
+    # Include this module into any class, or module, and it's methods can become hookable.
+    # This allows for the ability to do really nice AOP programming.
+    # 
+    # Example:
+    #   class User
+    #     def say_full_name
+    #       puts "mark"
+    #     end
+    #   end
+    #   User.before(:say_full_name) do
+    #     puts "hello"
+    #   end
+    #   User.new.say_full_name # => "hello" "mark"
     module Hookable
       
       def self.included(klass)
@@ -20,21 +33,25 @@ module Mack # :nodoc:
         klass.extend self
       end
 
+      # Used to prefix an instance method with the assigned block
       def before(name, &block)
         hookable_class.hooks_for(:before, name.to_sym) << block
         build_hook_instance_method(name)
       end
       
+      # Used to suffix an instance method with the assigned block
       def after(name, &block)
         hookable_class.hooks_for(:after, name.to_sym) << block
         build_hook_instance_method(name)
       end
       
+      # Used to prefix a class method with the assigned block
       def before_class_method(name, &block)
         hookable_class.hooks_for(:before_class_method, name.to_sym) << block
         build_hook_class_method(name)
       end
       
+      # Used to suffix a class method with the assigned block
       def after_class_method(name, &block)
         hookable_class.hooks_for(:after_class_method, name.to_sym) << block
         build_hook_class_method(name)
