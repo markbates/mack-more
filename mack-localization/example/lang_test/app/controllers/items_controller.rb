@@ -1,5 +1,3 @@
-require 'ruby-debug'
-
 class ItemsController < DefaultController
   before_filter :init_session
   

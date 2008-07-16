@@ -1,5 +1,4 @@
 require 'rake'
-require 'ruby-debug'
 namespace :db do
     
   task :drop => :environment do
