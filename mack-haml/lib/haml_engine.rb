@@ -1,6 +1,6 @@
 module Mack
-  module Rendering
-    module Engine
+  module Rendering # :nodoc:
+    module Engine # :nodoc:
       class Haml < Mack::Rendering::Engine::Base
         
         def render(io, binding)

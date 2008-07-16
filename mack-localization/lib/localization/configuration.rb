@@ -6,7 +6,7 @@
 # If the file doesn't exist then it will just load default configuration.
 #
 module Mack
-  module Localization
+  module Localization # :nodoc:
     module Configuration
 
       unless self.const_defined?("L10N_DEFAULTS")

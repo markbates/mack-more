@@ -48,12 +48,12 @@ class ModelGenerator < Genosaurus
   
   require_param :name
 
-  def after_generate
+  def after_generate # :nodoc:
     MigrationGenerator.run(@options.merge({"name" => "create_#{param(:name).plural}"}))
   end
   
-  def migration_columns
-    [Mack::Genosaurus::ModelColumn.new(param(:name), "id:serial"), columns].flatten
+  def migration_columns # :nodoc:
+    [Mack::Genosaurus::DataMapper::ModelColumn.new(param(:name), "id:serial"), columns].flatten
   end
   
 end

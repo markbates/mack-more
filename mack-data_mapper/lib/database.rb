@@ -1,6 +1,8 @@
 module Mack
   module Database
     
+    # Sets up and establishes connections to the database based on the specified environment
+    # and the settings in the database.yml file.
     def self.establish_connection(env = Mack.env)
       dbs = YAML::load(ERB.new(IO.read(File.join(Mack.root, "config", "database.yml"))).result)
       settings = dbs[env]
@@ -14,14 +16,16 @@ module Mack
       end
     end # establish_connection
     
-    def self.create(env = Mack.env)
+    # Creates a database, if it doesn't already exist for the specified environment
+    def self.create(env = Mack.env, repis = :default)
       Mack::Database.establish_connection(env)
-      create_database
+      create_database(repis)
     end
     
-    def self.drop(env = Mack.evn)
+    # Drops a database, if it exists for the specified environment
+    def self.drop(env = Mack.env, repis = :default)
       Mack::Database.establish_connection(env)
-      drop_database
+      drop_database(repis)
     end
     
     private
@@ -35,9 +39,9 @@ module Mack
       })
     end
     
-    def self.create_database
-      uri = repository(:default).adapter.uri
-      case repository(:default).adapter.class.name
+    def self.create_database(repis = :default)
+      uri = repository(repis).adapter.uri
+      case repository(repis).adapter.class.name
         when /Mysql/
           setup_temp(uri, "mysql")
           repository(:tmp) do |repo|
@@ -56,14 +60,14 @@ module Mack
           FileUtils.mkdir_p(db_dir)
           FileUtils.touch(File.join(db_dir, uri.basename))
         else
-          raise "Task not supported for '#{repository(:default).adapter.class.name}'"
+          raise "Task not supported for '#{repository(repis).adapter.class.name}'"
       end
     end
     
     
-    def self.drop_database
-      uri = repository(:default).adapter.uri
-      case repository(:default).adapter.class.name
+    def self.drop_database(repis = :default)
+      uri = repository(repis).adapter.uri
+      case repository(repis).adapter.class.name
         when /Mysql/
           setup_temp(uri, "mysql")
           repository(:tmp) do |repo|
@@ -81,7 +85,7 @@ module Mack
           db_dir = File.join(Mack.root, "db")
           FileUtils.rm_rf(File.join(db_dir.to_s, uri.basename))
         else
-          raise "Task not supported for '#{repository(:default).adapter.class.name}'"
+          raise "Task not supported for '#{repository(repis).adapter.class.name}'"
       end
     end
     

@@ -6,19 +6,19 @@ class ScaffoldGenerator < Genosaurus
   
   require_param :name
   
-  def setup
+  def setup # :nodoc:
     @name_singular = param(:name).singular.underscore
     @name_plural = param(:name).plural.underscore
     @name_singular_camel = @name_singular.camelcase
     @name_plural_camel = @name_plural.camelcase    
   end
   
-  def after_generate
+  def after_generate # :nodoc:
     ModelGenerator.run(@options)
     update_routes_file
   end
   
-  def update_routes_file
+  def update_routes_file # :nodoc:
     # update routes.rb
     routes = File.join(Mack.root, "config", "routes.rb")
     rf = File.open(routes).read

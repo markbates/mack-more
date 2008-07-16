@@ -1,6 +1,6 @@
 module Mack
-  module Localization
-    module DateFormatEngine
+  module Localization # :nodoc:
+    module DateFormatEngine # :nodoc:
       class IT < Base
         
         def date_format_template(type)

@@ -35,17 +35,17 @@ class MigrationGenerator < Genosaurus
 
   require_param :name
   
-  def setup
+  def setup # :nodoc:
     @table_name = param(:name).underscore.gsub("create_", "")
     @current_migration_number = next_migration_number
     @migration_name = "#{@current_migration_number}_#{param(:name).underscore}"
   end
   
-  def migration_columns
-    [Mack::Genosaurus::ModelColumn.new(param(:name), "id:serial"), columns].flatten
+  def migration_columns # :nodoc:
+    [Mack::Genosaurus::DataMapper::ModelColumn.new(param(:name), "id:serial"), columns].flatten
   end
   
-  def get_column_type(column)
+  def get_column_type(column) # :nodoc:
     column.column_type.camelcase
   end
   

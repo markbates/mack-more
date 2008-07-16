@@ -1,7 +1,7 @@
-module DataMapper
-  module Validate
+module DataMapper # :nodoc:
+  module Validate # :nodoc:
 
-    class ConfirmationValidator < GenericValidator
+    class ConfirmationValidator < GenericValidator # :nodoc:
 
       def valid?(target)
         field_value = target.instance_variable_get("@#{@field_name}")

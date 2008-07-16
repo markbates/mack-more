@@ -6,7 +6,7 @@ end
 
 module Mack
   module ViewHelpers
-    module OrmHelpers
+    module ActiveRecordHelpers
       DEFAULT_PARTIAL = %{
 <div>
   <div class="errorExplanation" id="errorExplanation">

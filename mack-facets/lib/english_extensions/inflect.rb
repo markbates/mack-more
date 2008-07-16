@@ -1,9 +1,9 @@
-module English
+module English # :nodoc:
 
   # = English Nouns Number Inflection.
   #
   # This module provides english singular <-> plural noun inflections.
-  module Inflect
+  module Inflect # :nodoc:
 
     class << self
 

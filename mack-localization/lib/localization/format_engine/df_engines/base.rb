@@ -1,6 +1,6 @@
 module Mack
-  module Localization
-    module DateFormatEngine
+  module Localization # :nodoc:
+    module DateFormatEngine # :nodoc:
       class Base
         
         def format(time = Time.now, type = :long)
