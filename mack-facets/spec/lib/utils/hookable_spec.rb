@@ -40,13 +40,15 @@ describe Mack::Utils::Hookable do
   
   class Norm
     include Mack::Utils::Hookable
+    attr_reader :dirty
     def make_dirty
       x = yield
-      @dirty << x if @dirty
+      @dirty = true
     end
     
-    before(:make_dirty) do
-      @dirty = "yes"
+    after(:make_dirty) do
+      puts "@dirty: #{@dirty.inspect}"
+      @dirty = false
     end
   end
   
@@ -79,13 +81,13 @@ describe Mack::Utils::Hookable do
     end
     
     it "should work with a method that takes a block" do
-      pending
+      # pending
       norm = Norm.new
       norm.make_dirty do
         "sir"
       end
       puts norm.instance_variables.inspect
-      norm.instance_variable_get("@dirty").should == "yessir"
+      norm.dirty.should == false
     end
     
   end
