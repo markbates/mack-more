@@ -36,7 +36,18 @@ describe Mack::Utils::Hookable do
     def self.wet?
       @is_wet
     end
+  end
+  
+  class Norm
+    include Mack::Utils::Hookable
+    def make_dirty
+      x = yield
+      @dirty << x if @dirty
+    end
     
+    before(:make_dirty) do
+      @dirty = "yes"
+    end
   end
   
   Sea::Fish.before(:bait) do
@@ -65,6 +76,16 @@ describe Mack::Utils::Hookable do
       Sea::Fish.new.bait
       FishCatcher.instance.messages[0].should == "before bait..."
       FishCatcher.instance.messages[1].should == "baiting..."
+    end
+    
+    it "should work with a method that takes a block" do
+      pending
+      norm = Norm.new
+      norm.make_dirty do
+        "sir"
+      end
+      puts norm.instance_variables.inspect
+      norm.instance_variable_get("@dirty").should == "yessir"
     end
     
   end
