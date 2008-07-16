@@ -28,18 +28,18 @@ module Mack
         base_lang = l10n_config.base_language
         base_lang = lang.to_s if !lang.nil?
         
-        raise UnsupportedLanguage.new(base_lang) if !l10n_config.supported_languages.include?(base_lang)
+        raise Mack::Localization::Errors::UnsupportedLanguage.new(base_lang) if !l10n_config.supported_languages.include?(base_lang)
         
         cache_key = "#{view_sym}_#{base_lang}_content"
         path      = File.join(l10n_config.base_directory, "views", "#{view_name}", "content_#{base_lang}.yml")
         content_hash = load_content_hash(cache_key, base_lang, path)
       
-        raise UnknownStringKey.new(key) if content_hash[key] == nil
+        raise Mack::Localization::Errors::UnknownStringKey.new(key) if content_hash[key] == nil
         return u(content_hash[key])
       end
       
       def getimg(view_sym, key, lang)
-        raise UnsupportedFeature.new("getimg")
+        raise Mack::Localization::Errors::UnsupportedFeature.new("getimg")
       end
       
       # REVIEW: inflection... should localized inflection use the same inflection engine as the english counterpart?
@@ -57,18 +57,18 @@ module Mack
         base_lang = l10n_config.base_language
         base_lang = lang if !lang.nil?
         
-        raise UnsupportedLanguage.new(base_lang) if !l10n_config.supported_languages.include?(base_lang)
+        raise Mack::Localization::Errors::UnsupportedLanguage.new(base_lang) if !l10n_config.supported_languages.include?(base_lang)
         
         cache_key = "rules_content_#{base_lang}"
         path      = File.join(l10n_config.base_directory, "rules", "inflection_#{base_lang}.yml")
         content_hash = load_content_hash(cache_key, base_lang, path)
         
         hash = content_hash[type]
-        raise InvalidConfiguration.new if hash.nil?
+        raise Mack::Localization::Errors::InvalidConfiguration.new if hash.nil?
         
         arr = hash[key]
-        raise InvalidConfiguration.new if arr.nil?
-        raise InvalidConfiguration.new if arr.size != 2
+        raise Mack::Localization::Errors::InvalidConfiguration.new if arr.nil?
+        raise Mack::Localization::Errors::InvalidConfiguration.new if arr.size != 2
         
         if num <= 1
           val = sprintf(arr[0], num)
@@ -86,8 +86,8 @@ module Mack
         content_hash = l10n_cache.get("#{cache_key}")
         
         if content_hash.nil?
-          raise InvalidConfiguration.new if base_lang.nil?
-          raise LanguageFileNotFound.new if !File.exists?(path)
+          raise Mack::Localization::Errors::InvalidConfiguration.new if base_lang.nil?
+          raise Mack::Localization::Errors::LanguageFileNotFound.new if !File.exists?(path)
           
           data = File.read(path)
           content_hash = YAML.load(data)
