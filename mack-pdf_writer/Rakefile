@@ -17,6 +17,7 @@ require File.join(crt, "rake_task_requires")
   s.require_paths << 'lib'
   
   s.has_rdoc = true
+  s.rubyforge_project = "magrathea"
 end
 
 # Require all the necessary rake tasks:
