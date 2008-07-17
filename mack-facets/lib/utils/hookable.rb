@@ -26,9 +26,6 @@ module Mack # :nodoc:
               (@hooks[state.to_sym][meth.to_sym] ||= [])
             end
           end
-          def hookable_class
-            ::#{klass}::Hooks.instance
-          end
         }
         klass.extend self
       end
@@ -55,6 +52,14 @@ module Mack # :nodoc:
       def after_class_method(name, &block)
         hookable_class.hooks_for(:after_class_method, name.to_sym) << block
         build_hook_class_method(name)
+      end
+      
+      def hookable_class
+        if self.instance_of?(Module) || self.instance_of?(Class)
+          "#{self}::Hooks".constantize.instance
+        else
+          "#{self.class}::Hooks".constantize.instance
+        end
       end
       
       private
