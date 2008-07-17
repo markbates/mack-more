@@ -1,5 +1,3 @@
-require 'ruby-debug'
-
 class ItemsController 
   include Mack::Controller
   

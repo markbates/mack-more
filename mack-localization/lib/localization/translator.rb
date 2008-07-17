@@ -87,7 +87,7 @@ module Mack
         
         if content_hash.nil?
           raise Mack::Localization::Errors::InvalidConfiguration.new if base_lang.nil?
-          raise Mack::Localization::Errors::LanguageFileNotFound.new if !File.exists?(path)
+          raise Mack::Localization::Errors::LanguageFileNotFound.new(path) if !File.exists?(path)
           
           data = File.read(path)
           content_hash = YAML.load(data)

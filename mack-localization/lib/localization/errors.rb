@@ -74,6 +74,9 @@ module Mack
       # Raise this error if a language file is missing
       #
       class LanguageFileNotFound < StandardError
+        def initialize(lang)
+          super("Language file '#{lang}' not found")
+        end
       end
     end
   end

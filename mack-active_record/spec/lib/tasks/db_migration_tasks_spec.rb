@@ -1,5 +1,4 @@
 require 'pathname'
-require 'ruby-debug'
 require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
 require Pathname(__FILE__).dirname.expand_path + 'create_and_drop_task_helper'
 
