@@ -41,13 +41,17 @@ describe Mack::Utils::Hookable do
   class Norm
     include Mack::Utils::Hookable
     attr_reader :dirty
+
+    def name
+      @name = "norm"
+    end
+
     def make_dirty
       x = yield
       @dirty = true
     end
     
     after(:make_dirty) do
-      puts "@dirty: #{@dirty.inspect}"
       @dirty = false
     end
   end
@@ -80,16 +84,6 @@ describe Mack::Utils::Hookable do
       FishCatcher.instance.messages[1].should == "baiting..."
     end
     
-    it "should work with a method that takes a block" do
-      # pending
-      norm = Norm.new
-      norm.make_dirty do
-        "sir"
-      end
-      puts norm.instance_variables.inspect
-      norm.dirty.should == false
-    end
-    
   end
   
   describe "after" do
@@ -98,6 +92,23 @@ describe Mack::Utils::Hookable do
       Sea::Fish.new.bait
       FishCatcher.instance.messages[1].should == "baiting..."
       FishCatcher.instance.messages[2].should == "after bait..."
+    end
+    
+    it "should work with a method that takes a block" do
+      norm = Norm.new
+      norm.make_dirty do
+        "sir"
+      end
+      norm.dirty.should == false
+    end
+    
+    it "should have access to the 'binding' of the original class" do
+      norm = Norm.new
+      norm.name.should == "norm"
+      Norm.after(:name) do
+        @name << " macdonald"
+      end
+      norm.name.should == "norm macdonald"
     end
     
   end
@@ -150,7 +161,7 @@ if $0 == __FILE__
   
   puts Benchmark.realtime {
     y = Yummy.new
-    1.times do
+    100000.times do
       y.save
     end
   }
@@ -160,7 +171,7 @@ if $0 == __FILE__
   
   puts Benchmark.realtime {
     y = Yummy.new
-    1.times do
+    100000.times do
       y.save
     end
   }
