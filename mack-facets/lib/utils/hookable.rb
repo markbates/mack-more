@@ -25,9 +25,11 @@ module Mack # :nodoc:
             def hooks_for(state, meth)
               (@hooks[state.to_sym][meth.to_sym] ||= [])
             end
-          end
-          def hookable_class
-            ::#{klass}::Hooks.instance
+            def next_hook_for(state, meth)
+              ms = hooks_for(state, meth)
+              return "hook_\#{state}_\#{meth}_0".methodize if ms.empty?
+              return ms.last.succ.methodize
+            end
           end
         }
         klass.extend self
@@ -35,62 +37,76 @@ module Mack # :nodoc:
 
       # Used to prefix an instance method with the assigned block
       def before(name, &block)
-        hookable_class.hooks_for(:before, name.to_sym) << block
-        build_hook_instance_method(name)
+        build_hook_instance_method(:before, name, &block)
       end
       
       # Used to suffix an instance method with the assigned block
       def after(name, &block)
-        hookable_class.hooks_for(:after, name.to_sym) << block
-        build_hook_instance_method(name)
+        build_hook_instance_method(:after, name, &block)
       end
       
       # Used to prefix a class method with the assigned block
       def before_class_method(name, &block)
-        hookable_class.hooks_for(:before_class_method, name.to_sym) << block
-        build_hook_class_method(name)
+        build_hook_class_method(:before_class_method, name, &block)
       end
       
       # Used to suffix a class method with the assigned block
       def after_class_method(name, &block)
-        hookable_class.hooks_for(:after_class_method, name.to_sym) << block
-        build_hook_class_method(name)
+        build_hook_class_method(:after_class_method, name, &block)
+      end
+      
+      def hookable_class
+        if self.instance_of?(Module) || self.instance_of?(Class)
+          "#{self}::Hooks".constantize.instance
+        else
+          "#{self.class}::Hooks".constantize.instance
+        end
       end
       
       private
-      def build_hook_instance_method(name)
-        unless self.public_instance_methods.include?("hookable_#{name}")
+      def build_hook_instance_method(state, name, &block)
+        m_name = hookable_class.next_hook_for(state, name)
+        define_method(m_name, &block)
+        hookable_class.hooks_for(state, name) << m_name
+        unless self.public_instance_methods.include?("hooked_#{name}")
           class_eval do
-            alias_method "hookable_#{name}", name
+            alias_method "hooked_#{name}", name
             eval %{
               def #{name}(*args, &block)
-                hookable_class.hooks_for(:before, :#{name}).each do |p|
-                  p.call
+                hookable_class.hooks_for(:before, :#{name}).each do |ms|
+                  self.send(ms, *args)
                 end
-                hookable_#{name}(*args, &block)
-                hookable_class.hooks_for(:after, :#{name}).each do |p|
-                  p.call
+                x = hooked_#{name}(*args, &block)
+                hookable_class.hooks_for(:after, :#{name}).each do |ms|
+                  self.send(ms, *args)
                 end
+                x
               end
             }
           end
         end
       end
       
-      def build_hook_class_method(name)
-        unless self.public_methods.include?("hookable_#{name}")
+      def build_hook_class_method(state, name, &block)
+        m_name = hookable_class.next_hook_for(state, name)
+        self.extend(Module.new do
+          define_method(m_name, &block)
+        end)
+        hookable_class.hooks_for(state, name) << m_name
+        unless self.public_methods.include?("hooked_#{name}")
           class_eval do
             eval %{
               class << self
-                alias_method :hookable_#{name}, :#{name}
+                alias_method :hooked_#{name}, :#{name}
                 def #{name}(*args, &block)
-                  hookable_class.hooks_for(:before_class_method, :#{name}).each do |p|
-                    p.call
+                  hookable_class.hooks_for(:before_class_method, :#{name}).each do |ms|
+                    self.send(ms, *args)
                   end
-                  self.hookable_#{name}(*args, &block)
-                  hookable_class.hooks_for(:after_class_method, :#{name}).each do |p|
-                    p.call
+                  x = hooked_#{name}(*args, &block)
+                  hookable_class.hooks_for(:after_class_method, :#{name}).each do |ms|
+                    self.send(ms, *args)
                   end
+                  x
                 end
               end
             }
