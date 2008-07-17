@@ -1,7 +1,7 @@
 require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
 
-describe Mack::Utils::Hookable do
+describe Extlib::Hook do
   
   class FishCatcher
     include Singleton
@@ -19,9 +19,9 @@ describe Mack::Utils::Hookable do
   end
   
   module Sea
-    include Mack::Utils::Hookable
+    include Extlib::Hook
     class Fish
-      include Mack::Utils::Hookable
+      include Extlib::Hook
 
       def bait
         FishCatcher.instance.messages << "baiting..."
@@ -39,7 +39,7 @@ describe Mack::Utils::Hookable do
   end
   
   class Norm
-    include Mack::Utils::Hookable
+    include Extlib::Hook
     attr_reader :dirty
 
     def name
@@ -154,7 +154,7 @@ end
 # if $0 == __FILE__
 #   require 'benchmark'
 #   class Yummy
-#     include Mack::Utils::Hookable
+#     include Extlib::Hook
 #     def save
 #     end
 #   end
