@@ -151,29 +151,29 @@ describe Mack::Utils::Hookable do
 end
 
 
-if $0 == __FILE__
-  require 'benchmark'
-  class Yummy
-    include Mack::Utils::Hookable
-    def save
-    end
-  end
-  
-  puts Benchmark.realtime {
-    y = Yummy.new
-    100000.times do
-      y.save
-    end
-  }
-  
-  Yummy.after(:save) do
-  end
-  
-  puts Benchmark.realtime {
-    y = Yummy.new
-    100000.times do
-      y.save
-    end
-  }
-  
-end
+# if $0 == __FILE__
+#   require 'benchmark'
+#   class Yummy
+#     include Mack::Utils::Hookable
+#     def save
+#     end
+#   end
+#   
+#   puts Benchmark.realtime {
+#     y = Yummy.new
+#     100000.times do
+#       y.save
+#     end
+#   }
+#   
+#   Yummy.after(:save) do
+#   end
+#   
+#   puts Benchmark.realtime {
+#     y = Yummy.new
+#     100000.times do
+#       y.save
+#     end
+#   }
+#   
+# end

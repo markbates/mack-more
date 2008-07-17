@@ -55,6 +55,7 @@ module Mack # :nodoc:
         build_hook_class_method(:after_class_method, name, &block)
       end
       
+      private
       def hookable_class
         if self.instance_of?(Module) || self.instance_of?(Class)
           "#{self}::Hooks".constantize.instance
@@ -63,7 +64,7 @@ module Mack # :nodoc:
         end
       end
       
-      private
+      
       def build_hook_instance_method(state, name, &block)
         m_name = hookable_class.next_hook_for(state, name)
         define_method(m_name, &block)
