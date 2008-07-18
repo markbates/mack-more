@@ -9,39 +9,60 @@ describe "Page Caching" do
   describe "use_page_caching is turned on" do
   
     it "should serve a cached page" do
-      temp_app_config(:use_page_caching => true) do
-        Cachetastic::Caches::PageCache.set("/", Mack::Caching::PageCaching::Page.new("hello"))
-        get "/"
-        response.body.should == "hello"
-      end
+      Cachetastic::Caches::PageCache.set("/", Mack::Caching::PageCaching::Page.new("hello"))
+      get "/"
+      response.body.should == "hello"
+      response.content_type.should == "text/html"
     end
     
     it "should cache a page designated to be cached" do
-      temp_app_config(:use_page_caching => true) do
-        get "/"
-        response.body.should match(/Welcome to your Mack application!/)
-        Cachetastic::Caches::PageCache.get("/").to_s.should == response.body
-      end
+      get "/default/hello_world?name=mark"
+      response.body.should match(/<p>mark<\/p>/)
+      page = Cachetastic::Caches::PageCache.get("/default/hello_world?name=mark")
+      page.to_s.should == response.body
+      page.content_type.should == "text/html"
     end
     
-    it "should store the content type correctly"
+    it "should store and deliver the content type correctly" do
+      get "/default/hello_world.xml?name=mark"
+      response.body.should match(/<name>mark<\/name>/)
+      response.content_type.should == "application/xml; text/xml"
+      old_body = response.body
+      get "/default/hello_world.xml?name=mark"
+      response.body.should == old_body
+      response.content_type.should == "application/xml; text/xml"
+    end
     
-    it "should deliver the content type correctly"
     
-    it "should store the status correctly"
+    it "should never store non-successful pages" do
+      get "/default/always_500"
+      response.status.should == 500
+      Cachetastic::Caches::PageCache.get("/default/always_500").should be_nil
+    end
     
-    it "should deliver the status correctly"
     
   end
   
   describe "use_page_caching is turned off" do
   
     it "should serve the uncached page" do
-      get "/"
-      response.body.should match(/Welcome to your Mack application!/)
+      temp_app_config("use_page_caching" => false) do
+        get "/default/hello_world?name=mark"
+        response.body.should match(/<p>mark<\/p>/)
+        old_body = response.body
+        get "/default/hello_world?name=mark"
+        response.body.should match(/<p>mark<\/p>/)
+        response.body.should_not == old_body
+      end
     end
     
-    it "should not store the cached page"
+    it "should not store the cached page" do
+      temp_app_config("use_page_caching" => false) do
+        get "/default/hello_world?name=mark"
+        response.body.should match(/<p>mark<\/p>/)
+        Cachetastic::Caches::PageCache.get("/default/hello_world?name=mark").should be_nil
+      end
+    end
     
   end
   

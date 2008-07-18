@@ -12,12 +12,13 @@ module Mack
           page = Cachetastic::Caches::PageCache.get(request.fullpath)
           if page
             response = Mack::Response.new
+            response["Content-Type"] = page.content_type
             response.write(page.body)
             return response.finish
           end
           ret = @app.call(env)
           res = ret[2]
-          Cachetastic::Caches::PageCache.set(request.fullpath, Mack::Caching::PageCaching::Page.new(res.body))
+          Cachetastic::Caches::PageCache.set(request.fullpath, Mack::Caching::PageCaching::Page.new(res.body, res["Content-Type"])) if res.successful?
           return ret
         end
         return @app.call(env)
@@ -27,9 +28,8 @@ module Mack
         
         attr_reader :body
         attr_reader :content_type
-        attr_reader :status
         
-        def initialize(body, content_type = "text/html", status = 200)
+        def initialize(body, content_type = "text/html")
           if body.is_a?(Array)
             raise Mack::Caching::PageCaching::UncacheableError.new("Multipart pages can not be cached!") if body.size > 1
             @body = body.first
@@ -37,7 +37,6 @@ module Mack
             @body = body
           end
           @content_type = content_type
-          @status = status
         end
         
         def to_s
