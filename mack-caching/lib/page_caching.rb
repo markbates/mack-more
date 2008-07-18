@@ -18,7 +18,9 @@ module Mack
           end
           ret = @app.call(env)
           res = ret[2]
-          Cachetastic::Caches::PageCache.set(request.fullpath, Mack::Caching::PageCaching::Page.new(res.body, res["Content-Type"])) if res.successful?
+          if res["cache_this_page"] && res.successful?
+            Cachetastic::Caches::PageCache.set(request.fullpath, Mack::Caching::PageCaching::Page.new(res.body, res["Content-Type"]))
+          end
           return ret
         end
         return @app.call(env)
@@ -47,6 +49,22 @@ module Mack
       
     end # PageCaching
   end # Caching
+  
+  module Controller
+    
+    class << self
+      def cache_pages(options = {})
+        before_fitler :set_page_cache_header, options
+      end
+    end
+    
+    private
+    def set_page_cache_header
+      response["cache_this_page"] = "true"
+    end
+    
+  end
+  
 end # Mack
 
 Mack::Utils::Server::Registry.instance.add(Mack::Caching::PageCaching)

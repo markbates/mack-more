@@ -21,6 +21,13 @@ describe "Page Caching" do
       page = Cachetastic::Caches::PageCache.get("/default/hello_world?name=mark")
       page.to_s.should == response.body
       page.content_type.should == "text/html"
+      get "/default/never_cached"
+      response.should be_successful
+      Cachetastic::Caches::PageCache.get("/default/never_cached").should be_nil
+      old_body = response.body
+      get "/default/never_cached"
+      response.should be_successful
+      response.body.should_not == old_body
     end
     
     it "should store and deliver the content type correctly" do

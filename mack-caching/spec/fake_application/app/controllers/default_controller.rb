@@ -1,6 +1,8 @@
 class DefaultController
   include Mack::Controller
   
+  cache_pages
+  
   # /
   def index
   end
@@ -16,6 +18,10 @@ class DefaultController
   
   def always_500
     render(:text, "i should be 500: #{rand}", :status => 500)
+  end
+  
+  def never_cached
+    render(:text, "#{rand}")
   end
 
 end
