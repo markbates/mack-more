@@ -9,4 +9,7 @@ require_gems do |gem|
   # gem.add :redgreen, :version => "1.2.2", :libs => :redgreen
   # gem.add :termios
   # gem.add :rubyzip, :source => "http://gems.rubyforge.org"
+  # gem.add "mack-caching", :libs => "mack-caching"
 end
+
+require 'mack-caching'

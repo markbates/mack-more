@@ -38,3 +38,8 @@ module Mack
     end
   end
 end
+
+# Mack::Controller::Registry.instance.controllers.each do |cont|
+#   puts "cont: #{cont}"
+#   cont.send(:include, Mack::Controller)
+# end

@@ -47,14 +47,20 @@ module Mack
         
       end
       
+      class UncacheableError < StandardError
+        def initialize(message)
+          super(message)
+        end
+      end # UncacheableError
+      
     end # PageCaching
   end # Caching
   
   module Controller
     
-    class << self
+    module ClassMethods
       def cache_pages(options = {})
-        before_fitler :set_page_cache_header, options
+        before_filter :set_page_cache_header, options
       end
     end
     

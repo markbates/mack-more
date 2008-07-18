@@ -1,7 +1,7 @@
 class DefaultController
   include Mack::Controller
-  
-  cache_pages
+
+  cache_pages :except => :never_cached
   
   # /
   def index
