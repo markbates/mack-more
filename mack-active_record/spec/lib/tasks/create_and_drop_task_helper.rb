@@ -67,6 +67,7 @@ module Spec
           rescue Exception => ex
             ret_val = false
           end
+          clear_connection
           ret_val
         end
         
@@ -85,6 +86,7 @@ module Spec
               ret_val = true
             end
           end
+          clear_connection
           ret_val
         end
       end
