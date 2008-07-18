@@ -18,7 +18,6 @@ puts "in mack-10n rakefile"
   s.require_paths << 'lib'
 
   s.add_dependency("unicodechars", "0.0.2")
-  s.add_dependency("utf8proc", "1.0.3")
   s.extra_rdoc_files = ["README"]
   s.has_rdoc = true
   s.required_ruby_version = ">= 1.8.6"
