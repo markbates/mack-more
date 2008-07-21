@@ -1,3 +1,5 @@
+require File.join(File.dirname(__FILE__), "controller_extensions")
+require File.join(File.dirname(__FILE__), "..", "errors")
 module Mack
   module Caching
     class PageCaching
@@ -5,7 +7,7 @@ module Mack
       def initialize(app)
         @app = app
       end
-
+      
       def call(env)
         if app_config.use_page_caching
           request = Mack::Request.new(env)
@@ -17,9 +19,11 @@ module Mack
             return response.finish
           end
           ret = @app.call(env)
-          res = ret[2]
-          if res["cache_this_page"] && res.successful?
-            Cachetastic::Caches::PageCache.set(request.fullpath, Mack::Caching::PageCaching::Page.new(res.body, res["Content-Type"]))
+          unless ret[2].is_a?(Rack::File)
+            res = ret[2]
+            if res["cache_this_page"] && res.successful?
+              Cachetastic::Caches::PageCache.set(request.fullpath, Mack::Caching::PageCaching::Page.new(res.body, res["Content-Type"]))
+            end
           end
           return ret
         end
@@ -33,7 +37,7 @@ module Mack
         
         def initialize(body, content_type = "text/html")
           if body.is_a?(Array)
-            raise Mack::Caching::PageCaching::UncacheableError.new("Multipart pages can not be cached!") if body.size > 1
+            raise Mack::Errors::UncacheableError.new("Multipart pages can not be cached!") if body.size > 1
             @body = body.first
           else
             @body = body
@@ -47,30 +51,9 @@ module Mack
         
       end
       
-      class UncacheableError < StandardError
-        def initialize(message)
-          super(message)
-        end
-      end # UncacheableError
-      
     end # PageCaching
   end # Caching
   
-  module Controller
-    
-    module ClassMethods
-      def cache_pages(options = {})
-        before_filter :set_page_cache_header, options
-      end
-    end
-    
-    private
-    def set_page_cache_header
-      response["cache_this_page"] = "true"
-    end
-    
-  end
-  
 end # Mack
 
-Mack::Utils::Server::Registry.instance.add(Mack::Caching::PageCaching)
+Mack::Utils::RunnersRegistry.add(Mack::Caching::PageCaching, 0)
