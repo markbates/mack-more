@@ -1,7 +1,6 @@
 module Mack
   module Javascript
-    module Generator    
-      
+    class ScriptGenerator    
       def initialize
         @lines = ''
       end
@@ -34,7 +33,7 @@ module Mack
       end
 
       def delay(seconds = 1, &block)
-        self << "setTimeout(function() {\n\n" + yield(Mack::Javascript::Generator.new) + "}, #{(seconds * 1000).to_i})"
+        self << "setTimeout(function() {\n\n" + yield(Mack::Javascript::ScriptGenerator.new) + "}, #{(seconds * 1000).to_i})"
       end
 
       class << self

@@ -1,4 +1,3 @@
 require_gems do |gem|
-  gem.add :redgreen, :version => "1.2.2", :libs => :redgreen
-  gem.add :termios
+  gem.add "json_pure", :version => "1.1.2", :libs => "json"
 end
