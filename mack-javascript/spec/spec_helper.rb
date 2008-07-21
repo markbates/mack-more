@@ -7,10 +7,10 @@ require 'fileutils'
 ENV["MACK_ENV"] = "test"
 ENV["MACK_ROOT"] = File.join(File.dirname(__FILE__), "fake_application")
 
-if $genosaurus_output_directory.nil?
-  $genosaurus_output_directory = ENV["MACK_ROOT"]
-  puts "$genosaurus_output_directory: #{$genosaurus_output_directory}"
-end
+# if $genosaurus_output_directory.nil?
+#   $genosaurus_output_directory = ENV["MACK_ROOT"]
+#   puts "$genosaurus_output_directory: #{$genosaurus_output_directory}"
+# end
 
 $: << File.expand_path(File.dirname(__FILE__) + "/../lib")
 
