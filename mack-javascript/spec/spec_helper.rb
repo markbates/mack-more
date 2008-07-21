@@ -21,6 +21,6 @@ require 'mack'
 # to be a problem when running script/server or when running an individual test.
 require(File.join(File.dirname(__FILE__), "fake_application", "config", "routes.rb"))
 
-require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-markaby'
+require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-javascript'
 
 #-------------- HELPER MODULES --------------------------#

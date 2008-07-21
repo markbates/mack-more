@@ -2,12 +2,11 @@ crt = File.join(File.dirname(__FILE__), "..", "common_rake_tasks")
 require File.join(crt, "rake_task_requires")
 
 @gem_spec = Gem::Specification.new do |s|
-  s.name = 'mack-markaby'
+  s.name = 'mack-javascript'
   s.version = GEM_VERSION
   s.summary = %{Rendering Engine}
-  s.description = %{Markaby Rendering Engine for Mack Framework}
-  s.author = "Darsono Sutedja"
-  s.email = "darsono.sutedja@gmail.com"
+  s.description = %{RJS support for the Mack Framework}
+  s.author = "Gerardo Pis-Lopez"
   s.homepage = "http://www.mackframework.com"
 
   s.test_files = FileList['test/**/*']
