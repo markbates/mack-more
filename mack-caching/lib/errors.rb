@@ -1,9 +1,9 @@
 module Mack
-  module Errors
+  module Errors # :nodoc:
     
     # Thrown when a page is uncacheable
     class UncacheableError < StandardError
-      def initialize(message)
+      def initialize(message) # :nodoc:
         super(message)
       end
     end # UncacheableError

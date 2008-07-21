@@ -1,14 +1,14 @@
 require File.join(File.dirname(__FILE__), "controller_extensions")
 require File.join(File.dirname(__FILE__), "..", "errors")
-module Mack
-  module Caching
-    class PageCaching
+module Mack # :nodoc:
+  module Caching # :nodoc:
+    class PageCaching # :nodoc:
       
-      def initialize(app)
+      def initialize(app) # :nodoc:
         @app = app
       end
       
-      def call(env)
+      def call(env) # :nodoc:
         if app_config.use_page_caching
           request = Mack::Request.new(env)
           page = Cachetastic::Caches::PageCache.get(request.fullpath)
@@ -30,7 +30,7 @@ module Mack
         return @app.call(env)
       end
 
-      class Page
+      class Page # :nodoc:
         
         attr_reader :body
         attr_reader :content_type
@@ -49,11 +49,11 @@ module Mack
           @body
         end
         
-      end
+      end # Page
       
     end # PageCaching
+    
   end # Caching
-  
 end # Mack
 
 Mack::Utils::RunnersRegistry.add(Mack::Caching::PageCaching, 0)
