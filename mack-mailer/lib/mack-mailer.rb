@@ -1,7 +1,10 @@
 require File.join(File.dirname(__FILE__), "paths")
 require File.join(File.dirname(__FILE__), "loader")
-Dir.glob(File.join(File.dirname(__FILE__), "delivery_handlers", "**/*.rb")).each do |h|
-  require h
+require File.join(File.dirname(__FILE__), "errors")
+[:delivery_handlers, :adapters].each do |dir|
+  Dir.glob(File.join(File.dirname(__FILE__), dir.to_s, "**/*.rb")).each do |h|
+    require h
+  end
 end
 
 module Mack # :nodoc:
@@ -40,7 +43,7 @@ module Mack # :nodoc:
       [self.to, self.cc, self.bcc].flatten
     end
     
-    def encode
+    def deliverable
       
     end
     

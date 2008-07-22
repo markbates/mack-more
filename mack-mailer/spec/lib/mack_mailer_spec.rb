@@ -81,7 +81,7 @@ describe Mack::Mailer do
     
   end
   
-  describe "encode" do
+  describe "deliverable" do
     
     it "should convert the message to TMail format and return a 'transport' ready object."
     
