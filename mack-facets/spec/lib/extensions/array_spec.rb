@@ -31,7 +31,7 @@ describe Array do
   describe "randomize" do
     
     before do
-      @r_array = [1,2,3,4,5]
+      @r_array = [1,2,3,4,5,6,7,8,9,10]
     end
     
     it "should non-destructively randomize an array" do
@@ -42,7 +42,7 @@ describe Array do
       
       it "should destructively randomize an array" do
         @r_array.randomize!
-        @r_array.should_not == [1,2,3,4,5]
+        @r_array.should_not == [1,2,3,4,5,6,7,8,9,10]
       end
       
     end
