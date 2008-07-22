@@ -1,6 +1,4 @@
 Mack::Routes.build do |r|
-
-  r.resource "admin/users"
   
   r.with_options(:controller => "vtt/view_template") do |map|
     map.bleeding_gums_murphy "/vtt/bleeding_gums_murphy", :action => :bleeding_gums_murphy, :method => :post, :format => :js
