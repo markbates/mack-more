@@ -9,6 +9,7 @@ require 'facets/hash/symbolize_keys'
 require 'facets/hash/stringify_keys'
 require 'facets/module'
 require 'facets/infinity'
+require 'facets/times'
 require 'english/inflect'
 require 'english/numerals'
 [:inflector, :inflections, :options_merger, :hookable, :registry].each do |k|

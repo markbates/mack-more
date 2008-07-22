@@ -1,3 +1,4 @@
+require 'tmail'
 require File.join(File.dirname(__FILE__), "paths")
 require File.join(File.dirname(__FILE__), "loader")
 require File.join(File.dirname(__FILE__), "errors")
@@ -18,6 +19,21 @@ module Mack # :nodoc:
     attr_accessor :subject
     attr_accessor :text_body
     attr_accessor :html_body
+    attr_accessor :date_sent
+    attr_accessor :mime_version
+    attr_accessor :content_type
+    
+    def mime_version
+      (@mime_version ||= "1.0")
+    end
+    
+    def content_type
+      (@content_type ||= "text/plain")
+    end
+    
+    def date_sent
+      (@date_sent ||= Time.now)
+    end
     
     def reply_to
       (@reply_to || self.from)

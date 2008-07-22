@@ -6,6 +6,16 @@ describe Mack::Mailer do
     @we = WelcomeEmail.new
   end
   
+  describe "date_sent" do
+    
+    it "should return Time.now if no date_sent is specified" do
+      @we.date_sent.to_s.should == Time.now.to_s
+      @we.date_sent = 1.days.ago
+      @we.date_sent.to_s.should == 1.days.ago.to_s
+    end
+    
+  end
+  
   describe "destinations" do
     
     it "should concat all recipients into an array" do
