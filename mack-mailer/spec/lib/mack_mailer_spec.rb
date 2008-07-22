@@ -63,17 +63,13 @@ describe Mack::Mailer do
   
   describe "text_body" do
     
-    it "should set the text body of the email"
-    
     it "if no text_body it should load a *.text.erb file, if available"
     
   end
   
   describe "html_body" do
     
-    it "should set the html body of the email"
-    
-    it "if no html_body it should load a *.text.erb file, if available"
+    it "if no html_body it should load a *.html.erb file, if available"
     
   end
   
