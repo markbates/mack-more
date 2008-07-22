@@ -6,9 +6,6 @@ module Mack
       module Smtp
         
         def self.deliver(mail)
-          pp mail.deliverable
-          pp mail.reply_to
-          pp mail.destinations
           smtp_settings = app_config.mailer.smtp_settings
           smtp_settings.symbolize_keys!
           Net::SMTP.start(smtp_settings[:address], smtp_settings[:port], 

@@ -2,6 +2,6 @@ mailer::smtp_settings:
   address: localhost
   port: 25
   domain: "localhost.localdomain"
-  # user_name: nil
-  # password: nil
-  # authentication: nil
+  # user_name:
+  # password:
+  # authentication:
