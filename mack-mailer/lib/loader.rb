@@ -18,3 +18,7 @@ end
 if app_config.mailer.nil? || app_config.mailer.deliver_with.nil?
   app_config.load_hash({"mailer::deliver_with" => (Mack.env == "test" ? "test" : "smtp")}, String.randomize)
 end
+
+if app_config.mailer.nil? || app_config.mailer.adapter.nil?
+  app_config.load_hash({"mailer::adapter" => "tmail"}, String.randomize)
+end

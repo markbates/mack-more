@@ -67,8 +67,8 @@ module Mack # :nodoc:
       [self.to, self.cc, self.bcc].flatten.compact
     end
     
-    def deliverable
-      adap = Mack::Mailer::Adapters::Tmail.new(self)
+    def deliverable(adapter = app_config.mailer.adapter)
+      adap = "Mack::Mailer::Adapters::#{adapter.camelcase}".constantize.new(self)
       adap.convert
       adap.transformed
     end
