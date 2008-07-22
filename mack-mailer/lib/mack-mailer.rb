@@ -13,6 +13,10 @@ module Mack # :nodoc:
     attr_accessor :text_body
     attr_accessor :html_body
     
+    def reply_to
+      (@reply_to || self.from)
+    end
+    
     def attach(file)
       raise NoMethodError.new(:attach)
     end

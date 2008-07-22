@@ -2,9 +2,19 @@ require File.join(File.dirname(__FILE__), "..", "spec_helper")
 
 describe Mack::Mailer do
   
+  before(:each) do
+    @we = WelcomeEmail.new
+  end
+  
   describe "reply_to" do
     
-    it "should use 'from' if no reply_to is specified"
+    it "should use 'from' if no reply_to is specified" do
+      @we.from = "Mark Bates"
+      @we.reply_to.should == @we.from
+      @we.reply_to = "mark@mackframework.com"
+      @we.reply_to.should_not == @we.from
+      @we.reply_to.should == "mark@mackframework.com"
+    end
     
   end
   
