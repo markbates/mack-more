@@ -1,6 +1,7 @@
 module Mack
   module Mailer
-    module DeliveryHandlers
+    module DeliveryHandlers # :nodoc:
+      # Delivers Mack::Mailer objects using sendmail.
       module SendMail
         
         def self.deliver(mail)
@@ -13,7 +14,7 @@ module Mack
           end
         end
         
-      end # Smtp
+      end # SendMail
     end # DeliveryHandlers
   end # Mailer
 end # Mack

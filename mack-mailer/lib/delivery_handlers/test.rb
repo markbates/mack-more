@@ -1,6 +1,7 @@
 module Mack
   module Mailer
-    module DeliveryHandlers
+    module DeliveryHandlers # :nodoc:
+      # Delivers Mack::Mailer objects to an Array.
       module Test
         
         def self.deliver(mail)

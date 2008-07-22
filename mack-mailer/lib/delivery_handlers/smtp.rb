@@ -1,7 +1,8 @@
 require 'net/smtp'
 module Mack
   module Mailer
-    module DeliveryHandlers
+    module DeliveryHandlers # :nodoc:
+      # Delivers Mack::Mailer objects using Net::SMTP.
       module Smtp
         
         def self.deliver(mail)
