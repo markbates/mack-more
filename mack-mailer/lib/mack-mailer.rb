@@ -21,14 +21,22 @@ module Mack # :nodoc:
     attr_accessor :html_body
     attr_accessor :date_sent
     attr_accessor :mime_version
-    attr_accessor :content_type
     
     def mime_version
       (@mime_version ||= "1.0")
     end
     
     def content_type
-      (@content_type ||= "text/plain")
+      return @content_type unless @content_type.blank?
+      if has_attachments?
+        return "multipart/mixed"
+      elsif !text_body.blank? && !html_body.blank?
+        return "multipart/alternative"
+      elsif html_body
+        return "text/html"
+      else
+        return "text/plain"
+      end
     end
     
     def date_sent
@@ -44,7 +52,7 @@ module Mack # :nodoc:
     end
     
     def has_attachments?
-      raise NoMethodError.new(:has_attachments?)
+      false
     end
     
     def attachments
@@ -56,11 +64,13 @@ module Mack # :nodoc:
     end
     
     def destinations
-      [self.to, self.cc, self.bcc].flatten
+      [self.to, self.cc, self.bcc].flatten.compact
     end
     
     def deliverable
-      
+      adap = Mack::Mailer::Adapters::Tmail.new(self)
+      adap.convert
+      adap.transformed
     end
     
   end

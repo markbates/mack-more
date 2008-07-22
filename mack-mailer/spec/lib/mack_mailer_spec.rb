@@ -16,6 +16,28 @@ describe Mack::Mailer do
     
   end
   
+  describe "content_type" do
+    
+    it "should return text/plain if there's only a text body" do
+      @we.text_body = "hello"
+      @we.content_type.should == "text/plain"
+    end
+    
+    it "should return text/html if there's only a html body" do
+      @we.html_body = "hello"
+      @we.content_type.should == "text/html"
+    end
+    
+    it "should return multipart/alternative if there's both a text and html body" do
+      @we.text_body = "hello"
+      @we.html_body = "hello"
+      @we.content_type.should == "multipart/alternative"
+    end
+    
+    it "should return multipart/mixed if there's an attachment"
+    
+  end
+  
   describe "destinations" do
     
     it "should concat all recipients into an array" do

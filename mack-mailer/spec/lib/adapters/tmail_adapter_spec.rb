@@ -6,8 +6,9 @@ describe Mack::Mailer::Adapters::Tmail do
   
     it "should convert a Mack::Mailer object to a TMail::Mail object" do
       we = WelcomeEmail.new
-      we.to = "mark@mackframework.com"
-      we.from = "Mark Bates <mark@mackframework.com>"
+      we.to = "test@mackframework.com"
+      we.from = "mark@mackframework.com"
+      we.reply_to = "mark@mackframework.com"
       we.subject = "Hello World!"
       we.text_body = "This is my plain text body"
       we.html_body = "This is my <b>html</b> body"
@@ -15,6 +16,11 @@ describe Mack::Mailer::Adapters::Tmail do
       adap.convert
       tmail = adap.transformed
       tmail.to.should == [we.to]
+      tmail.from.should == [we.from]
+      tmail.reply_to.should == [we.reply_to]
+      tmail.subject.should == we.subject
+      tmail.content_type.should == "multipart/alternative"
+      tmail.mime_version.should == "1.0"
     end
     
     it "should handle Array based destination fields" do
