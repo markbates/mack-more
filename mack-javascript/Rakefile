@@ -1,0 +1,24 @@
+crt = File.join(File.dirname(__FILE__), "..", "common_rake_tasks")
+require File.join(crt, "rake_task_requires")
+
+@gem_spec = Gem::Specification.new do |s|
+  s.name = 'mack-javascript'
+  s.version = GEM_VERSION
+  s.summary = %{JavaScript in Mack}
+  s.description = %{RJS support for the Mack Framework}
+  s.author = "Gerardo Pis-Lopez"
+  s.homepage = "http://www.mackframework.com"
+
+  s.test_files = FileList['test/**/*']
+
+  s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*']
+  s.require_paths << 'lib'
+  
+  s.has_rdoc = true
+  s.rubyforge_project = "magrathea"
+end
+
+# Require all the necessary rake tasks:
+[:install, :package, :rdoc, :release, :test].each do |t|
+  load(File.join(crt, "#{t}.rake"))
+end

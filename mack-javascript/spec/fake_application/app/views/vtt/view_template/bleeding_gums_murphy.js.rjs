@@ -1,0 +1,6 @@
+page.call "MySaxFunc"
+
+page.replace "my_div", "Sax on the Beach"
+if @bleeding
+  page << "I'm Bleeding Gums!"
+end

@@ -1,0 +1,16 @@
+<% case app_config.mack.js_framework -%>
+<% when 'prototype' -%>
+<% ["controls.js", "dragdrop.js", "effects.js", "prototype.js"].each do |f| -%>
+<%= f %>_javascript_file:
+  type: file
+  template_path: <%= File.join(templates_directory_path, "javascripts", "#{f}.template") %>
+  output_path: <%= File.join(Mack.root, "public", "javascripts", f) %>
+<% end -%>
+<% when 'jquery' -%>
+<% ["jquery.js", "jquery-ui.js", "jquery-fx.js"].each do |f| -%>
+<%= f %>_javascript_file:
+  type: file
+  template_path: <%= File.join(templates_directory_path, "javascripts", "#{f}.template") %>
+  output_path: <%= File.join(Mack.root, "public", "javascripts", f) %>
+<% end -%>
+<% end -%>
