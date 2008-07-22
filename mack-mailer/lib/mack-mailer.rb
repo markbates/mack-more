@@ -1,5 +1,8 @@
 require File.join(File.dirname(__FILE__), "paths")
 require File.join(File.dirname(__FILE__), "loader")
+Dir.glob(File.join(File.dirname(__FILE__), "delivery_handlers", "**/*.rb")).each do |h|
+  require h
+end
 
 module Mack # :nodoc:
   module Mailer
@@ -31,6 +34,14 @@ module Mack # :nodoc:
     
     def deliver
       raise NoMethodError.new(:deliver)
+    end
+    
+    def destinations
+      [self.to, self.cc, self.bcc].flatten
+    end
+    
+    def encode
+      
     end
     
   end

@@ -6,6 +6,17 @@ describe Mack::Mailer do
     @we = WelcomeEmail.new
   end
   
+  describe "destinations" do
+    
+    it "should concat all recipients into an array" do
+      @we.to = "mark@mackframework.com"
+      @we.cc = ["foo@example.com", "bar@example.com"]
+      @we.bcc = "fubar@example.com"
+      @we.destinations.should == ["mark@mackframework.com", "foo@example.com", "bar@example.com", "fubar@example.com"]
+    end
+    
+  end
+  
   describe "reply_to" do
     
     it "should use 'from' if no reply_to is specified" do
@@ -67,6 +78,12 @@ describe Mack::Mailer do
     it "should deliver the email as multipart if both text and html are specified"
     
     it "should deliver the email as multipart if there is an attachment"
+    
+  end
+  
+  describe "encode" do
+    
+    it "should convert the message to TMail format and return a 'transport' ready object."
     
   end
   
