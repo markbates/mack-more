@@ -17,7 +17,7 @@ require 'english/numerals'
   require path
 end
 
-[:array, :class, :hash, :kernel, :math, :module, :object, :string, :symbol].each do |k|
+[:array, :class, :hash, :kernel, :math, :module, :object, :string, :symbol, :nil_class].each do |k|
   path = File.join File.dirname(__FILE__), "extensions", "#{k}"
   #puts "requiring #{path}"
   require path
