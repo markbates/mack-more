@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "..", "spec_helper.rb")
 
-class Mack::Javascript::Framework::FirstFramework
+class Mack::JavaScript::Framework::FirstFramework
   class << self
     def replace
       "I'm in Framework 1"
@@ -8,7 +8,7 @@ class Mack::Javascript::Framework::FirstFramework
   end
 end
 
-class Mack::Javascript::Framework::SecondFramework
+class Mack::JavaScript::Framework::SecondFramework
   class << self
     def replace
       "I'm in Framework 2"
@@ -16,17 +16,17 @@ class Mack::Javascript::Framework::SecondFramework
   end
 end
 
-describe Mack::Javascript::ScriptGenerator do
+describe Mack::JavaScript::ScriptGenerator do
   before(:each) do
-    @p = Mack::Javascript::ScriptGenerator.new
+    @p = Mack::JavaScript::ScriptGenerator.new
   end
 
   it "should respond to 'framework'" do
-    Mack::Javascript::ScriptGenerator.framework = 'first_framework'
-    Mack::Javascript::ScriptGenerator.framework.should == Mack::Javascript::Framework::FirstFramework
+    Mack::JavaScript::ScriptGenerator.framework = 'first_framework'
+    Mack::JavaScript::ScriptGenerator.framework.should == Mack::JavaScript::Framework::FirstFramework
 
-    Mack::Javascript::ScriptGenerator.framework = 'second_framework'
-    Mack::Javascript::ScriptGenerator.framework.should == Mack::Javascript::Framework::SecondFramework
+    Mack::JavaScript::ScriptGenerator.framework = 'second_framework'
+    Mack::JavaScript::ScriptGenerator.framework.should == Mack::JavaScript::Framework::SecondFramework
   end
 
   it "should respond to 'alert'" do
@@ -38,15 +38,15 @@ describe Mack::Javascript::ScriptGenerator do
     @p.assign('this', 'that')
     @p.to_s.should == "this = \"that\";"
 
-    @p = Mack::Javascript::ScriptGenerator.new
+    @p = Mack::JavaScript::ScriptGenerator.new
     @p.assign('this', 5)
     @p.to_s.should == "this = 5;"
 
-    @p = Mack::Javascript::ScriptGenerator.new
+    @p = Mack::JavaScript::ScriptGenerator.new
     @p.assign('this', {:my => 'hash'})
     @p.to_s.should == "this = {\"my\":\"hash\"};"
 
-    @p = Mack::Javascript::ScriptGenerator.new
+    @p = Mack::JavaScript::ScriptGenerator.new
     @p.assign('this', ['array', 1])
     @p.to_s.should == "this = [\"array\",1];"
   end
@@ -62,17 +62,17 @@ describe Mack::Javascript::ScriptGenerator do
     @p.call('myFunc', 'firstParam', 3)
     @p.to_s.should == %{myFunc("firstParam",3);}
 
-    @p = Mack::Javascript::ScriptGenerator.new
+    @p = Mack::JavaScript::ScriptGenerator.new
     @p.call('myFunc', {:stuff => 3})
     @p.to_s.should == %{myFunc({"stuff":3});}
   end
 
   it "should properly handle method_missing" do
-    Mack::Javascript::ScriptGenerator.framework = 'first_framework'
+    Mack::JavaScript::ScriptGenerator.framework = 'first_framework'
     @p.replace.should == "I'm in Framework 1;"
 
-    @p = Mack::Javascript::ScriptGenerator.new
-    Mack::Javascript::ScriptGenerator.framework = 'second_framework'
+    @p = Mack::JavaScript::ScriptGenerator.new
+    Mack::JavaScript::ScriptGenerator.framework = 'second_framework'
     @p.replace.should == "I'm in Framework 2;"
   end
 end

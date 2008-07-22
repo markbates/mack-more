@@ -1,5 +1,5 @@
 module Mack
-  module Javascript
+  module JavaScript
     module Framework
       class Prototype
         @@callbacks = [:uninitialized, :loading, :loaded, :interactive, :complete, :failure, :success ] + 

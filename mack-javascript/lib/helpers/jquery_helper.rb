@@ -1,5 +1,5 @@
 module Mack
-  module Javascript
+  module JavaScript
     module Framework
       class Jquery      
         class << self

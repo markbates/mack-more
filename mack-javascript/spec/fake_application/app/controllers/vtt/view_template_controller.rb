@@ -1,19 +1,15 @@
 class Vtt::ViewTemplateController
   include Mack::Controller
     
-  def marge_html_markaby_with_layout
-    @last_name = "Simpson"
-    render(:action, "marge")
+  def bleeding_gums_murphy_with_render
+    @bleeding = true if params[:bleeding]
+    render(:js, "bleeding_gums_murphy")
   end
   
-  def marge_html_markaby_with_special_layout
-    @last_name = "Simpson"
-    render(:action, "marge", :layout => "my_cool")
+  def bleeding_gums_murphy
+    @bleeding = true if params[:bleeding]
   end
   
-  def marge_html_markaby_without_layout
-    @last_name = "Simpson"
-    render(:action, "marge", :layout => false)
-  end
+
     
 end

@@ -1,5 +1,5 @@
 module Mack
-  module Javascript
+  module JavaScript
     class ScriptGenerator    
       def initialize
         @lines = ''
@@ -33,13 +33,13 @@ module Mack
       end
 
       def delay(seconds = 1, &block)
-        self << "setTimeout(function() {\n\n" + yield(Mack::Javascript::ScriptGenerator.new) + "}, #{(seconds * 1000).to_i})"
+        self << "setTimeout(function() {\n\n" + yield(Mack::JavaScript::ScriptGenerator.new) + "}, #{(seconds * 1000).to_i})"
       end
 
       class << self
         
         def framework
-          "Mack::Javascript::Framework::#{framework_name}".constantize
+          "Mack::JavaScript::Framework::#{framework_name}".constantize
         end
 
         def framework=(args)
@@ -48,7 +48,7 @@ module Mack
         
         private
         def framework_name
-          @@framework_name ||= app_config.mack.js_framework
+          @@framework_name ||= app_config.mack.js_framework.camelcase
         end
       end
 
