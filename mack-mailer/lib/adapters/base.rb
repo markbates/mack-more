@@ -11,6 +11,7 @@ module Mack
         
         needs_method :transformed
         needs_method :convert
+        needs_method :deliverable
         
       end # Base
     end # Adapters

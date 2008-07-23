@@ -70,7 +70,7 @@ module Mack # :nodoc:
     def deliverable(adapter = app_config.mailer.adapter)
       adap = "Mack::Mailer::Adapters::#{adapter.camelcase}".constantize.new(self)
       adap.convert
-      adap.transformed
+      adap.deliverable
     end
     
   end

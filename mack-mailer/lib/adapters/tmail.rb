@@ -10,7 +10,11 @@ module Mack
         
         def transformed
           raise Mack::Errors::UnconvertedMailer.new if @tmail.nil?
-          @tmail.encoded
+          @tmail
+        end
+        
+        def deliverable
+          transformed.encoded
         end
         
         def convert
