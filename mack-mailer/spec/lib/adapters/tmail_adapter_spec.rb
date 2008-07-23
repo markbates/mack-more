@@ -40,7 +40,12 @@ describe Mack::Mailer::Adapters::Tmail do
   
   describe "transformed" do
     
-    it "should return the transformed Mack::Mailer object as a TMail::Mail object"
+    it "should return the transformed Mack::Mailer object as a TMail::Mail object" do
+      we = WelcomeEmail.new
+      adap = Mack::Mailer::Adapters::Tmail.new(we)
+      adap.convert
+      adap.transformed.should be_is_a(TMail::Mail)
+    end
     
     it "should raise an error if convert hasn't been performed before calling transformed" do
       adap = Mack::Mailer::Adapters::Tmail.new(WelcomeEmail.new)
