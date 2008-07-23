@@ -12,8 +12,8 @@ module Mack
         end
       end
       
-      def add_io(io, content_type = nil)
-        
+      def add_io(io)
+        self.body = io.read
       end
       
       def add_file(file, content_type = File.extname(file).gsub('.', ''))
