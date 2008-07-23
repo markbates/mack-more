@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper.rb'
 
-class <%= class_name %>Test < Test::Unit::TestCase
+class RegistrationEmailTest < Test::Unit::TestCase
   
   def test_truth
     assert true
