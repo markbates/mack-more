@@ -20,3 +20,7 @@ require 'mack'
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-mailer'
 
 #-------------- HELPER MODULES --------------------------#
+
+class WelcomeEmail
+  include Mack::Mailer
+end
