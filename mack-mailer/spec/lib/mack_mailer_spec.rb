@@ -4,6 +4,7 @@ describe Mack::Mailer do
   
   before(:each) do
     @we = WelcomeEmail.new
+    FileUtils.rm_rf(Mack::Paths.mailers)
   end
   
   describe "date_sent" do
@@ -63,13 +64,29 @@ describe Mack::Mailer do
   
   describe "text_body" do
     
-    it "if no text_body it should load a *.text.erb file, if available"
+    it "if no text_body it should load a *.text.erb file, if available" do
+      FileUtils.mkdir_p(Mack::Paths.mailers("welcome_email"))
+      text_file = Mack::Paths.mailers("welcome_email", "text.erb")
+      File.open(text_file, "w") do |f|
+        f.puts "Hello <%= mailer.to %>"
+      end
+      @we.to = "mark@mackframework.com"
+      @we.text_body.should == "Hello mark@mackframework.com\n"
+    end
     
   end
   
   describe "html_body" do
     
-    it "if no html_body it should load a *.html.erb file, if available"
+    it "if no html_body it should load a *.html.erb file, if available" do
+      FileUtils.mkdir_p(Mack::Paths.mailers("welcome_email"))
+      html_file = Mack::Paths.mailers("welcome_email", "html.erb")
+      File.open(html_file, "w") do |f|
+        f.puts "Hello <b><%= mailer.to %></b>"
+      end
+      @we.to = "mark@mackframework.com"
+      @we.html_body.should == "Hello <b>mark@mackframework.com</b>\n"
+    end
     
   end
   

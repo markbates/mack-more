@@ -3,7 +3,7 @@ require File.join(File.dirname(__FILE__), "paths")
 require File.join(File.dirname(__FILE__), "loader")
 require File.join(File.dirname(__FILE__), "errors")
 require File.join(File.dirname(__FILE__), "mailer_generator", "mailer_generator")
-[:delivery_handlers, :adapters].each do |dir|
+[:delivery_handlers, :adapters, :rendering].each do |dir|
   Dir.glob(File.join(File.dirname(__FILE__), dir.to_s, "**/*.rb")).each do |h|
     require h
   end
@@ -22,6 +22,20 @@ module Mack # :nodoc:
     attr_accessor :html_body
     attr_accessor :date_sent
     attr_accessor :mime_version
+    
+    def text_body
+      if @text_body.blank?
+        @text_body = build_template(:text)
+      end
+      return @text_body
+    end
+    
+    def html_body
+      if @html_body.blank?
+        @html_body = build_template(:html)
+      end
+      @html_body
+    end
     
     def mime_version
       (@mime_version ||= "1.0")
@@ -74,5 +88,15 @@ module Mack # :nodoc:
       adap.deliverable
     end
     
-  end
-end
+    private
+    def build_template(format)
+      begin
+        vt = Mack::Rendering::ViewTemplate.new(:mailer, self.class.to_s.underscore, {:locals => {:mailer => self}, :format => format.to_s})
+        return vt.compile_and_render
+      rescue Mack::Errors::ResourceNotFound => e
+      end
+      return nil
+    end
+    
+  end # Mailer
+end # Mack
