@@ -4,11 +4,20 @@ describe MailerGenerator do
   
   before(:each) do
     FileUtils.rm_rf(Mack::Paths.mailers)
+    FileUtils.rm_rf(Mack::Paths.test)
+    @mailer_file = Mack::Paths.mailers("registration_email.rb")
   end
   
-  it "should require a name"
+  it "should require a name" do
+    lambda{MailerGenerator.new}.should raise_error(ArgumentError)
+  end
   
-  it "should create a mailer class"
+  it "should create a mailer class" do
+    File.should_not be_exists(@mailer_file)
+    MailerGenerator.run("name" => "registration_email")
+    File.should be_exists(@mailer_file)
+    File.read(@mailer_file).should == fixture("registration_email.rb")
+  end
   
   it "should create text.erb and html.erb files"
   

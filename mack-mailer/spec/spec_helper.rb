@@ -16,11 +16,15 @@ $: << File.expand_path(File.dirname(__FILE__) + "/../lib")
 
 # load the mack framework:
 require 'mack'
-
+require File.join(File.dirname(__FILE__), "..", "..", "mack-paths", "lib", "mack-paths")
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-mailer'
 
 #-------------- HELPER MODULES --------------------------#
 
 class WelcomeEmail
   include Mack::Mailer
+end
+
+def fixture(name)
+  File.read(File.join(File.dirname(__FILE__), "fixtures", "#{name}.fixture"))
 end

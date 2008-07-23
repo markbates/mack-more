@@ -2,7 +2,7 @@ require 'tmail'
 require File.join(File.dirname(__FILE__), "paths")
 require File.join(File.dirname(__FILE__), "loader")
 require File.join(File.dirname(__FILE__), "errors")
-require File.join(File.dirname(__FILE__), "mailer_generator")
+require File.join(File.dirname(__FILE__), "mailer_generator", "mailer_generator")
 [:delivery_handlers, :adapters].each do |dir|
   Dir.glob(File.join(File.dirname(__FILE__), dir.to_s, "**/*.rb")).each do |h|
     require h
