@@ -92,9 +92,15 @@ describe Mack::Mailer do
   
   describe "attach" do
     
-    it "should attach a file to the email with a file path"
+    it "should raise an error if the parameter isn't a Mack::Mailer::Attachment" do
+      lambda{@we.attach(1)}.should raise_error(ArgumentError)
+    end
     
-    it "should attach a file to the email with an IO object"
+    # it "should attach a file to the email with a file path" do
+    #   pending
+    # end
+    # 
+    # it "should attach a file to the email with an IO object"
     
   end
   

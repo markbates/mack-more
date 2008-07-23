@@ -2,6 +2,7 @@ require 'tmail'
 require File.join(File.dirname(__FILE__), "paths")
 require File.join(File.dirname(__FILE__), "loader")
 require File.join(File.dirname(__FILE__), "errors")
+require File.join(File.dirname(__FILE__), "attachment")
 require File.join(File.dirname(__FILE__), "mailer_generator", "mailer_generator")
 [:delivery_handlers, :adapters, :rendering].each do |dir|
   Dir.glob(File.join(File.dirname(__FILE__), dir.to_s, "**/*.rb")).each do |h|
@@ -63,7 +64,7 @@ module Mack # :nodoc:
     end
     
     def attach(file)
-      raise NoMethodError.new(:attach)
+      raise ArgumentError.new unless file.is_a?(Mack::Mailer::Attachment)
     end
     
     def has_attachments?
@@ -71,7 +72,7 @@ module Mack # :nodoc:
     end
     
     def attachments
-      raise NoMethodError.new(:attachments)
+      # raise NoMethodError.new(:attachments)
     end
     
     def deliver(handler = app_config.mailer.deliver_with)
