@@ -50,3 +50,5 @@ end
 DataMapper.logger = DataMapper::Logger.new(StringIO.new, 0)
 
 Mack::Database.establish_connection(Mack.env)
+
+require 'mack-data_mapper_tasks'
