@@ -112,24 +112,4 @@ describe Mack::Mailer do
     
   end
   
-  describe "deliver" do
-    
-    it "should deliver the email via SMTP if configured"
-    
-    it "should deliver the email via sendmail if configured"
-    
-    it "should deliver the email via 'test' if configured"
-    
-    it "should deliver the email as multipart if both text and html are specified"
-    
-    it "should deliver the email as multipart if there is an attachment"
-    
-  end
-  
-  describe "deliverable" do
-    
-    it "should convert the message to TMail format and return a 'transport' ready object."
-    
-  end
-  
 end

@@ -12,6 +12,11 @@ describe MailerGenerator do
     @test_case_file = Mack::Paths.unit("registration_email_test.rb")
   end
   
+  after(:each) do
+    FileUtils.rm_rf(Mack::Paths.mailers)
+    FileUtils.rm_rf(Mack::Paths.test)
+  end
+  
   it "should require a name" do
     lambda{MailerGenerator.new}.should raise_error(ArgumentError)
   end
