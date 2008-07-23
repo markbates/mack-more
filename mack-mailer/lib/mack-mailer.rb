@@ -65,14 +65,15 @@ module Mack # :nodoc:
     
     def attach(file)
       raise ArgumentError.new unless file.is_a?(Mack::Mailer::Attachment)
+      attachments << file
     end
     
     def has_attachments?
-      false
+      !attachments.empty?
     end
     
     def attachments
-      # raise NoMethodError.new(:attachments)
+      @attachments ||= []
     end
     
     def deliver(handler = app_config.mailer.deliver_with)

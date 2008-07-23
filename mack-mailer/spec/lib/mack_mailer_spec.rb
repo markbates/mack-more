@@ -4,6 +4,7 @@ describe Mack::Mailer do
   
   before(:each) do
     @we = WelcomeEmail.new
+    @my_file = File.join(File.dirname(__FILE__), "..", "fixtures", "mark-simpson.png")
     FileUtils.rm_rf(Mack::Paths.mailers)
   end
   
@@ -35,7 +36,10 @@ describe Mack::Mailer do
       @we.content_type.should == "multipart/alternative"
     end
     
-    it "should return multipart/mixed if there's an attachment"
+    it "should return multipart/mixed if there's an attachment" do
+      @we.attach(Mack::Mailer::Attachment.new(@my_file))
+      @we.content_type.should == "multipart/mixed"
+    end
     
   end
   
@@ -96,25 +100,30 @@ describe Mack::Mailer do
       lambda{@we.attach(1)}.should raise_error(ArgumentError)
     end
     
-    # it "should attach a file to the email with a file path" do
-    #   pending
-    # end
-    # 
-    # it "should attach a file to the email with an IO object"
-    
   end
   
   describe "has_attachments?" do
     
-    it "should return true if there are attachments"
+    it "should return true if there are attachments" do
+      @we.should_not be_has_attachments
+      @we.attach(Mack::Mailer::Attachment.new(@my_file))
+      @we.should be_has_attachments
+    end
     
-    it "should return false if there aren't attachments"
+    it "should return false if there aren't attachments" do
+      @we.should_not be_has_attachments
+    end
     
   end
   
   describe "attachments" do
     
-    it "should return any attachments"
+    it "should return any attachments" do
+      at = Mack::Mailer::Attachment.new(@my_file)
+      @we.attach(at)
+      @we.attachments.size.should == 1
+      @we.attachments.should include(at)
+    end
     
   end
   
