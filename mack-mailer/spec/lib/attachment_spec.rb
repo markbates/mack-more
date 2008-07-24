@@ -8,11 +8,18 @@ describe Mack::Mailer::Attachment do
   
   describe "add_file" do
     
-    it "should read in a file and set the content_type based on the extension" do
+    it "should read in a file and set the file_name" do
       at = Mack::Mailer::Attachment.new
       at.add_file(@my_file)
       at.body.should == File.read(@my_file)
+      at.file_name.should == "mark-simpson.png"
     end
+    
+  end
+  
+  describe "add_uploaded_file" do
+    
+    it "should take a Mack::Request::UploadedFile object and set the body and the file_name correctly"
     
   end
   
@@ -37,6 +44,8 @@ describe Mack::Mailer::Attachment do
       at = Mack::Mailer::Attachment.new(File.open(@my_file))
       at.body.should == File.read(@my_file)
     end
+    
+    it "should take a Mack::Request::UploadedFile object and call add_uploaded_file"
     
   end
   
