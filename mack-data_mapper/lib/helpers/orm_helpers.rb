@@ -28,8 +28,10 @@ module Mack
         object_names.each do |name|
           object = instance_variable_get("@#{name}")
           if object
-            if object.is_a?(DataMapper::Resource)
-              app_errors << object.errors.full_messages.uniq
+            if object.respond_to?(:errors)
+              if object.errors.respond_to?(:full_messages)
+                app_errors << object.errors.full_messages.uniq
+              end
             end
           end
         end

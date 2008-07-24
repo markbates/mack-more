@@ -9,8 +9,27 @@ describe Mack::Mailer::Validatable do
     validates_presence_of :subject
   end
   
+  class AnswerEmail
+    include Mack::Mailer
+    include Mack::Mailer::Validatable
+    
+    common_mailer_validations
+  end
+  
   before(:each) do
     @qe = QuestionEmail.new
+    @ae = AnswerEmail.new
+  end
+  
+  describe "common_mailer_validations" do
+    
+    it "should validates_presence_of :to, :from, :subject" do
+      @ae.should_not be_valid
+      @ae.errors.on(:to).should include("can't be empty")
+      @ae.errors.on(:from).should include("can't be empty")
+      @ae.errors.on(:subject).should include("can't be empty")
+    end
+    
   end
   
   it "should add any exceptions on deliver to the errors array" do
