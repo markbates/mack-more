@@ -1,4 +1,5 @@
 require File.join(File.dirname(__FILE__), "base")
+require 'base64'
 module Mack
   module Mailer
     module Adapters # :nodoc:
@@ -27,29 +28,37 @@ module Mack
           @tmail.subject =      mack_mailer.subject
           @tmail.date =         mack_mailer.date_sent
           @tmail.mime_version = mack_mailer.mime_version
-          mack_mailer.attachments.each do |at|
-            # attachment = TMail::Attachment.new(at.body)
-            # attachment.content_type = at.content_type
-            # attachment.original_filename = "foo.png"
-            mail = TMail::Mail.new
-            mail.content_type = at.content_type
-            mail.set_disposition("attachment", {"filename" => "foo.png"})
-            mail.body = at.body
-            @tmail.parts << mail
-          end
+
+          # set text and html bodies
+          main_body = TMail::Mail.new
           unless mack_mailer.text_body.blank?
             text = TMail::Mail.new
             text.content_type = "text/plain"
             text.body = mack_mailer.text_body
-            @tmail.parts << text
+            main_body.parts << text
           end
           unless mack_mailer.html_body.blank?
             html = TMail::Mail.new
             html.content_type = "text/html"
             html.body = mack_mailer.html_body
-            @tmail.parts << html
+            main_body.parts << html
           end
-          # @tmail.content_type = mack_mailer.content_type
+          unless main_body.parts.empty?
+            main_body.content_type = "multipart/alternative"
+            @tmail.parts << main_body
+          end
+
+          # set attachments, if any.
+          mack_mailer.attachments.each do |at|
+            attachment = TMail::Mail.new
+            attachment.body = Base64.encode64(at.body)
+            attachment.transfer_encoding = "Base64"
+            attachment.content_type = "application/octet-stream"
+            attachment['Content-Disposition'] = "attachment; filename=#{at.file_name}"
+            @tmail.parts << attachment
+          end
+          
+          @tmail.content_type = mack_mailer.content_type
         end
         
       end # Tmail

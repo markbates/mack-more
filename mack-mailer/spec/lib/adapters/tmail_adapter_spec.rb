@@ -35,8 +35,17 @@ describe Mack::Mailer::Adapters::Tmail do
       adap = Mack::Mailer::Adapters::Tmail.new(we)
       adap.convert
       tmail = adap.transformed
-      # tmail.content_type.should == "multipart/mixed"
-      we.deliver("smtp")
+      tmail.content_type.should == "multipart/mixed"
+      tmail.parts[0].content_type.should == "multipart/alternative"
+      text_part = tmail.parts[0].parts[0]
+      text_part.content_type.should == "text/plain"
+      text_part.body.should == we.text_body
+      html_part = tmail.parts[0].parts[1]
+      html_part.content_type.should == "text/html"
+      html_part.body.should == we.html_body
+      attachment_part = tmail.parts[1]
+      attachment_part.content_type.should == "application/octet-stream"
+      attachment_part['Content-Disposition'].to_s.should == "attachment; filename=mark-simpson.png"
     end
     
     it "should handle Array based destination fields" do
