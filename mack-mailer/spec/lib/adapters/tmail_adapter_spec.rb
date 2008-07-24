@@ -23,6 +23,22 @@ describe Mack::Mailer::Adapters::Tmail do
       tmail.mime_version.should == "1.0"
     end
     
+    it "should handle attachments" do
+      we = WelcomeEmail.new
+      we.to = "mbates@helium.com"
+      we.from = "mark@mackframework.com"
+      we.reply_to = "mark@mackframework.com"
+      we.subject = "Hello World!"
+      we.text_body = "This is my plain text body"
+      we.html_body = "This is my <b>html</b> body"
+      we.attach(Mack::Mailer::Attachment.new(File.join(File.dirname(__FILE__), "..", "..", "fixtures", "mark-simpson.png")))
+      adap = Mack::Mailer::Adapters::Tmail.new(we)
+      adap.convert
+      tmail = adap.transformed
+      # tmail.content_type.should == "multipart/mixed"
+      we.deliver("smtp")
+    end
+    
     it "should handle Array based destination fields" do
       we = WelcomeEmail.new
       we.to = ["1@1.com", "2@2.com"]

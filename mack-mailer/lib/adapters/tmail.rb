@@ -27,6 +27,16 @@ module Mack
           @tmail.subject =      mack_mailer.subject
           @tmail.date =         mack_mailer.date_sent
           @tmail.mime_version = mack_mailer.mime_version
+          mack_mailer.attachments.each do |at|
+            # attachment = TMail::Attachment.new(at.body)
+            # attachment.content_type = at.content_type
+            # attachment.original_filename = "foo.png"
+            mail = TMail::Mail.new
+            mail.content_type = at.content_type
+            mail.set_disposition("attachment", {"filename" => "foo.png"})
+            mail.body = at.body
+            @tmail.parts << mail
+          end
           unless mack_mailer.text_body.blank?
             text = TMail::Mail.new
             text.content_type = "text/plain"
@@ -39,7 +49,7 @@ module Mack
             html.body = mack_mailer.html_body
             @tmail.parts << html
           end
-          @tmail.content_type = mack_mailer.content_type
+          # @tmail.content_type = mack_mailer.content_type
         end
         
       end # Tmail
