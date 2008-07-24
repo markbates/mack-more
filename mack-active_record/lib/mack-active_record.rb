@@ -23,3 +23,5 @@ end
 ActiveRecord::Base.logger = Mack.logger
 
 Mack::Database.establish_connection(Mack.env)
+
+require 'mack-active_record_tasks'
