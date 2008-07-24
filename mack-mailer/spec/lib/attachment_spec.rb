@@ -19,7 +19,13 @@ describe Mack::Mailer::Attachment do
   
   describe "add_uploaded_file" do
     
-    it "should take a Mack::Request::UploadedFile object and set the body and the file_name correctly"
+    it "should take a Mack::Request::UploadedFile object and set the body and the file_name correctly" do
+      uploaded_file = Mack::Request::UploadedFile.new({:filename => "mark-simpson.png", :tempfile => File.open(@my_file)})
+      at = Mack::Mailer::Attachment.new
+      at.add_uploaded_file(uploaded_file)
+      at.body.should == File.read(@my_file)
+      at.file_name.should == "mark-simpson.png"
+    end
     
   end
   
@@ -38,6 +44,7 @@ describe Mack::Mailer::Attachment do
     it "should take a string and read call add_file" do
       at = Mack::Mailer::Attachment.new(@my_file)
       at.body.should == File.read(@my_file)
+      at.file_name.should == "mark-simpson.png"
     end
     
     it "should take an IO and call add_io" do
@@ -45,7 +52,12 @@ describe Mack::Mailer::Attachment do
       at.body.should == File.read(@my_file)
     end
     
-    it "should take a Mack::Request::UploadedFile object and call add_uploaded_file"
+    it "should take a Mack::Request::UploadedFile object and call add_uploaded_file" do
+      uploaded_file = Mack::Request::UploadedFile.new({:filename => "mark-simpson.png", :tempfile => File.open(@my_file)})
+      at = Mack::Mailer::Attachment.new(uploaded_file)
+      at.body.should == File.read(@my_file)
+      at.file_name.should == "mark-simpson.png"
+    end
     
   end
   

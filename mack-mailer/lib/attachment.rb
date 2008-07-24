@@ -12,6 +12,7 @@ module Mack
         unless body.nil?
           self.add_file(body) if body.is_a?(String)
           self.add_io(body) if body.is_a?(IO)
+          self.add_uploaded_file(body) if body.is_a?(Mack::Request::UploadedFile)
         end
       end
       
@@ -24,6 +25,12 @@ module Mack
       def add_file(file)
         self.file_name = File.basename(file)
         self.body = File.read(file)
+      end
+      
+      # Takes a Mack::Request::UploadedFile file object, reads it in, and sets the file name.
+      def add_uploaded_file(file)
+        self.body = File.read(file.temp_file.path)
+        self.file_name = file.file_name
       end
       
     end # Attachment
