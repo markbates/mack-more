@@ -6,8 +6,8 @@ describe MailerGenerator do
     FileUtils.rm_rf(Mack::Paths.mailers)
     FileUtils.rm_rf(Mack::Paths.test)
     @mailer_file = Mack::Paths.mailers("registration_email.rb")
-    @text_file = Mack::Paths.mailers("registration_email", "text.erb")
-    @html_file = Mack::Paths.mailers("registration_email", "html.erb")
+    @text_file = Mack::Paths.mailers("templates", "registration_email", "text.erb")
+    @html_file = Mack::Paths.mailers("templates", "registration_email", "html.erb")
     @spec_file = Mack::Paths.unit("registration_email_spec.rb")
     @test_case_file = Mack::Paths.unit("registration_email_test.rb")
   end

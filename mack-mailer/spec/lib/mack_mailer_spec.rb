@@ -8,6 +8,17 @@ describe Mack::Mailer do
     FileUtils.rm_rf(Mack::Paths.mailers)
   end
   
+  describe "build" do
+    
+    it "should build an email based on the provided hash" do
+      @we.build({:to => "mark@mackframework.com", :subject => "hello world", :text_body => "this is my text body"})
+      @we.to.should == "mark@mackframework.com"
+      @we.subject.should == "hello world"
+      @we.text_body.should == "this is my text body"
+    end
+    
+  end
+  
   describe "date_sent" do
     
     it "should return Time.now if no date_sent is specified" do
@@ -69,8 +80,8 @@ describe Mack::Mailer do
   describe "text_body" do
     
     it "if no text_body it should load a *.text.erb file, if available" do
-      FileUtils.mkdir_p(Mack::Paths.mailers("welcome_email"))
-      text_file = Mack::Paths.mailers("welcome_email", "text.erb")
+      FileUtils.mkdir_p(Mack::Paths.mailers("templates", "welcome_email"))
+      text_file = Mack::Paths.mailers("templates", "welcome_email", "text.erb")
       File.open(text_file, "w") do |f|
         f.puts "Hello <%= mailer.to %>"
       end
@@ -83,8 +94,8 @@ describe Mack::Mailer do
   describe "html_body" do
     
     it "if no html_body it should load a *.html.erb file, if available" do
-      FileUtils.mkdir_p(Mack::Paths.mailers("welcome_email"))
-      html_file = Mack::Paths.mailers("welcome_email", "html.erb")
+      FileUtils.mkdir_p(Mack::Paths.mailers("templates", "welcome_email"))
+      html_file = Mack::Paths.mailers("templates", "welcome_email", "html.erb")
       File.open(html_file, "w") do |f|
         f.puts "Hello <b><%= mailer.to %></b>"
       end

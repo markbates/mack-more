@@ -4,7 +4,7 @@ module Mack
       class Mailer < Mack::Rendering::Type::FileBase
         
         def render
-          x_file = Mack::Paths.mailers(self.render_value, self.options[:format])
+          x_file = Mack::Paths.mailers("templates", self.render_value, self.options[:format])
           render_file(x_file)
         end
         
