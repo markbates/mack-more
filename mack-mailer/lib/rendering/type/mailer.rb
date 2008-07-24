@@ -1,10 +1,10 @@
 module Mack
-  module Rendering
-    module Type
-      class Mailer < Mack::Rendering::Type::FileBase
+  module Rendering # :nodoc:
+    module Type # :nodoc:
+      class Mailer < Mack::Rendering::Type::FileBase # :nodoc:
         
         def render
-          x_file = Mack::Paths.mailers("templates", self.render_value, self.options[:format])
+          x_file = Mack::Paths.mailer_templates(self.render_value, self.options[:format])
           render_file(x_file)
         end
         

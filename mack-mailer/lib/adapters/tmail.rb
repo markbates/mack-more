@@ -3,21 +3,23 @@ require 'base64'
 module Mack
   module Mailer
     module Adapters # :nodoc:
+      # Converts a Mack::Mailer object into a TMail object.
       class Tmail < Mack::Mailer::Adapters::Base
         
-        def to_s
-          
-        end
-        
+        # Returns the underlying TMail object.
+        # Raises Mack::Errors::UnconvertedMailer if the convert method hasn't
+        # been called first.
         def transformed
           raise Mack::Errors::UnconvertedMailer.new if @tmail.nil?
           @tmail
         end
         
+        # Returns the ready to be delivered encoded String
         def deliverable
           transformed.encoded
         end
         
+        # Converts the Mack::Mailer object to a TMail object.
         def convert
           @tmail = TMail::Mail.new 
           @tmail.to =           mack_mailer.to

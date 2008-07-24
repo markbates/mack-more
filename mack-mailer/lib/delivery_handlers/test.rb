@@ -8,7 +8,7 @@ module Mack
           EmailRegistry.add(mail)
         end
         
-        class EmailRegistry < Mack::Utils::Registry
+        class EmailRegistry < Mack::Utils::Registry # :nodoc:
         end
         
       end # Test
