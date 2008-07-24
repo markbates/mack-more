@@ -86,8 +86,19 @@ module Mack # :nodoc:
     end
     
     # Delivers the email with the configured Mack::Mailer::DeliveryHandlers class.
+    # Returns false if there are any errors.
     def deliver(handler = app_config.mailer.deliver_with)
-      "Mack::Mailer::DeliveryHandlers::#{handler.camelcase}".constantize.deliver(self)
+      begin
+        deliver!(handler)
+      rescue Exception => e
+        return false
+      end
+      return true
+    end
+    
+    # Delivers the email with the configured Mack::Mailer::DeliveryHandlers class.
+    def deliver!(handler = app_config.mailer.deliver_with)
+      "Mack::Mailer::DeliveryHandlers::#{handler.to_s.camelcase}".constantize.deliver(self)
     end
     
     # Returns all the recipients of this email.

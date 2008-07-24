@@ -8,6 +8,22 @@ describe Mack::Mailer do
     FileUtils.rm_rf(Mack::Paths.mailers)
   end
   
+  describe "deliver" do
+    
+    it "should surpress exceptions and return false if there are errors" do
+      @we.deliver(:smtp).should == false
+    end
+    
+  end
+  
+  describe "deliver!" do
+    
+    it "should raise exceptions if there are errors" do
+      lambda{@we.deliver!(:smtp)}.should raise_error(ArgumentError)
+    end
+    
+  end
+  
   describe "build" do
     
     it "should build an email based on the provided hash" do

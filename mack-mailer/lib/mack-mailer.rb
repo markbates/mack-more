@@ -13,6 +13,8 @@ end
 
 require File.join(File.dirname(__FILE__), "mailer")
 
+require File.join(File.dirname(__FILE__), "validatable")
+
 require File.join(File.dirname(__FILE__), "testing")
 
 require File.join(File.dirname(__FILE__), "loader")
