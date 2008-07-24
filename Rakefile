@@ -70,3 +70,7 @@ namespace :test do
 end
 
 task :default => "test:all"
+
+GEMS.each do |gem|
+  task gem => "test:#{gem}"
+end
