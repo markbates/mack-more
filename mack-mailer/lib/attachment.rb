@@ -1,9 +1,11 @@
 module Mack
   module Mailer
+    # Creates an attachment for a Mack::Mailer object.
     class Attachment
       
+      # Returns a String representing the body of the attachment. This String is NOT encoded in anyway!
       attr_accessor :body
-      attr_accessor :content_type
+      # Returns the name of the attached file.
       attr_accessor :file_name
       
       def initialize(body = nil)
@@ -13,14 +15,15 @@ module Mack
         end
       end
       
+      # Takes an IO object and sets the body. You'll need to explicity set the file_name afterwards.
       def add_io(io)
         self.body = io.read
       end
       
-      def add_file(file, content_type = File.extname(file).gsub('.', ''))
+      # Takes a path to a file, reads it in, and sets the file_name based on the path.
+      def add_file(file)
         self.file_name = File.basename(file)
         self.body = File.read(file)
-        self.content_type = Mack::Utils::MimeTypes[content_type]
       end
       
     end # Attachment

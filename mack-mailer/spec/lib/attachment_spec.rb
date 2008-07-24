@@ -11,7 +11,6 @@ describe Mack::Mailer::Attachment do
     it "should read in a file and set the content_type based on the extension" do
       at = Mack::Mailer::Attachment.new
       at.add_file(@my_file)
-      at.content_type.should == "image/png"
       at.body.should == File.read(@my_file)
     end
     
@@ -31,14 +30,11 @@ describe Mack::Mailer::Attachment do
     
     it "should take a string and read call add_file" do
       at = Mack::Mailer::Attachment.new(@my_file)
-      at.content_type.should == "image/png"
       at.body.should == File.read(@my_file)
     end
     
     it "should take an IO and call add_io" do
       at = Mack::Mailer::Attachment.new(File.open(@my_file))
-      at.content_type = "image/png"
-      at.content_type.should == "image/png"
       at.body.should == File.read(@my_file)
     end
     

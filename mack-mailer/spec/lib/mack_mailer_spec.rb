@@ -60,7 +60,7 @@ describe Mack::Mailer do
       @we.to = "mark@mackframework.com"
       @we.cc = ["foo@example.com", "bar@example.com"]
       @we.bcc = "fubar@example.com"
-      @we.destinations.should == ["mark@mackframework.com", "foo@example.com", "bar@example.com", "fubar@example.com"]
+      @we.recipients.should == ["mark@mackframework.com", "foo@example.com", "bar@example.com", "fubar@example.com"]
     end
     
   end
