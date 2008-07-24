@@ -1,4 +1,8 @@
+require 'rubygems'
+require 'validatable'
 require 'tmail'
+
+
 require File.join(File.dirname(__FILE__), "paths")
 require File.join(File.dirname(__FILE__), "settings")
 require File.join(File.dirname(__FILE__), "errors")
@@ -13,7 +17,7 @@ end
 
 require File.join(File.dirname(__FILE__), "mailer")
 
-require File.join(File.dirname(__FILE__), "validatable")
+require File.join(File.dirname(__FILE__), "validations")
 
 require File.join(File.dirname(__FILE__), "testing")
 
