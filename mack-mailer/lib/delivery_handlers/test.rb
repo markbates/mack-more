@@ -5,7 +5,10 @@ module Mack
       module Test
         
         def self.deliver(mail)
-          
+          EmailRegistry.add(mail)
+        end
+        
+        class EmailRegistry < Mack::Utils::Registry
         end
         
       end # Test
