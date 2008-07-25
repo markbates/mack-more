@@ -5,15 +5,26 @@ module Mack
       def self.included(base)
         base.instance_eval do
           include ::Validatable
-          # alias_method :unvalidated_deliver, :deliver
           alias_method :"unvalidated_deliver!", :"deliver!"
         end
         
         base.class_eval do
-          def self.common_mailer_validations
-            validates_presence_of :to
-            validates_presence_of :from
-            validates_presence_of :subject
+          class << self
+            
+            # Alias the Validatable methods to look like DataMapper methods,
+            # if that's the kind of thing you're used to. :)
+            alias_method :validates_is_accepted, :validates_acceptance_of
+            alias_method :validates_is_confirmed, :validates_confirmation_of
+            alias_method :validates_format, :validates_format_of
+            alias_method :validates_length, :validates_length_of
+            alias_method :validates_is_number, :validates_numericality_of
+            alias_method :validates_present, :validates_presence_of
+            
+            def common_mailer_validations
+              validates_presence_of :to
+              validates_presence_of :from
+              validates_presence_of :subject
+            end
           end
         end
       end
