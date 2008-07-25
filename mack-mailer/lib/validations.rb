@@ -37,3 +37,22 @@ module Mack
     end # Validatable
   end # Mailer
 end # Mack
+
+
+module Validatable # :nodoc:
+  class ValidationBase #:nodoc:
+    
+    # This fixes a bug with reloading of Validatable classes.
+    def raise_error_if_key_is_dup(klass) # :nodoc:
+      vals = {}
+      klass.validations.each do |v|
+        vals[v.key] = v
+      end
+      klass.validations.clear
+      vals.each do |k,v|
+        klass.validations << v
+      end
+    end # raise_error_if_key_is_dup
+    
+  end # ValidationBase
+end # Validatable
