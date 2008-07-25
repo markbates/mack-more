@@ -1,2 +1,2 @@
 require 'pdf/writer'
-require 'pdf_engine'
+require File.join(File.dirname(__FILE__), "mack-pdf_writer", 'pdf_engine')

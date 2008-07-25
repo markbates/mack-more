@@ -1,2 +1,2 @@
 require 'markaby'
-require 'markaby_engine'
+require File.join(File.dirname(__FILE__), "mack-markaby", 'markaby_engine')
