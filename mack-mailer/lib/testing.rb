@@ -1,5 +1,7 @@
 if Mack.env == "test"
   
+  # Used for testing this method will return any emails that have been 'sent' using Mack::Mailer::DeliveryHandlers::Test.
+  # These emails will get 'flushed' after each test.
   def delivered_emails
     Mack::Mailer::DeliveryHandlers::Test::EmailRegistry.registered_items
   end

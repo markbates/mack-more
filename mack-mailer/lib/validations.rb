@@ -23,10 +23,37 @@ module Mack
             alias_method :validates_is_number, :validates_numericality_of
             alias_method :validates_present, :validates_presence_of
             
+            # Adds common validations to your Mack::Mailer class.
+            # These include:
+            #   validates_presence_of :to
+            #   validates_presence_of :from
+            #   validates_presence_of :subject
+            #   validates_email_format_of :to
+            #   validates_email_format_of :from
             def common_mailer_validations
               validates_presence_of :to
               validates_presence_of :from
               validates_presence_of :subject
+              validates_email_format_of :to
+              validates_email_format_of :from
+            end
+            
+            # Validates the email format of the column specified against the email_validation_regex method.
+            # This will drill into arrays as well, if that's what your column is.
+            def validates_email_format_of(column, options = {})
+              options = {:logic => lambda{
+                [send(column)].flatten.each_with_index do |addr, i|
+                  errors.add(column, "[#{addr}] is not valid") unless addr.to_s.downcase.match(self.class.email_validation_regex)
+                end
+              }}.merge(options)
+              validates_each :to, options
+            end
+            
+            def email_validation_regex
+              regex = <<-EOF
+              [a-z0-9!#$\%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$\%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?
+              EOF
+              /#{regex.strip}/
             end
             
           end # class << self
@@ -57,7 +84,6 @@ module Mack
     end # Validatable
   end # Mailer
 end # Mack
-
 
 module Validatable # :nodoc:
   class ValidationBase #:nodoc:

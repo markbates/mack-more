@@ -30,6 +30,45 @@ describe Mack::Mailer::Validatable do
       @ae.errors.on(:subject).should include("can't be empty")
     end
     
+    it "should validates_email_format_of of :to, :from" do
+      @ae.to = "foo-bar.com"
+      @ae.from = ["me-bar.com", "you-bar.com"]
+      @ae.should_not be_valid
+      @ae.errors.on(:to).should include("[foo-bar.com] is not valid")
+      @ae.errors.on(:from).should include("[me-bar.com] is not valid")
+      @ae.errors.on(:from).should include("[you-bar.com] is not valid")
+    end
+    
+  end
+  
+  describe "validates_email_format_of" do
+    
+    class HelpEmail
+      include Mack::Mailer
+      include Mack::Mailer::Validatable
+      
+      validates_email_format_of :to
+      
+    end
+    
+    it "should validate that email address is the proper format" do
+      he = HelpEmail.new
+      he.to = "lksadjflsdjf"
+      he.should_not be_valid
+      he.errors.on(:to).should == "[lksadjflsdjf] is not valid"
+      he.to = "mark@mackframework.com"
+      he.should be_valid
+    end
+    
+    it "should validate that email address is the proper format in an array" do
+      he = HelpEmail.new
+      he.to = ["lksadjflsdjf", "skjfkljsdlj"]
+      he.should_not be_valid
+      he.errors.on(:to).should == ["[lksadjflsdjf] is not valid", "[skjfkljsdlj] is not valid"]
+      he.to = ["MARK@mackframework.com", "testing@mackframework.com"]
+      he.should be_valid
+    end
+    
   end
   
   it "should add any exceptions on deliver to the errors array" do
