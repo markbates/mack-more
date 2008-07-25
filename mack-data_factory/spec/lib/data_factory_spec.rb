@@ -5,21 +5,22 @@ describe "DataFactory" do
   describe "Module" do
     it "should add create class_method to the factory object"
     it "should add field class_method to the factory object"
+    it "should add scope_for class_method to the factory object"
   end
   
-  describe "With no override" do
-    it "should generate default values for the model"
-    it "should generate correct relationship for the model"
-    it "should generate correct value type for each attribute in the model"
-    it "should generate x number of instances properly"
-  end
+  # describe "With no override" do
+  #   it "should generate default values for the model"
+  #   it "should generate correct relationship for the model"
+  #   it "should generate correct value type for each attribute in the model"
+  #   it "should generate x number of instances properly"
+  # end
   
-  describe "With override" do
-    it "should generate default values for the model (minus the override)"
-    it "should generate the value correctly based on the override rules"
-    it "should generate correct relationship if relationship override rule is provided"
-    it "should generate correct relationship if relationship override rule is not provided"
+  describe "Process" do
+    it "should generate the value correctly based on the rules"
+    it "should generate correct relationship if relationship rule is provided"
     it "should generate x number of instances properly"
+    it "should generate correct instance with default content generator"
+    it "should generate correct instance with custom content generator if provided"
   end
   
   describe "Custom rules" do
