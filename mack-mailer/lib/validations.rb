@@ -9,6 +9,7 @@ module Mack
         end
         
         base.class_eval do
+          
           class << self
             
             # Alias the Validatable methods to look like DataMapper methods,
@@ -25,9 +26,10 @@ module Mack
               validates_presence_of :from
               validates_presence_of :subject
             end
-          end
-        end
-      end
+            
+          end # class << self
+        end # class_eval
+      end # included
       
       def deliver!(handler = app_config.mailer.deliver_with)
         raise 'Email is Invalid!' unless self.valid?
