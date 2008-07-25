@@ -10,3 +10,5 @@ require_gems do |gem|
   # gem.add :termios
   # gem.add :rubyzip, :source => "http://gems.rubyforge.org"
 end
+
+require File.join(Mack.root, "..", "..", "lib", "mack-data_mapper")
