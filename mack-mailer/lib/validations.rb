@@ -1,11 +1,13 @@
 module Mack
   module Mailer
+    # Includes the validatable gem into your Mailer.
+    # http://validatable.rubyforge.org
     module Validatable
 
       def self.included(base)
         base.instance_eval do
           include ::Validatable
-          alias_method :"unvalidated_deliver!", :"deliver!"
+          alias_method "unvalidated_deliver!", "deliver!"
         end
         
         base.class_eval do
@@ -31,11 +33,16 @@ module Mack
         end # class_eval
       end # included
       
+      # Raises a RuntimeError if the email you are trying to deliver is not valid.
       def deliver!(handler = app_config.mailer.deliver_with)
         raise 'Email is Invalid!' unless self.valid?
         unvalidated_deliver!(handler)
       end
       
+      # Returns false if the email is not valid.
+      # If the email is valid and an exception is raised when trying to deliver it
+      # false is returned and the exception is added to the errors array, with the
+      # key :deliver.
       def deliver(handler = app_config.mailer.deliver_with)
         return false unless self.valid?
         begin
