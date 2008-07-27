@@ -1,16 +1,17 @@
 # require all supporting files
-puts "in mack-javascript.rb"
-dir_globs = Dir.glob(File.join(File.dirname(__FILE__), "generators", "**/*.rb"))
+fl = File.join(File.dirname(__FILE__), "mack-javascript")
+
+dir_globs = Dir.glob(File.join(fl, "generators", "**/*.rb"))
 dir_globs.each do |d|
   require d
 end
 
-dir_globs = Dir.glob(File.join(File.dirname(__FILE__), "helpers", "**/*.rb"))
+dir_globs = Dir.glob(File.join(fl, "helpers", "**/*.rb"))
 dir_globs.each do |d|
   require d
 end
 
-dir_globs = Dir.glob(File.join(File.dirname(__FILE__), "rendering", "**/*.rb"))
+dir_globs = Dir.glob(File.join(fl, "rendering", "**/*.rb"))
 dir_globs.each do |d|
   require d
 end

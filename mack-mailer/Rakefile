@@ -14,6 +14,8 @@ require File.join(crt, "rake_task_requires")
 
   s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*']
   s.require_paths << 'lib'
+  s.add_dependency("tmail", "1.2.3.1")
+  s.add_dependency("validatable", "1.6.7")
   
   s.has_rdoc = true
   s.rubyforge_project = "magrathea"

@@ -6,7 +6,7 @@ require 'activerecord'
 module ActiveRecord # :nodoc:
 end
 
-fl = File.join(File.dirname(__FILE__))
+fl = File.join(File.dirname(__FILE__), "mack-active_record")
 
 require File.join(fl, "database")
 require File.join(fl, "helpers", "orm_helpers")
@@ -24,4 +24,4 @@ ActiveRecord::Base.logger = Mack.logger
 
 Mack::Database.establish_connection(Mack.env)
 
-require 'mack-active_record_tasks'
+require File.join(File.dirname(__FILE__), 'mack-active_record_tasks')

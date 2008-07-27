@@ -33,40 +33,34 @@ describe "rake" do
       
         it "should create a db for the current environment" do
           repository(:mysql_test_tmp) do |repo|
-            repo.adapter.query("show databases;").should_not include("mack_data_mapper_test")
+            repository(:mysql_test_tmp).adapter.query("show databases;").should_not include("mack_data_mapper_test")
             rake_task("db:recreate")
-            repo.adapter.query("show databases;").should include("mack_data_mapper_test")
+            repository(:mysql_test_tmp).adapter.query("show databases;").should include("mack_data_mapper_test")
           end
         end
       
         it "should drop/create a db if it already exists for the current environment" do
-          repository(:mysql_test_tmp) do |repo|
-            rake_task("db:recreate")
-            Zombie.should_not be_storage_exists
-            Zombie.auto_migrate!
-            Zombie.should be_storage_exist
-            rake_task("db:recreate")
-            Zombie.should_not be_storage_exists
-          end
+          rake_task("db:recreate")
+          Zombie.should_not be_storage_exists
+          Zombie.auto_migrate!
+          Zombie.should be_storage_exist
+          rake_task("db:recreate")
+          Zombie.should_not be_storage_exists
         end
       
         it "should create a db for the specified environment" do
-          repository(:mysql_test_tmp) do |repo|
-            repo.adapter.query("show databases;").should_not include("mack_data_mapper_production")
-            rake_task("db:recreate", "MACK_ENV" => "production")
-            repo.adapter.query("show databases;").should include("mack_data_mapper_production")
-          end
+          repository(:mysql_test_tmp).adapter.query("show databases;").should_not include("mack_data_mapper_production")
+          rake_task("db:recreate", "MACK_ENV" => "production")
+          repository(:mysql_test_tmp).adapter.query("show databases;").should include("mack_data_mapper_production")
         end
       
         it "should drop/create a db if it already exists for the specified environment" do
-          repository(:mysql_test_tmp) do |repo|
-            rake_task("db:recreate", "MACK_ENV" => "production")
-            Zombie.should_not be_storage_exists
-            Zombie.auto_migrate!
-            Zombie.should be_storage_exist
-            rake_task("db:recreate", "MACK_ENV" => "production")
-            Zombie.should_not be_storage_exists
-          end
+          rake_task("db:recreate", "MACK_ENV" => "production")
+          Zombie.should_not be_storage_exists
+          Zombie.auto_migrate!
+          Zombie.should be_storage_exist
+          rake_task("db:recreate", "MACK_ENV" => "production")
+          Zombie.should_not be_storage_exists
         end
         
       end

@@ -1,16 +1,12 @@
 require 'rubygems'
 require 'genosaurus'
 
-# gem 'dm-core', '0.9.2'
-# require 'dm-core'
-# gem 'dm-validations', '0.9.2'
-# require 'dm-validations'
-# gem 'dm-migrations', '0.9.2'
-# require 'dm-migrations'
-$: << File.expand_path(File.join(File.dirname(__FILE__), "dm_patches"))
+fl = File.join(File.dirname(__FILE__), "mack-data_mapper")
+
+$: << File.expand_path(File.join(fl, "dm_patches"))
 require 'data_mapper'
 
-fl = File.dirname(__FILE__)
+
 require File.join(fl, "database")
 require File.join(fl, "helpers", "orm_helpers")
 require File.join(fl, "resource")
@@ -22,7 +18,7 @@ require File.join(fl, "genosaurus_helpers")
 
 
 [:helpers, :migration_generator, :model_generator, :scaffold_generator, :dm_patches].each do |folder|
-  Dir.glob(File.join(File.dirname(__FILE__), folder.to_s, "**/*.rb")).each {|f| require f}
+  Dir.glob(File.join(fl, folder.to_s, "**/*.rb")).each {|f| require f}
 end
 
 English::Inflect.word 'email_address'
@@ -51,4 +47,4 @@ DataMapper.logger = DataMapper::Logger.new(StringIO.new, 0)
 
 Mack::Database.establish_connection(Mack.env)
 
-require 'mack-data_mapper_tasks'
+require File.join(File.dirname(__FILE__), 'mack-data_mapper_tasks')
