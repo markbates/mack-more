@@ -4,7 +4,7 @@ module Mack
     # This is a general purpose Singleton Registry class.
     # It takes the drudgery out of creating registry classes, that
     # are, let's face it, all pretty much the same.
-    class Registry
+    class RegistryList
       include Singleton
       include Extlib::Hook
       
@@ -78,6 +78,6 @@ module Mack
         
       end
       
-    end # Registry
+    end # RegistryList
   end # Utils
 end # Mack

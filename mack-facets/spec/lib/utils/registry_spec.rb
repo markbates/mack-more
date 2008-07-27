@@ -1,12 +1,12 @@
 require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
 
-describe Mack::Utils::Registry do
+describe Mack::Utils::RegistryList do
 
-  class FooRegistry < Mack::Utils::Registry
+  class FooRegistry < Mack::Utils::RegistryList
   end
   
-  class BarRegistry < Mack::Utils::Registry
+  class BarRegistry < Mack::Utils::RegistryList
     def initial_state
       [1,2,3]
     end
