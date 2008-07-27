@@ -5,6 +5,9 @@ module Mack
     #
     # Provides a convenient way to register items in a map.
     #
+    # The structure of the registry is { :tag => [content] }, and the items
+    # within the array can be arranged anyway the user sees fit.
+    #
     # ds - july 2008
     #
     class RegistryMap
