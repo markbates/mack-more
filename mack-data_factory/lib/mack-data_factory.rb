@@ -1,4 +1,6 @@
 fl = File.dirname(__FILE__)
 
-require File.join(fl, 'data_factory', 'data_factory.rb')
-require File.join(fl, 'data_factory', 'field_manager.rb')
+[:data_factory, :field_manager].each do |f|
+  require File.join(fl, 'mack-data_factory', "#{f}.rb")
+end
+
