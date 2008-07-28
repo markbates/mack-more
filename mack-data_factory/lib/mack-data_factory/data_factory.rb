@@ -34,8 +34,8 @@ module Mack
           end
         end
         
-        def field(model_attrib_sym, default_value, options = {})
-          field_manager.add(scope, model_attrib_sym, default_value, options)
+        def field(model_attrib_sym, default_value, options = {}, &block)
+          field_manager.add(scope, model_attrib_sym, default_value, options, &block)
         end
         
         def scope_for(tag)
