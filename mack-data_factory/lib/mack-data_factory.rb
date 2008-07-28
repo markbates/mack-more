@@ -4,3 +4,6 @@ fl = File.dirname(__FILE__)
   require File.join(fl, 'mack-data_factory', "#{f}.rb")
 end
 
+[:kernel].each do |f|
+  require File.join(fl, 'mack-data_factory', 'core_extensions', "#{f}.rb")
+end
