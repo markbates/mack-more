@@ -13,7 +13,7 @@ require File.join(crt, "rake_task_requires")
   s.test_files = FileList['test/**/*']
 
   s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*']
-  s.add_dependency("markaby", "0.5.0")
+  s.add_dependency("faker", "0.3.1")
   s.require_paths << 'lib'
   
   s.has_rdoc = true

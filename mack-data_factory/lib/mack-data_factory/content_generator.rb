@@ -110,16 +110,53 @@ module Mack
           end
           
           def email_generator
-            raise "Method not yet implemented"
+            @email_gen ||= Proc.new do |def_value, rules|
+              Faker::Internet.free_email
+            end
+            return @email_gen
           end
+          
+          def firstname_generator
+            @fn_gen ||= Proc.new do |def_value, rules|
+              Faker::Name.first_name
+            end
+            return @fn_gen
+          end
+          
+          def lastname_generator
+            @ln_gen ||= Proc.new |def_value, rules|
+              Faker::Name.last_name
+            end
+            return @ln_gen
+          end       
           
           def name_generator
-            raise "Method not yet implemented"
+            @name_gen ||= Proc.new |def_value, rules|
+              Faker::Name.name
+            end
+            return @name_gen
           end
           
-          def fullname_generator
-            raise "Method not yet implemented"
+          def phone_generator
+            @phone_gen ||= Proc.new |def_value, rules|
+              Faker::PhoneNumber.phone_number
+            end
+            return @phone_gen
           end
+          
+          def company_generator
+            @company_gen ||= Proc.new |def_value, rules|
+              str = Faker::Company.name
+              
+              if rules[:include_bs]
+                str += "\n#{Faker::Company.bs}"
+              end
+              
+              str
+            end
+            return @company_gen
+          end
+          
         end
       end
 

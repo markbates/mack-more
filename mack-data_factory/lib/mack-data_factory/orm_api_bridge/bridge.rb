@@ -1,9 +1,6 @@
 module Mack
   module Data
     
-    # use list
-    # for each api bridge, it must answer "can_handle(obj)" correctly
-    # the first one that answers true to that method is the handler!
     class OrmRegistry < Mack::Utils::RegistryList
     end
     

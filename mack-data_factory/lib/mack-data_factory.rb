@@ -1,6 +1,8 @@
 fl = File.dirname(__FILE__)
 
-[:data_factory, :field_manager, :content_generator].each do |f|
+require 'faker'
+
+[:data_factory, :field, :field_manager, :content_generator].each do |f|
   require File.join(fl, 'mack-data_factory', "#{f}.rb")
 end
 

@@ -1,3 +1,110 @@
-README
-========================================================================
-mack-data_factory
+Mack-data_factory
+-----------------------------------------------------------------------------
+
+== Summary
+Utility to create faux data.
+
+== Installation
+sudo gem install mack-data_factory
+
+== Using The Gem
+
+** Constructing Factory
+For each model that you want to produce, you will need to define a factory class.  
+Let's say that I have 2 models: Item and User, and Item belongs to user.  So the factories will look like the following:
+
+    class ItemFactory
+        include Mack::Data::Factory
+        
+        field :id, 10, :content => :numeric, :num_start => 0, :num_end => 100000
+        field :title, "MyItem"
+        field :owner_id, {:user => 'id'}
+    end
+    
+    class UserFactory
+        include Mack::Data::Factory
+        
+        field :id, 10, :content => :numeric, :num_start => 10, :num_end => 100000
+        field :username, "planters", :length => 25, :content => :alpha
+        field :password, "roastedPeanuts", :immutable => true
+    end
+    
+So, the 2 classes above defined the factory for item and user.  As you can see, each factory will need to explicitly 
+list all the fields that it will populate, and for each field, you can define rules on how the content is generated.
+
+For numeric content, you can specify the start number and end number, and the content generator will generate a random number 
+between that range.
+
+For string content, you can specify :content to either :alpha or :alphanumeric, and you can also specify the
+:length, :min_length or :max_length. 
+
+For all fields, you can specify :immutable to true, which means for all instances created, the content for that field
+will not change.
+
+Other supported content types: 
+  - :email --> generate random email address
+  - :firstname --> generate first name
+  - :lastname --> generate last name
+  - :name --> generate full name
+  - :phone --> generate phone number
+  - :company --> generate company name.  rules: [:include_bs --> include sales tag line]
+    example:  field, "", :content => :company, :include_bs => true
+    could generate something like:
+        Fadel-Larkin
+        monetize cross-media experiences
+  
+** Pumping Data
+
+To create objects from the factory is very easy, just call create method on that factory and tell it how many items 
+you want to create.
+
+Note that if your factory has dependencies to other model (like the ItemFactory in the example), then make sure you
+have created the model that it's depending on first.
+
+** Creating Factory Chains
+In some instances, you may want to create an execution chain of a bunch of factories.  In the above example: the UserFactory
+has to be run before the ItemFactory.  
+If that's the case, you can create factory chain that you can execute later.
+
+    factories(:my_cool_factory) do
+        UserFactory.create(1)
+        ItemFactory.create(1000)
+    end
+
+Once you have defined a named factory chain, you can execute that any time, by calling:
+
+    run_factories(:my_cool_factory)
+    
+** Scoping
+In other instances, you may want different settings in the factory for different test scope.  You can achieve this by doing
+the following:
+    
+    class UserFactory
+        include Mack::Data::Factory
+    
+        field :id, 10, :content => :numeric, :num_start => 10, :num_end => 100000
+        field :username, "planters", :length => 25, :content => :alpha
+        field :password, "roastedPeanuts", :immutable => true
+        
+        scope_for(:long_username) do
+            field :username, "planters", :length => 128, :content => :alpha
+        end
+    end
+    
+The above example defined a scoping for "long_username", which you can use by calling:
+    UserFactory.create(100, :long_username)
+    
+When a scope is defined and called, the field defined in the block will overwrite the default field listing 
+in that class.  Scopes in the factory is independent to each other, and one scope cannot affect the others.
+
+== Contact
+Please mail bugs, suggestions, and patches to darsono.sutedja@gmail.com
+
+== Copyright Notices
+Copyright (c) 2008 Darsono Sutedja
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
