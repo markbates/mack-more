@@ -1,19 +1,20 @@
 module Mack
   module Data
+    
     class Field
       attr_accessor :field_name
       attr_accessor :field_value
       attr_accessor :field_value_producer
       attr_accessor :field_rules
-      
+
       def initialize(hash = {})
-        puts "Inititalizing DataFactory's Field object:"
+        #puts "Inititalizing DataFactory's Field object:"
         
         hash.each_pair do |k, v|
-          puts "--> Setting #{v} to #{k}"
+          #puts "--> Setting #{v} to #{k}"
           self.send("#{k}=", v)
         end
-        
+                
         self.field_rules = {
           :immutable => false,
           :length => 256,

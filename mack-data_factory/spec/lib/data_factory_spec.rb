@@ -35,7 +35,6 @@ module Mack
       attr_accessor :lastname
 
       def save
-        puts "Saving user"
         Database.instance.add(self)
       end
 
@@ -138,26 +137,26 @@ describe "DataFactory" do
 
   describe "Module" do
     before(:each) do
-      @factory = Mack::FactoryTest::UserFactory
+      @user_factory = Mack::FactoryTest::UserFactory
     end
 
     it "should add create class_method to the factory object" do
-      @factory.respond_to?(:create).should == true
+      @user_factory.respond_to?(:create).should == true
     end
 
     it "should add field class_method to the factory object" do
-      @factory.respond_to?(:field).should == true
+      @user_factory.respond_to?(:field).should == true
     end
 
     it "should add scope_for class_method to the factory object" do
-      @factory.respond_to?(:scope_for).should == true
+      @user_factory.respond_to?(:scope_for).should == true
     end
   end
 
   describe "Core Extension" do
 
     before(:each) do
-      @factory = Mack::FactoryTest::UserFactory
+      @user_factory = Mack::FactoryTest::UserFactory
       @map = Mack::Data::FactoryRegistryMap
       @db  = Mack::FactoryTest::Database.instance
 
@@ -173,8 +172,8 @@ describe "DataFactory" do
       @map.registered_items[:hello].should be_nil
 
       proc = Proc.new do
-        Mack::FactoryTest::UserFactory.create(1)
-        Mack::FactoryTest::UserFactory.create(1, :diff_firstname)
+        @user_factory.create(1)
+        @user_factory.create(1, :diff_firstname)
       end
 
       factories(:hello, &proc)
@@ -188,8 +187,8 @@ describe "DataFactory" do
       @db.should be_empty
 
       proc = Proc.new do
-        Mack::FactoryTest::UserFactory.create(1)
-        Mack::FactoryTest::UserFactory.create(1, :diff_firstname)
+        @user_factory.create(1)
+        @user_factory.create(1, :diff_firstname)
       end
 
       factories(:hello, &proc)
@@ -203,7 +202,8 @@ describe "DataFactory" do
 
   describe "Creation" do
     before(:each) do
-      @factory = Mack::FactoryTest::UserFactory
+      @user_factory = Mack::FactoryTest::UserFactory
+      @item_factory = Mack::FactoryTest::ItemFactory
       @db  = Mack::FactoryTest::Database.instance
       @db.reset!
     end
@@ -213,8 +213,8 @@ describe "DataFactory" do
     end
 
     it "should generate correct relationship if relationship rule is provided" do
-      Mack::FactoryTest::UserFactory.create(10)
-      Mack::FactoryTest::ItemFactory.create(1)
+      @user_factory.create(10)
+      @item_factory.create(1)
       
       check = false
       item = @db.list.last
@@ -229,7 +229,7 @@ describe "DataFactory" do
     it "should generate x number of instances with no random data if immutable flag is set" do
       @db.should be_empty
 
-      Mack::FactoryTest::UserFactory.create(1)
+      @user_factory.create(1)
 
       @db.list.size.should == 1
       user = @db.list[0]
@@ -244,7 +244,7 @@ describe "DataFactory" do
     it "should generate x number of scoped instances properly" do
       @db.should be_empty
 
-      Mack::FactoryTest::UserFactory.create(1, :diff_firstname)
+      @user_factory.create(1, :diff_firstname)
 
       @db.list.size.should == 1
       user = @db.list[0]
@@ -257,7 +257,7 @@ describe "DataFactory" do
 
     describe "using default generator" do
       before(:each) do
-        @factory = Mack::FactoryTest::UserFactory
+        @user_factory = Mack::FactoryTest::UserFactory
         @db  = Mack::FactoryTest::Database.instance
         @db.reset!
       end
@@ -269,14 +269,14 @@ describe "DataFactory" do
       it "should honor the add_space flag, length, and content type" do
         @db.should be_empty
 
-        Mack::FactoryTest::UserFactory.create(1, :alpha_with_space)
+        @user_factory.create(1, :alpha_with_space)
         user = @db.list[0]
         user.firstname.size.should == 128     # 128 bytes of string
         user.firstname.should_not match(/\d/) # alphabet only
         user.firstname.should match(/ /)      # add_space = true
 
         @db.reset!
-        Mack::FactoryTest::UserFactory.create(1, :alpha_without_space)
+        @user_factory.create(1, :alpha_without_space)
         user = @db.list[0]
         user.firstname.size.should == 128     # 128 bytes of string
         user.firstname.should_not match(/\d/) # alphabet only
@@ -286,7 +286,7 @@ describe "DataFactory" do
       it "should generate numeric type" do
         @db.should be_empty
 
-        Mack::FactoryTest::UserFactory.create(1, :numeric_type)
+        @user_factory.create(1, :numeric_type)
         user = @db.list[0]
         user.id.is_a?(Fixnum).should == true
         num = user.id
@@ -297,7 +297,7 @@ describe "DataFactory" do
       it "should generate alpha_numeric type" do
         @db.should be_empty
 
-        Mack::FactoryTest::UserFactory.create(1, :alpha_numeric_with_space)
+        @user_factory.create(1, :alpha_numeric_with_space)
         user = @db.list[0]
         user.firstname.size.should == 128
         user.firstname.should match(/\d/)
@@ -305,7 +305,7 @@ describe "DataFactory" do
         user.firstname.should match(/[a-z]/)
 
         @db.reset!
-        Mack::FactoryTest::UserFactory.create(1, :alpha_numeric_without_space)
+        @user_factory.create(1, :alpha_numeric_without_space)
         user = @db.list[0]
         user.firstname.size.should == 128
         user.firstname.should match(/\d/)
@@ -318,7 +318,7 @@ describe "DataFactory" do
     it "should generate correct instance with custom content generator if provided" do
       @db.should be_empty
 
-      Mack::FactoryTest::UserFactory.create(1, :custom_string_generator)
+      @user_factory.create(1, :custom_string_generator)
       user = @db.list[0]
       user.firstname.should == "Darsono Sutedja"
     end

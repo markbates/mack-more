@@ -12,7 +12,7 @@ module Mack
         def create(num, scope = :default)
           factory_name = self.name.underscore
           model_name = factory_name.gsub('_factory', '')
-          puts "creating #{num} instances of #{model_name.camelcase}"
+          #puts "creating #{num} instances of #{model_name.camelcase}"
           
           scoped_fields = field_manager.scopes[scope]
           fields = field_manager.scopes[:default].merge(scoped_fields)
