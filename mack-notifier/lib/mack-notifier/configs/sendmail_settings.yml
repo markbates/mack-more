@@ -1,0 +1,3 @@
+notifier::sendmail_settings:
+  location: "/usr/sbin/sendmail"
+  arguments: "-i -t"

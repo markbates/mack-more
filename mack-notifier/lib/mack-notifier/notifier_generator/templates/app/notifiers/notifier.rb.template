@@ -1,0 +1,3 @@
+class <%= class_name %>
+  include Mack::Notifier
+end
