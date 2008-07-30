@@ -15,6 +15,10 @@ module Mack
         handler(obj).get(obj, *args)
       end
       
+      def get_first(obj, *args)
+        handler(obj).get_first(obj, *args)
+      end
+      
       def count(obj, *args)
         handler(obj).count(obj, *args)
       end

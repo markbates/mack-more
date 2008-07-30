@@ -31,7 +31,7 @@ module Mack
         self.field_value_producer = Mack::Data::Factory::FieldContentGenerator.send("#{field_rules[:content]}_generator")
       end
       
-      def get_value
+      def get_value(index = 0)
         # return the field_value immediately if the rule states that it's immutable
         return field_value if field_rules[:immutable]
         
@@ -43,16 +43,15 @@ module Mack
           begin
             owner_model = owner.to_s.camelcase.constantize
             bridge = Mack::Data::Bridge.new
-            self.field_value = (bridge.get(owner_model, rand(bridge.count(owner_model)))).send(key)
-            return self.field_value
-            #self.field_value = owner_model.get(rand(owner_model.count)).send(key)
+            value = bridge.get_first(owner_model).send(key)
+            return value
           rescue Exception
             Mack.logger.warn "WARNING: DataFactory: field_value for #{field_name} is not set properly because data relationship defined is not correct"
           end
         end
         
         # must generate random string and also respect the rules
-        field_value_producer.call(field_value, field_rules)
+        field_value_producer.call(field_value, field_rules, index)
       end
     end
   end

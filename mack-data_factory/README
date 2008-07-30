@@ -16,7 +16,6 @@ Let's say that I have 2 models: Item and User, and Item belongs to user.  So the
     class ItemFactory
         include Mack::Data::Factory
         
-        field :id, 10, :content => :numeric, :num_start => 0, :num_end => 100000
         field :title, "MyItem"
         field :owner_id, {:user => 'id'}
     end
@@ -24,7 +23,6 @@ Let's say that I have 2 models: Item and User, and Item belongs to user.  So the
     class UserFactory
         include Mack::Data::Factory
         
-        field :id, 10, :content => :numeric, :num_start => 10, :num_end => 100000
         field :username, "planters", :length => 25, :content => :alpha
         field :password, "roastedPeanuts", :immutable => true
     end
@@ -61,7 +59,7 @@ you want to create.
 Note that if your factory has dependencies to other model (like the ItemFactory in the example), then make sure you
 have created the model that it's depending on first.
 
-** Creating Factory Chains
+** Creating Factories Execution Chain
 In some instances, you may want to create an execution chain of a bunch of factories.  In the above example: the UserFactory
 has to be run before the ItemFactory.  
 If that's the case, you can create factory chain that you can execute later.
@@ -82,7 +80,6 @@ the following:
     class UserFactory
         include Mack::Data::Factory
     
-        field :id, 10, :content => :numeric, :num_start => 10, :num_end => 100000
         field :username, "planters", :length => 25, :content => :alpha
         field :password, "roastedPeanuts", :immutable => true
         
@@ -96,6 +93,23 @@ The above example defined a scoping for "long_username", which you can use by ca
     
 When a scope is defined and called, the field defined in the block will overwrite the default field listing 
 in that class.  Scopes in the factory is independent to each other, and one scope cannot affect the others.
+
+** Custom content generator
+In some cases, the default content generators that are provided by this framework don't fit your needs.
+To accommodate this situation, you can provide a custom content generator for each field you defined by 
+passing in a proc.  
+
+Example:
+I'm creating a users, but I don't want the username be totally random, instead I want it to use the default
+name I provide, and append 0-n at the end of the string to represent the Nth user in the list.  Here's how to
+accomplish that:
+    class UserFactory
+        include Mack::Data::Factory
+        
+        field :username, "planters" { |def_value, rules, index| "#{def_value}#{index}" }
+        field :password, "roastedPeanuts", :immutable => true
+        
+    end
 
 == Contact
 Please mail bugs, suggestions, and patches to darsono.sutedja@gmail.com

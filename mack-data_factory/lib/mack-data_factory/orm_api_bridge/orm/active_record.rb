@@ -5,7 +5,7 @@ module Mack
         
         def can_handle(obj)
           return false if !Object.const_defined?('ActiveRecord')
-          return obj.is_a?(::ActiveRecord::Base)
+          return obj.ancestors.include?(::ActiveRecord::Base)
         end
         
         def get(obj, *args)
@@ -18,6 +18,10 @@ module Mack
         
         def save(obj, *args)
           obj.save
+        end
+        
+        def get_first(obj, *args)
+          obj.find(:first, *args)
         end
         
       end
