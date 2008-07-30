@@ -33,10 +33,10 @@ module Mack
 
           # set text and html bodies
           main_body = TMail::Mail.new
-          unless mack_notifier.body(:text).blank?
+          unless mack_notifier.body(:plain).blank?
             text = TMail::Mail.new
             text.content_type = "text/plain"
-            text.body = mack_notifier.body(:text)
+            text.body = mack_notifier.body(:plain)
             main_body.parts << text
           end
           unless mack_notifier.body(:html).blank?

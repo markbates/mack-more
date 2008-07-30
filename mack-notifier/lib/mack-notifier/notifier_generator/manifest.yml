@@ -4,8 +4,8 @@ notifier_template:
   output_path: <%= File.join("app", "notifiers", "#{file_name}.rb") %>
 text_template:
   type: file
-  template_path: <%= File.join(templates_directory_path, "app", "notifiers", "text.erb.template") %>
-  output_path: <%= File.join("app", "notifiers", "templates", file_name, "text.erb") %>
+  template_path: <%= File.join(templates_directory_path, "app", "notifiers", "plain.erb.template") %>
+  output_path: <%= File.join("app", "notifiers", "templates", file_name, "plain.erb") %>
 html_template:
   type: file
   template_path: <%= File.join(templates_directory_path, "app", "notifiers", "html.erb.template") %>

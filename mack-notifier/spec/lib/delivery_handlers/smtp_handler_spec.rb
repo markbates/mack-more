@@ -9,7 +9,7 @@ describe Mack::Notifier::DeliveryHandlers::Smtp do
       we.to = "totesting@mackframework.com"
       we.from = "fromtesting@mackframework.com"
       we.subject = "smtp handler test"
-      we.body(:text, "my plain text body")
+      we.body(:plain, "my plain text body")
       we.body(:html, "my <b>html</b> body")
       Mack::Notifier::DeliveryHandlers::Smtp.deliver(we)
     end

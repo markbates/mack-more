@@ -68,7 +68,7 @@ module Mack # :nodoc:
       return @content_type unless @content_type.blank?
       if has_attachments?
         return "multipart/mixed"
-      elsif !body(:text).blank? && !body(:html).blank?
+      elsif !body(:plain).blank? && !body(:html).blank?
         return "multipart/alternative"
       elsif body(:html)
         return "text/html"

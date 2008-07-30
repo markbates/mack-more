@@ -27,10 +27,10 @@ describe Mack::Notifier do
   describe "build" do
     
     it "should build an email based on the provided hash" do
-      @we.build({:to => "mark@mackframework.com", :subject => "hello world", :body_text => "this is my text body"})
+      @we.build({:to => "mark@mackframework.com", :subject => "hello world", :body_plain => "this is my text body"})
       @we.to.should == "mark@mackframework.com"
       @we.subject.should == "hello world"
-      @we.body(:text).should == "this is my text body"
+      @we.body(:plain).should == "this is my text body"
     end
     
   end
@@ -48,7 +48,7 @@ describe Mack::Notifier do
   describe "content_type" do
     
     it "should return text/plain if there's only a text body" do
-      @we.body(:text, "hello")
+      @we.body(:plain, "hello")
       @we.content_type.should == "text/plain"
     end
     
@@ -58,8 +58,8 @@ describe Mack::Notifier do
     end
     
     it "should return multipart/alternative if there's both a text and html body" do
-      @we.body(:text, "hello")
-      @we.body(:text).should == "hello"
+      @we.body(:plain, "hello")
+      @we.body(:plain).should == "hello"
       @we.body(:html, "hello")
       @we.content_type.should == "multipart/alternative"
     end
@@ -94,16 +94,16 @@ describe Mack::Notifier do
     
   end
   
-  describe "body(:text)" do
+  describe "body(:plain)" do
     
     it "if no text_body it should load a *.text.erb file, if available" do
       FileUtils.mkdir_p(Mack::Paths.notifiers("templates", "welcome_email"))
-      text_file = Mack::Paths.notifiers("templates", "welcome_email", "text.erb")
+      text_file = Mack::Paths.notifiers("templates", "welcome_email", "plain.erb")
       File.open(text_file, "w") do |f|
         f.puts "Hello <%= notifier.to %>"
       end
       @we.to = "mark@mackframework.com"
-      @we.body(:text).should == "Hello mark@mackframework.com\n"
+      @we.body(:plain).should == "Hello mark@mackframework.com\n"
     end
     
   end

@@ -6,7 +6,7 @@ describe NotifierGenerator do
     FileUtils.rm_rf(Mack::Paths.notifiers)
     FileUtils.rm_rf(Mack::Paths.test)
     @notifier_file = Mack::Paths.notifiers("registration_email.rb")
-    @text_file = Mack::Paths.notifiers("templates", "registration_email", "text.erb")
+    @text_file = Mack::Paths.notifiers("templates", "registration_email", "plain.erb")
     @html_file = Mack::Paths.notifiers("templates", "registration_email", "html.erb")
     @spec_file = Mack::Paths.unit("registration_email_spec.rb")
     @test_case_file = Mack::Paths.unit("registration_email_test.rb")
@@ -28,12 +28,12 @@ describe NotifierGenerator do
     File.read(@notifier_file).should == fixture("registration_email.rb")
   end
   
-  it "should create text.erb and html.erb files" do
+  it "should create plain.erb and html.erb files" do
     File.should_not be_exists(@text_file)
     File.should_not be_exists(@html_file)
     NotifierGenerator.run("name" => "registration_email")
     File.should be_exists(@text_file)
-    File.read(@text_file).should == fixture("text.erb")
+    File.read(@text_file).should == fixture("plain.erb")
     File.should be_exists(@html_file)
     File.read(@html_file).should == fixture("html.erb")
   end
