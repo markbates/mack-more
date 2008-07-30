@@ -1,3 +1,9 @@
-README
-========================================================================
-mack-haml
+This gem provides support for the Haml markup language with in Mack.
+
+For more information on Haml please visit:
+
+http://haml.hamptoncatlin.com/
+
+== Notes
+
+File extensions for Haml should be <view>.<format>.haml

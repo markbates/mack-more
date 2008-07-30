@@ -1,3 +1,4 @@
-README
-========================================================================
-mack-facets was developed by: markbates
+Mack facets is a collection of Ruby extensions and utilities to enhance Mack
+and any other Ruby application.
+
+Mack-facets leverages the 'facets' and 'english' gems.

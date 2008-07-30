@@ -1,2 +1,2 @@
 require 'haml'
-require 'haml_engine'
+require File.join(File.dirname(__FILE__), "mack-haml", 'haml_engine')

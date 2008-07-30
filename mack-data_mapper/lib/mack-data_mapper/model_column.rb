@@ -1,8 +1,8 @@
 module Mack
-  module Genosaurus
-    module DataMapper
+  module Genosaurus # :nodoc:
+    module DataMapper # :nodoc:
       # Used to represent a 'column' from the param cols or columns for generators.
-      class ModelColumn
+      class ModelColumn # :nodoc:
       
         # The name of the column.
         attr_accessor :column_name

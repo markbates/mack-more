@@ -1,3 +1,37 @@
-README
-========================================================================
-mack-caching was developed by: markbates
+== Page Caching
+
+Using page caching with Mack, is incredibly easy. The first thing you 
+need to do is turn it on. In the app_config/*.yml file of your chosing
+place the following configuration setting:
+
+  use_page_caching: true
+  
+That will now enable your application to use the page caching system.
+A restart of your application is required for this to take effect.
+
+Now that your application is using page caching, provided by the 
+Cachetastic gem, you need to tell it which controllers/actions you want
+to cache.
+
+To cache all the actions in your controller you would do something like
+the following:
+
+  class UsersController
+    include Mack::Controller
+    
+    cache_pages
+    
+    # ...
+    #  actions omitted
+    # ...
+    
+  end
+  
+The cache_pages method takes similar inputs to before/after filters. If
+you want to be more specific you can use either the :only or :except flags.
+
+  cache_pages :only => [:index, :show]
+
+or
+
+  cache_pages :except => [:delete, :edit, :update]
