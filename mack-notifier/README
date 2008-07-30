@@ -12,8 +12,8 @@ To use this in your application you would do something like the following:
   mail.to = "foo@example.com"
   mail.from = "me@example.com"
   mail.subject = "Hello"
-  mail.text_body = "This is my plain text body"
-  mail.html_body = "This is my <b>HTML</b> body"
+  mail.body(:text, "This is my plain text body")
+  mail.body(:html, "This is my <b>HTML</b> body")
   mail.attach(Mack::Notifier::Attachment.new("/path/to/my/image_file.png"))
   mail.attach(Mack::Notifier::Attachment.new("/path/to/my/pdf_file.pdf"))
   mail.deliver

@@ -8,8 +8,6 @@ module Mack # :nodoc:
     attr_accessor :from
     attr_accessor :reply_to
     attr_accessor :subject
-    # attr_accessor :text_body
-    # attr_accessor :html_body
     attr_accessor :date_sent
     attr_accessor :mime_version
     attr_accessor :content_type
@@ -27,10 +25,6 @@ module Mack # :nodoc:
       end
     end
     
-    # def body_part(part)
-    #   (@bodies ||= {})[part.to_sym]
-    # end
-    
     def body(part, value = nil)
       part = part.to_sym
       if value.nil?
@@ -45,22 +39,6 @@ module Mack # :nodoc:
         bodies[part] = value
       end
     end
-    
-    # def text_body
-    #   body(:text)
-    # end
-    # 
-    # def html_body
-    #   body(:html)
-    # end
-    # 
-    # def text_body=(text)
-    #   body(:text, text)
-    # end
-    # 
-    # def html_body=(html)
-    #   body(:html, html)
-    # end
     
     # # Returns the text_body of the email. If there is no text_body set it will attempt to build one using
     # # the text.erb template for this notifier.
