@@ -17,7 +17,13 @@ module Mack # :nodoc:
     # A helper method that takes a Hash and will populate the email with the key/value pairs of that Hash.
     def build(options = {})
       options.each do |k,v|
-        self.send("#{k}=", v)
+        k = k.to_s
+        unless k.match(/^body_/)
+          self.send("#{k}=", v)
+        else
+          k.gsub!("body_", "")
+          self.body(k, v)
+        end
       end
     end
     
@@ -40,21 +46,21 @@ module Mack # :nodoc:
       end
     end
     
-    def text_body
-      body(:text)
-    end
-    
-    def html_body
-      body(:html)
-    end
-    
-    def text_body=(text)
-      body(:text, text)
-    end
-    
-    def html_body=(html)
-      body(:html, html)
-    end
+    # def text_body
+    #   body(:text)
+    # end
+    # 
+    # def html_body
+    #   body(:html)
+    # end
+    # 
+    # def text_body=(text)
+    #   body(:text, text)
+    # end
+    # 
+    # def html_body=(html)
+    #   body(:html, html)
+    # end
     
     # # Returns the text_body of the email. If there is no text_body set it will attempt to build one using
     # # the text.erb template for this notifier.
@@ -84,9 +90,9 @@ module Mack # :nodoc:
       return @content_type unless @content_type.blank?
       if has_attachments?
         return "multipart/mixed"
-      elsif !text_body.blank? && !html_body.blank?
+      elsif !body(:text).blank? && !body(:html).blank?
         return "multipart/alternative"
-      elsif html_body
+      elsif body(:html)
         return "text/html"
       else
         return "text/plain"

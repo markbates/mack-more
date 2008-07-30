@@ -11,8 +11,8 @@ describe Mack::Notifier::Adapters::Tmail do
       we.from = "mark@mackframework.com"
       we.reply_to = "mark@mackframework.com"
       we.subject = "Hello World!"
-      we.text_body = "This is my plain text body"
-      we.html_body = "This is my <b>html</b> body"
+      we.body(:text, "This is my plain text body")
+      we.body(:html, "This is my <b>html</b> body")
       adap = Mack::Notifier::Adapters::Tmail.new(we)
       adap.convert
       tmail = adap.transformed
@@ -33,8 +33,8 @@ describe Mack::Notifier::Adapters::Tmail do
       we.from = "mark@mackframework.com"
       we.reply_to = "mark@mackframework.com"
       we.subject = "Hello World!"
-      we.text_body = "This is my plain text body"
-      we.html_body = "This is my <b>html</b> body"
+      we.body(:text, "This is my plain text body")
+      we.body(:html, "This is my <b>html</b> body")
       we.attach(Mack::Notifier::Attachment.new(File.join(File.dirname(__FILE__), "..", "..", "fixtures", "mark-simpson.png")))
       adap = Mack::Notifier::Adapters::Tmail.new(we)
       adap.convert
@@ -43,10 +43,10 @@ describe Mack::Notifier::Adapters::Tmail do
       tmail.parts[0].content_type.should == "multipart/alternative"
       text_part = tmail.parts[0].parts[0]
       text_part.content_type.should == "text/plain"
-      text_part.body.should == we.text_body
+      text_part.body.should == we.body(:text)
       html_part = tmail.parts[0].parts[1]
       html_part.content_type.should == "text/html"
-      html_part.body.should == we.html_body
+      html_part.body.should == we.body(:html)
       attachment_part = tmail.parts[1]
       attachment_part.content_type.should == "application/octet-stream"
       attachment_part['Content-Disposition'].to_s.should == "attachment; filename=mark-simpson.png"

@@ -27,7 +27,7 @@ describe Mack::Notifier do
   describe "build" do
     
     it "should build an email based on the provided hash" do
-      @we.build({:to => "mark@mackframework.com", :subject => "hello world", :text_body => "this is my text body"})
+      @we.build({:to => "mark@mackframework.com", :subject => "hello world", :body_text => "this is my text body"})
       @we.to.should == "mark@mackframework.com"
       @we.subject.should == "hello world"
       @we.body(:text).should == "this is my text body"
