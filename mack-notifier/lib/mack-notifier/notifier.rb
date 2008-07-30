@@ -13,6 +13,7 @@ module Mack # :nodoc:
     attr_accessor :content_type
     
     # A helper method that takes a Hash and will populate the email with the key/value pairs of that Hash.
+    # Use body_* to set a body part.
     def build(options = {})
       options.each do |k,v|
         k = k.to_s
@@ -25,6 +26,17 @@ module Mack # :nodoc:
       end
     end
     
+    # If called with two parameters it will set the value of the body type to the second parameter.
+    # 
+    # Example:
+    #   body(:plain, "hello") # => sets the 'plain' body to "hello"
+    # 
+    # If called with just one parameter it will return the value of that body type. If the value is nil
+    # the template for that body type will be rendered.
+    #
+    # Example:
+    #   body(:plain) # => "hello"
+    #   body(:html) # => will call the html.erb template for this notifier.
     def body(part, value = nil)
       part = part.to_sym
       if value.nil?
@@ -39,24 +51,6 @@ module Mack # :nodoc:
         bodies[part] = value
       end
     end
-    
-    # # Returns the text_body of the email. If there is no text_body set it will attempt to build one using
-    # # the text.erb template for this notifier.
-    # def text_body
-    #   if @text_body.blank?
-    #     @text_body = build_template(:text)
-    #   end
-    #   return @text_body
-    # end
-    # 
-    # # Returns the html_body of the email. If there is no html_body set it will attempt to build one using
-    # # the html.erb template for this notifier.
-    # def html_body
-    #   if @html_body.blank?
-    #     @html_body = build_template(:html)
-    #   end
-    #   @html_body
-    # end
     
     # Returns the mime_version of the email, defaults to "1.0"
     def mime_version
