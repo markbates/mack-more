@@ -3,7 +3,7 @@ namespace :db do
   
 
   
-  desc "Migrate the database through scripts in db/migrations"
+  desc "Migrate the database through scripts in db/migrations."
   task :migrate => "mack:environment" do
     require 'migration_runner'
     include DataMapper::Types
@@ -12,7 +12,7 @@ namespace :db do
     DataMapper::MigrationRunner.migrate_up!
   end # migrate
   
-  desc "Rolls the schema back to the previous version. Specify the number of steps with STEP=n"
+  desc "Rolls the schema back to the previous version. Specify the number of steps with STEP=n."
   task :rollback => ["mack:environment", "db:abort_if_pending_migrations"] do
     require 'dm-core/types'
     require 'migration_runner'
@@ -26,7 +26,7 @@ namespace :db do
     end
   end # rollback
   
-  desc "Raises an error if there are pending migrations"
+  desc "Raises an error if there are pending migrations."
   task :abort_if_pending_migrations do
     require 'dm-core/types'
     require 'migration_runner'

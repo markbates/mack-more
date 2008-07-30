@@ -1,7 +1,7 @@
 module Mack
   module Genosaurus # :nodoc:
     module DataMapper # :nodoc:
-      module Helpers
+      module Helpers # :nodoc:
       
         def columns(name = param(:name))
           ivar_cache("form_columns") do

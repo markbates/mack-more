@@ -1,9 +1,120 @@
-README
-========================================================================
-mack-data_mapper was developed by: markbates
-
 This gem provides Mack integration with the ORM Framework, DataMapper.
 
 For more information on DataMapper please visit:
 
 http://www.datamapper.org
+
+== Notes
+
+The database.yml file for a DataMapper backed application would look something like this:
+
+  # MySQL:
+  development:
+    default:
+      adapter: mysql
+      database: my_app_development
+      host: localhost
+      username: my_db_user
+      password: password
+    
+  test:
+    default:
+      adapter: mysql
+      database: my_app_test
+      host: localhost
+      username: my_db_user
+      password: password
+
+  production:
+    default:
+      adapter: mysql
+      database: my_app_production
+      host: localhost
+      username: my_db_user
+      password: password
+  
+  # PostgreSQL:
+  development:
+    default:
+      adapter: postgres
+      database: my_app_development
+      host: localhost
+      username: my_db_user
+      password: password
+
+  test:
+    default:
+      adapter: postgres
+      database: my_app_test
+      host: localhost
+      username: my_db_user
+      password: password
+
+  production:
+    default:
+      adapter: postgres
+      database: my_app_production
+      host: localhost
+      username: my_db_user
+      password: password
+
+  # SQLite3:
+  development:
+    default:
+      adapter: sqlite3
+      database: db/my_app_development.db 
+
+  test:
+    default:                           
+      adapter: sqlite3
+      database: db/my_app_test.db 
+
+  production:
+    default:                                 
+      adapter: sqlite3
+      database: db/my_app_production.db 
+
+
+== Testing
+
+Tests are wrapped in a transaction so that any database activities get
+rolled back at the end of the test. This works with both RSpec and
+Test::Unit::TestCase
+
+== Rake tasks
+
+  # Drops (if it exists) the database and then creates it for your environment.
+  rake db:recreate
+  
+  # Creates the database for your environment.
+  rake db:create
+  
+  # Drops the database for your environment.
+  rake db:drop
+  
+  # Creates your test and development databases. Does NOT create your production database!
+  rake db:create:all
+  
+  # Drops your test and development databases. Does NOT create your production database!
+  rake db:drop:all
+  
+  # Drops and creates your test and development databases. Does NOT create your production database!
+  rake db:recreate:all
+  
+  # Migrate the database through scripts in db/migrations.
+  rake db:migrate
+  
+  # Rolls the schema back to the previous version. Specify the number of steps with STEP=n.
+  rake db:rollback
+  
+  # Raises an error if there are pending migrations.
+  rake db:abort_if_pending_migrations
+  
+  # Generates a controller, a model, a migration, and tests for the given resource.
+  rake generate:scaffold
+  
+  # Generates a model, a migration, and a test for the given resource.
+  rake generate:model
+  
+  # Generates a migration for the given columns
+  rake generate:migration
