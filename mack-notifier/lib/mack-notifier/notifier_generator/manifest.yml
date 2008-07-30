@@ -13,11 +13,11 @@ html_template:
 <% if app_config.mack.testing_framework == "test_case" -%>
 test_template:
   type: file
-  template_path: <%= File.join(templates_directory_path, "test", "unit", "test_case.rb.template") %>
-  output_path: <%= File.join("test", "unit", "#{file_name}_test.rb") %>
+  template_path: <%= File.join(templates_directory_path, "test", "notifiers", "test_case.rb.template") %>
+  output_path: <%= File.join("test", "notifiers", "#{file_name}_test.rb") %>
 <% elsif app_config.mack.testing_framework == "rspec" -%>
 test_template:
   type: file
-  template_path: <%= File.join(templates_directory_path, "test", "unit", "rspec.rb.template") %>
-  output_path: <%= File.join("test", "unit", "#{file_name}_spec.rb") %>
+  template_path: <%= File.join(templates_directory_path, "test", "notifiers", "rspec.rb.template") %>
+  output_path: <%= File.join("test", "notifiers", "#{file_name}_spec.rb") %>
 <% end -%>

@@ -11,5 +11,10 @@ module Mack # :nodoc:
       Mack::Paths.notifiers("templates", args)
     end
     
+    # The path the test/notifiers directory
+    def self.notifier_tests(*args)
+      File.join(Mack.root, "test", "notifiers", args)
+    end
+    
   end
 end

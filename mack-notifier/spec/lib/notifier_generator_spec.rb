@@ -8,8 +8,8 @@ describe NotifierGenerator do
     @notifier_file = Mack::Paths.notifiers("registration_email.rb")
     @text_file = Mack::Paths.notifiers("templates", "registration_email", "plain.erb")
     @html_file = Mack::Paths.notifiers("templates", "registration_email", "html.erb")
-    @spec_file = Mack::Paths.unit("registration_email_spec.rb")
-    @test_case_file = Mack::Paths.unit("registration_email_test.rb")
+    @spec_file = Mack::Paths.notifier_tests("registration_email_spec.rb")
+    @test_case_file = Mack::Paths.notifier_tests("registration_email_test.rb")
   end
   
   after(:each) do
