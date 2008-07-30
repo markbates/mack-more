@@ -12,7 +12,7 @@ module Mack # :nodoc:
     attr_accessor :mime_version
     attr_accessor :content_type
     
-    # A helper method that takes a Hash and will populate the email with the key/value pairs of that Hash.
+    # A helper method that takes a Hash and will populate the notification with the key/value pairs of that Hash.
     # Use body_* to set a body part.
     def build(options = {})
       options.each do |k,v|
@@ -52,12 +52,12 @@ module Mack # :nodoc:
       end
     end
     
-    # Returns the mime_version of the email, defaults to "1.0"
+    # Returns the mime_version of the notification, defaults to "1.0"
     def mime_version
       (@mime_version ||= "1.0")
     end
     
-    # This will attempt to determine the content type of the email, unless one is already specified. 
+    # This will attempt to determine the content type of the notification, unless one is already specified. 
     def content_type
       return @content_type unless @content_type.blank?
       if has_attachments?
@@ -81,7 +81,7 @@ module Mack # :nodoc:
       (@reply_to || self.from)
     end
     
-    # Adds a Mack::Notifier::Attachment to the email.
+    # Adds a Mack::Notifier::Attachment to the notifier.
     # Raise ArgumentError if the parameter is not a Mack::Notifier::Attachment
     def attach(file)
       raise ArgumentError.new unless file.is_a?(Mack::Notifier::Attachment)
@@ -98,9 +98,9 @@ module Mack # :nodoc:
       @attachments ||= []
     end
     
-    # Delivers the email with the configured Mack::Notifier::DeliveryHandlers class.
+    # Delivers the notification with the configured Mack::Notifier::DeliveryHandlers class.
     # Returns false if there are any errors.
-    def deliver(handler = app_config.notifier.deliver_with)
+    def deliver(handler = deliver_with)
       begin
         deliver!(handler)
       rescue Exception => e
@@ -110,20 +110,40 @@ module Mack # :nodoc:
     end
     
     # Delivers the email with the configured Mack::Notifier::DeliveryHandlers class.
-    def deliver!(handler = app_config.notifier.deliver_with)
+    def deliver!(handler = deliver_with)
       "Mack::Notifier::DeliveryHandlers::#{handler.to_s.camelcase}".constantize.deliver(self)
     end
     
-    # Returns all the recipients of this email.
+    # Returns all the recipients of this notifier.
     def recipients
       [self.to, self.cc, self.bcc].flatten.compact
     end
     
-    # Returns a ready to be delivered, encoded, version of the email.
-    def deliverable(adapter = app_config.notifier.adapter)
-      adap = "Mack::Notifier::Adapters::#{adapter.camelcase}".constantize.new(self)
+    # Returns a ready to be delivered, encoded, version of the notification.
+    def deliverable(adap = adapter)
+      adap = "Mack::Notifier::Adapters::#{adap.to_s.camelcase}".constantize.new(self)
       adap.convert
       adap.deliverable
+    end
+    
+    # This method returns the adapter that will transform the Mack::Notifier object
+    # and prepare it for delivery. This method returns the app_config.notifier.adapter
+    # parameter. Override this in your Mack::Notifier class to specify a different adapter
+    # or change the app_config parameter to globally affect all your Notifiers.
+    # 
+    # Default: :tmail
+    def adapter
+      app_config.notifier.adapter
+    end
+    
+    # This method returns the delivery handler that will delivers the Mack::Notifier object.
+    # This method returns the app_config.notifier.deliver_with parameter. Override this in 
+    # your Mack::Notifier class to specify a different handler or change the app_config 
+    # parameter to globally affect all your Notifiers.
+    # 
+    # Default: :sendmail
+    def deliver_with
+      app_config.notifier.deliver_with
     end
     
     private

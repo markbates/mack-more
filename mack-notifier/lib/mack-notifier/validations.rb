@@ -61,8 +61,8 @@ module Mack
       end # included
       
       # Raises a RuntimeError if the email you are trying to deliver is not valid.
-      def deliver!(handler = app_config.notifier.deliver_with)
-        raise 'Email is Invalid!' unless self.valid?
+      def deliver!(handler = deliver_with)
+        raise 'Notification is Invalid!' unless self.valid?
         unvalidated_deliver!(handler)
       end
       
@@ -70,7 +70,7 @@ module Mack
       # If the email is valid and an exception is raised when trying to deliver it
       # false is returned and the exception is added to the errors array, with the
       # key :deliver.
-      def deliver(handler = app_config.notifier.deliver_with)
+      def deliver(handler = deliver_with)
         return false unless self.valid?
         begin
           "Mack::Notifier::DeliveryHandlers::#{handler.to_s.camelcase}".constantize.deliver(self)
