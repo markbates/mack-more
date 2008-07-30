@@ -1,8 +1,34 @@
-README
-========================================================================
-mack-more was developed by: markbates
+This gem provides a simple API for creating emails within a Mack application.
 
+A simple Mack::Mailer model would look like this:
 
-=== Rake tasks:
+  class WelcomeEmail
+    include Mack::Mailer
+  end
+  
+To use this in your application you would do something like the following:
+ 
+  mail = WelcomeEmail.new
+  mail.to = "foo@example.com"
+  mail.from = "me@example.com"
+  mail.subject = "Hello"
+  mail.text_body = "This is my plain text body"
+  mail.html_body = "This is my <b>HTML</b> body"
+  mail.attach(Mack::Mailer::Attachment.new("/path/to/my/image_file.png"))
+  mail.attach(Mack::Mailer::Attachment.new("/path/to/my/pdf_file.pdf"))
+  mail.deliver
+  
+This gem currently has an adapter for TMail, but it can support any mailing
+framework under the covers with the creation of a simple adapter class.
 
+Currently implemented delivery handlers are: SMTP (default), sendmail, and test.
+
+== Testing
+
+When testing you can get access to delivered emails with the delivered_emails
+method. After each tests these emails will be flushed our of the test handler.
+
+== Rake tasks
+  
+  # Generates a mailer model, a test, and text and html template files.
   rake generate:mailer
