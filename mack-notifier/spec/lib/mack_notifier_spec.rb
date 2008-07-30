@@ -30,7 +30,7 @@ describe Mack::Notifier do
       @we.build({:to => "mark@mackframework.com", :subject => "hello world", :text_body => "this is my text body"})
       @we.to.should == "mark@mackframework.com"
       @we.subject.should == "hello world"
-      @we.text_body.should == "this is my text body"
+      @we.body(:text).should == "this is my text body"
     end
     
   end
@@ -48,18 +48,19 @@ describe Mack::Notifier do
   describe "content_type" do
     
     it "should return text/plain if there's only a text body" do
-      @we.text_body = "hello"
+      @we.body(:text, "hello")
       @we.content_type.should == "text/plain"
     end
     
     it "should return text/html if there's only a html body" do
-      @we.html_body = "hello"
+      @we.body(:html, "hello")
       @we.content_type.should == "text/html"
     end
     
     it "should return multipart/alternative if there's both a text and html body" do
-      @we.text_body = "hello"
-      @we.html_body = "hello"
+      @we.body(:text, "hello")
+      @we.body(:text).should == "hello"
+      @we.body(:html, "hello")
       @we.content_type.should == "multipart/alternative"
     end
     
