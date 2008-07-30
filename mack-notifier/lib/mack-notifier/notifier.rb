@@ -8,8 +8,8 @@ module Mack # :nodoc:
     attr_accessor :from
     attr_accessor :reply_to
     attr_accessor :subject
-    attr_accessor :text_body
-    attr_accessor :html_body
+    # attr_accessor :text_body
+    # attr_accessor :html_body
     attr_accessor :date_sent
     attr_accessor :mime_version
     attr_accessor :content_type
@@ -21,23 +21,58 @@ module Mack # :nodoc:
       end
     end
     
-    # Returns the text_body of the email. If there is no text_body set it will attempt to build one using
-    # the text.erb template for this notifier.
-    def text_body
-      if @text_body.blank?
-        @text_body = build_template(:text)
+    # def body_part(part)
+    #   (@bodies ||= {})[part.to_sym]
+    # end
+    
+    def body(part, value = nil)
+      part = part.to_sym
+      if value.nil?
+        body = bodies[part]
+        if body.blank?
+          bodies[part] = build_template(part)
+          return bodies[part]
+        else
+          return body
+        end
+      else
+        bodies[part] = value
       end
-      return @text_body
     end
     
-    # Returns the html_body of the email. If there is no html_body set it will attempt to build one using
-    # the html.erb template for this notifier.
-    def html_body
-      if @html_body.blank?
-        @html_body = build_template(:html)
-      end
-      @html_body
+    def text_body
+      body(:text)
     end
+    
+    def html_body
+      body(:html)
+    end
+    
+    def text_body=(text)
+      body(:text, text)
+    end
+    
+    def html_body=(html)
+      body(:html, html)
+    end
+    
+    # # Returns the text_body of the email. If there is no text_body set it will attempt to build one using
+    # # the text.erb template for this notifier.
+    # def text_body
+    #   if @text_body.blank?
+    #     @text_body = build_template(:text)
+    #   end
+    #   return @text_body
+    # end
+    # 
+    # # Returns the html_body of the email. If there is no html_body set it will attempt to build one using
+    # # the html.erb template for this notifier.
+    # def html_body
+    #   if @html_body.blank?
+    #     @html_body = build_template(:html)
+    #   end
+    #   @html_body
+    # end
     
     # Returns the mime_version of the email, defaults to "1.0"
     def mime_version
@@ -114,6 +149,10 @@ module Mack # :nodoc:
     end
     
     private
+    def bodies
+      @bodies ||= {}
+    end
+    
     def build_template(format)
       begin
         vt = Mack::Rendering::ViewTemplate.new(:notifier, self.class.to_s.underscore, {:locals => {:notifier => self}, :format => format.to_s})

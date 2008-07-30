@@ -93,7 +93,7 @@ describe Mack::Notifier do
     
   end
   
-  describe "text_body" do
+  describe "body(:text)" do
     
     it "if no text_body it should load a *.text.erb file, if available" do
       FileUtils.mkdir_p(Mack::Paths.notifiers("templates", "welcome_email"))
@@ -102,12 +102,12 @@ describe Mack::Notifier do
         f.puts "Hello <%= notifier.to %>"
       end
       @we.to = "mark@mackframework.com"
-      @we.text_body.should == "Hello mark@mackframework.com\n"
+      @we.body(:text).should == "Hello mark@mackframework.com\n"
     end
     
   end
   
-  describe "html_body" do
+  describe "body(:html)" do
     
     it "if no html_body it should load a *.html.erb file, if available" do
       FileUtils.mkdir_p(Mack::Paths.notifiers("templates", "welcome_email"))
@@ -116,7 +116,7 @@ describe Mack::Notifier do
         f.puts "Hello <b><%= notifier.to %></b>"
       end
       @we.to = "mark@mackframework.com"
-      @we.html_body.should == "Hello <b>mark@mackframework.com</b>\n"
+      @we.body(:html).should == "Hello <b>mark@mackframework.com</b>\n"
     end
     
   end
