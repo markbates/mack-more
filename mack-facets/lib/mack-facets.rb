@@ -12,10 +12,12 @@ require 'facets/infinity'
 require 'facets/times'
 require 'english/inflect'
 require 'english/numerals'
+require 'extlib/assertions'
+require 'extlib/hook'
 
 fl = File.join(File.dirname(__FILE__), "mack-facets")
 
-[:inflector, :inflections, :options_merger, :hookable, :registry_list, :registry_map].each do |k|
+[:inflector, :inflections, :options_merger, :registry_list, :registry_map].each do |k|
   path = File.join(fl, "utils", "#{k}")
   require path
 end
