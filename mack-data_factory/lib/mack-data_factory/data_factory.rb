@@ -47,6 +47,8 @@ module Mack
           scoped_fields = field_manager.scopes[scope]
           fields = field_manager.scopes[:default].merge(scoped_fields)
           
+          ret_arr = []
+          
           num.times do |i|
             #puts "Creating #{model_name} ##{i+1}"
             obj = model_name.camelcase.constantize.new
@@ -62,7 +64,12 @@ module Mack
             assert_method(obj, "save", "#{model_name.camelcase} doesn't have save method.  Data will not be saved!") do
               obj.save
             end
+            
+            ret_arr << obj
           end
+          
+          return ret_arr[0] if ret_arr.size == 1
+          return ret_arr
         end
         
         #

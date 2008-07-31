@@ -211,6 +211,16 @@ describe "DataFactory" do
     after(:each) do
       @db.reset!
     end
+    
+    it "should return constructed object when create is called" do
+      user = @user_factory.create(1)
+      users = @user_factory.create(10)
+      
+      user.kind_of?(Array).should_not == true
+      users.kind_of?(Array).should == true
+      
+      users.size.should == 10
+    end
 
     it "should generate correct relationship if relationship rule is provided" do
       @user_factory.create(10)

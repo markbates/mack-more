@@ -59,6 +59,9 @@ you want to create.
 Note that if your factory has dependencies to other model (like the ItemFactory in the example), then make sure you
 have created the model that it's depending on first.
 
+The create method will return constructed objects.  If there's only 1 instance constructed, then it will return that object;
+if more than one then it will return an array of objects.
+
 ** Creating Factories Execution Chain
 In some instances, you may want to create an execution chain of a bunch of factories.  In the above example: the UserFactory
 has to be run before the ItemFactory.  
