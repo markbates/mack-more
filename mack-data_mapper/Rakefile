@@ -15,7 +15,10 @@ require File.join(crt, "rake_task_requires")
   s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*', 'bin/**/*.*']
   s.require_paths << 'lib'
 
-  s.add_dependency("data_mapper", "0.9.3")
+  [:core, :aggregates, :migrations, :serializer, :timestamps, :validations, :observer, :types].each do |g|
+    s.add_dependency("dm-#{g}", "0.9.3")
+  end
+  
   s.extra_rdoc_files = ["README"]
   s.has_rdoc = true
   s.required_ruby_version = ">= 1.8.6"

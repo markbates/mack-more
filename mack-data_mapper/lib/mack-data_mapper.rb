@@ -4,7 +4,11 @@ require 'genosaurus'
 fl = File.join(File.dirname(__FILE__), "mack-data_mapper")
 
 $: << File.expand_path(File.join(fl, "dm_patches"))
-require 'data_mapper'
+
+[:core, :aggregates, :migrations, :serializer, :timestamps, :validations, :observer, :types].each do |g|
+  gem "dm-#{g}", "0.9.3"
+  require "dm-#{g}"
+end
 
 
 require File.join(fl, "database")
