@@ -109,6 +109,7 @@ module Mack
             return @date_time_gen
           end
 
+          
           def email_generator
             @email_gen = Proc.new do |def_value, rules, index|
               Faker::Internet.free_email
@@ -116,6 +117,20 @@ module Mack
             return @email_gen
           end
 
+          def username_generator
+            @username_gen = Proc.new do |def_value, rules, index|
+              Faker::Internet.user_name
+            end
+            return @username_gen
+          end
+          
+          def domain_generator
+            @domain_gen = Proc.new do |def_value, rules, index|
+              Faker::Internet.domain_name
+            end
+            return @domain_gen
+          end
+          
           def firstname_generator
             @fn_gen = Proc.new do |def_value, rules, index|
               Faker::Name.first_name
@@ -129,7 +144,7 @@ module Mack
             end
             return @ln_gen
           end
-
+          
           def phone_generator
             @phone_gen = Proc.new do |def_value, rules, index|
               Faker::PhoneNumber.phone_number
@@ -157,6 +172,43 @@ module Mack
             return @name_gen
           end
 
+          # Address Generators
+          
+          def city_generator
+            @city_gen = Proc.new do |def_value, rules, index|
+              Faker::Address.city
+            end
+            return @city_gen
+          end
+          
+          def streetname_generator
+            @sn_gen = Proc.new do |def_value, rules, index|
+              Faker::Address.street_name
+            end
+            return @sn_gen
+          end
+          
+          def state_generator
+            @state_gen = Proc.new do |def_value, rules, index|
+              supported_countries = [:us, :uk]
+              us_or_uk = :us
+              us_or_uk = :uk if rules[:country] and rules[:country].to_sym == :uk
+              abbr = (us_or_uk == :us and rules[:abbr]) ? "_abbr" : ""
+              Faker::Address.send("#{us_or_uk.to_s}_state#{abbr}")
+            end
+            return @state_gen
+          end
+          
+          def zipcode_generator
+            @zip_gen = Proc.new do |def_value, rules, index|
+              ret_val = Faker::Address.zip_code
+              ret_val = Faker::Address.uk_postcode if rules[:country] and rules[:country].to_sym == :uk
+              ret_val
+            end
+            return @zip_gen
+          end
+          
+          
         end
       end
     end

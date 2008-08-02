@@ -1,139 +1,44 @@
 require File.join(File.dirname(__FILE__), "..", "spec_helper")
-
-module Mack
-  module FactoryTest
-
-    class Database
-      include Singleton
-
-      def initialize
-        @data = []
-      end
-
-      def add(obj)
-        @data << obj
-      end
-
-      def list
-        @data
-      end   
-
-      def empty?
-        @data.empty?
-      end
-
-      def reset!
-        @data = []
-      end
-    end
-
-    class User
-      attr_accessor :id
-      attr_accessor :username
-      attr_accessor :password
-      attr_accessor :firstname
-      attr_accessor :lastname
-
-      def save
-        Database.instance.add(self)
-      end
-
-      def to_s
-        return "Username=#{username}\nPassword=#{password}\nFirstname=#{firstname}\nLastname=#{lastname}"
-      end
-    end
-
-    class CustomOrm
-      def can_handle(obj)
-        return true
-      end
-
-      def get(obj, *args)
-        Database.instance.list.each do |i|
-          if i.is_a?(obj)
-            return i
-          end
-        end
-      end
-
-      def count(obj, *args)
-        count = 0
-        Database.instance.list.each do |i|
-          if i.is_a?(obj)
-            count += 1
-          end
-        end
-        return count
-      end
-
-      def save(obj, *args)
-        obj.save
-      end
-    end
-    Mack::Data::OrmRegistry.move_to_top(CustomOrm.new)
-
-    class Item
-      attr_accessor :id
-      attr_accessor :owner_id
-    end
-
-    class ItemFactory
-      include Mack::Data::Factory
-
-      field :id, 1
-      field :owner_id, {"Mack::FactoryTest::User" => "id"}
-    end
-
-    class UserFactory
-      include Mack::Data::Factory
-
-      field :id, 125
-      field :username, "dsutedja", :immutable => true
-      field :password, "password", :immutable => true
-      field :firstname, "Firstname", :immutable => true
-      field :lastname, "Lastname", :immutable => true
-
-      scope_for(:diff_firstname) do
-        field :firstname, "Darsono", :immutable => true
-      end
-
-      scope_for(:diff_first_lastname) do
-        field :firstname, "Darsono", :immutable => true
-        field :lastname, "Sutedja", :immutable => true
-      end
-
-      scope_for(:alpha_with_space) do
-        field :firstname, "Darsono", :length => 128, :content => :alpha, :add_space => true
-      end
-
-      scope_for(:alpha_without_space) do
-        field :firstname, "Darsono", :length => 128, :content => :alpha, :add_space => false
-      end
-
-      scope_for(:numeric_type) do
-        field :id, 125, :content => :numeric, :num_start => 0, :num_end => 1000
-      end
-
-      scope_for(:alpha_numeric_with_space) do
-        field :firstname, "Darsono", :length => 128, :content => :alpha_numeric, :add_space => true
-      end
-
-      scope_for(:alpha_numeric_without_space) do
-        field :firstname, "Darsono", :length => 128, :content => :alpha_numeric, :add_space => false
-      end
-
-      scope_for(:custom_string_generator) do
-        field :firstname, "Darsono" do |def_value, rules|
-          "#{def_value} Sutedja"
-        end
-      end
-    end
-
-  end
-end
-
+require File.join(File.dirname(__FILE__), "..", "data_helpers")
 
 describe "DataFactory" do
+  
+  describe "Content type" do
+    before(:each) do
+      @factory = Mack::FactoryTest::BigBangFactory
+      @db  = Mack::FactoryTest::Database.instance
+      @db.reset!
+    end
+
+    after(:each) do
+      @db.reset!
+    end
+    
+    it "should generate data based on content type spec" do
+      @db.list.size.should == 0
+      bigbang = @factory.create(1)
+      bigbang.should_not be_nil
+      
+      bigbang.username.should_not be_nil
+      bigbang.email.should_not be_nil
+      bigbang.domain.should_not be_nil
+      bigbang.firstname.should_not be_nil
+      bigbang.lastname.should_not be_nil
+      bigbang.fullname.should_not be_nil
+      bigbang.streetname.should_not be_nil
+      bigbang.city.should_not be_nil
+      bigbang.zip.should_not be_nil
+      bigbang.state.should_not be_nil
+      bigbang.state_abbr.should_not be_nil
+      bigbang.phone.should_not be_nil
+      bigbang.company.should_not be_nil
+      bigbang.company_with_bs.should_not be_nil
+      
+      bigbang.email.should match(/@/)
+      bigbang.state_abbr.size.should == 2
+      bigbang.fullname.should match(/\s/)
+    end
+  end
 
   describe "Module" do
     before(:each) do

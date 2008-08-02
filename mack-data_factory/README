@@ -29,6 +29,8 @@ Let's say that I have 2 models: Item and User, and Item belongs to user.  So the
     
 So, the 2 classes above defined the factory for item and user.  As you can see, each factory will need to explicitly 
 list all the fields that it will populate, and for each field, you can define rules on how the content is generated.
+Important: For each field defined in the factory, you will need to make sure that there's a corresponding setter 
+method in the model class (e.g. Item class is required to have title= and owner_id=).
 
 For numeric content, you can specify the start number and end number, and the content generator will generate a random number 
 between that range.
@@ -40,11 +42,21 @@ For all fields, you can specify :immutable to true, which means for all instance
 will not change.
 
 Other supported content types: 
+  # Internet related content
   - :email --> generate random email address
+  - :username --> generate random username
+  - :domain --> generate random domain name
+  # Name related info
   - :firstname --> generate first name
   - :lastname --> generate last name
   - :name --> generate full name
+  # Address related info
+  - :city --> generate city name
+  - :streetname --> generate street name
+  - :state --> generate state.  rules: [:country --> :us or :uk, :abbr --> true if you want a abbreviated state name (us only)]
+  - :zipcode --> generate zipcode. rules: [:country --> :us or :uk]
   - :phone --> generate phone number
+  # Company info
   - :company --> generate company name.  rules: [:include_bs --> include sales tag line]
     example:  field, "", :content => :company, :include_bs => true
     could generate something like:
@@ -109,7 +121,9 @@ accomplish that:
     class UserFactory
         include Mack::Data::Factory
         
-        field :username, "planters" { |def_value, rules, index| "#{def_value}#{index}" }
+        field :username, "planters" do |def_value, rules, index| 
+            "#{def_value}#{index}"
+        end
         field :password, "roastedPeanuts", :immutable => true
         
     end
