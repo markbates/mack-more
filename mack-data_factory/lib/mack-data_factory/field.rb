@@ -61,7 +61,7 @@ module Mack
               when :first
                 value = all_owner_models[0].send(key)
               when :last
-                value = all_owner_models[bridge.count(owner_model)-1].send(key)
+                value = all_owner_models[all_owner_models.size - 1].send(key)
               when :random
                 my_index = rand((all_owner_models.size - 1))
                 value = all_owner_models[my_index].send(key)
