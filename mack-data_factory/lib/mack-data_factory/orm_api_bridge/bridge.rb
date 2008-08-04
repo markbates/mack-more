@@ -15,6 +15,10 @@ module Mack
         handler(obj).get(obj, *args)
       end
       
+      def get_all(obj, *args)
+        handler(obj).get_all(obj, *args)
+      end
+      
       def get_first(obj, *args)
         handler(obj).get_first(obj, *args)
       end

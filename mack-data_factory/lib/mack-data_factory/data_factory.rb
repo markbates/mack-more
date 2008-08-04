@@ -49,6 +49,7 @@ module Mack
           
           ret_arr = []
           
+          Mack::Data::RegistryMap.reset!
           num.times do |i|
             #puts "Creating #{model_name} ##{i+1}"
             obj = model_name.camelcase.constantize.new

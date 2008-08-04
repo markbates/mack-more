@@ -1,6 +1,9 @@
 module Mack
   module Data
     
+    class RegistryMap < Mack::Utils::RegistryMap
+    end
+    
     class Field
       attr_accessor :field_name
       attr_accessor :field_value
@@ -43,7 +46,35 @@ module Mack
           begin
             owner_model = owner.to_s.camelcase.constantize
             bridge = Mack::Data::Bridge.new
-            value = bridge.get_first(owner_model).send(key)
+            
+            assoc_rules = field_rules[:assoc] || :random
+            assoc_rules = :random if !([:first, :last, :random, :spread].include?(assoc_rules))
+            # cache the query once
+            if Mack::Data::RegistryMap.registered_items[self.field_name.to_sym] == nil
+              all_owner_models = bridge.get_all(owner_model)
+              Mack::Data::RegistryMap.add(self.field_name.to_sym, all_owner_models)
+            end
+            
+            all_owner_models = Mack::Data::RegistryMap.registered_items[self.field_name.to_sym][0]
+            
+            case assoc_rules
+              when :first
+                value = all_owner_models[0].send(key)
+              when :last
+                value = all_owner_models[bridge.count(owner_model)-1].send(key)
+              when :random
+                my_index = rand((all_owner_models.size - 1))
+                value = all_owner_models[my_index].send(key)
+              when :spread
+                # if index >= all_owner_models.size 
+                #   my_index = rand((all_owner_models.size - 1))
+                # else
+                #   my_index = index
+                # end
+                my_index = index % all_owner_models.size
+                value = all_owner_models[my_index].send(key)
+            end
+            
             return value
           rescue Exception
             Mack.logger.warn "WARNING: DataFactory: field_value for #{field_name} is not set properly because data relationship defined is not correct"

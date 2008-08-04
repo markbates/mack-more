@@ -12,6 +12,10 @@ module Mack
           obj.get(*args)
         end
         
+        def get_all(obj, *args)
+          obj.all(*args)
+        end
+        
         def count(obj, *args)
           obj.count(*args)
         end

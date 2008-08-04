@@ -15,7 +15,7 @@ describe "DataFactory" do
     end
     
     it "should generate data based on content type spec" do
-      @db.list.size.should == 0
+      @db.list(Mack::FactoryTest::BigBang.name.underscore.to_sym).size.should == 0
       bigbang = @factory.create(1)
       bigbang.should_not be_nil
       
@@ -89,7 +89,7 @@ describe "DataFactory" do
 
     it "should be able to run the factory chains by tag" do
       @map.registered_items[:hello].should be_nil
-      @db.should be_empty
+      @db.should be_clean
 
       proc = Proc.new do
         @user_factory.create(1)
@@ -99,8 +99,8 @@ describe "DataFactory" do
       factories(:hello, &proc)
 
       run_factories(:hello)
-      @db.should_not be_empty
-      @db.list.size.should == 2
+      @db.should_not be_clean
+      @db.list(Mack::FactoryTest::User.name.underscore.to_sym).size.should == 2
 
     end
   end
@@ -127,27 +127,63 @@ describe "DataFactory" do
       users.size.should == 10
     end
 
-    it "should generate correct relationship if relationship rule is provided" do
-      @user_factory.create(10)
-      @item_factory.create(1)
+
+    describe "Relationship" do
+      it "should handle default relation ship rule" do
+        users = @user_factory.create(10)
+        item = @item_factory.create(1)
       
-      check = false
-      item = @db.list.last
-      @db.list.each do |i|
-        if i.is_a?Mack::FactoryTest::User
-          check = true if item.id == i.id
-        end
+        check = false
+        users.each { |u| check = true if u.id == item.id }
+        check.should == true
       end
-      check.should == true
+      
+      it "should handle :first relationship rule" do
+        users = @user_factory.create(10)
+        items = @item_factory.create(10, :relationship_first)
+        
+        check = true
+        items.each { |i| check = false if i.owner_id != users[0].id }
+        check.should == true
+      end
+
+      it "should handle :random relationship rule" do
+        users = @user_factory.create(10)
+        items = @item_factory.create(10, :relationship_random)
+      
+        check = false
+        items.each do |i|
+          users.each { |u| check = true if u.id == i.owner_id }
+          break if check == false
+        end
+        check.should == true
+      end
+      
+      it "should handle :last relationship rule" do
+        users = @user_factory.create(10)
+        items = @item_factory.create(10, :relationship_last)
+        
+        check = true
+        items.each { |i| check = false if i.owner_id != users[9].id }
+        check.should == true
+      end
+      
+      it "should handle :spread relationship rule" do
+        users = @user_factory.create(5)
+        items = @item_factory.create(20, :relationship_spread)
+        
+        check = true
+        items.each_with_index do |i, idx|
+          check = false if i.owner_id != users[idx % 5].id
+        end
+        check.should == true
+      end
     end
-
+    
     it "should generate x number of instances with no random data if immutable flag is set" do
-      @db.should be_empty
+      @db.should be_clean
 
-      @user_factory.create(1)
-
-      @db.list.size.should == 1
-      user = @db.list[0]
+      user = @user_factory.create(1)
 
       user.username.should == "dsutedja"
       user.password.should == "password"
@@ -157,12 +193,9 @@ describe "DataFactory" do
     end
 
     it "should generate x number of scoped instances properly" do
-      @db.should be_empty
+      @db.should be_clean
 
-      @user_factory.create(1, :diff_firstname)
-
-      @db.list.size.should == 1
-      user = @db.list[0]
+      user = @user_factory.create(1, :diff_firstname)
 
       user.username.should == "dsutedja"
       user.password.should == "password"
@@ -182,27 +215,24 @@ describe "DataFactory" do
       end
 
       it "should honor the add_space flag, length, and content type" do
-        @db.should be_empty
+        @db.should be_clean
 
-        @user_factory.create(1, :alpha_with_space)
-        user = @db.list[0]
+        user = @user_factory.create(1, :alpha_with_space)
         user.firstname.size.should == 128     # 128 bytes of string
         user.firstname.should_not match(/\d/) # alphabet only
         user.firstname.should match(/ /)      # add_space = true
 
         @db.reset!
-        @user_factory.create(1, :alpha_without_space)
-        user = @db.list[0]
+        user = @user_factory.create(1, :alpha_without_space)
         user.firstname.size.should == 128     # 128 bytes of string
         user.firstname.should_not match(/\d/) # alphabet only
         user.firstname.should_not match(/ /)      # add_space = true
       end
 
       it "should generate numeric type" do
-        @db.should be_empty
+        @db.should be_clean
 
-        @user_factory.create(1, :numeric_type)
-        user = @db.list[0]
+        user = @user_factory.create(1, :numeric_type)
         user.id.is_a?(Fixnum).should == true
         num = user.id
         num.should >= 0
@@ -210,18 +240,16 @@ describe "DataFactory" do
       end
 
       it "should generate alpha_numeric type" do
-        @db.should be_empty
+        @db.should be_clean
 
-        @user_factory.create(1, :alpha_numeric_with_space)
-        user = @db.list[0]
+        user = @user_factory.create(1, :alpha_numeric_with_space)
         user.firstname.size.should == 128
         user.firstname.should match(/\d/)
         user.firstname.should match(/ /)
         user.firstname.should match(/[a-z]/)
 
         @db.reset!
-        @user_factory.create(1, :alpha_numeric_without_space)
-        user = @db.list[0]
+        user = @user_factory.create(1, :alpha_numeric_without_space)
         user.firstname.size.should == 128
         user.firstname.should match(/\d/)
         user.firstname.should_not match(/ /)
@@ -231,10 +259,9 @@ describe "DataFactory" do
     end
 
     it "should generate correct instance with custom content generator if provided" do
-      @db.should be_empty
+      @db.should be_clean
 
-      @user_factory.create(1, :custom_string_generator)
-      user = @db.list[0]
+      user = @user_factory.create(1, :custom_string_generator)
       user.firstname.should == "Darsono Sutedja"
     end
   end

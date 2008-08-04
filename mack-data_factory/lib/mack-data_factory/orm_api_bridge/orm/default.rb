@@ -11,6 +11,10 @@ module Mack
           Mack.logger.warn "Mack::Data::OrmBridge: You don't have supported orm api handler installed."
         end
         
+        def get_all(obj, *args)
+          Mack.logger.warn "Mack::Data::OrmBridge: You don't have supported orm api handler installed."
+        end
+        
         def count(obj, *args)
           Mack.logger.warn "Mack::Data::OrmBridge: You don't have supported orm api handler installed."
         end

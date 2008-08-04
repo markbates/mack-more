@@ -5,25 +5,54 @@ module Mack
       include Singleton
 
       def initialize
-        @data = []
+        @data = {}
       end
 
-      def add(obj)
-        @data << obj
+      def add(tag, obj)
+        #puts "Adding #{tag} <-- #{obj}"
+        list(tag) << obj
       end
 
-      def list
-        @data
+      def list(tag)
+        @data[tag] ||= []
+        return @data[tag]
+      end
+      
+      def clean?
+        @data.empty?
       end   
 
-      def empty?
-        @data.empty?
+      def empty?(tag)
+        list(tag).empty?
       end
 
       def reset!
-        @data = []
+        @data = {}
       end
     end
+
+
+    class CustomOrm
+      def can_handle(obj)
+        return true
+      end
+
+      def get(obj, *args)
+      end
+      
+      def get_all(obj, *args)
+        return Database.instance.list(obj.name.underscore.to_sym).dup
+        return Database.instance.list.dup
+      end
+      
+      def get_first(obj, *args)
+      end
+      
+      def count(obj, *args)
+        return Database.instance.list(obj.name.underscore.to_sym).size
+      end
+    end
+    Mack::Data::OrmRegistry.move_to_top(CustomOrm.new)
 
     class User
       attr_accessor :id
@@ -33,53 +62,54 @@ module Mack
       attr_accessor :lastname
 
       def save
-        Database.instance.add(self)
+        # puts "saving user to #{User.name.underscore.to_sym}"
+        Database.instance.add(User.name.underscore.to_sym, self)
       end
 
       def to_s
-        return "Username=#{username}\nPassword=#{password}\nFirstname=#{firstname}\nLastname=#{lastname}"
+        return "User --> id=#{id}, pass=#{password}, uname=#{username}\n"
+        #return "Username=#{username}\nPassword=#{password}\nFirstname=#{firstname}\nLastname=#{lastname}"
       end
     end
-
-    class CustomOrm
-      def can_handle(obj)
-        return true
-      end
-
-      def get(obj, *args)
-        Database.instance.list.each do |i|
-          if i.is_a?(obj)
-            return i
-          end
-        end
-      end
-
-      def count(obj, *args)
-        count = 0
-        Database.instance.list.each do |i|
-          if i.is_a?(obj)
-            count += 1
-          end
-        end
-        return count
-      end
-
-      def save(obj, *args)
-        obj.save
-      end
-    end
-    Mack::Data::OrmRegistry.move_to_top(CustomOrm.new)
-
+    
+    
     class Item
       attr_accessor :id
       attr_accessor :owner_id
+      
+      def save
+        # puts "saving items"
+        Database.instance.add(Item.name.underscore.to_sym, self)
+      end
+      
+      def to_s
+        return "Item --> id=#{id}, owner_id=#{owner_id}"
+      end
     end
 
     class ItemFactory
       include Mack::Data::Factory
 
-      field :id, 1
+      field :id, 0 do |def_value, rules, index|
+        index
+      end
       field :owner_id, {"Mack::FactoryTest::User" => "id"}
+      
+      scope_for(:relationship_first) do
+        field :owner_id, {"Mack::FactoryTest::User" => "id"}, {:assoc => :first}
+      end
+      
+      scope_for(:relationship_last) do
+        field :owner_id, {"Mack::FactoryTest::User" => "id"}, {:assoc => :last}
+      end
+      
+      scope_for(:relationship_random) do
+        field :owner_id, {"Mack::FactoryTest::User" => "id"}, {:assoc => :random}
+      end
+      
+      scope_for(:relationship_spread) do
+        field :owner_id, {"Mack::FactoryTest::User" => "id"}, {:assoc => :spread}
+      end      
     end
     
     class BigBang
@@ -97,6 +127,12 @@ module Mack
       attr_accessor :phone
       attr_accessor :company
       attr_accessor :company_with_bs
+      
+      def save
+        # puts "saving big bang"
+        Database.instance.add(BigBang.name.underscore.to_sym, self)
+      end
+      
     end
     
     class BigBangFactory
@@ -121,7 +157,9 @@ module Mack
     class UserFactory
       include Mack::Data::Factory
 
-      field :id, 125
+      field :id, 0 do |def_value, rules, index|
+        index
+      end
       field :username, "dsutedja", :immutable => true
       field :password, "password", :immutable => true
       field :firstname, "Firstname", :immutable => true
