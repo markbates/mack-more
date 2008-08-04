@@ -47,7 +47,7 @@ module Mack
             owner_model = owner.to_s.camelcase.constantize
             bridge = Mack::Data::Bridge.new
             
-            assoc_rules = field_rules[:assoc] || :random
+            assoc_rules = field_rules[:assoc] || :spread
             assoc_rules = :random if !([:first, :last, :random, :spread].include?(assoc_rules))
             # cache the query once
             if Mack::Data::RegistryMap.registered_items[self.field_name.to_sym] == nil

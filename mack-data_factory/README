@@ -35,22 +35,15 @@ method in the model class (e.g. Item class is required to have title= and owner_
 For numeric content, you can specify the start number and end number, and the content generator will generate a random number 
 between that range.
 
-For string content, you can specify :content to either :alpha or :alphanumeric, and you can also specify the
-:length, :min_length or :max_length. 
-
 For all fields, you can specify :immutable to true, which means for all instances created, the content for that field
 will not change.
 
-In the above example, the ItemFactory define the owner_id field's value as {:user => 'id'}.  When the factory is run,
-it will generate value for owner_id as 'the id of the user #x'.  You can also pass in rules to define which instance 
-of user that the id will be retrieved from.  The rules are: :first, :last, :random, and :spread.  The default is :spread.
-Definition of the association rules:
-  :first  --> always associate with the first item that this object belongs to.  If there are 10 users [id = 0 - 10], then the item will always get associated with user #0 (i.e. item's owner_id always == 0)
-  :last   --> always associate with the last item that this object belongs to.  If there are 10 users [id = 0 - 10], then the item will always get associated with user #10 (i.e. item's owner_id always == 9)
-  :random --> always associate with the Nth item that this object belongs to (and N is random). If there are 10 users [id = 0 - 10], then the item will get associated with user #n (i.e. item's owner_id == rand(10))
-  :spread --> spread the association.  If there are 3 users [id = 0 - 2], then the items' association will be spread out (i.e. 6 items will have id--sequentially--[0, 1, 2, 0, 1, 2])
 
-Other supported content types: 
+Supported content types: 
+  # Strings and Numbers
+  - :alpha --> alphabets.  rules: [:length, :min_length, :max_length]
+  - :alphanumeric --> alphabets and number.  rules: same as :alpha
+  - :numeric --> numbers [optional, because if the field's default value is number, its content type will automatically set to numeric)
   # Internet related content
   - :email --> generate random email address
   - :username --> generate random username
@@ -71,7 +64,31 @@ Other supported content types:
     could generate something like:
         Fadel-Larkin
         monetize cross-media experiences
-  
+
+** Association
+class ItemFactory
+    include Mack::Data::Factory
+    
+    field :title, "MyItem"
+    field :owner_id, {:user => 'id'}, {:assoc => :first}
+end
+
+class UserFactory
+    include Mack::Data::Factory
+    
+    field :username, "planters", :length => 25, :content => :alpha
+    field :password, "roastedPeanuts", :immutable => true
+end
+
+In the above example, the ItemFactory define the owner_id field's value as {:user => 'id'}.  When the factory is run,
+it will generate value for owner_id as 'the id of the user #x'.  You can also pass in rules to define which instance 
+of user that the id will be retrieved from.  The rules are: :first, :last, :random, and :spread.  The default is :spread.
+Definition of the association rules:
+  :first  --> always associate with the first object that this object belongs to.  If there are 10 users [id = 0 - 10], then the item will always get associated with user #0 (i.e. item's owner_id always == 0)
+  :last   --> always associate with the last object that this object belongs to.  If there are 10 users [id = 0 - 10], then the item will always get associated with user #10 (i.e. item's owner_id always == 9)
+  :random --> always associate with the Nth object that this object belongs to (and N is random). If there are 10 users [id = 0 - 10], then the item will get associated with user #n (i.e. item's owner_id == rand(10))
+  :spread --> spread the association.  If there are 3 users [id = 0 - 2], then the items' association will be spread out (i.e. 6 items will have id--sequentially--[0, 1, 2, 0, 1, 2])
+
 ** Pumping Data
 
 To create objects from the factory is very easy, just call create method on that factory and tell it how many items 

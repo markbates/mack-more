@@ -68,6 +68,7 @@ module Mack
             
             ret_arr << obj
           end
+          Mack::Data::RegistryMap.reset!
           
           return ret_arr[0] if ret_arr.size == 1
           return ret_arr
