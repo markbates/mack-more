@@ -15,8 +15,8 @@ describe ScaffoldGenerator do
     @model_file = File.join(@model_path, "zoo.rb")
     
     @mig_file = File.join(migrations_directory, "#{next_migration_number}_create_zoos.rb")
-    @cont_test_file = File.join(Mack.root, "test", "functional", "zoos_controller_test.rb")
-    @model_test_file = File.join(Mack.root, "test", "unit", "zoo_test.rb")
+    @cont_test_file = File.join(Mack.root, "test", "controllers", "zoos_controller_test.rb")
+    @model_test_file = File.join(Mack.root, "test", "models", "zoo_test.rb")
     
     @routes_file = File.join(Mack.root, "config", "routes.rb")
     @orig_routes_content = File.read(@routes_file)
@@ -66,8 +66,8 @@ describe ScaffoldGenerator do
   it "should create a stub rspec test for the controller if rspec is testing framework" do
     temp_app_config("mack::testing_framework" => "rspec") do
       ScaffoldGenerator.run("NAME" => "zoo")
-      @cont_test_file = File.join(Mack.root, "test", "functional", "zoos_controller_spec.rb")
-      @model_test_file = File.join(Mack.root, "test", "unit", "zoo_spec.rb")
+      @cont_test_file = File.join(Mack.root, "test", "controllers", "zoos_controller_spec.rb")
+      @model_test_file = File.join(Mack.root, "test", "models", "zoo_spec.rb")
       File.exists?(@cont_test_file).should == true    
     end
   end

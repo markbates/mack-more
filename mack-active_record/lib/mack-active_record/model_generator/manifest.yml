@@ -10,10 +10,10 @@ model_template:
 test_template:
   type: file
   template_path: <%= File.join(templates_directory_path, "test.rb.template") %>
-  output_path: <%= File.join("test", "unit", "#{param(:name).singular.underscore}_test.rb") %>
+  output_path: <%= File.join("test", "models", "#{param(:name).singular.underscore}_test.rb") %>
 <% elsif testing_framework == "rspec" %>
 test_template:
   type: file
   template_path: <%= File.join(templates_directory_path, "rspec.rb.template") %>
-  output_path: <%= File.join("test", "unit", "#{param(:name).singular.underscore}_spec.rb") %>
+  output_path: <%= File.join("test", "models", "#{param(:name).singular.underscore}_spec.rb") %>
 <% end %>

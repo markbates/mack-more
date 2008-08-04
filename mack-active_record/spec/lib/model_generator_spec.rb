@@ -6,7 +6,7 @@ describe ModelGenerator do
   before(:each) do 
     @model_file = File.join(Mack.root, "app", "models", "zoo.rb")
     @mig_file   = File.join(Mack.root, "db", "migrations", "002_create_zoos.rb")
-    @test_file  = File.join(Mack.root, "test", "unit", "zoo_test.rb")
+    @test_file  = File.join(Mack.root, "test", "models", "zoo_test.rb")
   end
   
   after(:each) do
@@ -36,7 +36,7 @@ describe ModelGenerator do
   
   it "should create a stub rspec test for the model if rspec is testing framework" do
     temp_app_config("mack::testing_framework" => "rspec") do
-      @test_file = File.join(Mack.root, "test", "unit", "zoo_spec.rb")
+      @test_file = File.join(Mack.root, "test", "models", "zoo_spec.rb")
       ModelGenerator.run("NAME" => "zoo")
       File.exists?(@test_file).should == true
     end
