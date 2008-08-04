@@ -41,14 +41,34 @@ module Mack
       File.join(Mack.root, "test", files)
     end
     
-    # <MACK_PROJECT_ROOT>/test/functional
-    def self.functional(*files)
-      File.join(Mack::Paths.test, "functional", files)
+    # # <MACK_PROJECT_ROOT>/test/functional
+    # def self.functional(*files)
+    #   File.join(Mack::Paths.test, "functional", files)
+    # end
+    # 
+    # # <MACK_PROJECT_ROOT>/test/unit
+    # def self.unit(*files)
+    #   File.join(Mack::Paths.test, "unit", files)
+    # end
+    
+    # <MACK_PROJECT_ROOT>/test/models
+    def self.model_tests(*files)
+      File.join(Mack::Paths.test, "models", files)
     end
     
-    # <MACK_PROJECT_ROOT>/test/unit
-    def self.unit(*files)
-      File.join(Mack::Paths.test, "unit", files)
+    # <MACK_PROJECT_ROOT>/test/controllers
+    def self.controller_tests(*files)
+      File.join(Mack::Paths.test, "controllers", files)
+    end
+    
+    # <MACK_PROJECT_ROOT>/test/helpers/controllers
+    def self.controller_helper_tests(*files)
+      File.join(Mack::Paths.test, "helpers", "controllers", files)
+    end
+    
+    # <MACK_PROJECT_ROOT>/test/helpers/views
+    def self.view_helper_tests(*files)
+      File.join(Mack::Paths.test, "helpers", "views", files)
     end
     
     # <MACK_PROJECT_ROOT>/app/views

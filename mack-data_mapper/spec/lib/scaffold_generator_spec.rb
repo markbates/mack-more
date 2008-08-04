@@ -28,19 +28,25 @@ describe ScaffoldGenerator do
   
   it "should create a stub test/unit test for the controller if test/unit is testing framework" do
     temp_app_config("mack::testing_framework" => "test_case") do
-      File.should_not be_exist(Mack::Paths.functional("zoos_controller_test.rb"))
+      File.should_not be_exist(Mack::Paths.controller_tests("zoos_controller_test.rb"))
+      File.should_not be_exist(Mack::Paths.controller_helper_tests("zoos_controller_helper_test.rb"))
       ScaffoldGenerator.run(zoo_options)
-      File.should be_exist(Mack::Paths.functional("zoos_controller_test.rb"))
-      File.read(Mack::Paths.functional("zoos_controller_test.rb")).should == fixture("zoos_controller_test.rb")
+      File.should be_exist(Mack::Paths.controller_tests("zoos_controller_test.rb"))
+      File.should be_exist(Mack::Paths.controller_helper_tests("zoos_controller_helper_test.rb"))
+      File.read(Mack::Paths.controller_tests("zoos_controller_test.rb")).should == fixture("zoos_controller_test.rb")
+      File.read(Mack::Paths.controller_helper_tests("zoos_controller_helper_test.rb")).should == fixture("zoos_controller_helper_test.rb")
     end
   end
   
   it "should create a stub rspec test for the controller if rspec is testing framework" do
     temp_app_config("mack::testing_framework" => "rspec") do
-      File.should_not be_exist(Mack::Paths.functional("zoos_controller_spec.rb"))
+      File.should_not be_exist(Mack::Paths.controller_tests("zoos_controller_spec.rb"))
+      File.should_not be_exist(Mack::Paths.controller_helper_tests("zoos_controller_helper_spec.rb"))
       ScaffoldGenerator.run(zoo_options)
-      File.should be_exist(Mack::Paths.functional("zoos_controller_spec.rb"))
-      File.read(Mack::Paths.functional("zoos_controller_spec.rb")).should == fixture("zoos_controller_spec.rb")
+      File.should be_exist(Mack::Paths.controller_tests("zoos_controller_spec.rb"))
+      File.should be_exist(Mack::Paths.controller_helper_tests("zoos_controller_helper_spec.rb"))
+      File.read(Mack::Paths.controller_tests("zoos_controller_spec.rb")).should == fixture("zoos_controller_spec.rb")
+      File.read(Mack::Paths.controller_helper_tests("zoos_controller_helper_spec.rb")).should == fixture("zoos_controller_helper_spec.rb")
     end
   end
   
@@ -91,8 +97,9 @@ describe ScaffoldGenerator do
     FileUtils.rm_rf(@controller_file)
     FileUtils.rm_rf(Mack::Paths.migrations)
     FileUtils.rm_rf(Mack::Paths.views("zoos"))
-    FileUtils.rm_rf(Mack::Paths.unit)
-    FileUtils.rm_rf(Mack::Paths.functional)
+    FileUtils.rm_rf(Mack::Paths.model_tests)
+    FileUtils.rm_rf(Mack::Paths.controller_tests)
+    FileUtils.rm_rf(Mack::Paths.controller_helper_tests)
     FileUtils.rm_rf(Mack::Paths.controller_helpers)
     File.open(Mack::Paths.config("routes.rb"), "w") {|f| f.puts @old_route_file}
   end
