@@ -4,11 +4,10 @@ require 'rinda/tuplespace'
 
 describe Mack::Distributed::Utils::Rinda do
   
-  before(:all) do 
+  before(:each) do 
     begin
       DRb.start_service
       Rinda::RingServer.new(Rinda::TupleSpace.new)
-      # DRb.thread.join
     rescue Errno::EADDRINUSE => e
       # it's fine to ignore this, it's expected that it's already running.
       # all other exceptions should be thrown

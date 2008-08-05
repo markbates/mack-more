@@ -36,7 +36,7 @@ module Mack
         
         private
         def self.handle_options(options = {})
-          {:space => :name, :klass_def => nil, :object => nil, :description => nil, :timeout => app_config.mack.drb_timeout}.merge(options)
+          {:space => nil, :klass_def => nil, :object => nil, :description => nil, :timeout => app_config.mack.drb_timeout}.merge(options)
         end
         
       end
