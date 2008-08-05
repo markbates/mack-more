@@ -5,7 +5,6 @@ module Mack
         
         def self.register_or_renew(options = {})
           options = handle_options(options)
-          ::DRb.start_service
           begin
             ring_server.take([options[:space], options[:klass_def], nil, nil], options[:timeout])
           rescue Exception => e
@@ -16,7 +15,6 @@ module Mack
         
         def self.register(options = {})
           options = handle_options(options)
-          ::DRb.start_service
           ring_server.write([options[:space], 
                              options[:klass_def], 
                              options[:object], 
@@ -25,6 +23,7 @@ module Mack
         end
         
         def self.ring_server
+          ::DRb.start_service
           rs = ::Rinda::RingFinger.primary
           rs
         end
