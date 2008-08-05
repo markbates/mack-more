@@ -1,3 +1,4 @@
 == 0.6.1.100
+[#76] Moved mack_ring_server from mack to this project
 [#75] Moved ring_server rake tasks from mack to this project
 [#8]  Initial revision (moved code from mack-core to this project)
