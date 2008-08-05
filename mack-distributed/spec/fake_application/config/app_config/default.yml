@@ -1,0 +1,12 @@
+# mack::log_level: error
+
+whiny_config_missing: false
+
+foo: bar
+
+mack::page_cache: true
+
+mack::use_distributed_routes: false
+mack::distributed_app_name: fake_app
+
+mack::testing_framework: rspec
