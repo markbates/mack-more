@@ -1,1 +1,3 @@
-[#8] Initial revision (moved code from mack-core to this project)
+== 0.6.1.100
+[#75] Moved ring_server rake tasks from mack to this project
+[#8]  Initial revision (moved code from mack-core to this project)
