@@ -1,45 +1,27 @@
 module Mack
-  module Distributed
-    module Utils
-      module Rinda
-        
-        def self.register_or_renew(options = {})
-          options = handle_options(options)
-          ::DRb.start_service
-          begin
-            ring_server.take([options[:space], options[:klass_def], nil, nil], options[:timeout])
-          rescue Exception => e
-            # Mack.logger.error(e)
-          end
-          register(options)
+  module Distributed # :nodoc:
+    module Errors # :nodoc:
+      
+      # Raised when an unknown distributed application is referenced.
+      class UnknownApplication < StandardError
+        # Takes the application name.
+        def initialize(app_name)
+          super("APPLICATION: #{app_name} is not a known/registered distributed application.")
         end
-        
-        def self.register(options = {})
-          options = handle_options(options)
-          ::DRb.start_service
-          ring_server.write([options[:space], 
-                             options[:klass_def], 
-                             options[:object], 
-                             options[:description]], 
-                            ::Rinda::SimpleRenewer.new)
-        end
-        
-        def self.ring_server
-          rs = ::Rinda::RingFinger.primary
-          rs
-        end
-        
-        def self.read(options = {})
-          options = handle_options(options)
-          ring_server.read([options[:space], options[:klass_def], nil, options[:description]], options[:timeout])[2]
-        end
-        
-        private
-        def self.handle_options(options = {})
-          {:space => :name, :klass_def => nil, :object => nil, :description => nil, :timeout => app_config.mack.drb_timeout}.merge(options)
-        end
-        
       end
-    end
-  end
-end
+    
+      # Raised when an unknown distributed route name for a distributed application is referenced.
+      class UnknownRouteName < StandardError
+        # Takes the application name and the route name.
+        def initialize(app_name, route_name)
+          super("ROUTE_NAME: #{route_name}, is not a known/registered distributed route name for application: #{app_name}.")
+        end
+      end
+      
+      # Raised when an application doesn't declare it's application name for use in a distributed system.
+      class ApplicationNameUndefined < StandardError
+      end
+      
+    end # Errors
+  end # Distributed
+end # Mack
