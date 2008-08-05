@@ -9,8 +9,12 @@ require File.join(crt, "rake_task_requires")
   s.homepage = "http://www.mackframework.com"
 
   s.test_files = FileList['test/**/*']
+
+  s.bindir = "bin"
   s.executables << "mack_ring_server"
   s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*']
+  
+  s.require_paths << 'bin'
   s.require_paths << 'lib'
   
   s.has_rdoc = true
