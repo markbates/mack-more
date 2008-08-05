@@ -40,5 +40,6 @@ Mack::Routes.after_class_method(:build) do
     
     d_urls = Mack::Distributed::Routes::Urls.new(app_config.mack.distributed_site_domain)
     d_urls.put
+    Mack::Routes::Urls.include_safely_into(Mack::Distributed::Routes::Urls)
   end
 end
