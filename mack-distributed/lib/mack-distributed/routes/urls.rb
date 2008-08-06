@@ -35,7 +35,7 @@ module Mack
 end # Mack
 
 Mack::Routes.after_class_method(:build) do
-  if app_config.mack.use_distributed_routes
+  if app_config.mack.share_routes
     raise Mack::Distributed::Errors::ApplicationNameUndefined.new if app_config.mack.distributed_app_name.nil?
     
     d_urls = Mack::Distributed::Routes::Urls.new(app_config.mack.distributed_site_domain)

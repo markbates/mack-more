@@ -10,7 +10,7 @@ describe "droute_url" do
       # it's fine to ignore this, it's expected that it's already running.
       # all other exceptions should be thrown
     end
-    app_config.load_hash({"mack::use_distributed_routes" => true, "mack::distributed_app_name" => :known_app}, :distributed_route_test)
+    app_config.load_hash({"mack::share_routes" => true, "mack::distributed_app_name" => :known_app}, :distributed_route_test)
     Mack::Routes.build do |r| # force the routes to go the DRb server
       r.known "/my_known_app/my_known_url", :controller => :foo, :action => :bar
       r.known_w_opts "/my_known_app/my_known_url_w_opts/:id", :controller => :foo, :action => :bar
@@ -47,7 +47,7 @@ describe "droute_url" do
   end
   
   it "should raise error when d-route is used when not configured as distributed route" do
-    temp_app_config("mack::use_distributed_routes" => false) do
+    temp_app_config("mack::share_routes" => false) do
       droute_url(:known_app, :known_url).should be_nil
     end
   end

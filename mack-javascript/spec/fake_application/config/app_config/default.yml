@@ -6,7 +6,7 @@ foo: bar
 
 mack::page_cache: true
 
-mack::use_distributed_routes: false
+mack::share_routes: false
 mack::distributed_app_name: fake_app
 
 mack::js_framework: prototype
