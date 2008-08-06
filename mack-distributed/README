@@ -1,3 +1,68 @@
-README
-========================================================================
-mack-distributed
+=== Setup
+
+Using distributed functionality with Mack is incredibly easy. The first thing we need to do is start the Mack ring server.
+
+  mack_ring_server start
+  
+That's the glue that holds everything together. The ring server acts a registry/lookup agent so applications know where to find the services they are looking for.
+
+In order to use the distributed functionality, you really need to applications. The first application will be serving the distributed object(s), routes, etc... and the second application will be using the distributed functionality. Both applications will need the mack-distributed gem. In the config/initializers/gems.rb add the following to both applications:
+
+  gem.add "mack-distributed", :libs => "mack-distributed"
+
+== Using Distributed Objects (Models)
+
+Distributed objects are an easy way to share functionality across many different Mack applications. Whether it's a database model, or a bit of library code, it's easy to share and re-use.
+
+=== Application #1 (Server)
+
+Let's configure our 'server' application. This is where pretty much all the 'heavy lifting' is done. First we need setup our configuration file:
+
+config/app_config/default.yml:
+  # All distributed applications need to have a unique name so they can easily be identified for lookup.
+  mack::distributed_app_name: my_cool_app
+  # Turn object sharing on
+  mack::share_objects: true
+  
+Let's assume that we have a simple User DataMapper model that looks something like this:
+
+  class User
+    include DataMapper::Resource
+    
+    property :id, Serial
+    property :username, String
+  end
+  
+It takes only one line of code to make that into a distributed object. We just need to include Mack::Distributed::Object into the User class, like such:
+
+  class User
+    include Mack::Distributed::Object
+    include DataMapper::Resource
+  
+    property :id, Serial
+    property :username, String
+  end
+  
+Now, start your server:
+
+  rake server
+  
+=== Application #2 (Client)
+
+Here's where things get really cool. We don't have to do anything else to our second application to get it find and use our User model from the first application. When we add the mack-distributed gem, we've given it all the magic it needs to run.
+
+Let's start up our console:
+
+  rake console
+
+Now, in our console we can do the following:
+
+  user = Mack::Distributed::User.new
+  user.username = "foobar"
+  user.save
+  
+In the first application you'll see an insert into the users table in the logs. If you look in the database, you'll see that we've successfully created a new user.
+
+=== How does it work?
+
+When you include Mack::Distributed::Object into a class it registers a proxy of that class with ring server. When another application makes a call to Mack::Distributed::<class_name> it looks up and finds that class in the ring server and returns the proxy object to you. That's it. Enjoy!
