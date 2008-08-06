@@ -1,6 +1,6 @@
 module Mack
   module Distributed
-    module Utils
+    module Utils # :nodoc:
       module Rinda
         
         def self.register_or_renew(options = {})

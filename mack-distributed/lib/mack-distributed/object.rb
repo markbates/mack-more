@@ -1,8 +1,23 @@
-module Mack
+module Mack # :nodoc:
   module Distributed # :nodoc:
+    # Include this module into any class it will instantly register that class with
+    # the mack_ring_server. The class will be registered with the name of the class
+    # and the mack.distributed_app_name configured in your config/app_config/*.yml file.
+    # If the mack.distributed_app_name configuration parameter is nil it will raise
+    # an Mack::Distributed::Errors::ApplicationNameUndefined exception.
+    # 
+    # Example:
+    #  class User
+    #    include Mack::Distributed::Object
+    #    def name
+    #      "mark"
+    #    end
+    #  end
+    # 
+    #  Mack::Distributed::User.new.name # => "mark"
     module Object
       
-      def self.included(base)
+      def self.included(base) # :nodoc:
         if app_config.mack.share_objects
           base.class_eval do
             include ::DRbUndumped
