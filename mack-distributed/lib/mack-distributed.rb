@@ -8,7 +8,6 @@ config = {
   "mack::drb_timeout" => 0
 }
 app_config.load_hash(config.merge(app_config.final_configuration_settings), "mack-distributed")
-# app_config.reload
 
 # load *.rb files
 Dir.glob(File.join(base, "**", "*.rb")).each do |f|
