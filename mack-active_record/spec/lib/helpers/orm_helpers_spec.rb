@@ -16,32 +16,28 @@ describe Mack::ViewHelpers::ActiveRecordHelpers do
     it "should default to the inline ERB template" do
       post users_create_url, :user => {}
       
-      response.body.should == %{
-<div>
-  <div class="errorExplanation" id="errorExplanation">
-    <h2>1 error occured.</h2>
-    <ul>
-        <li>User username can't be blank</li>
-    </ul>
-  </div>
+      response.body.strip.should == %{
+<div class="errorExplanation" id="errorExplanation">
+  <h2>1 error occured.</h2>
+  <ul>
+      <li>User username can't be blank</li>
+  </ul>
 </div>
-      }
+      }.strip
     end
     
     it "should handle multiple models" do
       post people_and_users_create_url, :user => {}, :person => {}
       
-      response.body.should == %{
-<div>
-  <div class="errorExplanation" id="errorExplanation">
-    <h2>2 errors occured.</h2>
-    <ul>
-        <li>User username can't be blank</li>
-        <li>Person full name can't be blank</li>
-    </ul>
-  </div>
+      response.body.strip.should == %{
+<div class="errorExplanation" id="errorExplanation">
+  <h2>2 errors occured.</h2>
+  <ul>
+      <li>User username can't be blank</li>
+      <li>Person full name can't be blank</li>
+  </ul>
 </div>
-      }
+      }.strip
     end
     
     it "should allow you to pass in a partial" do
