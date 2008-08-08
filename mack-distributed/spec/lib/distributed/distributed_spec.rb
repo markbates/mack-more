@@ -42,4 +42,10 @@ describe Mack::Distributed do
     end
   end
   
+  describe "lookup" do
+    
+    it "should look up and return a specific service from rinda"
+    
+  end
+  
 end
