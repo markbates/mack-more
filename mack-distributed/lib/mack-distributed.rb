@@ -1,3 +1,5 @@
+require 'drb/acl'
+
 base = File.join(File.dirname(__FILE__), "mack-distributed")
 
 config = {

@@ -23,6 +23,10 @@ module Mack
         end
         
         def self.ring_server
+          if app_config.mack.distributed_acl
+            acl = ACL.new(app_config.mack.distributed_acl)
+            DRb.install_acl(acl)
+          end
           ::DRb.start_service
           rs = ::Rinda::RingFinger.primary
           rs
