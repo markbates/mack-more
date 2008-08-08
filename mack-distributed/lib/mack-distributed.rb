@@ -1,4 +1,5 @@
 require 'drb/acl'
+require 'addressable/uri'
 
 base = File.join(File.dirname(__FILE__), "mack-distributed")
 

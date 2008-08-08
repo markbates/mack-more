@@ -34,6 +34,7 @@ module Mack
         
         def self.read(options = {})
           options = handle_options(options)
+          puts "options: #{options.inspect}"
           ring_server.read([options[:space], options[:klass_def], nil, options[:description]], options[:timeout])[2]
         end
         
