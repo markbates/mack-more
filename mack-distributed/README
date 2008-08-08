@@ -6,7 +6,7 @@ Using distributed functionality with Mack is incredibly easy. The first thing we
   
 That's the glue that holds everything together. The ring server acts a registry/lookup agent so applications know where to find the services they are looking for.
 
-In order to use the distributed functionality, you really need to applications. The first application will be serving the distributed object(s), routes, etc... and the second application will be using the distributed functionality. Both applications will need the mack-distributed gem. In the config/initializers/gems.rb add the following to both applications:
+In order to use the distributed functionality, you really need two applications. The first application will be serving the distributed object(s), routes, etc... and the second application will be using the distributed functionality. Both applications will need the mack-distributed gem. In the config/initializers/gems.rb add the following to both applications:
 
   gem.add "mack-distributed", :libs => "mack-distributed"
 
