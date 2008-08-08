@@ -57,6 +57,12 @@ end # Mack
 
 module DRb # :nodoc:
   class DRbObject # :nodoc:
-    undef_method :inspect
+
+    alias_method :original_inspect, :inspect
+    
+    def inspect
+      "#{original_inspect}|#{method_missing(:inspect)}"
+    end
+    
   end
 end
