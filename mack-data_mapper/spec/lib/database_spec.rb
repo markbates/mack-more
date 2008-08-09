@@ -44,7 +44,6 @@ describe Mack::Database do
     
       it "should write a .sql that represents the db structure" do
         create_structure_dump_test_db(:test_mysql, "mysql://root@localhost/structure_dump_test")
-        
         File.should_not be_exists(@mysql_dump)
         Mack::Database.dump_structure(Mack.env, :test_mysql)
         File.should be_exists(@mysql_dump)
@@ -57,7 +56,6 @@ describe Mack::Database do
     
       it "should write a .sql that represents the db structure" do
         create_structure_dump_test_db(:test_postgres, "postgres://ruby:password@localhost/structure_dump_test")
-        
         File.should_not be_exists(@postgres_dump)
         Mack::Database.dump_structure(Mack.env, :test_postgres)
         File.should be_exists(@postgres_dump)
@@ -70,7 +68,6 @@ describe Mack::Database do
     
       it "should write a .sql that represents the db structure" do
         create_structure_dump_test_db(:test_sqlite3, "sqlite3://#{File.join(Mack.root, "db", "structure_dump_test.db")}")
-        
         File.should_not be_exists(@sqlite3_dump)
         Mack::Database.dump_structure(Mack.env, :test_sqlite3)
         File.should be_exists(@sqlite3_dump)
