@@ -37,15 +37,6 @@ namespace :db do
     DataMapper::MigrationRunner.migrations.clear
   end
   
-  namespace :structure do
-    
-    desc "Dump the database structure to a SQL file"
-    task :dump => "mack:environment" do
-      Mack::Database.structure_dump
-    end
-    
-  end
-  
   private
   
   def migration_files

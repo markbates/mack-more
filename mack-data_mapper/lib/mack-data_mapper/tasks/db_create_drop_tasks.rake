@@ -49,6 +49,15 @@ namespace :db do
     
   end
   
+  namespace :structure do
+    
+    desc "Dump the database structure to a SQL file"
+    task :dump => "mack:environment" do
+      Mack::Database.structure_dump(Mack.env, repis)
+    end
+    
+  end
+  
   private
   def repis
     (ENV["REPO"] ||= "default").to_sym
