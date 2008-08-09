@@ -46,7 +46,7 @@ describe Mack::Database do
         create_structure_dump_test_db(:test_mysql, "mysql://root@localhost/structure_dump_test")
         
         File.should_not be_exists(@mysql_dump)
-        Mack::Database.structure_dump(Mack.env, :test_mysql)
+        Mack::Database.dump_structure(Mack.env, :test_mysql)
         File.should be_exists(@mysql_dump)
         File.read(@mysql_dump).should == fixture("test_test_mysql_schema_structure.sql")
       end
@@ -59,7 +59,7 @@ describe Mack::Database do
         create_structure_dump_test_db(:test_postgres, "postgres://ruby:password@localhost/structure_dump_test")
         
         File.should_not be_exists(@postgres_dump)
-        Mack::Database.structure_dump(Mack.env, :test_postgres)
+        Mack::Database.dump_structure(Mack.env, :test_postgres)
         File.should be_exists(@postgres_dump)
         File.read(@postgres_dump).should == fixture("test_test_postgres_schema_structure.sql")
       end
@@ -72,7 +72,7 @@ describe Mack::Database do
         create_structure_dump_test_db(:test_sqlite3, "sqlite3://#{File.join(Mack.root, "db", "structure_dump_test.db")}")
         
         File.should_not be_exists(@sqlite3_dump)
-        Mack::Database.structure_dump(Mack.env, :test_sqlite3)
+        Mack::Database.dump_structure(Mack.env, :test_sqlite3)
         File.should be_exists(@sqlite3_dump)
         File.read(@sqlite3_dump).should == fixture("test_test_sqlite3_schema_structure.sql")
       end

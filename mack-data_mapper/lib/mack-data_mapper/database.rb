@@ -28,7 +28,22 @@ module Mack
       drop_database(repis)
     end
     
-    def self.structure_dump(env = Mack.env, repis = :default)
+    def self.load_structure(file, env = Mack.env, repis = :default)
+      Mack::Database.establish_connection(env)
+      adapter = repository(repis).adapter
+      sql = File.read(file)
+      case adapter.class.name
+      when /Mysql/
+        sql.split(";").each do |s|
+          s.strip! 
+          adapter.execute(s) unless s.blank?
+        end
+      else
+        adapter.execute(sql) unless sql.blank?
+      end
+    end
+    
+    def self.dump_structure(env = Mack.env, repis = :default)
       Mack::Database.establish_connection(env)
       adapter = repository(repis).adapter
       uri = adapter.uri
@@ -45,7 +60,7 @@ module Mack
         end
         File.open(output_file, "w") {|f| f.puts structure}
       when /Postgres/
-        `pg_dump -i -U "#{uri.user}" -s -x -O -f #{output_file} #{uri.basename}`
+        `pg_dump -i -U "#{uri.user}" -s -x -O -n #{ENV["SCHEMA"] ||= "public"} -f #{output_file} #{uri.basename}`
       when /Sqlite3/
         db_dir = File.join(Mack.root, "db")
         `sqlite3 #{File.join(db_dir, uri.basename)} .schema > #{output_file}`

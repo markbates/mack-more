@@ -1,12 +1,11 @@
 namespace :test do
   
-  task :setup do
+  task :setup => "mack:environment" do
     unless ENV["MACK_TEST_ENV_SETUP?"] == "true"
       ENV["MACK_ENV"] = "test"
       Rake::Task["db:recreate"].invoke
-      # Rake::Task["db:structure:dump"].invoke
-      Mack::Database.structure_dump("development", :default)
-      Rake::Task["db:migrate"].invoke
+      Mack::Database.dump_structure("development", :default)
+      Mack::Database.load_structure(File.join(Mack.root, "db", "development_default_schema_structure.sql"))
       ENV["MACK_TEST_ENV_SETUP?"] = "true"
     end
   end
