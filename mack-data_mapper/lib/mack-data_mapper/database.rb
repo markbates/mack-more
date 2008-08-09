@@ -29,6 +29,7 @@ module Mack
     end
     
     def self.structure_dump(env = Mack.env, repis = :default)
+      Mack::Database.establish_connection(env)
       adapter = repository(repis).adapter
       uri = adapter.uri
       structure = ""
