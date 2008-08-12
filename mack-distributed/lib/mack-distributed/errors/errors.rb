@@ -22,6 +22,13 @@ module Mack
       class ApplicationNameUndefined < StandardError
       end
       
+      # Raised when the distributed path is not a well formed addressable format
+      class InvalidAddressableURIFormat < StandardError
+        def inititalize(msg)
+          super("Invalid addressable format: #{msg}")
+        end
+      end
+      
     end # Errors
   end # Distributed
 end # Mack
