@@ -4,10 +4,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-  <title>Local Layout!</title>
+  <title>Distributed Layout!</title>
   <link href="/stylesheets/scaffold.css" media="screen" rel="stylesheet" type="text/css" />
 </head>
 <body>
+
+<div style="border: 1px solid #ccc">
+  <div style="background: #ccc; padding: 10px">
+    Distributed Layout Demo
+  </div>
+  <div style="padding: 10px">
   <%= yield_to :view  %>
+    <%= @var1 %>
+    <%= @var2 %>
+  </div>
+</div>
 </body>
 </html>
