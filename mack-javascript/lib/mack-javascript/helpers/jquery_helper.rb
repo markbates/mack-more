@@ -1,6 +1,6 @@
 module Mack
-  module JavaScript
-    module Framework
+  module JavaScript # :nodoc:
+    module Framework # :nodoc:
       class Jquery      
         class << self
           def insert_html(position, id, html)

@@ -1,6 +1,6 @@
 module Mack
   module Data
-    class FactoryRegistryMap < Mack::Utils::RegistryMap
+    class FactoryRegistryMap < Mack::Utils::RegistryMap # :nodoc:
     end
   end
 end

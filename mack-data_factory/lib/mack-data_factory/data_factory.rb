@@ -1,5 +1,5 @@
 module Mack
-  module Data
+  module Data # :nodoc:
     #
     # Add factory capability to a class.
     # 

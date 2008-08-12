@@ -1,7 +1,7 @@
 module Mack
   module Data
     
-    class OrmRegistry < Mack::Utils::RegistryList
+    class OrmRegistry < Mack::Utils::RegistryList # :nodoc:
     end
     
     class Bridge

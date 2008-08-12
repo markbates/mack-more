@@ -1,6 +1,6 @@
 module Mack
   module Data
-    module OrmBridge
+    module OrmBridge # :nodoc:
       class Default
         
         def can_handle(obj)
@@ -8,23 +8,23 @@ module Mack
         end
         
         def get(obj, *args)
-          Mack.logger.warn "Mack::Data::OrmBridge: You don't have supported orm api handler installed."
-        end
-        
-        def get_all(obj, *args)
-          Mack.logger.warn "Mack::Data::OrmBridge: You don't have supported orm api handler installed."
-        end
-        
-        def count(obj, *args)
-          Mack.logger.warn "Mack::Data::OrmBridge: You don't have supported orm api handler installed."
-        end
-        
-        def save(obj, *args)
-          Mack.logger.warn "Mack::Data::OrmBridge: You don't have supported orm api handler installed."
-        end
-        
-        def get_first(obj, *args)
-          Mack.logger.warn "Mack::Data::OrmBridge: You don't have supported orm api handler installed."
+          Mack.logger.warn "Mack::Data::OrmBridge: You don't have a supported orm api handler installed."
+        end                                                       
+                                                                  
+        def get_all(obj, *args)                                   
+          Mack.logger.warn "Mack::Data::OrmBridge: You don't have a supported orm api handler installed."
+        end                                                       
+                                                                  
+        def count(obj, *args)                                     
+          Mack.logger.warn "Mack::Data::OrmBridge: You don't have a supported orm api handler installed."
+        end                                                       
+                                                                  
+        def save(obj, *args)                                      
+          Mack.logger.warn "Mack::Data::OrmBridge: You don't have a supported orm api handler installed."
+        end                                                       
+                                                                  
+        def get_first(obj, *args)                                 
+          Mack.logger.warn "Mack::Data::OrmBridge: You don't have a supported orm api handler installed."
         end
         
         

@@ -1,7 +1,7 @@
 module Mack
   module Data
     
-    class RegistryMap < Mack::Utils::RegistryMap
+    class RegistryMap < Mack::Utils::RegistryMap # :nodoc:
     end
     
     class Field
