@@ -51,7 +51,6 @@ module Mack
       output_file = File.join(Mack.root, "db", "#{env}_#{repis}_schema_structure.sql")
       case adapter.class.name
       when /Mysql/
-        sql = "SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'"
         sql = "SHOW TABLES"
         adapter.query(sql).each do |res|
           show = adapter.query("SHOW CREATE TABLE #{res}").first
