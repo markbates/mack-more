@@ -48,7 +48,7 @@ module Mack
       adapter = repository(repis).adapter
       uri = adapter.uri
       structure = ""
-      output_file = File.join(Mack.root, "db", "#{env}_#{repis}_schema_structure.sql")
+      output_file = File.join(Mack.root, "db", "#{env}_schema_structure.sql")
       case adapter.class.name
       when /Mysql/
         sql = "SHOW TABLES"

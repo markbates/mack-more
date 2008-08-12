@@ -1,10 +1,8 @@
 require 'pathname'
-require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
-require 'migration_runner'
-describe "rake" do
+require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 
-  describe "db" do
-    
+describe Mack::Database::Migrations do
+  
     class Zoo
       include DataMapper::Resource
       
@@ -22,6 +20,7 @@ describe "rake" do
     end
     
     before(:each) do
+      Mack::Database.recreate
       FileUtils.rm_rf(Mack::Paths.migrations)
       FileUtils.mkdir_p(Mack::Paths.migrations)
       File.open(Mack::Paths.migrations("001_create_zoos.rb"), "w") {|f| f.puts fixture("create_zoos.rb")}
@@ -35,7 +34,7 @@ describe "rake" do
     
       it "should migrate the database with the migrations in the db/migrations folder" do
         Zoo.should_not be_storage_exists
-        rake_task("db:migrate")
+        Mack::Database::Migrations.migrate
         Zoo.should be_storage_exists
       end
     
@@ -45,9 +44,9 @@ describe "rake" do
     
       it "should rollback the database by a default of 1 step" do
         Zoo.should_not be_storage_exists
-        rake_task("db:migrate")
+        Mack::Database::Migrations.migrate
         Zoo.should be_storage_exists
-        rake_task("db:rollback")
+        Mack::Database::Migrations.rollback
         Zoo.should_not be_storage_exists
       end
     
@@ -55,17 +54,14 @@ describe "rake" do
         Zoo.should_not be_storage_exists
         Animal.should_not be_storage_exists
         File.open(Mack::Paths.migrations("002_create_animals.rb"), "w") {|f| f.puts fixture("create_animals.rb")}
-        rake_task("db:migrate")
+        Mack::Database::Migrations.migrate
         Zoo.should be_storage_exists
         Animal.should be_storage_exists
-        rake_task("db:rollback", "STEP" => "2")
+        Mack::Database::Migrations.rollback(2)
         Zoo.should_not be_storage_exists
         Animal.should_not be_storage_exists
       end
     
     end
-
-  
-  end
   
 end

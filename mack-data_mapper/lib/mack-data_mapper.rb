@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'genosaurus'
-
+require 'mack-orm'
 fl = File.join(File.dirname(__FILE__), "mack-data_mapper")
 
 $: << File.expand_path(File.join(fl, "dm_patches"))
@@ -12,6 +12,7 @@ end
 
 
 require File.join(fl, "database")
+require File.join(fl, "database_migrations")
 require File.join(fl, "helpers", "orm_helpers")
 require File.join(fl, "resource")
 require File.join(fl, "runner")

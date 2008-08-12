@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'genosaurus'
-
+require 'mack-orm'
 require 'activerecord'
 
 module ActiveRecord # :nodoc:

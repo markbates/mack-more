@@ -1,7 +1,7 @@
 development:
   default:
     adapter: mysql
-    database: mack_data_mapper_development
+    database: mack_data_mapper2_development
     host: localhost
     username: root
     password: 
@@ -9,7 +9,7 @@ development:
 test:
   default:
     adapter: mysql
-    database: mack_data_mapper_test
+    database: mack_data_mapper2_test
     host: localhost
     username: root
     password:
@@ -17,7 +17,7 @@ test:
 production:
   default:
     adapter: mysql
-    database: mack_data_mapper_production
+    database: mack_data_mapper2_production
     host: localhost
     username: root
     password:
