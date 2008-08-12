@@ -27,8 +27,7 @@ module Mack
         def inititalize(msg)
           super("Invalid addressable format: #{msg}")
         end
-      end
-      
+      end      
     end # Errors
   end # Distributed
 end # Mack

@@ -24,4 +24,4 @@ Dir.glob(File.join(base, "tasks", "*.rake")).each do |f|
   load(f)
 end
 
-Mack::Distributed::Views.register_files
+Mack::Distributed::Views.register

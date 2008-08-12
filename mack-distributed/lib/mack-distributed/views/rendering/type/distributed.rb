@@ -5,45 +5,31 @@ module Mack
 
         # render(:distributed, "distributed://host/resource")
         def render
-          uri = Addressable::URI.parse(self.render_value)
-          raise InvalidAddressableURIFormat.new("#{self.render_value}") if uri.host.nil? or uri.path.nil?
-          
-          app_name = uri.host
-          resource = File.join("app", "views", uri.path)
-          
-          # first try to find the erb version of the view file, before we loop through the engine list
-          view_path = "#{resource}.#{self.options[:format]}.erb"
-          
-          raw = nil
-          
-          # there's no erb version of the file, so perform the lookup for each engine registered
-          Mack::Rendering::Engine::Registry.engines[:distributed].each do |e|
-            debugger
-            @engine = find_engine(e).new(self.view_template)
-
-            view_path = "#{resource}.#{self.options[:format]}.#{@engine.extension}"
-            raw = find_distributed_file(app_name, view_path)
+            uri = Addressable::URI.parse(self.render_value)
+            raise InvalidAddressableURIFormat.new("#{self.render_value}") if uri.host.nil? or uri.path.nil?
             
-            break if !raw.nil?
-          end
+            app_name = uri.host
+            resource = File.join("app", "views", uri.path)
+            
+            data = Mack::Distributed::Views.ref(app_name)
+            if data
+              raw = ""
+              Mack::Rendering::Engine::Registry.engines[:distributed].each do |e|
+                @engine = find_engine(e).new(self.view_template)
 
-          raise Mack::Errors::ResourceNotFound.new("#{self.options[:distributed]}") if raw.nil?
-          
-          self.view_template.render_value = raw
-          Mack::Rendering::Type::Inline.new(self.view_template).render
+                view_path = "#{resource}.#{self.options[:format]}.#{@engine.extension}"
+                raw = data.get(view_path)
+                break if !raw.nil?
+              end
+              
+              raise Mack::Errors::ResourceNotFound.new("#{self.options[:distributed]}") if raw.nil?
+              
+              old_render_value = self.view_template.render_value.dup
+              self.view_template.render_value = raw
+              Mack::Rendering::Type::Inline.new(self.view_template).render
+              # self.view_template.render_value = old_render_value
+            end
         end
-        
-        private
-        def find_distributed_file(app_name, file_path)
-          raw = nil          
-          begin
-            raw = Mack::Distributed::Utils::Rinda.read(:space => app_name.to_sym, :klass_def => file_path)
-          rescue Rinda::RequestExpiredError => er
-            Mack.logger.warn(er)
-          end
-          return raw
-        end
-        
       end
     end
   end
