@@ -27,12 +27,7 @@ module Mack
         end
         DataMapper::MigrationRunner.migrations.clear
       end
-      
-      private
-      def self.migration_files
-        Dir.glob(File.join(Mack.root, "db", "migrations", "*.rb"))
-      end
-      
+            
     end # Migrations
   end # Database
 end # Mack

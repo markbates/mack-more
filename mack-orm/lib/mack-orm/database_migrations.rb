@@ -14,6 +14,10 @@ module Mack
         # raise NoMethodError.new(:abort_if_pending_migrations)
       end
       
+      def self.migration_files
+        Dir.glob(File.join(Mack.root, "db", "migrations", "*.rb"))
+      end
+      
     end # Migrations
   end # Database
 end # Mack

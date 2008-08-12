@@ -33,9 +33,11 @@ module Spec
             # if exists delete the db created by this task
             config_db(adapter) do
               if db_exists?("foo_development")
-                rake_task("db:drop")
+                # rake_task("db:drop")
+                Mack::Database.drop
               elsif db_exists?("foo_test")
-                rake_task("db:drop", {"MACK_ENV" => "test"})
+                Mack::Database.create("test")
+                # rake_task("db:drop", {"MACK_ENV" => "test"})
               end
             end
           rescue Exception => ex

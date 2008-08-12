@@ -41,7 +41,7 @@ describe Mack::Database do
   end
   
   before(:each) do
-    @dump = File.join(Mack.root, "db", "test_schema_structure.sql")
+    @dump = File.join(Mack.root, "db", "development_schema_structure.sql")
   end
   
   after(:each) do
@@ -55,7 +55,7 @@ describe Mack::Database do
       
       it "should reconstructe a db from a .sql file" do
         config_db(:mysql) do
-          Mack::Database.drop_or_create_database(Mack.env, :drop_and_create)
+          Mack::Database.recreate
           Mack::Database.establish_connection(Mack.env)
           House.should_not be_table_exists
           Cottage.should_not be_table_exists
@@ -72,7 +72,8 @@ describe Mack::Database do
       
       it "should reconstructe a db from a .sql file" do
         config_db(:postgresql) do
-          Mack::Database.drop_or_create_database(Mack.env, :drop_and_create)
+          Mack::Database.recreate("development")
+          Mack::Database.recreate("test")
           Mack::Database.establish_connection(Mack.env)
           House.should_not be_table_exists
           Cottage.should_not be_table_exists
@@ -101,7 +102,7 @@ describe Mack::Database do
             
       it "should write a .sql that represents the db structure" do
         config_db(:mysql) do
-          Mack::Database.drop_or_create_database(Mack.env, :drop_and_create)
+          Mack::Database.recreate
           Mack::Database.establish_connection(Mack.env)
           HouseMigration.up
           CottageMigration.up
@@ -119,7 +120,7 @@ describe Mack::Database do
       
       it "should write a .sql that represents the db structure" do
         config_db(:postgresql) do
-          Mack::Database.drop_or_create_database(Mack.env, :drop_and_create)
+          Mack::Database.recreate
           Mack::Database.establish_connection(Mack.env)
           HouseMigration.up
           CottageMigration.up
