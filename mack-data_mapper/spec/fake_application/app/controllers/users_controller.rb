@@ -12,16 +12,4 @@ class UsersController
     render(:action, :edit)
   end
   
-  def model_text_field_test
-    @user = User.new(:username => "markbates")
-  end
-  
-  def model_password_field_test
-    @user = User.new(:username => "markbates")
-  end
-  
-  def model_textarea_test
-    @user = User.new(:username => "markbates")
-  end
-  
 end

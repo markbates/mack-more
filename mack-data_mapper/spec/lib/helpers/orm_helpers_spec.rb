@@ -2,7 +2,8 @@ require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
 
 describe Mack::ViewHelpers::DataMapperHelpers do
-  include Mack::ViewHelpers::DataMapperHelpers
+  include Mack::ViewHelpers
+  
   describe "error_messages_for" do
     
     before(:all) do
@@ -32,33 +33,6 @@ describe Mack::ViewHelpers::DataMapperHelpers do
       post users_create_url, :user => {:id => 1}
       response.body.should == fixture("partial_single_model_error.html.erb")
       FileUtils.rm_rf(Mack::Paths.views("application"))
-    end
-    
-  end
-  
-  describe "model_text_field" do
-    
-    it "should generate a model_text_field tag for the model's property" do
-      get model_text_field_test_url
-      response.body.should == %{<input id="user_username" name="user[username]" type="text" value="markbates" />}
-    end
-    
-  end
-  
-  describe "model_password_field" do
-    
-    it "should generate a model_password_field tag for the model's property" do
-      get model_password_field_test_url
-      response.body.should == %{<input id="user_username" name="user[username]" type="password" value="markbates" />}
-    end
-    
-  end
-  
-  describe "model_textarea" do
-    
-    it "should generate a textarea tag" do
-      get model_textarea_test_url
-      response.body.should == %{<textarea cols="60" id="user_username" name="user[username]" rows="20">markbates</textarea>}
     end
     
   end

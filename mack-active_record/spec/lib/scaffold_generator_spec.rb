@@ -2,7 +2,7 @@ require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 
 describe ScaffoldGenerator do
-  include Mack::Genosaurus::ActiveRecord::Helpers
+  include Mack::Genosaurus::Orm::Helpers
 
   before(:each) do
     @view_path  = File.join(Mack.root, "app", "views", "zoos")
