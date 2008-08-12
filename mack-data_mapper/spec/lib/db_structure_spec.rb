@@ -19,15 +19,11 @@ describe Mack::Database do
   end
   
   before(:each) do
-    @mysql_dump = File.join(Mack.root, "db", "test_test_mysql_schema_structure.sql")
-    @postgres_dump = File.join(Mack.root, "db", "test_test_postgres_schema_structure.sql")
-    @sqlite3_dump = File.join(Mack.root, "db", "test_test_sqlite3_schema_structure.sql")
+    @dump = File.join(Mack.root, "db", "test_schema_structure.sql")
   end
   
   after(:each) do
-    FileUtils.rm_rf(@mysql_dump)
-    FileUtils.rm_rf(@postgres_dump)
-    FileUtils.rm_rf(@sqlite3_dump)
+    FileUtils.rm_rf(@dump)
   end
   
   def create_structure_dump_test_db(repis, path, auto_migrate = true)
@@ -89,10 +85,10 @@ describe Mack::Database do
     
       it "should write a .sql that represents the db structure" do
         create_structure_dump_test_db(:test_mysql, "mysql://root@localhost/structure_dump_test")
-        File.should_not be_exists(@mysql_dump)
+        File.should_not be_exists(@dump)
         Mack::Database.dump_structure(Mack.env, :test_mysql)
-        File.should be_exists(@mysql_dump)
-        File.read(@mysql_dump).should == fixture("test_test_mysql_schema_structure.sql")
+        File.should be_exists(@dump)
+        File.read(@dump).should == fixture("test_test_mysql_schema_structure.sql")
       end
     
     end
@@ -101,10 +97,10 @@ describe Mack::Database do
     
       it "should write a .sql that represents the db structure" do
         create_structure_dump_test_db(:test_postgres, "postgres://ruby:password@localhost/structure_dump_test")
-        File.should_not be_exists(@postgres_dump)
+        File.should_not be_exists(@dump)
         Mack::Database.dump_structure(Mack.env, :test_postgres)
-        File.should be_exists(@postgres_dump)
-        File.read(@postgres_dump).should == fixture("test_test_postgres_schema_structure.sql")
+        File.should be_exists(@dump)
+        File.read(@dump).should == fixture("test_test_postgres_schema_structure.sql")
       end
     
     end
@@ -113,10 +109,10 @@ describe Mack::Database do
     
       it "should write a .sql that represents the db structure" do
         create_structure_dump_test_db(:test_sqlite3, "sqlite3://#{File.join(Mack.root, "db", "structure_dump_test.db")}")
-        File.should_not be_exists(@sqlite3_dump)
+        File.should_not be_exists(@dump)
         Mack::Database.dump_structure(Mack.env, :test_sqlite3)
-        File.should be_exists(@sqlite3_dump)
-        File.read(@sqlite3_dump).should == fixture("test_test_sqlite3_schema_structure.sql")
+        File.should be_exists(@dump)
+        File.read(@dump).should == fixture("test_test_sqlite3_schema_structure.sql")
       end
     
     end

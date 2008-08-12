@@ -2,10 +2,10 @@ crt = File.join(File.dirname(__FILE__), "..", "common_rake_tasks")
 require File.join(crt, "rake_task_requires")
 
 @gem_spec = Gem::Specification.new do |s|
-  s.name = "mack-data_mapper"
+  s.name = "mack-orm"
   s.version = GEM_VERSION
-  s.summary = "DataMapper ORM support for Mack"
-  s.description = "mack-data_mapper was developed by: markbates"
+  s.summary = "Common ORM support for Mack"
+  s.description = "mack-orm was developed by: markbates"
   s.author = "markbates"
   s.email = "mark@mackframework.com"
   s.homepage = "http://www.mackframework.com"
@@ -14,11 +14,6 @@ require File.join(crt, "rake_task_requires")
 
   s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*', 'bin/**/*.*']
   s.require_paths << 'lib'
-
-  [:core, :aggregates, :migrations, :serializer, :timestamps, :validations, :observer, :types].each do |g|
-    s.add_dependency("dm-#{g}", "0.9.3")
-  end
-  s.add_dependency("mack-orm", GEM_VERSION)
   
   s.extra_rdoc_files = ["README"]
   s.has_rdoc = true

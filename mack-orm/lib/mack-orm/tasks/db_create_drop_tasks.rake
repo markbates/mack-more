@@ -5,17 +5,17 @@ namespace :db do
   task :recreate => :environment do
     Mack::Database.drop(Mack.env, repis)
     Mack::Database.create(Mack.env, repis)
-  end
+  end # recreate
   
   desc "Creates the database for your environment."
   task :create => :environment do
     Mack::Database.create(Mack.env, repis)
-  end
+  end # create
   
   desc "Drops the database for your environment."
   task :drop => :environment do
     Mack::Database.drop(Mack.env, repis)
-  end
+  end # drop
   
   namespace :create do
     
@@ -23,9 +23,9 @@ namespace :db do
     task :all => :environment do
       Mack::Database.create("test", repis)
       Mack::Database.create("development", repis)
-    end
+    end # all
     
-  end
+  end # create
   
   namespace :drop do
     
@@ -33,9 +33,9 @@ namespace :db do
     task :all => :environment do
       Mack::Database.drop("test", repis)
       Mack::Database.drop("development", repis)
-    end
+    end # all
     
-  end
+  end # drop
   
   namespace :recreate do
     
@@ -45,28 +45,28 @@ namespace :db do
       Mack::Database.create("test", repis)
       Mack::Database.drop("development", repis)
       Mack::Database.create("development", repis)
-    end
+    end # all
     
-  end
+  end # recreate
   
   namespace :structure do
     
     desc "Dump the database structure to a SQL file"
     task :dump => "mack:environment" do
       Mack::Database.dump_structure(Mack.env, repis)
-    end
+    end # dump
     
     desc "Create the database from a SQL file"
     task :load => "mack:environment" do
       file = (ENV["FILE"] ||= File.join(Mack.root, "db", "development_default_schema_structure.sql"))
       Mack::Database.load_structure(file, Mack.env, repis)
-    end
+    end # load
     
-  end
+  end # structure
   
   private
   def repis
     (ENV["REPO"] ||= "default").to_sym
   end
 
-end
+end # db
