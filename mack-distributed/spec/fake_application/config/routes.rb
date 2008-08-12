@@ -2,6 +2,17 @@ Mack::Routes.build do |r|
 
   r.resource "admin/users"
   
+  r.with_options(:controller => "animals") do |map|
+    map.global_animals "/animals", :action => :index
+    map.local_animals  "/animals/index2", :action => :index2
+    map.real_local_animals "/animals/index3", :action => :index3
+  end
+  
+  r.with_options(:controller => "animals2") do |map|
+    map.g_animals "/animals2", :action => :index
+  end
+  
+  
   r.with_options(:controller => :tst_home_page) do |map|
     map.connect "/"
     map.connect "foo", :action => :foo

@@ -1,11 +1,13 @@
 require 'drb/acl'
 require 'addressable/uri'
+require 'ruby-debug'
 
 base = File.join(File.dirname(__FILE__), "mack-distributed")
 
 config = {
   "mack::share_routes" => false,
   "mack::share_objects" => false,
+  "mack::share_views" => false,
   "mack::distributed_app_name" => nil,
   "mack::distributed_site_domain" => "http://localhost:3000",
   "mack::drb_timeout" => 0
@@ -21,3 +23,5 @@ end
 Dir.glob(File.join(base, "tasks", "*.rake")).each do |f|
   load(f)
 end
+
+Mack::Distributed::Views.register
