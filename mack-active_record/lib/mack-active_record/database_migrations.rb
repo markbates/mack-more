@@ -16,6 +16,10 @@ module Mack
       def self.abort_if_pending_migrations
         # not implemented
       end
+      
+      def self.version
+        ActiveRecord::Migrator.current_version
+      end
             
     end # Migrations
   end # Database
