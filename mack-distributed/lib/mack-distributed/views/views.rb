@@ -4,11 +4,22 @@ module Mack
       
       include Singleton
       include DRbUndumped
+      include Mack::ViewHelpers::LinkHelpers
       
       def get(resource)
         path = File.join(Mack.root, resource)
         if File.exists?(path)
-          return File.read(path)
+          raw = File.read(path)
+          
+          # preprocess the raw content so we can resolve css/javascript/image path
+          arr = raw.scan(/<%=.*?%>/)
+          arr.each do |scriptlet|
+            if scriptlet.match(/stylesheet/) or scriptlet.match(/javascript/) or scriptlet.match(/image/)
+              res = ERB.new(scriptlet).result(binding)
+              raw.gsub!(scriptlet, res)
+            end
+          end
+          return raw
         end
         return ""
       end
