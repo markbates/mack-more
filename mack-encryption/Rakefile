@@ -1,0 +1,29 @@
+crt = File.join(File.dirname(__FILE__), "..", "common_rake_tasks")
+require File.join(crt, "rake_task_requires")
+
+@gem_spec = Gem::Specification.new do |s|
+  s.name = "mack-encryption"
+  s.version = GEM_VERSION
+  s.summary = "crypt/rijndael support for Mack"
+  s.description = "mack-encryption was developed by: markbates"
+  s.author = "markbates"
+  s.email = "mark@mackframework.com"
+  s.homepage = "http://www.mackframework.com"
+
+  s.test_files = FileList['test/**/*']
+
+  s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*', 'bin/**/*.*']
+  s.require_paths << 'lib'
+  
+  s.add_dependency("crypt", "1.1.4")
+  
+  s.extra_rdoc_files = ["README"]
+  s.has_rdoc = true
+  s.required_ruby_version = ">= 1.8.6"
+  s.rubyforge_project = "magrathea"
+end
+
+# Require all the necessary rake tasks:
+[:install, :package, :rdoc, :release, :test].each do |t|
+  load(File.join(crt, "#{t}.rake"))
+end
