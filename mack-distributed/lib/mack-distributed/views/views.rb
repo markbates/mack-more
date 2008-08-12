@@ -13,14 +13,6 @@ module Mack
         return ""
       end
       
-      private
-      def find_engine(e)
-        eval("Mack::Rendering::Engine::#{e.to_s.camelcase}")
-      end
-      
-      
-      public
-      
       class << self
         def register
           if app_config.mack.share_views
