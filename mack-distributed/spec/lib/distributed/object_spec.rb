@@ -49,5 +49,19 @@ describe Mack::Distributed::Object do
     Mack::Distributed::CarProxy.instance.buy.should == true
   end
   
+  it "should reference the original objects inspect method" do
+    class Bike
+      include Mack::Distributed::Object
+      def inspect
+        "<BikeClass>"
+      end
+      def to_s
+        "i'm a bike"
+      end
+    end
+    c = Mack::Distributed::Utils::Rinda.read(:klass_def => :Bike)
+    c.inspect.should match(/Bike/)
+    c.new.to_s.should match(/i'm a bike/)
+  end
 
 end

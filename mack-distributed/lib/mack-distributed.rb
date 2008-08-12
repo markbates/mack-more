@@ -1,3 +1,4 @@
+require 'drb/acl'
 require 'addressable/uri'
 require 'ruby-debug'
 

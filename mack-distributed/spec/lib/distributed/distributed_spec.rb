@@ -42,4 +42,15 @@ describe Mack::Distributed do
     end
   end
   
+  describe "lookup" do
+    
+    it "should look up and return a specific service from rinda" do
+      Mack::Distributed::Utils::Rinda.register_or_renew(:space => :app_1, :klass_def => :Test, :object => "Hello World!")
+      Mack::Distributed::Utils::Rinda.register_or_renew(:space => :app_2, :klass_def => :Test, :object => "Hello WORLD!")
+      Mack::Distributed.lookup("distributed://app_1/Test").should == "Hello World!"
+      Mack::Distributed.lookup("distributed://app_2/Test").should == "Hello WORLD!"
+    end
+    
+  end
+  
 end

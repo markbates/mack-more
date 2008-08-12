@@ -30,6 +30,14 @@ module Mack # :nodoc:
               def method_missing(sym, *args)
                 #{base}.send(sym, *args)
               end
+              
+              def inspect
+                #{base}.inspect
+              end
+              
+              def to_s
+                #{base}.to_s
+              end
             
               # def respond_to?(sym)
               #   #{base}.respond_to?(sym)
@@ -46,3 +54,15 @@ module Mack # :nodoc:
     end # Object
   end # Distributed
 end # Mack
+
+module DRb # :nodoc:
+  class DRbObject # :nodoc:
+
+    alias_method :original_inspect, :inspect
+    
+    def inspect
+      "#{original_inspect}|#{method_missing(:inspect)}"
+    end
+    
+  end
+end

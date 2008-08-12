@@ -23,6 +23,10 @@ module Mack
         end
         
         def self.ring_server
+          if app_config.mack.distributed_acl
+            acl = ACL.new(app_config.mack.distributed_acl)
+            DRb.install_acl(acl)
+          end
           ::DRb.start_service
           rs = ::Rinda::RingFinger.primary
           rs
@@ -30,6 +34,7 @@ module Mack
         
         def self.read(options = {})
           options = handle_options(options)
+          puts "options: #{options.inspect}"
           ring_server.read([options[:space], options[:klass_def], nil, options[:description]], options[:timeout])[2]
         end
         

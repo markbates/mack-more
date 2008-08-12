@@ -3,17 +3,15 @@ module Mack
     module DataMapperHelpers
 
       DEFAULT_PARTIAL = %{
-<div>
-  <div class="errorExplanation" id="errorExplanation">
-    <h2><%= pluralize_word(errors.size, "error") %> occured.</h2>
-    <ul>
-      <% for error in errors %>
-        <li><%= error %></li>
-      <% end %>  
-    </ul>
-  </div>
+<div class="errorExplanation" id="errorExplanation">
+  <h2><%= pluralize_word(errors.size, "error") %> occured.</h2>
+  <ul>
+    <% for error in errors %>
+      <li><%= error %></li>
+    <% end %>  
+  </ul>
 </div>
-      } unless Mack::ViewHelpers::DataMapperHelpers.const_defined?("DEFAULT_PARTIAL")
+}.strip unless Mack::ViewHelpers::DataMapperHelpers.const_defined?("DEFAULT_PARTIAL")
       
       # Provides view level support for printing out all the errors associated with the
       # models you tell it. 

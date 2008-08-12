@@ -12,17 +12,17 @@ describe Mack::ViewHelpers::DataMapperHelpers do
     
     it "should default to the inline ERB template" do
       post users_create_url, :user => {:id => 1}
-      response.body.should == fixture("default_single_model_error.html.erb")
+      response.body.strip.should == fixture("default_single_model_error.html.erb").strip
     end
     
     it "should handle multiple models" do
       post people_and_users_create_url, :user => {:id => 1}, :person => {:id => 1}
-      response.body.should == fixture("default_multiple_model_errors.html.erb")
+      response.body.strip.should == fixture("default_multiple_model_errors.html.erb").strip
     end
     
     it "should allow you to pass in a partial" do
       put users_update_url(:id => 1), :user => {:id => 1}
-      response.body.should == fixture("partial_single_model_error.html.erb")
+      response.body.strip.should == fixture("partial_single_model_error.html.erb").strip
     end
     
     it "should find and use the default partial" do
