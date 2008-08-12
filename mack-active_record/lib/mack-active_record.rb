@@ -10,6 +10,7 @@ fl = File.join(File.dirname(__FILE__), "mack-active_record")
 
 require File.join(fl, "database")
 require File.join(fl, "database_migrations")
+require File.join(fl, "generators")
 require File.join(fl, "helpers", "orm_helpers")
 
 # [:migration, :model, :scaffold].each do |gen|
