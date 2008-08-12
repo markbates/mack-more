@@ -4,6 +4,7 @@ module Mack
   module Database
     module Migrations
       
+      # Migrates the database to the latest version
       def self.migrate
         Mack::Database.establish_connection
         DataMapper::MigrationRunner.reset!
@@ -11,6 +12,7 @@ module Mack
         DataMapper::MigrationRunner.migrate_up!
       end
       
+      # Rolls back the database by the specified number of steps. Default is 1
       def self.rollback(step = 1)
         DataMapper::MigrationRunner.reset!
         migration_files.each { |mig| load mig }

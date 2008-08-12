@@ -28,6 +28,7 @@ module Mack
       drop_database(repis)
     end
     
+    # Loads the structure of the given file into the database
     def self.load_structure(file, env = Mack.env, repis = :default)
       Mack::Database.establish_connection(env)
       adapter = repository(repis).adapter
@@ -43,6 +44,7 @@ module Mack
       end
     end
     
+    # Dumps the structure of the database to a file.
     def self.dump_structure(env = Mack.env, repis = :default)
       Mack::Database.establish_connection(env)
       adapter = repository(repis).adapter
