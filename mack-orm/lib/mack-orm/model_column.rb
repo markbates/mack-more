@@ -1,6 +1,6 @@
 module Mack
   module Genosaurus # :nodoc:
-    module DataMapper # :nodoc:
+    module Orm # :nodoc:
       # Used to represent a 'column' from the param cols or columns for generators.
       class ModelColumn # :nodoc:
       
@@ -36,7 +36,6 @@ module Mack
         end
       
       end # ModelColumn
-    end # DataMapper
-    
+    end # Orm
   end # Generator
 end # Mack

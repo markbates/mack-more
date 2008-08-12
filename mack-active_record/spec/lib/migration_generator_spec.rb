@@ -2,7 +2,7 @@ require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 
 describe MigrationGenerator do
-  include Mack::Genosaurus::ActiveRecord::Helpers
+  include Mack::Genosaurus::Orm::Helpers
     
   before(:each) do
     @content_path = File.join(File.dirname(__FILE__), "contents")

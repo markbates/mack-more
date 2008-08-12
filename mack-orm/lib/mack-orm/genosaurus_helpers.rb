@@ -1,6 +1,6 @@
 module Mack
   module Genosaurus # :nodoc:
-    module DataMapper # :nodoc:
+    module Orm # :nodoc:
       module Helpers # :nodoc:
       
         def columns(name = param(:name))
@@ -9,7 +9,7 @@ module Mack
             cols = (param(:cols) || param(:columns))
             if cols
               cols.split(",").each do |x|
-                cs << Mack::Genosaurus::DataMapper::ModelColumn.new(name, x)
+                cs << Mack::Genosaurus::Orm::ModelColumn.new(name, x)
               end
             end
             cs
@@ -35,6 +35,6 @@ module Mack
         ::Genosaurus.send(:include, self)
       
       end # Helpers
-    end # DataMapper
+    end # Orm
   end # Genosaurus
 end # Mack
