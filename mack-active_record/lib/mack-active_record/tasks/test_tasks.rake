@@ -4,8 +4,8 @@ namespace :test do
     ENV["MACK_ENV"] = "test"
     Mack.reset_logger!
     Rake::Task["db:recreate"].invoke
-    Mack::Database.dump_structure("development", :default)
-    Mack::Database.load_structure(File.join(Mack.root, "db", "development_default_schema_structure.sql"))
+    Mack::Database.dump_structure("development")
+    Mack::Database.load_structure(File.join(Mack.root, "db", "development_schema_structure.sql"))
     
     # auto require factories:
     Dir.glob(File.join(Mack.root, "test", "factories", "**/*.rb")).each do |f|

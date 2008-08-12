@@ -15,6 +15,7 @@ $genosaurus_output_directory = Mack.root
 
 require File.join(File.dirname(__FILE__), "..", "..", "mack-paths", "lib", "mack-paths")
 
+require File.join(File.dirname(__FILE__), 'create_and_drop_task_helper')
 
 def migrations_directory
   File.join(Mack.root, "db", "migrations")
@@ -24,6 +25,10 @@ def cleanup(file)
   File.delete(file) if !file.nil? and File.exists?(file)
 end
 
-def fixture(file)
-  File.read(File.join(File.dirname(__FILE__), "lib", "fixtures", file + ".fixtures"))
+def fixture(name)
+  File.read(fixture_location(name))
+end
+
+def fixture_location(name)
+  File.join(File.dirname(__FILE__), "fixtures", "#{name}.fixture")
 end

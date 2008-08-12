@@ -17,5 +17,9 @@ $genosaurus_output_directory = Mack.root
 require File.join(File.dirname(__FILE__), "..", "..", "mack-paths", "lib", "mack-paths")
 
 def fixture(name)
-  File.read(File.join(File.dirname(__FILE__), "fixtures", "#{name}.fixture"))
+  File.read(fixture_location(name))
+end
+
+def fixture_location(name)
+  File.join(File.dirname(__FILE__), "fixtures", "#{name}.fixture")
 end

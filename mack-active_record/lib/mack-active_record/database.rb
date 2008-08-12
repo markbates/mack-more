@@ -67,6 +67,38 @@ module Mack
           FileUtils.rm_rf(dbs[:database]) if mode == :drop or mode == :drop_and_create
       end
     end
+    
+    def self.load_structure(file, env = Mack.env)
+      Mack::Database.establish_connection(env)
+      dbs = db_settings(env)
+      sql = File.read(file)
+      case dbs[:adapter]
+      when "mysql"
+        sql.split(";").each do |s|
+          s.strip! 
+          ActiveRecord::Base.connection.execute(s) unless s.blank?
+        end
+      else
+        ActiveRecord::Base.connection.execute(sql) unless sql.blank?
+      end
+    end
+    
+    def self.dump_structure(env = Mack.env)
+      Mack::Database.establish_connection(env)
+      dbs = db_settings(env)
+      structure = ""
+      output_file = File.join(Mack.root, "db", "#{env}_schema_structure.sql")
+      case dbs[:adapter]
+      when "mysql"
+        File.open(output_file, "w") {|f| f.puts ActiveRecord::Base.connection.structure_dump}
+      when "postgresql"
+        `pg_dump -i -U "#{dbs[:username]}" -s -x -O -n #{ENV["SCHEMA"] ||= "public"} -f #{output_file} #{dbs[:database]}`
+      when "sqlite3"
+        `sqlite3 #{dbs[:database]} .schema > #{output_file}`
+      else
+        raise "Task not supported for '#{dbs[:adapter]}'"
+      end
+    end
             
     private
     

@@ -49,6 +49,21 @@ namespace :db do
     
   end
   
+  namespace :structure do
+    
+    desc "Dump the database structure to a SQL file"
+    task :dump => "mack:environment" do
+      Mack::Database.dump_structure(Mack.env, repis)
+    end
+    
+    desc "Create the database from a SQL file"
+    task :load => "mack:environment" do
+      file = (ENV["FILE"] ||= File.join(Mack.root, "db", "development_default_schema_structure.sql"))
+      Mack::Database.load_structure(file, Mack.env, repis)
+    end
+    
+  end
+  
   private
   def repis
     (ENV["REPO"] ||= "default").to_sym
