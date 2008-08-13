@@ -12,6 +12,7 @@ require File.join(fl, "database")
 require File.join(fl, "database_migrations")
 require File.join(fl, "generators")
 require File.join(fl, "helpers", "orm_helpers")
+require File.join(fl, "test_extensions")
 
 # [:migration, :model, :scaffold].each do |gen|
 #   require File.join(fl, "#{gen}_generator", "#{gen}_generator")
