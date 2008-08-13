@@ -18,6 +18,8 @@ def full_gem_list
   gems = gems.collect {|g| g.gsub("#{gem_base}/mack-", '')}
   gems.delete("more")
   gems << "more"
+  gems.delete("orm")
+  gems.insert(0, "orm")
   gems
 end
 
@@ -29,6 +31,7 @@ end
 
 def gem_list_without_orm_and_more
   fgl = gem_list_without_more
+  fgl.delete("orm")
   fgl.delete("active_record")
   fgl.delete("data_mapper")
   fgl

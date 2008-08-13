@@ -82,6 +82,9 @@ task :default => "test:all"
 desc "Installs all the mack-more gems"
 task :install => "install:all"
 
+desc "Runs RDoc on all the mack-more gems."
+task :rdoc => "rdoc:all"
+
 GEMS.each do |gem|
   desc "Runs the test suite for the mack-#{gem} gem."
   task gem => "test:#{gem}"
