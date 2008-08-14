@@ -1,6 +1,9 @@
 require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 
+# class Zoo < ActiveRecord::Base
+# end
+
 describe Mack::Database::Migrations do
   
   describe "migrate" do
@@ -14,6 +17,7 @@ describe Mack::Database::Migrations do
       config_db(:mysql) do
         Mack::Database.recreate("development")
         db_exists?("foo_development").should == true
+        # ::Zoo.should_not be_table_exists
         table_exists?("zoos").should_not == true
         
         # now write one migration file, and see if we can get the table created

@@ -41,7 +41,7 @@ describe Mack::Database do
   end
   
   before(:each) do
-    @dump = File.join(Mack.root, "db", "development_schema_structure.sql")
+    @dump = File.join(Mack.root, "db", "#{Mack.env}_schema_structure.sql")
   end
   
   after(:each) do
@@ -88,7 +88,14 @@ describe Mack::Database do
     describe "SQLite3" do
       
       it "should reconstructe a db from a .sql file" do
-        pending("All yours Darsono")
+        Mack::Database.recreate("development")
+        Mack::Database.recreate("test")
+        Mack::Database.establish_connection(Mack.env)
+        House.should_not be_table_exists
+        Cottage.should_not be_table_exists
+        Mack::Database.load_structure(fixture_location("sqlite3_schema_structure.sql"), "test")
+        House.should be_table_exists
+        Cottage.should be_table_exists
       end
       
     end
@@ -136,7 +143,14 @@ describe Mack::Database do
     describe "SQLite3" do
     
       it "should write a .sql that represents the db structure" do
-        pending("All yours Darsono")
+        Mack::Database.recreate
+        Mack::Database.establish_connection(Mack.env)
+        HouseMigration.up
+        CottageMigration.up
+        File.should_not be_exists(@dump)
+        Mack::Database.dump_structure(Mack.env)
+        File.should be_exists(@dump)
+        File.read(@dump).should == fixture("sqlite3_schema_structure.sql")
       end
     
     end

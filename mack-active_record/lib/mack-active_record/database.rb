@@ -51,7 +51,7 @@ module Mack
       dbs = db_settings(env)
       sql = File.read(file)
       case dbs[:adapter]
-      when "mysql"
+      when "mysql", "sqlite3"
         sql.split(";").each do |s|
           s.strip! 
           ActiveRecord::Base.connection.execute(s) unless s.blank?

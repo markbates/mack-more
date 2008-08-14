@@ -92,6 +92,20 @@ module Spec
           ret_val
         end
       end
+      
+      module SQLite3
+        include Spec::CreateAndDropTask::Helper::Common
+        
+        def cleanup_db
+          cleanup_db_by_adapter(:sqlite3)
+        end
+        
+        private
+        def db_exists?(name, env = "development")
+          path = File.join(Mack.root, "db", "#{name}.db")
+          return File.exists?(path)
+        end
+      end
 
       module PostgreSQL
         include Spec::CreateAndDropTask::Helper::Common
