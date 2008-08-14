@@ -1,3 +1,6 @@
+version 0.7.0:
+* Removed const redefined warnings if activesupport is already loaded
+
 version 0.6.0.1:
 * Removed dependency to utf8proc gem
 

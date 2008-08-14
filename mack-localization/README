@@ -5,6 +5,10 @@ Mack-Localization
 Mack-Localization gem provides localization support for the Mack Framework.
 Multi-byte support is provided by unicodechars gem.
 
+== Important Note
+If you use mack-active_record in your application, please make sure that you list mack-active_record before
+mack-localization in gems.rb file of your application.
+
 == Installation #TODO: gem must be uploaded to rubyforge
 sudo gem install mack-localization
 
