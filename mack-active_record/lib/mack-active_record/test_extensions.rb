@@ -9,10 +9,10 @@ if Mack.env == "test"
 
   # Wrap it so we don't accidentally alias the run method n times and run out of db connections!
   unless Mack::Testing.const_defined?("AR_TEST_EXTENSIONS")     
-    AR_TEST_EXTENSIONS = 1
     
     module Mack
       module Testing
+        AR_TEST_EXTENSIONS = 1
         # module Helpers
         #   alias_method :mack_rake_task, :rake_task
         # 
