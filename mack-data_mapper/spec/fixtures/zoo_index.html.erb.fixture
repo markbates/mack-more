@@ -4,8 +4,8 @@
   <tr>
     <th>Name</th>
     <th>Description</th>
-    <th>CreatedAt</th>
-    <th>UpdatedAt</th>
+    <th>Created at</th>
+    <th>Updated at</th>
   </tr>
 
 <% for zoo in @zoos %>

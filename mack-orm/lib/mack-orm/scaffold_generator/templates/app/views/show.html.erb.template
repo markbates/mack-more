@@ -1,9 +1,9 @@
 <p>
   <h1><%= @name_singular_camel %></h1>
 </p>
-<% for column in columns -%>
+<% for column in showable_columns -%>
 <p>
-  <b><%= column.column_name.singular.camelcase %></b><br />
+  <label for="<%= @name_singular %>_<%= column.column_name %>"><%= column.column_name.singular.humanize %></label><br />
   <%%= @<%= @name_singular %>.<%= column.column_name %> %>
 </p>
 <% end -%>

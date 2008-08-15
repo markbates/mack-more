@@ -4,15 +4,16 @@
 
 <% form(zoos_create_url, :class => "new_zoo", :id => "new_zoo") do %>
   <p>
-    <b>Name</b><br />
-    <%= model_text_field(@zoo, :name) %>
+    <%= :zoo.text_field :name, :label => true %>
   </p>
   <p>
-    <b>Description</b><br />
-    <%= model_textarea(@zoo, :description) %>
+    <%= :zoo.text_area :description, :label => true %>
   </p>
   <p>
-    <%= submit_tag("Create") %>
+    <%= :zoo.password_field :password, :label => true %>
+  </p>
+  <p>
+    <%= submit_button("Create") %>
   </p>
 <% end %>
 

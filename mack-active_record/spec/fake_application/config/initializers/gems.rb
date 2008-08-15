@@ -10,3 +10,5 @@ require_gems do |gem|
   # gem.add :termios
   # gem.add :rubyzip, :source => "http://gems.rubyforge.org"
 end
+
+require 'mack-active_record'

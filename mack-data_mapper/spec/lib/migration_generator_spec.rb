@@ -25,7 +25,7 @@ describe MigrationGenerator do
   end
   
   it "should create a 'full' migration file if columns are specified" do
-    MigrationGenerator.run("NAME" => "create_zoos", "cols" => "name:string,description:text,created_at:date_time,updated_at:date_time")
+    MigrationGenerator.run("NAME" => "create_zoos", "cols" => "name:string,description:text,password:string,created_at:date_time,updated_at:date_time")
     File.read(@migration_file).should == fixture("create_zoos.rb")
   end
   

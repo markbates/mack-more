@@ -2,19 +2,19 @@
   <h1>Zoo</h1>
 </p>
 <p>
-  <b>Name</b><br />
+  <label for="zoo_name">Name</label><br />
   <%= @zoo.name %>
 </p>
 <p>
-  <b>Description</b><br />
+  <label for="zoo_description">Description</label><br />
   <%= @zoo.description %>
 </p>
 <p>
-  <b>CreatedAt</b><br />
+  <label for="zoo_created_at">Created at</label><br />
   <%= @zoo.created_at %>
 </p>
 <p>
-  <b>UpdatedAt</b><br />
+  <label for="zoo_updated_at">Updated at</label><br />
   <%= @zoo.updated_at %>
 </p>
 

@@ -30,7 +30,7 @@ describe ModelGenerator do
   
   it "should create a full file for the model" do
     File.should_not be_exists(@model_file)
-    ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,created_at:date_time,updated_at:date_time")
+    ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,password:string,created_at:date_time,updated_at:date_time")
     File.should be_exists(@model_file)
     File.read(@model_file).should == fixture("zoo.rb")
   end
@@ -38,7 +38,7 @@ describe ModelGenerator do
   it "should create a stub test/unit test for the model if test/unit is testing framework" do
     temp_app_config("mack::testing_framework" => "test_case") do
       File.should_not be_exist(Mack::Paths.model_tests("zoo_test.rb"))
-      ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,created_at:date_time,updated_at:date_time")
+      ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,password:string,created_at:date_time,updated_at:date_time")
       File.should be_exist(Mack::Paths.model_tests("zoo_test.rb"))
       File.read(Mack::Paths.model_tests("zoo_test.rb")).should == fixture("zoo_test.rb")
     end
@@ -47,7 +47,7 @@ describe ModelGenerator do
   it "should create a stub rspec test for the model if rspec is testing framework" do
     temp_app_config("mack::testing_framework" => "rspec") do
       File.should_not be_exist(Mack::Paths.model_tests("zoo_spec.rb"))
-      ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,created_at:date_time,updated_at:date_time")
+      ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,password:string,created_at:date_time,updated_at:date_time")
       File.should be_exist(Mack::Paths.model_tests("zoo_spec.rb"))
       File.read(Mack::Paths.model_tests("zoo_spec.rb")).should == fixture("zoo_spec.rb")
     end
@@ -56,7 +56,7 @@ describe ModelGenerator do
   it "should create a migration file" do
     mig_file = Mack::Paths.migrations("001_create_zoos.rb")
     File.should_not be_exists(mig_file)
-    ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,created_at:date_time,updated_at:date_time")
+    ModelGenerator.run("NAME" => "zoo", "cols" => "name:string,description:text,password:string,created_at:date_time,updated_at:date_time")
     File.should be_exists(mig_file)
   end
   

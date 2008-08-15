@@ -20,6 +20,8 @@ def full_gem_list
   gems << "more"
   gems.delete("orm")
   gems.insert(0, "orm")
+  gems.delete("facets")
+  gems.insert(0, "facets")
   gems
 end
 

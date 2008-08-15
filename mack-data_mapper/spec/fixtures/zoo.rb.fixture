@@ -4,6 +4,7 @@ class Zoo
   property :id, Serial
   property :name, String
   property :description, Text
+  property :password, String
   property :created_at, DateTime
   property :updated_at, DateTime
 end
