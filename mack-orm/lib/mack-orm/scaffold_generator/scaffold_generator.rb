@@ -19,6 +19,11 @@ class ScaffoldGenerator < Genosaurus
     update_routes_file
   end
   
+  def showable_columns
+    cols = columns.reject {|c| c.column_name.downcase.match(/password/)}
+    cols
+  end
+  
   def update_routes_file # :nodoc:
     # update routes.rb
     routes = File.join(Mack.root, "config", "routes.rb")

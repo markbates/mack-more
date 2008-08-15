@@ -1,7 +1,7 @@
 <p>
   <h1><%= @name_singular_camel %></h1>
 </p>
-<% for column in columns -%>
+<% for column in showable_columns -%>
 <p>
   <b><%= column.column_name.singular.camelcase %></b><br />
   <%%= @<%= @name_singular %>.<%= column.column_name %> %>

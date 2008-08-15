@@ -12,6 +12,10 @@
     <%= :zoo.text_area :description %>
   </p>
   <p>
+    <b>Password</b><br />
+    <%= :zoo.password_field :password %>
+  </p>
+  <p>
     <%= submit_tag("Update") %>
   </p>
 <% end %>

@@ -3,8 +3,8 @@
 <table>
   <tr>
 <% 
-unless columns.empty? 
-  columns.each do |col|
+unless showable_columns.empty? 
+  showable_columns.each do |col|
 -%>
     <th><%= col.column_name.camelcase %></th>
 <% 
@@ -20,8 +20,8 @@ end
 <%% for <%= @name_singular %> in @<%= @name_plural %> %>
   <tr>
 <%
-unless columns.empty? 
-  columns.each do |col| -%>
+unless showable_columns.empty? 
+  showable_columns.each do |col| -%>
     <td><%%= <%= @name_singular %>.<%= col.column_name %> %></td>
 <%
   end

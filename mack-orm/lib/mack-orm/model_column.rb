@@ -31,7 +31,12 @@ module Mack
           when "text"
             %{<%= :#{self.model_name}.text_area :#{self.column_name} %>}
           else
-            %{<%= :#{self.model_name}.text_field :#{self.column_name} %>}
+            case self.column_name.downcase
+            when /password/
+              %{<%= :#{self.model_name}.password_field :#{self.column_name} %>}
+            else
+              %{<%= :#{self.model_name}.text_field :#{self.column_name} %>}
+            end
           end
         end
       

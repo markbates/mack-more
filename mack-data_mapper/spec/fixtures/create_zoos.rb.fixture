@@ -5,6 +5,7 @@ migration 1, :create_zoos do
       column :id, Serial
       column :name, String
       column :description, Text
+      column :password, String
       column :created_at, DateTime
       column :updated_at, DateTime
     end
