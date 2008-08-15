@@ -23,15 +23,15 @@ module Mack
         # 
         # Examples:
         #   Mack::Generator::ColumnObject.new("user", "username:string").form_field 
-        #     => "<%= model_text_field(@user, :username) %>"
+        #     => "<%= :user.text_field :username %>"
         #   Mack::Generator::ColumnObject.new("Post", "body:text").form_field
-        #     => "<%= model_textarea(@user, :username) %>"
+        #     => "<%= :post.text_area :body %>"
         def form_field
           case self.column_type
           when "text"
-            %{<%= model_textarea(@#{self.model_name}, :#{self.column_name}) %>}
+            %{<%= :#{self.model_name}.text_area :#{self.column_name} %>}
           else
-            %{<%= model_text_field(@#{self.model_name}, :#{self.column_name}) %>}
+            %{<%= :#{self.model_name}.text_field :#{self.column_name} %>}
           end
         end
       
