@@ -4,16 +4,13 @@
 
 <% form(zoos_update_url(:id => @zoo), :class => "edit_zoo", :id => "edit_zoo", :method => :put) do %>
   <p>
-    <b>Name</b><br />
-    <%= :zoo.text_field :name %>
+    <%= :zoo.text_field :name, :label => true %>
   </p>
   <p>
-    <b>Description</b><br />
-    <%= :zoo.text_area :description %>
+    <%= :zoo.text_area :description, :label => true %>
   </p>
   <p>
-    <b>Password</b><br />
-    <%= :zoo.password_field :password %>
+    <%= :zoo.password_field :password, :label => true %>
   </p>
   <p>
     <%= submit_button("Update") %>

@@ -6,7 +6,7 @@
 unless showable_columns.empty? 
   showable_columns.each do |col|
 -%>
-    <th><%= col.column_name.camelcase %></th>
+    <th><%= col.column_name.humanize %></th>
 <% 
   end
 else

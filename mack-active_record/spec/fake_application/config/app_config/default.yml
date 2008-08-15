@@ -1,7 +1,5 @@
 whiny_config_missing: false
 
 mack::session_id: _fake_application_session_id
-
-orm: active_record
 mack::testing_framework: test_case
 disable_transactional_tests: true

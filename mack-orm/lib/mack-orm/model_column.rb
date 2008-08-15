@@ -23,19 +23,19 @@ module Mack
         # 
         # Examples:
         #   Mack::Generator::ColumnObject.new("user", "username:string").form_field 
-        #     => "<%= :user.text_field :username %>"
+        #     => "<%= :user.text_field :username, :label => true %>"
         #   Mack::Generator::ColumnObject.new("Post", "body:text").form_field
-        #     => "<%= :post.text_area :body %>"
+        #     => "<%= :post.text_area :body, :label => true %>"
         def form_field
           case self.column_type
           when "text"
-            %{<%= :#{self.model_name}.text_area :#{self.column_name} %>}
+            %{<%= :#{self.model_name}.text_area :#{self.column_name}, :label => true %>}
           else
             case self.column_name.downcase
             when /password/
-              %{<%= :#{self.model_name}.password_field :#{self.column_name} %>}
+              %{<%= :#{self.model_name}.password_field :#{self.column_name}, :label => true %>}
             else
-              %{<%= :#{self.model_name}.text_field :#{self.column_name} %>}
+              %{<%= :#{self.model_name}.text_field :#{self.column_name}, :label => true %>}
             end
           end
         end

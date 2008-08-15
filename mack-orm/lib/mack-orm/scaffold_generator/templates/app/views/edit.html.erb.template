@@ -6,7 +6,6 @@
 <% for column in columns -%>
 <% unless column.column_name == "created_at" || column.column_name == "updated_at" -%>
   <p>
-    <b><%= column.column_name.singular.camelcase %></b><br />
     <%= column.form_field %>
   </p>
 <% end -%>
