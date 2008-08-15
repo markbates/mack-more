@@ -16,7 +16,7 @@
     <%= :zoo.password_field :password %>
   </p>
   <p>
-    <%= submit_tag("Create") %>
+    <%= submit_button("Create") %>
   </p>
 <% end %>
 

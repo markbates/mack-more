@@ -12,7 +12,7 @@
 <% end -%>
 <% end -%>
   <p>
-    <%%= submit_tag("Update") %>
+    <%%= submit_button("Update") %>
   </p>
 <%% end %>
 
