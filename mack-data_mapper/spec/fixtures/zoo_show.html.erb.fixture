@@ -10,6 +10,14 @@
   <%= @zoo.description %>
 </p>
 <p>
+  <%= :zoo.label_tag :birth_date %>
+  <%= @zoo.birth_date %>
+</p>
+<p>
+  <%= :zoo.label_tag :member_since %>
+  <%= @zoo.member_since %>
+</p>
+<p>
   <%= :zoo.label_tag :created_at %>
   <%= @zoo.created_at %>
 </p>

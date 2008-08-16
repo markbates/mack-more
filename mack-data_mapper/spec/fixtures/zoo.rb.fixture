@@ -5,6 +5,8 @@ class Zoo
   property :name, String
   property :description, Text
   property :password, String
+  property :birth_date, Date
+  property :member_since, DateTime
   property :created_at, DateTime
   property :updated_at, DateTime
 end

@@ -4,6 +4,8 @@
   <tr>
     <th>Name</th>
     <th>Description</th>
+    <th>Birth date</th>
+    <th>Member since</th>
     <th>Created at</th>
     <th>Updated at</th>
   </tr>
@@ -12,6 +14,8 @@
   <tr>
     <td><%= zoo.name %></td>
     <td><%= zoo.description %></td>
+    <td><%= zoo.birth_date %></td>
+    <td><%= zoo.member_since %></td>
     <td><%= zoo.created_at %></td>
     <td><%= zoo.updated_at %></td>
     <td><%= link_to("Show", zoos_show_url(:id => zoo)) %></td>

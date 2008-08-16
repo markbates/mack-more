@@ -30,6 +30,10 @@ module Mack
           case self.column_type
           when "text"
             %{<%= :#{self.model_name}.text_area :#{self.column_name}, :label => true %>}
+          when "date"
+            %{<%= :#{self.model_name}.date_select :#{self.column_name}, :label => true %>}
+          when "date_time"
+            %{<%= :#{self.model_name}.date_time_select :#{self.column_name}, :label => true %>}
           else
             case self.column_name.downcase
             when /password/

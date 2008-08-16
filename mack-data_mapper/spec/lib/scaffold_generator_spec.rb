@@ -105,7 +105,7 @@ describe ScaffoldGenerator do
   end
   
   def zoo_options
-    {"name" => "zoo", "cols" => "name:string,description:text,password:string,created_at:date_time,updated_at:date_time"}
+    {"name" => "zoo", "cols" => "name:string,description:text,password:string,birth_date:date,member_since:date_time,created_at:date_time,updated_at:date_time"}
   end
   
 end

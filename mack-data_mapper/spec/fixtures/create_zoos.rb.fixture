@@ -6,6 +6,8 @@ migration 1, :create_zoos do
       column :name, String
       column :description, Text
       column :password, String
+      column :birth_date, Date
+      column :member_since, DateTime
       column :created_at, DateTime
       column :updated_at, DateTime
     end
