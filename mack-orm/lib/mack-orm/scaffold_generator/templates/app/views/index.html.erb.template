@@ -1,4 +1,4 @@
-<h1>Listing <%= @name_plural_camel %></h1>
+<h1>Listing <%= @name_plural.humanize.titlecase %></h1>
 
 <table>
   <tr>

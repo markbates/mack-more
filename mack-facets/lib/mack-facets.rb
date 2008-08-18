@@ -1,7 +1,9 @@
+fl = File.join(File.dirname(__FILE__), "mack-facets")
+
 require 'rubygems'
 require 'digest'
+require File.join(fl, "extensions", "time") # we need this here, otherwise facets 2.4.3 breaks!
 require 'facets'
-require 'facets/ruby'
 require 'facets/style'
 require 'facets/blank'
 require 'facets/hash'
@@ -10,12 +12,12 @@ require 'facets/hash/stringify_keys'
 require 'facets/module'
 require 'facets/infinity'
 require 'facets/times'
+require 'facets/time'
+require 'facets/string'
 require 'english/inflect'
 require 'english/numerals'
 require 'extlib/assertions'
 require 'extlib/hook'
-
-fl = File.join(File.dirname(__FILE__), "mack-facets")
 
 [:inflector, :inflections, :options_merger, :registry_list, :registry_map, :blank_slate].each do |k|
   path = File.join(fl, "utils", "#{k}")
