@@ -129,7 +129,7 @@ describe "DataFactory" do
 
 
     describe "Relationship" do
-      it "should handle default relation ship rule" do
+      it "should handle default relationship rule" do
         users = @user_factory.create(10)
         item = @item_factory.create(1)
       
