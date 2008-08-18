@@ -13,7 +13,7 @@ describe "Distributed Views" do
     
     Mack::Distributed::Utils::Rinda.register_or_renew(:space => :foo_server,
                                                       :klass_def => :distributed_views, 
-                                                      :object => Mack::Distributed::Views.instance)
+                                                      :object => Mack::Distributed::View.instance)
   end
   
   describe "Layout" do

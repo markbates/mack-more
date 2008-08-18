@@ -2,19 +2,27 @@
   <h1>Zoo</h1>
 </p>
 <p>
-  <label for="zoo_name">Name</label><br />
+  <%= :zoo.label_tag :name %>
   <%= @zoo.name %>
 </p>
 <p>
-  <label for="zoo_description">Description</label><br />
+  <%= :zoo.label_tag :description %>
   <%= @zoo.description %>
 </p>
 <p>
-  <label for="zoo_created_at">Created at</label><br />
+  <%= :zoo.label_tag :birth_date %>
+  <%= @zoo.birth_date %>
+</p>
+<p>
+  <%= :zoo.label_tag :member_since %>
+  <%= @zoo.member_since %>
+</p>
+<p>
+  <%= :zoo.label_tag :created_at %>
   <%= @zoo.created_at %>
 </p>
 <p>
-  <label for="zoo_updated_at">Updated at</label><br />
+  <%= :zoo.label_tag :updated_at %>
   <%= @zoo.updated_at %>
 </p>
 

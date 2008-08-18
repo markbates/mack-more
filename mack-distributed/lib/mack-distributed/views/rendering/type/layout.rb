@@ -18,7 +18,7 @@ module Mack
             app_name = uri.host
             resource = File.join("app", "views", "layouts", uri.path)
 
-            data = Mack::Distributed::Views.ref(app_name)
+            data = Mack::Distributed::View.ref(app_name)
             if data
               raw = ""
               Mack::Rendering::Engine::Registry.engines[:layout].each do |e|

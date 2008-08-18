@@ -13,6 +13,12 @@
     <%= :zoo.password_field :password, :label => true %>
   </p>
   <p>
+    <%= :zoo.date_select :birth_date, :label => true %>
+  </p>
+  <p>
+    <%= :zoo.date_time_select :member_since, :label => true %>
+  </p>
+  <p>
     <%= submit_button("Update") %>
   </p>
 <% end %>
