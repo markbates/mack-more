@@ -83,6 +83,13 @@ module Mack
         end
         
         # 
+        # Define an association rule for this field
+        #
+        def association(model_attrib_sym, assoc_map, assoc_rule = :spread)
+          field(model_attrib_sym, {:df_assoc_map => assoc_map}, {:assoc => assoc_rule})
+        end
+        
+        # 
         # Define a scope in the factory.
         # Any field defined in a scope will overwrite its cousin in the default scope.
         #

@@ -40,15 +40,16 @@ module Mack
         
         # 
         # if the value is a hash, then it's a relationship mapping
-        if field_value.is_a?(Hash)
-          owner = field_value.keys[0]
-          key   = field_value[owner]
+        if field_value.is_a?(Hash) and field_value[:df_assoc_map]
+          map_data = field_value[:df_assoc_map]
+          owner = map_data.keys[0]
+          key   = map_data[owner]
           begin
             owner_model = owner.to_s.camelcase.constantize
             bridge = Mack::Data::Bridge.new
             
             assoc_rules = field_rules[:assoc] || :spread
-            assoc_rules = :random if !([:first, :last, :random, :spread].include?(assoc_rules))
+            assoc_rules = :spread if !([:first, :last, :random, :spread].include?(assoc_rules))
             # cache the query once
             if Mack::Data::RegistryMap.registered_items[self.field_name.to_sym] == nil
               all_owner_models = bridge.get_all(owner_model)
@@ -59,7 +60,7 @@ module Mack
             
             case assoc_rules
               when :first
-                value = all_owner_models[0].send(key)
+                value = all_owner_models[0].send(key.to_s)
               when :last
                 value = all_owner_models[all_owner_models.size - 1].send(key)
               when :random
@@ -76,8 +77,8 @@ module Mack
             end
             
             return value
-          rescue Exception
-            Mack.logger.warn "WARNING: DataFactory: field_value for #{field_name} is not set properly because data relationship defined is not correct"
+          rescue Exception => ex
+            Mack.logger.warn "WARNING: DataFactory: id_map for #{field_name} is not set properly because data relationship defined is not correct"
           end
         end
         

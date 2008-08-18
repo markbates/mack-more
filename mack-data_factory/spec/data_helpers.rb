@@ -93,22 +93,22 @@ module Mack
       field :id, 0 do |def_value, rules, index|
         index
       end
-      field :owner_id, {"Mack::FactoryTest::User" => "id"}
+      association :owner_id, {Mack::FactoryTest::User => "id"}
       
       scope_for(:relationship_first) do
-        field :owner_id, {"Mack::FactoryTest::User" => "id"}, {:assoc => :first}
+        association :owner_id, {Mack::FactoryTest::User => "id"}, :first
       end
       
       scope_for(:relationship_last) do
-        field :owner_id, {"Mack::FactoryTest::User" => "id"}, {:assoc => :last}
+        association :owner_id, {Mack::FactoryTest::User => "id"}, :last
       end
       
       scope_for(:relationship_random) do
-        field :owner_id, {"Mack::FactoryTest::User" => "id"}, {:assoc => :random}
+        association :owner_id, {Mack::FactoryTest::User => :id}, :random
       end
       
       scope_for(:relationship_spread) do
-        field :owner_id, {"Mack::FactoryTest::User" => "id"}, {:assoc => :spread}
+        association :owner_id, {Mack::FactoryTest::User => "id"}, :spread
       end      
     end
     

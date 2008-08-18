@@ -70,7 +70,7 @@ class ItemFactory
     include Mack::Data::Factory
     
     field :title, "MyItem"
-    field :owner_id, {:user => 'id'}, {:assoc => :first}
+    association :owner_id, {:user => 'id'}, :first
 end
 
 class UserFactory
@@ -80,10 +80,7 @@ class UserFactory
     field :password, "roastedPeanuts", :immutable => true
 end
 
-In the above example, the ItemFactory define the owner_id field's value as {:user => 'id'}.  When the factory is run,
-it will generate value for owner_id as 'the id of the user #x'.  You can also pass in rules to define which instance 
-of user that the id will be retrieved from.  The rules are: :first, :last, :random, and :spread.  The default is :spread.
-Definition of the association rules:
+In the above example, the ItemFactory define the owner_id field as an association to {:user => 'id'}.  When the factory is run, it will generate value for owner_id as 'the id of the user #x'.  You can also pass in rules to define which instance of user that the id will be retrieved from.  The rules are: :first, :last, :random, and :spread.  The default is :spread.  Definition of the association rules:
   :first  --> always associate with the first object that this object belongs to.  If there are 10 users [id = 0 - 10], then the item will always get associated with user #0 (i.e. item's owner_id always == 0)
   :last   --> always associate with the last object that this object belongs to.  If there are 10 users [id = 0 - 10], then the item will always get associated with user #10 (i.e. item's owner_id always == 9)
   :random --> always associate with the Nth object that this object belongs to (and N is random). If there are 10 users [id = 0 - 10], then the item will get associated with user #n (i.e. item's owner_id == rand(10))
