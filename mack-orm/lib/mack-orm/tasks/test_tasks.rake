@@ -1,3 +1,4 @@
+require 'rake'
 namespace :test do
   
   desc "Sets up your testing environment"
