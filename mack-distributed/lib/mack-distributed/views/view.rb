@@ -15,7 +15,7 @@ module Mack
         def register
           if app_config.mack.share_views
             raise Mack::Distributed::Errors::ApplicationNameUndefined.new if app_config.mack.distributed_app_name.nil?
-            Mack.logger.info "Registering Mack::Distributed::View for '#{app_config.mack.distributed_app_name}' with Rinda"
+            # Mack.logger.info "Registering Mack::Distributed::View for '#{app_config.mack.distributed_app_name}' with Rinda"
             
             Mack::Distributed::Utils::Rinda.register_or_renew(:space => app_config.mack.distributed_app_name.to_sym,
                                                               :klass_def => :distributed_views, 
