@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), "..", "..", "spec_helper")
 require 'rinda/ring'
 require 'rinda/tuplespace'
 
-describe Mack::Distributed::Object do
+describe Mack::Distributable do
 
   before(:each) do
     begin
@@ -16,7 +16,7 @@ describe Mack::Distributed::Object do
 
   it "should include DRbUndumped" do
     class Pool
-      include Mack::Distributed::Object
+      include Mack::Distributable
     end
     Pool.new.should be_is_a(DRbUndumped)
   end
@@ -24,7 +24,7 @@ describe Mack::Distributed::Object do
   it "should defined a proxy singleton" do
     lambda{Mack::Distributed::BoatProxy}.should raise_error(Rinda::RequestExpiredError)
     class Boat
-      include Mack::Distributed::Object
+      include Mack::Distributable
     end
     lambda{
       Mack::Distributed::BoatProxy.instance.should_not be_nil
@@ -34,7 +34,7 @@ describe Mack::Distributed::Object do
   
   it "should respond with the methods of the underlying class" do
     class Car
-      include Mack::Distributed::Object
+      include Mack::Distributable
       def make
         "Toyota"
       end
@@ -51,7 +51,7 @@ describe Mack::Distributed::Object do
   
   it "should reference the original objects inspect method" do
     class Bike
-      include Mack::Distributed::Object
+      include Mack::Distributable
       def inspect
         "<BikeClass>"
       end
