@@ -15,7 +15,7 @@ require File.join(crt, "rake_task_requires")
   s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*', 'bin/**/*.*']
   s.require_paths << 'lib'
 
-  s.add_dependency("facets", "2.4.1")
+  s.add_dependency("facets", "2.4.3")
   s.add_dependency("english", "0.2.0")
   s.add_dependency("extlib", "0.9.3")
   s.extra_rdoc_files = ["README"]

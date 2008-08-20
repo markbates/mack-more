@@ -16,7 +16,7 @@ describe Mack::Distributed do
   
   it "should recognize undefined constants and return it from rinda" do
     class Computer
-      include Mack::Distributed::Object
+      include Mack::Distributable
       def processor
         "Intel"
       end
@@ -36,7 +36,7 @@ describe Mack::Distributed do
     temp_app_config("mack::distributed_app_name" => nil) do
       lambda {
         class Mouse
-          include Mack::Distributed::Object
+          include Mack::Distributable
         end
       }.should raise_error(Mack::Distributed::Errors::ApplicationNameUndefined)
     end

@@ -33,10 +33,10 @@ Let's assume that we have a simple User DataMapper model that looks something li
     property :username, String
   end
 
-It takes only one line of code to make that into a distributed object. We just need to include Mack::Distributed::Object into the User class, like such:
+It takes only one line of code to make that into a distributed object. We just need to include Mack::Distributable into the User class, like such:
 
   class User
-    include Mack::Distributed::Object
+    include Mack::Distributable
     include DataMapper::Resource
 
     property :id, Serial
@@ -65,7 +65,7 @@ In the first application you'll see an insert into the users table in the logs. 
 
 === How does it work?
 
-When you include Mack::Distributed::Object into a class it registers a proxy of that class with ring server. When another application makes a call to Mack::Distributed::<class_name> it looks up and finds that class in the ring server and returns the proxy object to you. 
+When you include Mack::Distributable into a class it registers a proxy of that class with ring server. When another application makes a call to Mack::Distributed::<class_name> it looks up and finds that class in the ring server and returns the proxy object to you. 
 
 === Using Distributed Views
 With distributed views, you can easily share views and layouts among different Mack Applications.

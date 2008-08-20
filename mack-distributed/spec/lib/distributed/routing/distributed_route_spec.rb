@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "..", "..", "spec_helper")
 
-describe "droute_url" do
+describe "distributed_url" do
   
   before(:each) do
     begin
@@ -22,33 +22,27 @@ describe "droute_url" do
   end
   
   it "should raise error when unknown app url is requested" do
-    lambda { droute_url(:unknown_app, :foo_url) }.should raise_error(Rinda::RequestExpiredError)
+    lambda { distributed_url(:unknown_app, :foo_url) }.should raise_error(Rinda::RequestExpiredError)
   end
   
-  it "should raise error when unknown named route is requested" do
-    lambda { droute_url(:known_app, :unknown_url) }.should raise_error(Mack::Distributed::Errors::UnknownRouteName)
-  end
+  # it "should raise error when unknown named route is requested" do
+  #   lambda { distributed_url(:unknown_app, :unknown_url) }.should raise_error(Mack::Distributed::Errors::UnknownRouteName)
+  # end
   
   it "should be able to resolve d-route url" do
-    droute_url(:known_app, :known_url).should == "#{app_config.mack.distributed_site_domain}/my_known_app/my_known_url"
-    droute_url(:known_app, :known).should == "#{app_config.mack.distributed_site_domain}/my_known_app/my_known_url"
-    droute_url(:known_app, :known_distributed_url).should == "#{app_config.mack.distributed_site_domain}/my_known_app/my_known_url"
+    distributed_url(:known_app, :known_url).should == "#{app_config.mack.distributed_site_domain}/my_known_app/my_known_url"
+    distributed_url(:known_app, :known).should == "#{app_config.mack.distributed_site_domain}/my_known_app/my_known_url"
+    distributed_url(:known_app, :known_distributed_url).should == "#{app_config.mack.distributed_site_domain}/my_known_app/my_known_url"
   end
   
   it "should be able to resolve d-route url with options" do
-    droute_url(:known_app, :known_w_opts_url, :id => 1).should ==
+    distributed_url(:known_app, :known_w_opts_url, :id => 1).should ==
                "#{app_config.mack.distributed_site_domain}/my_known_app/my_known_url_w_opts/1"
   end
   
   it "should raise error when registering a nil application" do
     temp_app_config("mack::distributed_app_name" => nil) do
       lambda { Mack::Routes.build {|r|} }.should raise_error(Mack::Distributed::Errors::ApplicationNameUndefined)
-    end
-  end
-  
-  it "should raise error when d-route is used when not configured as distributed route" do
-    temp_app_config("mack::share_routes" => false) do
-      droute_url(:known_app, :known_url).should be_nil
     end
   end
   
