@@ -33,6 +33,7 @@ module Mack
       when "mysql"
         establish_mysql_connection
         drop_mysql_db(env, dbs)
+        # ActiveRecord::Base.connection.drop_database dbs[:database]
       when "postgresql"
         ENV['PGHOST']     = dbs[:host] if dbs[:host]
         ENV['PGPORT']     = dbs[:port].to_s if dbs[:port]
@@ -107,10 +108,12 @@ module Mack
     end
     
     def self.establish_mysql_connection
+      dbs = db_settings(Mack.env)
+      
       # connect to mysql meta database
       ActiveRecord::Base.establish_connection(
         :adapter => "mysql",
-        :host => "localhost",
+        :host => dbs[:host] || "localhost",
         :database => "mysql",
         :username => ENV["DB_USERNAME"] || "root",
         :password => ENV["DB_PASSWORD"] || ""
@@ -130,6 +133,7 @@ module Mack
     def self.drop_mysql_db(env, dbs)
       puts "Dropping (MySQL): #{dbs[:database]}"
       ActiveRecord::Base.connection.execute "DROP DATABASE IF EXISTS `#{dbs[:database]}`"
+      # ActiveRecord::Base.connection.drop_database dbs[:database]
     end
     
   end # Database
