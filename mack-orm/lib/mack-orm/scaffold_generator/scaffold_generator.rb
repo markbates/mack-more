@@ -16,6 +16,7 @@ class ScaffoldGenerator < Genosaurus
   
   def after_generate # :nodoc:
     ModelGenerator.run(@options)
+    ControllerHelperGenerator.run(@options)
     update_routes_file
   end
   
