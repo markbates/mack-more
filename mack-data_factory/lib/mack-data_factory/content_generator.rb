@@ -95,19 +95,23 @@ module Mack
             return @numeric_gen
           end
 
-          def date_generator
+          def time_generator
             @date_gen = Proc.new do |def_value, rules, index|
-              Time.now.to_s
+              start_time = rules[:start_time] || Time.now
+              end_time = rules[:end_time] || Time.now + 86400 # 86400 == 1 day
+              
+              diff = (end_time - start_time).to_i
+              start_time + rand(diff).to_i
             end
             return @date_gen
           end
 
-          def date_time_generator
-            @date_time_gen = Proc.new do |def_value, rules, index|
-              Time.now.to_s
-            end
-            return @date_time_gen
-          end
+          # def date_time_generator
+          #   @date_time_gen = Proc.new do |def_value, rules, index|
+          #     Time.now.to_s
+          #   end
+          #   return @date_time_gen
+          # end
 
           
           def email_generator
