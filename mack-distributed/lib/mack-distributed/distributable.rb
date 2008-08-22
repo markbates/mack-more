@@ -62,5 +62,7 @@ module DRb # :nodoc:
       "#{original_inspect}|#{method_missing(:inspect)}"
     end
     
+    undef :id
+    
   end
 end
