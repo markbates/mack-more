@@ -90,7 +90,7 @@ module Mack
     class ItemFactory
       include Mack::Data::Factory
 
-      field :id, 0 do |def_value, rules, index|
+      field :id do |def_value, rules, index|
         index
       end
       association :owner_id, {Mack::FactoryTest::User => "id"}
@@ -138,64 +138,64 @@ module Mack
     class BigBangFactory
       include Mack::Data::Factory
       
-      field :username,      "", :content => :username
-      field :email,         "", :content => :email
-      field :domain,        "", :content => :domain
-      field :firstname,     "", :content => :firstname
-      field :lastname,      "", :content => :lastname
-      field :fullname,      "", :content => :name
-      field :streetname,    "", :content => :streetname
-      field :city,          "", :content => :city
-      field :zip,           "", :content => :zipcode, :country => :us
-      field :state,         "", :content => :state, :country => :us
-      field :state_abbr,    "", :content => :state, :country => :us, :abbr => true
-      field :phone,         "", :content => :phone
-      field :company,       "", :content => :company
-      field :company_with_bs, "", :content => :company, :include_bs => true
+      field :username,      :content => :username
+      field :email,         :content => :email
+      field :domain,        :content => :domain
+      field :firstname,     :content => :firstname
+      field :lastname,      :content => :lastname
+      field :fullname,      :content => :name
+      field :streetname,    :content => :streetname
+      field :city,          :content => :city
+      field :zip,           :content => :zipcode, :country => :us
+      field :state,         :content => :state, :country => :us
+      field :state_abbr,    :content => :state, :country => :us, :abbr => true
+      field :phone,         :content => :phone
+      field :company,       :content => :company
+      field :company_with_bs, :content => :company, :include_bs => true
     end
 
     class UserFactory
       include Mack::Data::Factory
 
-      field :id, 0 do |def_value, rules, index|
+      field :id do |def_value, rules, index|
         index
       end
-      field :username, "dsutedja", :immutable => true
-      field :password, "password", :immutable => true
-      field :firstname, "Firstname", :immutable => true
-      field :lastname, "Lastname", :immutable => true
+      field :username, :default => "dsutedja", :immutable => true
+      field :password, :default => "password", :immutable => true
+      field :firstname, :default => "Firstname", :immutable => true
+      field :lastname, :default => "Lastname", :immutable => true
 
       scope_for(:diff_firstname) do
-        field :firstname, "Darsono", :immutable => true
+        field :firstname, :default => "Darsono", :immutable => true
       end
 
       scope_for(:diff_first_lastname) do
-        field :firstname, "Darsono", :immutable => true
-        field :lastname, "Sutedja", :immutable => true
+        field :firstname, :default => "Darsono", :immutable => true
+        field :lastname, :default => "Sutedja", :immutable => true
       end
 
       scope_for(:alpha_with_space) do
-        field :firstname, "Darsono", :length => 128, :content => :alpha, :add_space => true
+        field :firstname, :default => "Darsono", :length => 128, :content => :alpha, :add_space => true
       end
 
       scope_for(:alpha_without_space) do
-        field :firstname, "Darsono", :length => 128, :content => :alpha, :add_space => false
+        field :firstname, :default => "Darsono", :length => 128, :content => :alpha, :add_space => false
       end
 
       scope_for(:numeric_type) do
-        field :id, 125, :content => :numeric, :num_start => 0, :num_end => 1000
+        field :id, :default => 125, :content => :numeric, :num_start => 0, :num_end => 1000
       end
 
       scope_for(:alpha_numeric_with_space) do
-        field :firstname, "Darsono", :length => 128, :content => :alpha_numeric, :add_space => true
+        field :firstname, :default => "Darsono", :length => 128, :content => :alpha_numeric, :add_space => true
       end
 
       scope_for(:alpha_numeric_without_space) do
-        field :firstname, "Darsono", :length => 128, :content => :alpha_numeric, :add_space => false
+        field :firstname, :default => "Darsono", :length => 128, :content => :alpha_numeric, :add_space => false
       end
 
       scope_for(:custom_string_generator) do
-        field :firstname, "Darsono" do |def_value, rules|
+        field :firstname, :default => "Darsono" do |def_value, rules|
           "#{def_value} Sutedja"
         end
       end

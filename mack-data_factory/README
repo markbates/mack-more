@@ -16,34 +16,35 @@ Let's say that I have 2 models: Item and User, and Item belongs to user.  So the
     class ItemFactory
         include Mack::Data::Factory
         
-        field :title, "MyItem"
-        field :owner_id, {:user => 'id'}
+        field :title, :default => "MyItem"
+        association :owner_id, {:user => 'id'}
     end
     
     class UserFactory
         include Mack::Data::Factory
         
-        field :username, "planters", :length => 25, :content => :alpha
-        field :password, "roastedPeanuts", :immutable => true
+        field :username, :default => "planters", :length => 25, :content => :alpha
+        field :password, :default => "roastedPeanuts", :immutable => true
     end
     
-So, the 2 classes above defined the factory for item and user.  As you can see, each factory will need to explicitly 
-list all the fields that it will populate, and for each field, you can define rules on how the content is generated.
+So, the 2 classes above defined the factory for item and user.  As you can see, each factory will need to explicitly list all the fields that it will populate, and for each field, you can define rules on how the content is generated.  
+
 Important: For each field defined in the factory, you will need to make sure that there's a corresponding setter 
 method in the model class (e.g. Item class is required to have title= and owner_id=).
 
-For numeric content, you can specify the start number and end number, and the content generator will generate a random number 
-between that range.
+For numeric content, you can specify the start number and end number, and the content generator will generate a random number between that range.
 
-For all fields, you can specify :immutable to true, which means for all instances created, the content for that field
-will not change.
+For all fields, you can specify :immutable to true, which means for all instances created, the default value for that field will not change.
 
+To define a default value for a field, you use the :default options (e.g. field :username, :default => 'planters')
 
 Supported content types: 
   # Strings and Numbers
   - :alpha --> alphabets.  rules: [:length, :min_length, :max_length]
   - :alphanumeric --> alphabets and number.  rules: same as :alpha
   - :numeric --> numbers [optional, because if the field's default value is number, its content type will automatically set to numeric)
+  # Time related
+  - :time --> generate random time object.  rules: [:start_time, :end_time].  It will generate random time between the given start and end time if available, otherwise it'll generate random time between 'now' and 1 day from 'now'
   # Internet related content
   - :email --> generate random email address
   - :username --> generate random username
@@ -69,15 +70,15 @@ Supported content types:
 class ItemFactory
     include Mack::Data::Factory
     
-    field :title, "MyItem"
+    field :title, :default => "MyItem"
     association :owner_id, {:user => 'id'}, :first
 end
 
 class UserFactory
     include Mack::Data::Factory
     
-    field :username, "planters", :length => 25, :content => :alpha
-    field :password, "roastedPeanuts", :immutable => true
+    field :username, :default => "planters", :length => 25, :content => :alpha
+    field :password, :default => "roastedPeanuts", :immutable => true
 end
 
 In the above example, the ItemFactory define the owner_id field as an association to {:user => 'id'}.  When the factory is run, it will generate value for owner_id as 'the id of the user #x'.  You can also pass in rules to define which instance of user that the id will be retrieved from.  The rules are: :first, :last, :random, and :spread.  The default is :spread.  Definition of the association rules:
@@ -118,11 +119,11 @@ the following:
     class UserFactory
         include Mack::Data::Factory
     
-        field :username, "planters", :length => 25, :content => :alpha
-        field :password, "roastedPeanuts", :immutable => true
+        field :username, :default => "planters", :length => 25, :content => :alpha
+        field :password, :default => "roastedPeanuts", :immutable => true
         
         scope_for(:long_username) do
-            field :username, "planters", :length => 128, :content => :alpha
+            field :username, :default => "planters", :length => 128, :content => :alpha
         end
     end
     
@@ -144,10 +145,10 @@ accomplish that:
     class UserFactory
         include Mack::Data::Factory
         
-        field :username, "planters" do |def_value, rules, index| 
+        field :username, :default => "planters" do |def_value, rules, index| 
             "#{def_value}#{index}"
         end
-        field :password, "roastedPeanuts", :immutable => true
+        field :password, :default => "roastedPeanuts", :immutable => true
         
     end
 

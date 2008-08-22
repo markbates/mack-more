@@ -19,6 +19,7 @@ module Mack
         end
                 
         self.field_rules = {
+          :default => "",
           :immutable => false,
           :length => 256,
           :add_space => true,
@@ -26,29 +27,31 @@ module Mack
           :null_frequency => nil
         }.merge!(hash[:field_rules]) if hash[:field_rules] != nil
         
+        self.field_value = self.field_rules[:default]
+        
         # transform the content type based on the given default value
-        if field_value.is_a?(Fixnum) or field_value.is_a?(Integer)
-          field_rules[:content] = :numeric
+        if self.field_value.is_a?(Fixnum) or self.field_value.is_a?(Integer)
+          self.field_rules[:content] = :numeric
         end
         
-        self.field_value_producer = Mack::Data::Factory::FieldContentGenerator.send("#{field_rules[:content]}_generator")
+        self.field_value_producer = Mack::Data::Factory::FieldContentGenerator.send("#{self.field_rules[:content]}_generator")
       end
       
       def get_value(index = 0)
         # return the field_value immediately if the rule states that it's immutable
-        return field_value if field_rules[:immutable]
+        return self.field_value if self.field_rules[:immutable]
         
         # 
         # if the value is a hash, then it's a relationship mapping
-        if field_value.is_a?(Hash) and field_value[:df_assoc_map]
-          map_data = field_value[:df_assoc_map]
+        if self.field_value.is_a?(Hash) and self.field_value[:df_assoc_map]
+          map_data = self.field_value[:df_assoc_map]
           owner = map_data.keys[0]
           key   = map_data[owner]
           begin
             owner_model = owner.to_s.camelcase.constantize
             bridge = Mack::Data::Bridge.new
             
-            assoc_rules = field_rules[:assoc] || :spread
+            assoc_rules = self.field_rules[:assoc] || :spread
             assoc_rules = :spread if !([:first, :last, :random, :spread].include?(assoc_rules))
             # cache the query once
             if Mack::Data::RegistryMap.registered_items[self.field_name.to_sym] == nil
@@ -83,7 +86,7 @@ module Mack
         end
         
         # must generate random string and also respect the rules
-        field_value_producer.call(field_value, field_rules, index)
+        self.field_value_producer.call(self.field_value, self.field_rules, index)
       end
     end
   end

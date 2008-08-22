@@ -7,10 +7,10 @@ module Mack
         @scopes = {}
       end
       
-      def add(scope, field_name, default_value, options = {}, &block)
+      def add(scope, field_name, options = {}, &block)
+        #default_value = options[:default] || ""
         field_list = fields(scope)
-        field_list[field_name] = Field.new(:field_name  => field_name, 
-                                            :field_value => default_value, 
+        field_list[field_name] = Field.new( :field_name  => field_name, 
                                             :field_rules => options)
         field_list[field_name].field_value_producer = block if block_given?
         return field_list

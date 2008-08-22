@@ -27,7 +27,7 @@ module Mack
         # Example:
         # class CarFactory
         #    include Mack::Data::Factory
-        #    field :name, "honda" { |def_value, rules, index| "#{def_value} #{['civic', 'accord', 'pilot'].randomize[0]}"}
+        #    field :name, :default => "honda" { |def_value, rules, index| "#{def_value} #{['civic', 'accord', 'pilot'].randomize[0]}"}
         # end
         #
         # CarFactory.create(100) #=> will produce 100 cars whose name is "honda xxx" where xxx is a random item from ['civic', 'accord', 'pilot']
@@ -78,15 +78,15 @@ module Mack
         # Define a field with its default value and rules and an optional content generator
         # for this factory
         #
-        def field(model_attrib_sym, default_value, options = {}, &block)
-          field_manager.add(scope, model_attrib_sym, default_value, options, &block)
+        def field(model_attrib_sym, options = {}, &block)
+          field_manager.add(scope, model_attrib_sym, options, &block)
         end
         
         # 
         # Define an association rule for this field
         #
         def association(model_attrib_sym, assoc_map, assoc_rule = :spread)
-          field(model_attrib_sym, {:df_assoc_map => assoc_map}, {:assoc => assoc_rule})
+          field(model_attrib_sym, {:default => {:df_assoc_map => assoc_map}, :assoc => assoc_rule})
         end
         
         # 
