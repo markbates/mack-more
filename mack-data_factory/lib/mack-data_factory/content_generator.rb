@@ -112,7 +112,16 @@ module Mack
           #   end
           #   return @date_time_gen
           # end
-
+          
+          def money_generator
+            @money_gen = Proc.new do |def_value, rules, index|
+              min = rules[:min] || 0.00
+              max = rules[:max] || 500.75
+              diff = rand * (max - min)
+              BigDecimal((min + diff).to_s)
+            end
+            return @money_gen
+          end
           
           def email_generator
             @email_gen = Proc.new do |def_value, rules, index|

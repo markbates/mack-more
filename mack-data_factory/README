@@ -43,8 +43,9 @@ Supported content types:
   - :alpha --> alphabets.  rules: [:length, :min_length, :max_length]
   - :alphanumeric --> alphabets and number.  rules: same as :alpha
   - :numeric --> numbers [optional, because if the field's default value is number, its content type will automatically set to numeric)
-  # Time related
+  # Time and Money
   - :time --> generate random time object.  rules: [:start_time, :end_time].  It will generate random time between the given start and end time if available, otherwise it'll generate random time between 'now' and 1 day from 'now'
+  - :money --> generate random amount of money. rules: [:min, :max].  It will generate random money amount (of BigDecimal type) between the given min and max amount.
   # Internet related content
   - :email --> generate random email address
   - :username --> generate random username
