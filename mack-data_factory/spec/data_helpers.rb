@@ -127,6 +127,8 @@ module Mack
       attr_accessor :phone
       attr_accessor :company
       attr_accessor :company_with_bs
+      attr_accessor :time
+      attr_accessor :money
       
       def save
         # puts "saving big bang"
@@ -152,6 +154,12 @@ module Mack
       field :phone,         :content => :phone
       field :company,       :content => :company
       field :company_with_bs, :content => :company, :include_bs => true
+      field :time,          :content => :time
+      field :money,         :content => :money
+      scope_for(:money_and_time) do
+        field :time, :content => :time, :start_time => 2.day.ago, :end_time => 1.day.from_now
+        field :money, :content => :money, :min => 10.00, :max => 20.00
+      end
     end
 
     class UserFactory

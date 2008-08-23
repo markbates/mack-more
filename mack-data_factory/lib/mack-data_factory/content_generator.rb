@@ -1,3 +1,5 @@
+require 'bigdecimal'
+
 module Mack
   module Data
     module Factory
@@ -97,8 +99,8 @@ module Mack
 
           def time_generator
             @date_gen = Proc.new do |def_value, rules, index|
-              start_time = rules[:start_time] || Time.now
-              end_time = rules[:end_time] || Time.now + 86400 # 86400 == 1 day
+              start_time = rules[:start_time] || 1.day.ago
+              end_time = rules[:end_time] || 1.day.from_now
               
               diff = (end_time - start_time).to_i
               start_time + rand(diff).to_i

@@ -37,6 +37,19 @@ describe "DataFactory" do
       bigbang.email.should match(/@/)
       bigbang.state_abbr.size.should == 2
       bigbang.fullname.should match(/\s/)
+      
+      stat = bigbang.time >= 1.day.ago and bigbang.time <= 1.day.from_now
+      stat.should == true
+      
+      stat = bigbang.money >= BigDecimal("0.00") and bigbang.money <= BigDecimal("500.75")
+      stat.should == true
+      
+      bigbang = @factory.create(1, :money_and_time)
+      stat = bigbang.time >= 2.day.ago and bigbang.time <= 1.day.from_now
+      stat.should == true
+      
+      stat = bigbang.money >= BigDecimal("10.00") and bigbang.money <= BigDecimal("20.00")
+      stat.should == true
     end
   end
 
