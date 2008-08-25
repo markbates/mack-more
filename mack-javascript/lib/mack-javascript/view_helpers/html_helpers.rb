@@ -1,5 +1,5 @@
 module Mack
-  module ViewHelpers
+  module ViewHelpers # :nodoc:
     module HtmlHelpers
       # Renders javascript in an html file
       #

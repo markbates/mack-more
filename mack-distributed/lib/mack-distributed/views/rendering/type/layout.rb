@@ -1,6 +1,6 @@
 module Mack
-  module Rendering
-    module Type
+  module Rendering # :nodoc:
+    module Type # :nodoc:
       class Layout
       
         unless public_instance_methods.include?("old_render")

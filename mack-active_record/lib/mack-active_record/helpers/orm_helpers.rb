@@ -5,7 +5,7 @@ class ActiveRecord::Base # :nodoc:
 end
 
 module Mack
-  module ViewHelpers
+  module ViewHelpers # :nodoc:
     module ActiveRecordHelpers
       DEFAULT_PARTIAL = %{
 <div class="errorExplanation" id="errorExplanation">

@@ -7,7 +7,7 @@ end
 # then requiring unicodechars gem will result in a bunch of
 # const redefined warning messages.
 if Object.const_defined?("ActiveSupport")
-  module ActiveSupport::Multibyte
+  module ActiveSupport::Multibyte # :nodoc:
     class << self; public :remove_const; end
   end
  
@@ -16,12 +16,12 @@ if Object.const_defined?("ActiveSupport")
   undef_const(mod, 'NORMALIZATIONS_FORMS')
   undef_const(mod, 'UNICODE_VERSION')
   
-  module ActiveSupport::Multibyte
+  module ActiveSupport::Multibyte # :nodoc:
     class << self; private :remove_const; end
   end
 
-  module ActiveSupport::Multibyte::Handlers
-    class UTF8Handler
+  module ActiveSupport::Multibyte::Handlers # :nodoc:
+    class UTF8Handler # :nodoc:
       class << self
         public :remove_const
       end
@@ -47,8 +47,8 @@ if Object.const_defined?("ActiveSupport")
   undef_const(mod, "UNICODE_TRAILERS_PAT")
   undef_const(mod, "UNICODE_LEADERS_PAT")
   
-  module ActiveSupport::Multibyte::Handlers
-    class UTF8Handler
+  module ActiveSupport::Multibyte::Handlers # :nodoc:
+    class UTF8Handler # :nodoc:
       class << self
         
         remove_const('UCD') if const_defined?('UCD')

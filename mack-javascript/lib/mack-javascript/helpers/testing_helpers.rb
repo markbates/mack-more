@@ -1,5 +1,5 @@
 module Mack
-  module Testing
+  module Testing # :nodoc:
     module Helpers
       #simulates an ajax request
       def xhr(method, uri, options = {})
