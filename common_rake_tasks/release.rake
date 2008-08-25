@@ -1,6 +1,12 @@
 desc "Release the gem"
 task :release => :install do |t|
   begin
+    ac_path = File.join(ENV["HOME"], ".rubyforge", "auto-config.yml")
+    if File.exists?(ac_path)
+      fixed = File.open(ac_path).read.gsub("  ~: {}\n\n", '')
+      puts "Fixing #{ac_path}..."
+      File.open(ac_path, "w") {|f| f.puts fixed}
+    end
     rf = RubyForge.new
     rf.login
     begin
