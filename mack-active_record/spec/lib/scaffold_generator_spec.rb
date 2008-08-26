@@ -6,7 +6,7 @@ describe ScaffoldGenerator do
 
   before(:each) do
     FileUtils.rm_rf(Mack::Paths.controller_helpers)
-    FileUtils.rm_rf(File.join(Mack.root, "test", "helpers"))
+    FileUtils.rm_rf(Mack::Paths.test_helpers)
     @view_path  = Mack::Paths.views("zoos")
     @view_files = ['new.html.erb', 'index.html.erb', 'edit.html.erb', 'show.html.erb']
     
@@ -34,7 +34,7 @@ describe ScaffoldGenerator do
     # rewrite routes file
     File.open(@routes_file, "w") {|f| f.write(@orig_routes_content)}
     FileUtils.rm_rf(Mack::Paths.controller_helpers)
-    FileUtils.rm_rf(File.join(Mack.root, "test", "helpers"))
+    FileUtils.rm_rf(Mack::Paths.test_helpers)
   end
   
   it "should require a name for the scaffold" do

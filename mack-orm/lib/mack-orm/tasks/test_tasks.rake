@@ -17,7 +17,7 @@ namespace :test do
     task :run do
       if respond_to?(:run_factories)
         # auto require factories:
-        Dir.glob(File.join(Mack.root, "test", "factories", "**/*.rb")).each do |f|
+        Dir.glob(Mack::Paths.test("factories", "**/*.rb")).each do |f|
           require f
         end
         run_factories(:init)

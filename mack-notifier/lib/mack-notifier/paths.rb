@@ -3,7 +3,7 @@ module Mack # :nodoc:
     
     # The path to the app/notifiers directory.
     def self.notifiers(*args)
-      File.join(Mack.root, "app", "notifiers", args)
+      Mack::Paths.app("notifiers", args)
     end
     
     # The path to the app/notifiers/templates directory.
@@ -13,7 +13,7 @@ module Mack # :nodoc:
     
     # The path the test/notifiers directory
     def self.notifier_tests(*args)
-      File.join(Mack.root, "test", "notifiers", args)
+      Mack::Paths.test("notifiers", args)
     end
     
   end
