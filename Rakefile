@@ -28,6 +28,12 @@ namespace :rdoc do
     end
   end
   
+  task :destroy do
+    GEMS.each do |gem|
+      sh("cd mack-#{gem} && rm -rf doc")
+    end
+  end
+  
   GEMS.each do |gem|
     desc "Runs RDoc on the mack-#{gem} gem."
     task "#{gem}" do
@@ -84,6 +90,9 @@ task :install => "install:all"
 
 desc "Runs RDoc on all the mack-more gems."
 task :rdoc => "rdoc:all"
+
+desc "Remove doc folder for all mack-more gems"
+task :destroy_rdoc => "rdoc:destroy"
 
 GEMS.each do |gem|
   desc "Runs the test suite for the mack-#{gem} gem."

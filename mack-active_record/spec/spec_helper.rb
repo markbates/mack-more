@@ -13,7 +13,7 @@ require 'mack'
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-active_record'
 $genosaurus_output_directory = Mack.root
 
-require File.join(File.dirname(__FILE__), "..", "..", "mack-paths", "lib", "mack-paths")
+# require File.join(File.dirname(__FILE__), "..", "..", "mack-paths", "lib", "mack-paths")
 
 require File.join(File.dirname(__FILE__), 'create_and_drop_task_helper')
 
