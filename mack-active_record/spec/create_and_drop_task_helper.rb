@@ -10,7 +10,7 @@ module Spec
         
         def config_db(adapter)
           last_err = nil
-          config_file = File.join(Mack.root, "config", "database.yml")
+          config_file = Mack::Paths.config("database.yml")
           orig_db_yml = File.read(config_file)
           temp_db_yml = fixture("#{adapter.to_s.downcase}")
           File.open(config_file, "w") { |f| f.write(temp_db_yml) }
@@ -102,7 +102,7 @@ module Spec
         
         private
         def db_exists?(name, env = "development")
-          path = File.join(Mack.root, "db", "#{name}.db")
+          path = Mack::Paths.db("#{name}.db")
           return File.exists?(path)
         end
       end

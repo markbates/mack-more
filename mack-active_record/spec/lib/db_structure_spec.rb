@@ -41,7 +41,7 @@ describe Mack::Database do
   end
   
   before(:each) do
-    @dump = File.join(Mack.root, "db", "#{Mack.env}_schema_structure.sql")
+    @dump = Mack::Paths.db("#{Mack.env}_schema_structure.sql")
   end
   
   after(:each) do

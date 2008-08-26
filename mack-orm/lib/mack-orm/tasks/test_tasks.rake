@@ -7,7 +7,7 @@ namespace :test do
     Mack.reset_logger!
     Rake::Task["db:recreate"].invoke
     Mack::Database.dump_structure("development", :default)
-    Mack::Database.load_structure(File.join(Mack.root, "db", "development_schema_structure.sql"))
+    Mack::Database.load_structure(Mack::Paths.db("development_schema_structure.sql"))
     Rake::Task["test:factories:run"].invoke
   end # setup
   

@@ -18,7 +18,7 @@ $genosaurus_output_directory = Mack.root
 require File.join(File.dirname(__FILE__), 'create_and_drop_task_helper')
 
 def migrations_directory
-  File.join(Mack.root, "db", "migrations")
+  Mack::Paths.db("migrations")
 end
 
 def cleanup(file)

@@ -4,7 +4,7 @@ module Mack
       
       # Migrates the database to the latest version
       def self.migrate
-        ActiveRecord::Migrator.up(File.join(Mack.root, "db", "migrations"))
+        ActiveRecord::Migrator.up(Mack::Paths.db("migrations"))
       end
       
       # Rolls back the database by the specified number of steps. Default is 1
@@ -12,7 +12,7 @@ module Mack
         cur_version = version.to_i
         target_version = cur_version - step 
         target_version = 0 if target_version < 0
-        ActiveRecord::Migrator.down(File.join(Mack.root, "db", "migrations"), target_version)
+        ActiveRecord::Migrator.down(Mack::Paths.db("migrations"), target_version)
       end
       
       # Not implemented

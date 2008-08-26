@@ -6,7 +6,7 @@ describe MigrationGenerator do
     
   before(:each) do
     @content_path = File.join(File.dirname(__FILE__), "contents")
-    @mig_path = File.join(Mack.root, "db", "migrations")
+    @mig_path = Mack::Paths.db("migrations")
     @mig_file = File.join(@mig_path, "002_create_zoos.rb")
   end
   

@@ -1,11 +1,11 @@
 development:
   adapter: sqlite3
-  database: <%= File.join(Mack.root, "db", "fake_application.db") %>
+  database: <%= Mack::Paths.db("fake_application.db") %>
 
 test:
   adapter: sqlite3
-  database: <%= File.join(Mack.root, "db", "fake_application.db") %>
+  database: <%= Mack::Paths.db("fake_application.db") %>
 
 production:
   adapter: sqlite3
-  database: <%= File.join(Mack.root, "db", "fake_application.db") %>
+  database: <%= Mack::Paths.db("fake_application.db") %>

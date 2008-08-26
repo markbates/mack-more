@@ -55,7 +55,7 @@ module Mack
         unless app_errors.empty?
           app_errors.uniq!
           if view_partial.nil?
-            if File.exist?(File.join(Mack.root, "app", "views", "application", "_error_messages.html.erb"))
+            if File.exist?(Mack::Paths.views("application", "_error_messages.html.erb"))
               render(:partial, "application/error_messages", :locals => {:errors => app_errors})
             else
               render(:inline, DEFAULT_PARTIAL, :locals => {:errors => app_errors})

@@ -58,7 +58,7 @@ namespace :db do
     
     desc "Create the database from a SQL file"
     task :load => "mack:environment" do
-      file = (ENV["FILE"] ||= File.join(Mack.root, "db", "development_default_schema_structure.sql"))
+      file = (ENV["FILE"] ||= Mack::Paths.db("development_default_schema_structure.sql"))
       Mack::Database.load_structure(file, Mack.env, repis)
     end # load
     

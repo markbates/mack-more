@@ -9,7 +9,7 @@ describe JavascriptGenerator do
   
   describe "prototype" do
     before(:all) do
-      @js_path = File.join(Mack.root, "public", "javascripts")
+      @js_path = Mack::Paths.public("javascripts")
       FileUtils.rm_rf(@js_path)
     end
     
@@ -30,7 +30,7 @@ describe JavascriptGenerator do
   
   describe "jquery" do
     before(:all) do
-      @js_path = File.join(Mack.root, "public", "javascripts")
+      @js_path = Mack::Paths.public("javascripts")
       FileUtils.rm_rf(@js_path)
     end
     

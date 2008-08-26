@@ -67,7 +67,7 @@ module Mack
       Mack::Database.establish_connection(env)
       dbs = db_settings(env)
       structure = ""
-      output_file = File.join(Mack.root, "db", "#{env}_schema_structure.sql")
+      output_file = Mack::Paths.db("#{env}_schema_structure.sql")
       case dbs[:adapter]
       when "mysql"
         File.open(output_file, "w") {|f| f.puts ActiveRecord::Base.connection.structure_dump}
@@ -82,7 +82,7 @@ module Mack
     
     private
     def self.db_settings(env)
-      dbs = YAML::load(ERB.new(IO.read(File.join(Mack.root, "config", "database.yml"))).result)
+      dbs = YAML::load(ERB.new(IO.read(Mack::Paths.config("database.yml"))).result)
       dbs = dbs[env]
       dbs.symbolize_keys!
       return dbs

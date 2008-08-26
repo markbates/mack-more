@@ -4,7 +4,7 @@ module Mack
     # Sets up and establishes connections to the database based on the specified environment
     # and the settings in the database.yml file.
     def self.establish_connection(env = Mack.env)
-      dbs = YAML::load(ERB.new(IO.read(File.join(Mack.root, "config", "database.yml"))).result)
+      dbs = YAML::load(ERB.new(IO.read(Mack::Paths.config("database.yml"))).result)
       settings = dbs[env]
       settings.symbolize_keys!
       if settings[:default]
@@ -50,7 +50,7 @@ module Mack
       adapter = repository(repis).adapter
       uri = adapter.uri
       structure = ""
-      output_file = File.join(Mack.root, "db", "#{env}_schema_structure.sql")
+      output_file = Mack::Paths.db("#{env}_schema_structure.sql")
       case adapter.class.name
       when /Mysql/
         sql = "SHOW TABLES"
@@ -63,7 +63,7 @@ module Mack
       when /Postgres/
         `pg_dump -i -U "#{uri.user}" -s -x -O -n #{ENV["SCHEMA"] ||= "public"} -f #{output_file} #{uri.basename}`
       when /Sqlite3/
-        db_dir = File.join(Mack.root, "db")
+        db_dir = Mack::Paths.db
         `sqlite3 #{File.join(db_dir, uri.basename)} .schema > #{output_file}`
       else
         raise "Task not supported for '#{repository(repis).adapter.class.name}'"
@@ -97,7 +97,7 @@ module Mack
           repo.adapter.execute "CREATE DATABASE #{uri.basename} ENCODING = 'utf8'"
         end
       when /Sqlite3/
-        db_dir = File.join(Mack.root, "db")
+        db_dir = Mack::Paths.db
         puts "Creating (SQLite3): #{uri.basename}"
         FileUtils.mkdir_p(db_dir)
         FileUtils.touch(File.join(db_dir, uri.basename))
@@ -123,7 +123,7 @@ module Mack
         end
       when /Sqlite3/
         puts "Dropping (SQLite3): #{uri.basename}"
-        db_dir = File.join(Mack.root, "db")
+        db_dir = Mack::Paths.db
         FileUtils.rm_rf(File.join(db_dir.to_s, uri.basename))
       else
         raise "Task not supported for '#{repository(repis).adapter.class.name}'"

@@ -19,7 +19,7 @@ describe Mack::Database do
   end
   
   before(:each) do
-    @dump = File.join(Mack.root, "db", "test_schema_structure.sql")
+    @dump = Mack::Paths.db("test_schema_structure.sql")
   end
   
   after(:each) do
@@ -67,7 +67,7 @@ describe Mack::Database do
     describe "SQLite3" do
       
       it "should reconstructe a db from a .sql file" do
-        create_structure_dump_test_db(:test_sqlite3, "sqlite3://#{File.join(Mack.root, "db", "structure_dump_test1.db")}", false)
+        create_structure_dump_test_db(:test_sqlite3, "sqlite3://#{Mack::Paths.db("structure_dump_test1.db")}", false)
         Cottage.should_not be_storage_exists(:test_sqlite3)
         House.should_not be_storage_exists(:test_sqlite3)
         Mack::Database.load_structure(fixture_location("test_test_sqlite3_schema_structure.sql"), Mack.env, :test_sqlite3)
@@ -108,7 +108,7 @@ describe Mack::Database do
     describe "SQLite3" do
     
       it "should write a .sql that represents the db structure" do
-        create_structure_dump_test_db(:test_sqlite3, "sqlite3://#{File.join(Mack.root, "db", "structure_dump_test.db")}")
+        create_structure_dump_test_db(:test_sqlite3, "sqlite3://#{Mack::Paths.db("structure_dump_test.db")}")
         File.should_not be_exists(@dump)
         Mack::Database.dump_structure(Mack.env, :test_sqlite3)
         File.should be_exists(@dump)

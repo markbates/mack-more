@@ -5,22 +5,20 @@ describe ScaffoldGenerator do
   include Mack::Genosaurus::Orm::Helpers
 
   before(:each) do
-    FileUtils.rm_rf(File.join(Mack.root, "app", "helpers", "controllers"))
+    FileUtils.rm_rf(Mack::Paths.controller_helpers)
     FileUtils.rm_rf(File.join(Mack.root, "test", "helpers"))
-    @view_path  = File.join(Mack.root, "app", "views", "zoos")
+    @view_path  = Mack::Paths.views("zoos")
     @view_files = ['new.html.erb', 'index.html.erb', 'edit.html.erb', 'show.html.erb']
     
-    @cont_path  = File.join(Mack.root, "app", "controllers")
-    @cont_file  = File.join(@cont_path, "zoos_controller.rb")
+    @cont_file  = Mack::Paths.controllers("zoos_controller.rb")
     
-    @model_path = File.join(Mack.root, "app", "models")
-    @model_file = File.join(@model_path, "zoo.rb")
+    @model_file = Mack::Paths.models("zoo.rb")
     
-    @mig_file = File.join(migrations_directory, "#{next_migration_number}_create_zoos.rb")
-    @cont_test_file = File.join(Mack.root, "test", "controllers", "zoos_controller_test.rb")
-    @model_test_file = File.join(Mack.root, "test", "models", "zoo_test.rb")
+    @mig_file = Mack::Paths.migrations("#{next_migration_number}_create_zoos.rb")
+    @cont_test_file = Mack::Paths.controller_tests("zoos_controller_test.rb")
+    @model_test_file = Mack::Paths.model_tests("zoo_test.rb")
     
-    @routes_file = File.join(Mack.root, "config", "routes.rb")
+    @routes_file = Mack::Paths.config("routes.rb")
     @orig_routes_content = File.read(@routes_file)
   end
   
@@ -35,7 +33,7 @@ describe ScaffoldGenerator do
     
     # rewrite routes file
     File.open(@routes_file, "w") {|f| f.write(@orig_routes_content)}
-    FileUtils.rm_rf(File.join(Mack.root, "app", "helpers", "controllers"))
+    FileUtils.rm_rf(Mack::Paths.controller_helpers)
     FileUtils.rm_rf(File.join(Mack.root, "test", "helpers"))
   end
   
@@ -70,8 +68,8 @@ describe ScaffoldGenerator do
   it "should create a stub rspec test for the controller if rspec is testing framework" do
     temp_app_config("mack::testing_framework" => "rspec") do
       ScaffoldGenerator.run("NAME" => "zoo")
-      @cont_test_file = File.join(Mack.root, "test", "controllers", "zoos_controller_spec.rb")
-      @model_test_file = File.join(Mack.root, "test", "models", "zoo_spec.rb")
+      @cont_test_file = Mack::Paths.controller_tests("zoos_controller_spec.rb")
+      @model_test_file = Mack::Paths.model_tests("zoo_spec.rb")
       File.exists?(@cont_test_file).should == true    
     end
   end
