@@ -6,7 +6,7 @@ config_defaults = {
     "logging" => {
       "logger_1" => {
         "type" => "file",
-        "file" => File.join(Mack.root, "log", "cachetastic.log")
+        "file" => Mack::Paths.log("cachetastic.log")
       }
     }
   }
@@ -25,7 +25,7 @@ if Mack.env == "production"
     "logging" => {
       "logger_1" => {
         "type" => "file",
-        "file" => File.join(Mack.root, "log", "cachetastic_caches_mack_session_cache.log")
+        "file" => Mack::Paths.log("cachetastic_caches_mack_session_cache.log")
       }
     }
   })
