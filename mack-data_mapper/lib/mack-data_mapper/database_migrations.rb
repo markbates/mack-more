@@ -7,16 +7,16 @@ module Mack
       # Migrates the database to the latest version
       def self.migrate
         Mack::Database.establish_connection
-        DataMapper::MigrationRunner.reset!
+        ::DataMapper::MigrationRunner.reset!
         migration_files.each { |mig| load mig }
-        DataMapper::MigrationRunner.migrate_up!
+        ::DataMapper::MigrationRunner.migrate_up!
       end
       
       # Rolls back the database by the specified number of steps. Default is 1
       def self.rollback(step = 1)
-        DataMapper::MigrationRunner.reset!
+        ::DataMapper::MigrationRunner.reset!
         migration_files.each { |mig| load mig }
-        migrations = DataMapper::MigrationRunner.migrations.sort.reverse
+        migrations = ::DataMapper::MigrationRunner.migrations.sort.reverse
         step.times do |i|
           migrations[migrations.size - (i + 1)].perform_down
         end
@@ -24,10 +24,10 @@ module Mack
       
       def self.abort_if_pending_migrations
         migration_files.each { |mig| load mig }
-        DataMapper::MigrationRunner.migrations.each do |mig|
+        ::DataMapper::MigrationRunner.migrations.each do |mig|
           raise Mack::Errors::UnrunMigrations.new(mig.name) if mig.send("needs_up?")
         end
-        DataMapper::MigrationRunner.migrations.clear
+        ::DataMapper::MigrationRunner.migrations.clear
       end
             
     end # Migrations

@@ -9,10 +9,10 @@ module Mack
       settings.symbolize_keys!
       if settings[:default]
         settings.each do |k,v|
-          DataMapper.setup(k, v.symbolize_keys)
+          ::DataMapper.setup(k, v.symbolize_keys)
         end
       else
-        DataMapper.setup(:default, settings)
+        ::DataMapper.setup(:default, settings)
       end
     end # establish_connection
     
@@ -72,7 +72,7 @@ module Mack
     
     private
     def self.setup_temp(uri, adapter)
-      DataMapper.setup(:tmp, {
+      ::DataMapper.setup(:tmp, {
         :adapter => adapter,
         :host => "localhost",
         :database => adapter,

@@ -1,6 +1,14 @@
 require 'rubygems'
 require 'genosaurus'
 require 'mack-orm'
+
+config = {
+  "data_mapper_session_store::expiry_time" => 4.hours
+}
+
+app_config.load_hash(config.merge(app_config.final_configuration_settings), "mack-data_mapper")
+
+
 fl = File.join(File.dirname(__FILE__), "mack-data_mapper")
 
 $: << File.expand_path(File.join(fl, "dm_patches"))
@@ -20,7 +28,7 @@ require File.join(fl, "runner")
 require File.join(fl, "test_extensions")
 
 
-[:helpers, :migration_generator, :model_generator, :scaffold_generator, :dm_patches].each do |folder|
+[:helpers, :migration_generator, :model_generator, :scaffold_generator, :dm_patches, :sessions].each do |folder|
   Dir.glob(File.join(fl, folder.to_s, "**/*.rb")).each {|f| require f}
 end
 
