@@ -6,7 +6,7 @@ fl = File.join(File.dirname(__FILE__), "mack-data_mapper")
 $: << File.expand_path(File.join(fl, "dm_patches"))
 
 [:core, :aggregates, :migrations, :serializer, :timestamps, :validations, :observer, :types].each do |g|
-  gem "dm-#{g}", "0.9.4"
+  gem "dm-#{g}", "0.9.5"
   require "dm-#{g}"
 end
 
