@@ -8,3 +8,7 @@ require File.join(base, "generators")
 require File.join(base, "genosaurus_helpers")
 require File.join(base, "model_column")
 require File.join(base, "scaffold_generator", "scaffold_generator")
+
+Mack::Environment.after_class_method(:load) do
+  Mack::Database.establish_connection(Mack.env)
+end
