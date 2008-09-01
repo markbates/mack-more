@@ -1,3 +1,4 @@
+require 'rake'
 namespace :cachetastic do
   
   namespace :page_cache do
