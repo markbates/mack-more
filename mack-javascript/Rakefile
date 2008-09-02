@@ -7,6 +7,7 @@ require File.join(crt, "rake_task_requires")
   s.summary = %{JavaScript in Mack}
   s.description = %{RJS support for the Mack Framework}
   s.author = "Gerardo Pis-Lopez"
+  s.email = "mark@mackframework.com"
   s.homepage = "http://www.mackframework.com"
 
   s.test_files = FileList['test/**/*']

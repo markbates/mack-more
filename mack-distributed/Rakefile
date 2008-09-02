@@ -6,6 +6,8 @@ require File.join(crt, "rake_task_requires")
   s.version = GEM_VERSION
   s.summary = %{Distributed Application}
   s.description = %{Distributed Application Support for Mack Framework}
+  s.author = "markbates"
+  s.email = "mark@mackframework.com"
   s.homepage = "http://www.mackframework.com"
 
   s.test_files = FileList['test/**/*']
