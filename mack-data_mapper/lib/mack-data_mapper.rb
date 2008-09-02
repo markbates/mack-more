@@ -55,5 +55,3 @@ module DataMapper # :nodoc:
 end
 
 DataMapper.logger = DataMapper::Logger.new(StringIO.new, 0)
-
-require File.join(File.dirname(__FILE__), 'mack-data_mapper_tasks')

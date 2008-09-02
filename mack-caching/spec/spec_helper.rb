@@ -12,7 +12,7 @@ if $genosaurus_output_directory.nil?
   puts "$genosaurus_output_directory: #{$genosaurus_output_directory}"
 end
 
-$: << File.expand_path(File.dirname(__FILE__) + "/../lib")
+$:.insert(0, File.expand_path(File.dirname(__FILE__) + "/../lib"))
 
 # load the mack framework:
 require 'mack'
