@@ -1,3 +1,7 @@
+module Mack
+  VERSION = 'testing'
+end
+
 require 'rubygems'
 gem 'rspec'
 require 'spec'

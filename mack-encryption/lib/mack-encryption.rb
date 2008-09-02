@@ -1,5 +1,5 @@
 require 'singleton'
-require 'crypt/rijndael'
+require 'ezcrypto'
 
 base = File.join(File.dirname(__FILE__), "mack-encryption")
 
