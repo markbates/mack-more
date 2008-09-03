@@ -4,11 +4,11 @@ module Mack
       # Delivers Mack::Notifier objects to an Array.
       module Test
         
-        def self.deliver(mail)
-          EmailRegistry.add(mail)
+        def self.deliver(notifier)
+          NotifierRegistry.add(notifier)
         end
         
-        class EmailRegistry < Mack::Utils::RegistryList # :nodoc:
+        class NotifierRegistry < Mack::Utils::RegistryList # :nodoc:
         end
         
       end # Test
