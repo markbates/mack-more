@@ -22,4 +22,9 @@ class Time
     end
   end
   
+  # Generates a random Time between the start time and the end time.
+  def self.random(start_time, end_time = Time.now)
+    start_time + (rand(end_time - start_time).to_i)
+  end
+  
 end
