@@ -19,7 +19,6 @@ require File.join(crt, "rake_task_requires")
     s.add_dependency("dm-#{g}", "0.9.5")
   end
   s.add_dependency("mack-orm", GEM_VERSION)
-  s.add_dependency("bcrypt-ruby", "2.0.3")
   
   s.extra_rdoc_files = ["README"]
   s.has_rdoc = true
