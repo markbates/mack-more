@@ -45,9 +45,18 @@ module Mack
             html.body = mack_notifier.body(:html)
             main_body.parts << html
           end
+
           unless main_body.parts.empty?
             main_body.content_type = "multipart/alternative"
-            @tmail.parts << main_body
+            if mack_notifier.attachments.any? # there's an attachment
+              @tmail.parts << main_body
+            else
+              if main_body.parts.size == 1
+                @tmail.body = main_body.parts.first.body
+              else
+                @tmail.parts << main_body
+              end
+            end
           end
 
           # set attachments, if any.
