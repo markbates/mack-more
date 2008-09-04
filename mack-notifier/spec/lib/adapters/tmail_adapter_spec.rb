@@ -3,6 +3,27 @@ require File.join(File.dirname(__FILE__), "..", "..", "spec_helper")
 describe Mack::Notifier::Adapters::Tmail do
   
   describe "convert" do
+    
+    it "should handle just one part correctly" do
+      delivered_emails.should be_empty
+      we = WelcomeEmail.new
+      we.to = "test@mackframework.com"
+      we.from = "mark@mackframework.com"
+      we.reply_to = "mark@mackframework.com"
+      we.subject = "Hello World!"
+      we.body(:plain, "This is my plain text body")
+      adap = Mack::Notifier::Adapters::Tmail.new(we)
+      adap.convert
+      tmail = adap.transformed
+      tmail.to.should == [we.to]
+      tmail.from.should == [we.from]
+      tmail.reply_to.should == [we.reply_to]
+      tmail.subject.should == we.subject
+      tmail.content_type.should == "text/plain"
+      tmail.mime_version.should == "1.0"
+      we.deliver
+      delivered_emails.size.should == 1
+    end
   
     it "should convert a Mack::Notifier object to a TMail::Mail object" do
       delivered_emails.should be_empty
