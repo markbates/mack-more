@@ -7,8 +7,8 @@ describe DateTime do
     
     it "should add seconds to the DateTime object" do
       dt = DateTime.now
-      dt2 = dt.add_seconds(10)
-      dt2.sec.should == (dt.sec + 10)
+      dt2 = dt.add_seconds(1)
+      dt2.sec.should == (dt.sec + 1)
     end
     
   end
@@ -17,8 +17,8 @@ describe DateTime do
     
     it "should minus seconds to the DateTime object" do
       dt = DateTime.now
-      dt2 = dt.minus_seconds(10)
-      dt2.sec.should == (dt.sec - 10)
+      dt2 = dt.minus_seconds(1)
+      dt2.sec.should == (dt.sec - 1)
     end
     
   end

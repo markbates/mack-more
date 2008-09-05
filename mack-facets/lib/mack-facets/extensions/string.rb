@@ -1,5 +1,5 @@
 class String
-  # include Style
+  include Style
   
   alias_method :underscore, :snakecase
   
