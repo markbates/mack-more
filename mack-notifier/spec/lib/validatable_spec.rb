@@ -77,7 +77,11 @@ describe Mack::Notifier::Validatable do
     @qe.deliver(:smtp).should == false
     @qe.errors.should_not be_empty
     @qe.errors.size.should == 1
-    @qe.errors.on(:deliver).should include("mail destination not given")
+    if RUBY_VERSION == '1.8.6'
+      @qe.errors.on(:deliver).should include("mail destination not given")
+    elsif RUBY_VERSION == '1.8.7'
+      @qe.errors.on(:deliver).should include("could not get 3xx (554)")
+    end
   end
   
   it "should not try and deliver! if the mail isn't valid" do

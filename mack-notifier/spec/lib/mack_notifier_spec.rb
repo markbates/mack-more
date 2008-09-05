@@ -19,7 +19,11 @@ describe Mack::Notifier do
   describe "deliver!" do
     
     it "should raise exceptions if there are errors" do
-      lambda{@we.deliver!(:smtp)}.should raise_error(ArgumentError)
+      if ruby?('1.8.6')
+        lambda{@we.deliver!(:smtp)}.should raise_error(ArgumentError)
+      elsif ruby?('1.8.7')
+        lambda{@we.deliver!(:smtp)}.should raise_error(Net::SMTPUnknownError)
+      end
     end
     
   end

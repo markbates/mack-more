@@ -31,4 +31,9 @@ module Kernel
     eval(x, &block)
   end
   
+  # Returns true/false if the current version of Ruby equals the specified version
+  def ruby?(v)
+    RUBY_VERSION == v
+  end
+  
 end

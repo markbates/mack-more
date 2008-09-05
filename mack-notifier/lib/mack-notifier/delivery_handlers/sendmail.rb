@@ -2,7 +2,7 @@ module Mack
   module Notifier
     module DeliveryHandlers # :nodoc:
       # Delivers Mack::Notifier objects using sendmail.
-      module SendMail
+      module Sendmail
         
         def self.deliver(mail)
           sendmail_settings = app_config.notifier.sendmail_settings
@@ -16,6 +16,10 @@ module Mack
         end
         
       end # SendMail
+      
+      # Alias of SendMail to Sendmail
+      SendMail = Sendmail # :nodoc:
+      
     end # DeliveryHandlers
   end # Notifier
 end # Mack
