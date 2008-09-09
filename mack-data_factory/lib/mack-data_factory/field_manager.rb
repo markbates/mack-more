@@ -1,6 +1,6 @@
 module Mack
   module Data          
-    class FieldMgr
+    class FieldMgr # :nodoc:
       attr_reader :scopes
       
       def initialize

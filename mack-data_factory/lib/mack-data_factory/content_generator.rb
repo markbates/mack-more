@@ -4,7 +4,7 @@ module Mack
   module Data
     module Factory
 
-      class FieldContentGenerator
+      class FieldContentGenerator # :nodoc:
         class << self
           def alpha_generator
             @alpha_gen = Proc.new do |def_value, rules, index|

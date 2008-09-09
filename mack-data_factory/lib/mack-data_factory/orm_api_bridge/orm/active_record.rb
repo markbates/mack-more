@@ -1,7 +1,7 @@
 module Mack
   module Data
-    module OrmBridge
-      class ActiveRecord
+    module OrmBridge # :nodoc:
+      class ActiveRecord # :nodoc:
         
         def can_handle(obj)
           return false if !Object.const_defined?('ActiveRecord')

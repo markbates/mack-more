@@ -7,7 +7,19 @@ module Mack # :nodoc:
     # define a scope for different situation, and set a custom content generator 
     # for field that doesn't want to use the default content generator.
     #
-    # For more information and usage, please read README file
+    # You must add this module when creating a factory class; and the name
+    # of the factory class should be following this format:
+    #   #{model_name_camelcase}Factory
+    # 
+    # <i>Example:</i>
+    #   If there's a model class named "Item", then its factory must be:
+    #
+    #   class ItemFactory
+    #     include Mack::Data::Factory
+    #     ...
+    #   end
+    #
+    # See Mack::Data::Factory::ClassMethods for the factory API and examples.
     #
     # Author:: Darsono Sutedja
     # Date:: July 2008
@@ -27,11 +39,35 @@ module Mack # :nodoc:
         # 
         #   class CarFactory
         #     include Mack::Data::Factory
-        #     field :name, :default => "honda" { |def_value, rules, index| "#{def_value} #{['civic', 'accord', 'pilot'].randomize[0]}"}
+        #     field(:name, :default => "honda") do |def_value, rules, index| 
+        #       "#{def_value} #{['civic', 'accord', 'pilot'].randomize[0]}"
+        #     end
         #   end
         # 
         #   CarFactory.create(100) #=> will produce 100 cars whose name is "honda xxx" where xxx is a random item from ['civic', 'accord', 'pilot']
         # 
+        # <i>Scoping:</i>
+        #
+        # In some instances, you may want different settings in the factory for different test scope.  
+        # You can achieve this by doing the following:
+        # 
+        #     class UserFactory
+        #         include Mack::Data::Factory
+        # 
+        #         field :username, :default => "planters", :length => 25, :content => :alpha
+        #         field :password, :default => "roastedPeanuts", :immutable => true
+        # 
+        #         scope_for(:long_username) do
+        #             field :username, :default => "planters", :length => 128, :content => :alpha
+        #         end
+        #     end
+        # 
+        # The above example defined a scoping for "long_username", which you can use by calling:
+        #   UserFactory.create(100, :long_username)
+        # 
+        # When a scope is defined and called, the field defined in the block will overwrite the default field listing 
+        # in that class.  Scopes in the factory is independent to each other, so one scope cannot affect the others.
+        #
         # <i>Parameters:</i>
         #   num:  how many objects to produce
         #   scope:  run the factory in a named scope.  By default the factory will be run in _default_ scope
@@ -85,6 +121,13 @@ module Mack # :nodoc:
         # * the field's content type (e.g. :content => :alpha)
         # * and the rules on how to generate the content (rules are contextually dependent on the content type).
         #
+        # <i>Example:</i>
+        #   class UserFactory
+        #     include Mack::Data::Factory
+        #     field :full_name, :content => :name
+        #     field :created_at, :content => :time, :start_time => 2.days.ago, :end_time => 1.day.from_now
+        #   end
+        #
         # The following are all the supported content types and its rules:
         # 
         # <i>Strings and Numbers</i>
@@ -129,7 +172,7 @@ module Mack # :nodoc:
         #
         # <i>Example:</i>
         #   class ItemFactory
-        #     include Mack::DataFactory
+        #     include Mack::Data::Factory
         #     ...
         #     association :owner_id, {:user => 'id'}, :random
         #   end

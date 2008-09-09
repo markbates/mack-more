@@ -1,7 +1,7 @@
 module Mack
   module Data
     module OrmBridge # :nodoc:
-      class Default
+      class Default # :nodoc:
         
         def can_handle(obj)
           return true

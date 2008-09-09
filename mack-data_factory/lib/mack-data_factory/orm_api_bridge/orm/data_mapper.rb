@@ -1,7 +1,7 @@
 module Mack
   module Data
-    module OrmBridge
-      class DataMapper
+    module OrmBridge # :nodoc:
+      class DataMapper # :nodoc:
         
         def can_handle(obj)
           return false if !Object.const_defined?('DataMapper')

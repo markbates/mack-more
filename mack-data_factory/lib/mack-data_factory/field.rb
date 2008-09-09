@@ -4,7 +4,7 @@ module Mack
     class RegistryMap < Mack::Utils::RegistryMap # :nodoc:
     end
     
-    class Field
+    class Field # :nodoc:
       attr_accessor :field_name
       attr_accessor :field_value
       attr_accessor :field_value_producer
