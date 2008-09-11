@@ -15,9 +15,9 @@ module Mack
       #         $('my_hidden_div').show();
       #     </script>
       def update_page(&block)
-        sg = Mack::JavaScript::ScriptGenerator.new
-        yield(sg)
-        "<script type='#{Mack::Utils::MimeTypes[:js]}'>\n" + sg.to_s.gsub(';', ";\n") + "</script>"
+        gs = js
+        yield(gs)
+        "<script type='#{Mack::Utils::MimeTypes[:js]}'>\n" + gs.to_s.gsub(';', ";\n") + "</script>"
       end
       
       def link_to_remote(link_text, ajax_options, options = {})
@@ -27,7 +27,7 @@ module Mack
       def link_to_function(link_text, *args, &block)
         function = args[0] || ''
         options = args[1] || {}
-        function = yield(Mack::JavaScript::ScriptGenerator.new).chop if block_given?
+        function = yield(js).chop if block_given?
         options[:onclick] = (options[:onclick] ? "#{options[:onclick]}; " : "") + "#{function}; return false;" 
         link_to(link_text, '#', options)
       end
@@ -35,6 +35,10 @@ module Mack
       # Returns javascript that does an Ajax call
       def remote_function(options)
         Mack::JavaScript::ScriptGenerator.framework.remote_function(options)
+      end
+      
+      def js
+        Mack::JavaScript::ScriptGenerator.new
       end
       
     end

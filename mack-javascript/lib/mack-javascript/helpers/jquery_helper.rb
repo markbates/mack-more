@@ -7,7 +7,7 @@ module Mack
             insertion = position.to_s.downcase
             insertion = 'append' if insertion == 'bottom'
             insertion = 'prepend' if insertion == 'top'
-            "$(\"##{id}\").#{insertion}('#{html}')"
+            "$(\'##{id}\').#{insertion}('#{html}')"
           end
 
           def replace_html(id, html)
@@ -15,23 +15,23 @@ module Mack
           end
 
           def replace(id, html)
-            "$(\"##{id}\").replaceWith('#{html}')"
+            "$(\'##{id}\').replaceWith('#{html}')"
           end
 
           def remove(*ids)
-            "$(\"##{ids.join(',#')}\").remove()"
+            "$(\'##{ids.join(',#')}\').remove()"
           end
 
           def show(*ids)
-            "$(\"##{ids.join(',#')}\").show()"
+            "$(\'##{ids.join(',#')}\').show()"
           end
 
           def hide(*ids)
-            "$(\"##{ids.join(',#')}\").hide()"
+            "$(\'##{ids.join(',#')}\').hide()"
           end
 
           def toggle(*ids)
-            "$(\"##{ids.join(',#')}\").toggle()"
+            "$(\'##{ids.join(',#')}\').toggle()"
           end
 
 

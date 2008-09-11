@@ -39,7 +39,9 @@ module Mack
       class << self
         
         def framework
-          "Mack::JavaScript::Framework::#{framework_name}".constantize
+          ivar_cache('framework_constant') do
+            "Mack::JavaScript::Framework::#{framework_name}".constantize
+          end
         end
 
         def framework=(args)
