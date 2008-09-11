@@ -16,3 +16,7 @@ dir_globs.each do |d|
   require d
 end
 
+dir_globs = Dir.glob(File.join(fl, "view_helpers", "**/*.rb"))
+dir_globs.each do |d|
+  require d
+end
