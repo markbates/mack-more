@@ -45,6 +45,7 @@ module Mack
         end
 
         def framework=(args)
+          @framework_constant = nil
           @@framework_name = args.camelcase
         end
         
