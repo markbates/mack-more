@@ -1,16 +1,9 @@
-# mack::log_level: error
-
-whiny_config_missing: false
-
-foo: bar
-
-mack::page_cache: true
-
-mack::share_routes: false
-mack::distributed_app_name: fake_app
-
-# cachetastic_default_options:
-#   logging:
-#     logger_1:
-#       type: console
-#       level: debug
+configatron do |c|
+  c.foo = 'bar'
+  c.namespace(:mack) do |mack|
+    mack.page_cache = true
+    mack.share_routes = false
+    mack.distributed_app_name = 'fake_app'
+    mack.js_framework = 'prototype'
+  end
+end
