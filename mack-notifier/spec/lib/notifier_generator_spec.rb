@@ -39,7 +39,7 @@ describe NotifierGenerator do
   end
   
   it "should create a spec test if using rspec" do
-    temp_app_config("mack::testing_framework" => "rspec") do
+    temp_app_config(:mack => {:testing_framework => "rspec"}) do
       File.should_not be_exists(@spec_file)
       NotifierGenerator.run("name" => "registration_email")
       File.should be_exists(@spec_file)
@@ -48,7 +48,7 @@ describe NotifierGenerator do
   end
   
   it "should create a test_case test if using test_case" do
-    temp_app_config("mack::testing_framework" => "test_case") do
+    temp_app_config(:mack => {:testing_framework => "test_case"}) do
       File.should_not be_exists(@test_case_file)
       NotifierGenerator.run("name" => "registration_email")
       File.should be_exists(@test_case_file)

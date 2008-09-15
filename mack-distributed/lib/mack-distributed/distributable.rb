@@ -1,7 +1,7 @@
 module Mack # :nodoc:
   # Include this module into any class it will instantly register that class with
   # the mack_ring_server. The class will be registered with the name of the class
-  # and the mack.distributed_app_name configured in your config/app_config/*.yml file.
+  # and the mack.distributed_app_name configured in your config/configatron/*.rb file.
   # If the mack.distributed_app_name configuration parameter is nil it will raise
   # an Mack::Distributed::Errors::ApplicationNameUndefined exception.
   # 
@@ -17,7 +17,7 @@ module Mack # :nodoc:
   module Distributable
       
       def self.included(base) # :nodoc:
-        if app_config.mack.share_objects
+        if configatron.mack.distributed.share_objects
           base.class_eval do
             include ::DRbUndumped
           end
@@ -43,8 +43,8 @@ module Mack # :nodoc:
               # end
             end
           }
-          raise Mack::Distributed::Errors::ApplicationNameUndefined.new if app_config.mack.distributed_app_name.nil?
-          Mack::Distributed::Utils::Rinda.register_or_renew(:space => app_config.mack.distributed_app_name.to_sym, 
+          raise Mack::Distributed::Errors::ApplicationNameUndefined.new if configatron.mack.distributed.app_name.nil?
+          Mack::Distributed::Utils::Rinda.register_or_renew(:space => configatron.mack.distributed.app_name.to_sym, 
                                                             :klass_def => "#{base}".to_sym, 
                                                             :object => "Mack::Distributed::#{base}Proxy".constantize.instance)
         end

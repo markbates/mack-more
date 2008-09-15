@@ -27,7 +27,7 @@ describe ScaffoldGenerator do
   end
   
   it "should create a stub test/unit test for the controller if test/unit is testing framework" do
-    temp_app_config("mack::testing_framework" => "test_case") do
+    temp_app_config(:mack => {:testing_framework => "test_case"}) do
       File.should_not be_exist(Mack::Paths.controller_tests("zoos_controller_test.rb"))
       File.should_not be_exist(Mack::Paths.controller_helper_tests("zoos_controller_helper_test.rb"))
       ScaffoldGenerator.run(zoo_options)
@@ -39,7 +39,7 @@ describe ScaffoldGenerator do
   end
   
   it "should create a stub rspec test for the controller if rspec is testing framework" do
-    temp_app_config("mack::testing_framework" => "rspec") do
+    temp_app_config(:mack => {:testing_framework => "rspec"}) do
       File.should_not be_exist(Mack::Paths.controller_tests("zoos_controller_spec.rb"))
       File.should_not be_exist(Mack::Paths.controller_helper_tests("zoos_controller_helper_spec.rb"))
       ScaffoldGenerator.run(zoo_options)

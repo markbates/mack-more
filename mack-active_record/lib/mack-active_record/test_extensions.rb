@@ -56,7 +56,7 @@ if Mack.env == "test"
 
           def execute(options, instance_variables)
             before_spec_extension
-            if !app_config.disable_transactional_tests
+            unless configatron.mack.disable_transactional_tests
               rollback_transaction do
                 @__res = ar_spec_execute(options, instance_variables)
               end
@@ -83,7 +83,7 @@ if Mack.env == "test"
           # We need to wrap the run method so we can do things like
           # run a cleanup method if it exists
           def run(result, &progress_block) # :nodoc:
-            if !app_config.disable_transactional_tests
+            unless configatron.mack.disable_transactional_tests
               rollback_transaction do
                 ar_test_case_run(result, &progress_block)
               end

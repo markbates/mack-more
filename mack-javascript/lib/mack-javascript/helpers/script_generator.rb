@@ -51,7 +51,7 @@ module Mack
         
         private
         def framework_name
-          @@framework_name ||= app_config.mack.js_framework.camelcase
+          @@framework_name ||= configatron.mack.js_framework.camelcase
         end
       end
 

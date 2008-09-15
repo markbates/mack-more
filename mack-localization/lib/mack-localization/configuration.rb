@@ -9,21 +9,22 @@ module Mack
   module Localization # :nodoc:
     module Configuration
 
-      unless self.const_defined?("L10N_DEFAULTS")
-        L10N_DEFAULTS = {
-          "base_language"       => "en",
-          "supported_languages"  => %w{bp en fr it de es},
-          "char_encoding"       => 'us-ascii',
-          "dynamic_translation" => false,
-          "base_directory"      => Mack::Paths.app("lang"),
-          "content_expiry"      => 3600
-        }
+      configatron do |c|
+        c.namespace(:mack) do |mack|
+          mack.namespace(:localization) do |l|
+            l.base_language = 'en'
+            l.supported_languages = %w{bp en fr it de es}
+            l.char_encoding = 'us-ascii'
+            l.dynamic_translation = false
+            l.base_directory = Mack::Paths.app('lang')
+            l.content_expiry = 3600
+          end
+        end
       end
       
-      app_config.load_hash(L10N_DEFAULTS, "l10n_defaults")
-      path = Mack::Paths.config("localization", "localization.yml")
+      path = Mack::Paths.config("localization", "localization.rb")
       if File.exists?(path)
-        app_config.load_file(path)
+        require path
       end
     end 
   end
@@ -35,6 +36,6 @@ class Object
   # Give access to the mack l10n config object from anywhere inside the application
   #
   def l10n_config
-    app_config
+    configatron.mack.localization
   end
 end

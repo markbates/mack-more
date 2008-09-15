@@ -1,7 +1,7 @@
 == Page Caching
 
 Using page caching with Mack, is incredibly easy. The first thing you 
-need to do is turn it on. In the app_config/*.yml file of your chosing
+need to do is turn it on. In the configatron/*.rb file of your chosing
 place the following configuration setting:
 
   use_page_caching: true

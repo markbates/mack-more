@@ -9,7 +9,7 @@ module Mack # :nodoc:
       end
       
       def call(env) # :nodoc:
-        if app_config.use_page_caching
+        if configatron.mack.use_page_caching
           request = Mack::Request.new(env)
           page = Cachetastic::Caches::PageCache.get(request.fullpath)
           if page

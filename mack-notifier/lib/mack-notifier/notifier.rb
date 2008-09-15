@@ -127,23 +127,23 @@ module Mack # :nodoc:
     end
     
     # This method returns the adapter that will transform the Mack::Notifier object
-    # and prepare it for delivery. This method returns the app_config.notifier.adapter
+    # and prepare it for delivery. This method returns the configatron.notifier.adapter
     # parameter. Override this in your Mack::Notifier class to specify a different adapter
-    # or change the app_config parameter to globally affect all your Notifiers.
+    # or change the configatron parameter to globally affect all your Notifiers.
     # 
     # Default: :tmail
     def adapter
-      app_config.notifier.adapter
+      configatron.mack.notifier.adapter
     end
     
     # This method returns the delivery handler that will delivers the Mack::Notifier object.
-    # This method returns the app_config.notifier.deliver_with parameter. Override this in 
-    # your Mack::Notifier class to specify a different handler or change the app_config 
+    # This method returns the configatron.mack.notifier.deliver_with parameter. Override this in 
+    # your Mack::Notifier class to specify a different handler or change the configatron 
     # parameter to globally affect all your Notifiers.
     # 
     # Default: :sendmail
     def deliver_with
-      app_config.notifier.deliver_with
+      configatron.mack.notifier.deliver_with
     end
     
     private

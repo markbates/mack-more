@@ -10,7 +10,7 @@ describe "distributed_url" do
       # it's fine to ignore this, it's expected that it's already running.
       # all other exceptions should be thrown
     end
-    app_config.load_hash({"mack::share_routes" => true, "mack::distributed_app_name" => :known_app}, :distributed_route_test)
+    configatron.configure_from_hash(:mack => {:distributed => {:share_routes => true, :app_name => :known_app}})
     Mack::Routes.build do |r| # force the routes to go the DRb server
       r.known "/my_known_app/my_known_url", :controller => :foo, :action => :bar
       r.known_w_opts "/my_known_app/my_known_url_w_opts/:id", :controller => :foo, :action => :bar
@@ -18,7 +18,7 @@ describe "distributed_url" do
   end
   
   after(:each) do
-    app_config.revert
+    configatron.revert
   end
   
   it "should raise error when unknown app url is requested" do
@@ -30,18 +30,18 @@ describe "distributed_url" do
   # end
   
   it "should be able to resolve d-route url" do
-    distributed_url(:known_app, :known_url).should == "#{app_config.mack.distributed_site_domain}/my_known_app/my_known_url"
-    distributed_url(:known_app, :known).should == "#{app_config.mack.distributed_site_domain}/my_known_app/my_known_url"
-    distributed_url(:known_app, :known_distributed_url).should == "#{app_config.mack.distributed_site_domain}/my_known_app/my_known_url"
+    distributed_url(:known_app, :known_url).should == "#{configatron.mack.distributed.site_domain}/my_known_app/my_known_url"
+    distributed_url(:known_app, :known).should == "#{configatron.mack.distributed.site_domain}/my_known_app/my_known_url"
+    distributed_url(:known_app, :known_distributed_url).should == "#{configatron.mack.distributed.site_domain}/my_known_app/my_known_url"
   end
   
   it "should be able to resolve d-route url with options" do
     distributed_url(:known_app, :known_w_opts_url, :id => 1).should ==
-               "#{app_config.mack.distributed_site_domain}/my_known_app/my_known_url_w_opts/1"
+               "#{configatron.mack.distributed.site_domain}/my_known_app/my_known_url_w_opts/1"
   end
   
   it "should raise error when registering a nil application" do
-    temp_app_config("mack::distributed_app_name" => nil) do
+    temp_app_config(:mack => {:distributed => {:app_name => nil}}) do
       lambda { Mack::Routes.build {|r|} }.should raise_error(Mack::Distributed::Errors::ApplicationNameUndefined)
     end
   end

@@ -44,7 +44,7 @@ class ModelGenerator < Genosaurus
   end
   
   def testing_framework # :nodoc:
-    app_config.mack.testing_framework
+    configatron.mack.testing_framework.to_s
   end
   
 end

@@ -1,4 +1,4 @@
-<% case app_config.mack.js_framework -%>
+<% case configatron.mack.js_framework -%>
 <% when 'prototype' -%>
 <% ["controls.js", "dragdrop.js", "effects.js", "prototype.js"].each do |f| -%>
 <%= f %>_javascript_file:

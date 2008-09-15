@@ -18,7 +18,7 @@ module Mack # :nodoc:
           route_name << "_distributed_url"
         end
         
-        if !app_config.mack.distributed_app_name.nil? && app_name.to_sym == app_config.mack.distributed_app_name.to_sym
+        if !configatron.mack.distributed.app_name.nil? && app_name.to_sym == configatron.mack.distributed.app_name.to_sym
           # if it's local let's just use it and not go out to Rinda
           return self.send(route_name, options)
         end

@@ -66,7 +66,7 @@ describe ScaffoldGenerator do
   end
   
   it "should create a stub rspec test for the controller if rspec is testing framework" do
-    temp_app_config("mack::testing_framework" => "rspec") do
+    temp_app_config(:mack => {:testing_framework => "rspec"}) do
       ScaffoldGenerator.run("NAME" => "zoo")
       @cont_test_file = Mack::Paths.controller_tests("zoos_controller_spec.rb")
       @model_test_file = Mack::Paths.model_tests("zoo_spec.rb")

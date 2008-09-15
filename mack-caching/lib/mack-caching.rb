@@ -30,7 +30,7 @@ if Mack.env == "production"
     }
   })
 end
-app_config.load_hash(config.merge(app_config.final_configuration_settings), "mack-caching")
+configatron.configure_from_hash(config.merge(configatron.to_hash))
 
 
 require File.join(File.dirname(__FILE__), "mack-caching", "sessions", "cachetastic_session_store")

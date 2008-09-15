@@ -10,10 +10,10 @@ module Mack
         def connect_with_named_route(n_route, pattern, options = {}) # :nodoc:
           n_route = n_route.methodize
           normal_connect_with_named_route(n_route, pattern, options)
-          if app_config.mack.share_routes
+          if configatron.mack.distributed.share_routes
             Mack::Routes::Urls.class_eval %{
               def #{n_route}_distributed_url(options = {})
-                (@dsd || app_config.mack.distributed_site_domain) + #{n_route}_url(options)
+                (@dsd || configatron.mack.distributed.site_domain) + #{n_route}_url(options)
               end
             }
           end

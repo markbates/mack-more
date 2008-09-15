@@ -9,7 +9,7 @@ describe Mack::Localization::Configuration do
   
   it "should contain proper Object level methods" do
     self.should.respond_to?(:l10n_config)
-    l10n_config.should.eql?(app_config)
+    l10n_config.should.eql?(configatron.mack.localization)
     self.should.respond_to?(:l10n_formatter)
     self.should.respond_to?(:l10n_translator)
   end

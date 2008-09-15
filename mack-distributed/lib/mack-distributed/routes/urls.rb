@@ -11,7 +11,7 @@ module Mack
         end
         
         def put
-          Mack::Distributed::Utils::Rinda.register_or_renew(:space => app_config.mack.distributed_app_name.to_sym, 
+          Mack::Distributed::Utils::Rinda.register_or_renew(:space => configatron.mack.distributed.app_name.to_sym, 
                                                             :klass_def => :distributed_routes, 
                                                             :object => self, :timeout => 0)
         end
@@ -36,10 +36,10 @@ module Mack
 end # Mack
 
 Mack::Routes.after_class_method(:build) do
-  if app_config.mack.share_routes
-    raise Mack::Distributed::Errors::ApplicationNameUndefined.new if app_config.mack.distributed_app_name.nil?
+  if configatron.mack.distributed.share_routes
+    raise Mack::Distributed::Errors::ApplicationNameUndefined.new if configatron.mack.distributed.app_name.nil?
     
-    d_urls = Mack::Distributed::Routes::Urls.new(app_config.mack.distributed_site_domain)
+    d_urls = Mack::Distributed::Routes::Urls.new(configatron.mack.distributed.site_domain)
     d_urls.put
     Mack::Routes::Urls.include_safely_into(Mack::Distributed::Routes::Urls)
     Mack::Distributed::Routes::Urls.protected_instance_methods.each do |m|

@@ -3,10 +3,10 @@ require 'genosaurus'
 require 'mack-orm'
 
 config = {
-  "data_mapper_session_store::expiry_time" => 4.hours
+  :mack => {:data_mapper_session_store => {:expiry_time => 4.hours}}
 }
 
-app_config.load_hash(config.merge(app_config.final_configuration_settings), "mack-data_mapper")
+configatron.configure_from_hash(config.merge(configatron.to_hash))
 
 
 fl = File.join(File.dirname(__FILE__), "mack-data_mapper")

@@ -1,7 +1,7 @@
 module Mack
   module SessionStore # :nodoc:
     # Stores session information in the database.
-    # To set the expiry time for this session store use the following app_config setting:
+    # To set the expiry time for this session store use the following configatron setting:
     #   data_mapper_session_store::expiry_time: <%= 4.hours %>
     class DataMapper < Mack::SessionStore::Base
 
@@ -13,7 +13,7 @@ module Mack
           create_storage_if_non_existent
           sess = Mack::DataMapper::Session.first(:id => id)
           return nil if sess.nil? 
-          expire_date = DateTime.now.minus_seconds(app_config.data_mapper_session_store.expiry_time)
+          expire_date = DateTime.now.minus_seconds(configatron.mack.data_mapper_session_store.expiry_time)
           if sess.updated_at.to_s < expire_date.to_s
             sess.destroy
             return nil

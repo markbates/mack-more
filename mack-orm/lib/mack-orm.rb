@@ -1,6 +1,14 @@
 require 'rubygems'
 require 'genosaurus'
 
+config = {
+  :mack => {
+    :disable_transactional_tests => false
+  }
+}
+
+configatron.configure_from_hash(configatron.to_hash.merge(config))
+
 base = File.join(File.dirname(__FILE__), "mack-orm")
 require File.join(base, "database")
 require File.join(base, "database_migrations")

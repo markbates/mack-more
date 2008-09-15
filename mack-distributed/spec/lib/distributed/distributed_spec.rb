@@ -32,8 +32,8 @@ describe Mack::Distributed do
     }.should raise_error(Rinda::RequestExpiredError)
   end
   
-  it "should raise Mack::Distributed::Errors::ApplicationNameUndefined if app_config.mack.distributed_app_name is nil" do
-    temp_app_config("mack::distributed_app_name" => nil) do
+  it "should raise Mack::Distributed::Errors::ApplicationNameUndefined if configatron.mack.distributed.app_name is nil" do
+    temp_app_config(:mack => {:distributed => {:app_name => nil}}) do
       lambda {
         class Mouse
           include Mack::Distributable

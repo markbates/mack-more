@@ -30,7 +30,7 @@ describe Mack::SessionStore::DataMapper do
     end
     
     it "should delete the session if it's 'expired'" do
-      temp_app_config("data_mapper_session_store::expiry_time" => 2.seconds) do
+      temp_app_config(:mack => {:data_mapper_session_store => {:expiry_time => 2.seconds}}) do
         Mack::DataMapper::Session.create(:id => @session.id, :data => @session)
         n_sess = Mack::SessionStore::DataMapper.get(@session.id)
         n_sess.should be_is_a(Mack::Session)

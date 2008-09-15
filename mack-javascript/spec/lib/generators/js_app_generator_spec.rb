@@ -1,8 +1,8 @@
 require File.join(File.dirname(__FILE__), "..", "..", "spec_helper.rb")
 
 describe JavascriptGenerator do
-  it "should not run if there's no js_framework setting in app_config" do
-    temp_app_config("mack::js_framework" => nil) do
+  it "should not run if there's no js_framework setting in configatron" do
+    temp_app_config(:mack => {:js_framework => nil}) do
       lambda{JavascriptGenerator.new}.should raise_error(RuntimeError)
     end
   end
@@ -39,7 +39,7 @@ describe JavascriptGenerator do
     end
 
     it "should generate jquery's .js files in public/javascripts" do
-      temp_app_config("mack::js_framework" => "jquery") do
+      temp_app_config(:mack => {:js_framework => "jquery"}) do
         File.exists?(@js_path).should_not == true
         JavascriptGenerator.run
         

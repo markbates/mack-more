@@ -23,8 +23,8 @@ module Mack
         end
         
         def self.ring_server
-          if app_config.mack.distributed_acl
-            acl = ACL.new(app_config.mack.distributed_acl)
+          if configatron.mack.distributed.acl
+            acl = ACL.new(configatron.mack.distributed.acl)
             DRb.install_acl(acl)
           end
           ::DRb.start_service
@@ -39,7 +39,7 @@ module Mack
         
         private
         def self.handle_options(options = {})
-          {:space => nil, :klass_def => nil, :object => nil, :description => nil, :timeout => app_config.mack.drb_timeout}.merge(options)
+          {:space => nil, :klass_def => nil, :object => nil, :description => nil, :timeout => configatron.mack.distributed.timeout}.merge(options)
         end
         
       end
