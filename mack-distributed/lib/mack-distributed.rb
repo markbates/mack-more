@@ -16,9 +16,7 @@ config = {
     }
   }
 }
-puts configatron.to_hash.inspect
 configatron.configure_from_hash(config.recursive_merge(configatron.to_hash))
-puts configatron.to_hash.inspect
 
 # load *.rb files
 Dir.glob(File.join(base, "**", "*.rb")).each do |f|

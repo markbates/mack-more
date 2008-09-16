@@ -8,8 +8,6 @@ config = {
 
 configatron.configure_from_hash(config.recursive_merge(configatron.to_hash))
 
-puts configatron.to_hash.inspect
-
 fl = File.join(File.dirname(__FILE__), "mack-data_mapper")
 
 $: << File.expand_path(File.join(fl, "dm_patches"))
