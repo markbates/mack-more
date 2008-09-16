@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'genosaurus'
+require 'configatron'
 
 config = {
   :mack => {
@@ -7,7 +8,7 @@ config = {
   }
 }
 
-configatron.configure_from_hash(configatron.to_hash.merge(config))
+configatron.configure_from_hash(config.recursive_merge(configatron.to_hash))
 
 base = File.join(File.dirname(__FILE__), "mack-orm")
 require File.join(base, "database")

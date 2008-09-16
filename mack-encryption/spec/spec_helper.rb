@@ -6,7 +6,7 @@ require 'rubygems'
 gem 'rspec'
 require 'spec'
 require 'mack-facets'
-require 'application_configuration'
+require 'configatron'
 require File.join(File.dirname(__FILE__), "..", "lib", "mack-encryption")
 
 module Mack

@@ -9,3 +9,9 @@ Rake::RDocTask.new do |rd|
   rd.options << "--inline-source"
   rd.title = @gem_spec.name
 end
+
+task :clean_rdoc do
+  require 'fileutils'
+  FileUtils.rm_rf('pkg', :verbose => true)
+  FileUtils.rm_rf('doc', :verbose => true)
+end

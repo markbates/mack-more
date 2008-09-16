@@ -16,4 +16,4 @@ config = {
   }
 }
 
-configatron.configure_from_hash(config.merge(configatron.to_hash))
+configatron.configure_from_hash(config.recursive_merge(configatron.to_hash))

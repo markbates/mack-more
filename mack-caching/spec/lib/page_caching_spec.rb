@@ -53,7 +53,7 @@ describe "Page Caching" do
   describe "use_page_caching is turned off" do
   
     it "should serve the uncached page" do
-      temp_app_config(:mack => {:use_page_caching => false}) do
+      temp_app_config(:mack => {:caching => {:use_page_caching => false}}) do
         get "/default/hello_world?name=mark"
         response.body.should match(/<p>mark<\/p>/)
         old_body = response.body
@@ -64,7 +64,7 @@ describe "Page Caching" do
     end
     
     it "should not store the cached page" do
-      temp_app_config(:mack => {:use_page_caching => false}) do
+      temp_app_config(:mack => {:caching => {:use_page_caching => false}}) do
         get "/default/hello_world?name=mark"
         response.body.should match(/<p>mark<\/p>/)
         Cachetastic::Caches::PageCache.get("/default/hello_world?name=mark").should be_nil

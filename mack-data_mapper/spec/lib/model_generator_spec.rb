@@ -45,7 +45,7 @@ describe ModelGenerator do
   end
   
   it "should create a stub rspec test for the model if rspec is testing framework" do
-    temp_app_config(:mack => :testing_framework => "rspec") do
+    temp_app_config(:mack => {:testing_framework => "rspec"}) do
       File.should_not be_exist(Mack::Paths.model_tests("zoo_spec.rb"))
       ModelGenerator.run(zoo_options)
       File.should be_exist(Mack::Paths.model_tests("zoo_spec.rb"))

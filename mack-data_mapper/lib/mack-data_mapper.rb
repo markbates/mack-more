@@ -6,8 +6,9 @@ config = {
   :mack => {:data_mapper_session_store => {:expiry_time => 4.hours}}
 }
 
-configatron.configure_from_hash(config.merge(configatron.to_hash))
+configatron.configure_from_hash(config.recursive_merge(configatron.to_hash))
 
+puts configatron.to_hash.inspect
 
 fl = File.join(File.dirname(__FILE__), "mack-data_mapper")
 

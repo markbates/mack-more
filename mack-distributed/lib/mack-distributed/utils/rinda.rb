@@ -23,7 +23,7 @@ module Mack
         end
         
         def self.ring_server
-          if configatron.mack.distributed.acl
+          if configatron.mack.distributed.retrieve(:acl, nil)
             acl = ACL.new(configatron.mack.distributed.acl)
             DRb.install_acl(acl)
           end

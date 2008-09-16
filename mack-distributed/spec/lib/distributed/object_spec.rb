@@ -5,6 +5,7 @@ require 'rinda/tuplespace'
 describe Mack::Distributable do
 
   before(:each) do
+    configatron.configure_from_hash(:mack => {:distributed => {:share_objects => true}})
     begin
       DRb.start_service
       Rinda::RingServer.new(Rinda::TupleSpace.new)
@@ -12,6 +13,10 @@ describe Mack::Distributable do
       # it's fine to ignore this, it's expected that it's already running.
       # all other exceptions should be thrown
     end
+  end
+  
+  after(:each) do
+    configatron.revert
   end
 
   it "should include DRbUndumped" do
