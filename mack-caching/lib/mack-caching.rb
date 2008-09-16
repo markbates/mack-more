@@ -1,3 +1,5 @@
+require 'rubygems'
+require 'cachetastic'
 config = {
   :mack => {
     :caching => {
