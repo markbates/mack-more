@@ -17,6 +17,7 @@ require File.join(crt, "rake_task_requires")
   s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*']
   
   s.add_dependency("addressable", "1.0.4")
+  s.add_dependency('mack-caching', GEM_VERSION)
   
   s.require_paths << 'bin'
   s.require_paths << 'lib'

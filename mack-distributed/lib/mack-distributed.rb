@@ -1,6 +1,7 @@
 require 'drb/acl'
 require 'addressable/uri'
 require 'ruby-debug'
+require 'mack-caching'
 
 base = File.join(File.dirname(__FILE__), "mack-distributed")
 
