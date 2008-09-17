@@ -20,14 +20,8 @@ Let's configure our 'server' application. This is where pretty much all the 'hea
 
 config/configatron/default.rb:
   # All distributed applications need to have a unique name so they can easily be identified for lookup.
-  configatron do |c|
-    c.namespace(:mack) do |mack|
-      mack.namespace(:distributed) do |d|
-        d.app_name = 'my_cool_app'
-        d.share_objects = true
-      end
-    end
-  end
+  configatron.mack.distributed.app_name = 'my_cool_app'
+  configatron.mack.distributed.share_objects = true
 
 Let's assume that we have a simple User DataMapper model that looks something like this:
 
@@ -77,16 +71,10 @@ With distributed views, you can easily share views and layouts among different M
   
 == Application #1 (Server)
 config/configatron/default.rb:
-
-  configatron do |c|
-    c.namespace(:mack) do |mack|
-      mack.namespace(:distributed) do |d|
-        d.site_domain = 'http://localhost:3001'
-        d.share_views = true
-        d.app_name = 'my_cool_app'
-      end
-    end
-  end
+  
+  configatron.mack.distributed.site_domain = 'http://localhost:3001'
+  configatron.mack.distributed.share_views = true
+  configatron.mack.app_name = 'my_cool_app'
 
 That's it.  When the server is started, the distributed view module will register a proxy with rinda ready for use by the client.
 

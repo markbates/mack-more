@@ -2,11 +2,7 @@ require 'rubygems'
 require 'genosaurus'
 require 'mack-orm'
 
-config = {
-  :mack => {:data_mapper_session_store => {:expiry_time => 4.hours}}
-}
-
-configatron.configure_from_hash(config.recursive_merge(configatron.to_hash))
+configatron.mack.data_mapper_session_store.set_default(:expiry_time, 4.hours)
 
 fl = File.join(File.dirname(__FILE__), "mack-data_mapper")
 

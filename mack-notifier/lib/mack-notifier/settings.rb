@@ -1,19 +1,7 @@
-config = {
-  :mack => {
-    :notifier => {
-      :sendmail_settings => {
-        :location => '/usr/sbin/sendmail',
-        :arguments => '-i -t'
-      },
-      :smtp_settings => {
-        :address => 'localhost',
-        :port => 25,
-        :domain => 'localhost.localdomain'
-      },
-      :deliver_with => (Mack.env == "test" ? "test" : "smtp"),
-      :adapter => 'tmail'
-    }
-  }
-}
-
-configatron.configure_from_hash(config.recursive_merge(configatron.to_hash))
+configatron.mack.notifier.sendmail_settings.set_default(:location, '/usr/sbin/sendmail')
+configatron.mack.notifier.sendmail_settings.set_default(:arguments, '-i -t')
+configatron.mack.notifier.smtp_settings.set_default(:address, 'localhost')
+configatron.mack.notifier.smtp_settings.set_default(:port, 25)
+configatron.mack.notifier.smtp_settings.set_default(:domain, 'localhost.localdomain')
+configatron.mack.notifier.set_default(:deliver_with, (Mack.env == "test" ? "test" : "smtp"))
+configatron.mack.notifier.set_default(:adapter, 'tmail')

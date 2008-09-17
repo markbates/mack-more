@@ -37,7 +37,7 @@ end # Mack
 
 Mack::Routes.after_class_method(:build) do
   if configatron.mack.distributed.share_routes
-    raise Mack::Distributed::Errors::ApplicationNameUndefined.new unless configatron.mack.distributed.exists?(:app_name)
+    raise Mack::Distributed::Errors::ApplicationNameUndefined.new if configatron.mack.distributed.app_name.nil?
     
     d_urls = Mack::Distributed::Routes::Urls.new(configatron.mack.distributed.site_domain)
     d_urls.put

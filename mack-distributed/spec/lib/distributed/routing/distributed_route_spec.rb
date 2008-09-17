@@ -10,7 +10,9 @@ describe "distributed_url" do
       # it's fine to ignore this, it's expected that it's already running.
       # all other exceptions should be thrown
     end
-    configatron.configure_from_hash(:mack => {:distributed => {:share_routes => true, :app_name => :known_app}})
+    configatron.mack.distributed.share_routes = true
+    configatron.mack.distributed.app_name = :known_app
+    configatron.mack.distributed.site_domain = 'http://localhost:3001'
     Mack::Routes.build do |r| # force the routes to go the DRb server
       r.known "/my_known_app/my_known_url", :controller => :foo, :action => :bar
       r.known_w_opts "/my_known_app/my_known_url_w_opts/:id", :controller => :foo, :action => :bar
@@ -18,7 +20,9 @@ describe "distributed_url" do
   end
   
   after(:each) do
-    configatron.revert
+    configatron.mack.distributed.share_routes = false
+    configatron.mack.distributed.app_name = nil
+    configatron.mack.distributed.site_domain = nil
   end
   
   it "should raise error when unknown app url is requested" do

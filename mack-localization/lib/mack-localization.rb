@@ -1,3 +1,4 @@
+require 'mack-caching'
 def undef_const(klass, k)
   klass.remove_const(k) if klass.const_defined?(k)
 end

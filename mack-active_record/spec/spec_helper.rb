@@ -17,13 +17,7 @@ $genosaurus_output_directory = Mack.root
 
 require File.join(File.dirname(__FILE__), 'create_and_drop_task_helper')
 
-config = {
-  :mack => {
-    :disable_transactional_tests => true
-  }
-}
-
-configatron.configure_from_hash(config.recursive_merge(configatron.to_hash))
+configatron.mack.set_default(:disable_transactional_tests, true)
 
 def migrations_directory
   Mack::Paths.db("migrations")

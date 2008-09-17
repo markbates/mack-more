@@ -43,7 +43,7 @@ module Mack # :nodoc:
               # end
             end
           }
-          raise Mack::Distributed::Errors::ApplicationNameUndefined.new unless configatron.mack.distributed.exists?(:app_name)
+          raise Mack::Distributed::Errors::ApplicationNameUndefined.new if configatron.mack.distributed.app_name.nil?
           Mack::Distributed::Utils::Rinda.register_or_renew(:space => configatron.mack.distributed.app_name.to_sym, 
                                                             :klass_def => "#{base}".to_sym, 
                                                             :object => "Mack::Distributed::#{base}Proxy".constantize.instance)

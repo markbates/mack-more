@@ -9,18 +9,12 @@ module Mack
   module Localization # :nodoc:
     module Configuration
 
-      configatron do |c|
-        c.namespace(:mack) do |mack|
-          mack.namespace(:localization) do |l|
-            l.base_language = 'en'
-            l.supported_languages = %w{bp en fr it de es}
-            l.char_encoding = 'us-ascii'
-            l.dynamic_translation = false
-            l.base_directory = Mack::Paths.app('lang')
-            l.content_expiry = 3600
-          end
-        end
-      end
+      configatron.mack.localization.base_language = 'en'
+      configatron.mack.localization.supported_languages = %w{bp en fr it de es}
+      configatron.mack.localization.char_encoding = 'us-ascii'
+      configatron.mack.localization.dynamic_translation = false
+      configatron.mack.localization.base_directory = Mack::Paths.app('lang')
+      configatron.mack.localization.content_expiry = 3600
       
       path = Mack::Paths.config("localization", "localization.rb")
       if File.exists?(path)

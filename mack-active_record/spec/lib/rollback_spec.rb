@@ -3,11 +3,11 @@ require File.join(File.dirname(__FILE__), "..", "spec_helper")
 describe "Rollback Transaction" do
   
   def before_spec_extension
-    configatron.configure_from_hash(:mack => {:disable_transactional_tests => false})
+    configatron.mack.disable_transactional_tests = false
   end
   
   def after_spec_extension
-    configatron.configure_from_hash(:mack => {:disable_transactional_tests => true})
+    configatron.mack.disable_transactional_tests = true
   end
 
   before(:each) do

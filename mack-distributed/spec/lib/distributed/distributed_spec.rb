@@ -5,7 +5,7 @@ require 'rinda/tuplespace'
 describe Mack::Distributed do
   
   before(:each) do
-    configatron.configure_from_hash(:mack => {:distributed => {:share_objects => true}})
+    configatron.mack.distributed.share_objects = true
     begin
       DRb.start_service
       Rinda::RingServer.new(Rinda::TupleSpace.new)
@@ -16,7 +16,7 @@ describe Mack::Distributed do
   end
   
   after(:each) do
-    configatron.revert
+    configatron.mack.distributed.share_objects = false
   end
   
   it "should recognize undefined constants and return it from rinda" do
