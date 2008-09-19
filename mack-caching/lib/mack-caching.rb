@@ -12,7 +12,7 @@ if Mack.env == "production"
   configatron.cachetastic_caches_mack_session_cache_options.set_default(:adapter, :file)
   configatron.cachetastic_caches_mack_session_cache_options.store_options.set_default(:dir, Mack::Paths.tmp)
   configatron.cachetastic_caches_mack_session_cache_options.set_default(:expiry_time, 14400)
-  configatron.cachetastic_caches_mack_session_cache_options.logging.logger_1.set_default(:type => 'file')
+  configatron.cachetastic_caches_mack_session_cache_options.logging.logger_1.set_default(:type, 'file')
   configatron.cachetastic_caches_mack_session_cache_options.logging.logger_1.set_default(:file, Mack::Paths.log("cachetastic_caches_mack_session_cache.log"))
 end
 
