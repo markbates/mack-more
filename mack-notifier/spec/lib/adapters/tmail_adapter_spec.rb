@@ -5,7 +5,7 @@ describe Mack::Notifier::Adapters::Tmail do
   describe "convert" do
     
     it "should handle just one part correctly" do
-      delivered_emails.should be_empty
+      delivered_notifiers.should be_empty
       we = WelcomeEmail.new
       we.to = "test@mackframework.com"
       we.from = "mark@mackframework.com"
@@ -22,11 +22,11 @@ describe Mack::Notifier::Adapters::Tmail do
       tmail.content_type.should == "text/plain"
       tmail.mime_version.should == "1.0"
       we.deliver
-      delivered_emails.size.should == 1
+      delivered_notifiers.size.should == 1
     end
   
     it "should convert a Mack::Notifier object to a TMail::Mail object" do
-      delivered_emails.should be_empty
+      delivered_notifiers.should be_empty
       we = WelcomeEmail.new
       we.to = "test@mackframework.com"
       we.from = "mark@mackframework.com"
@@ -44,11 +44,11 @@ describe Mack::Notifier::Adapters::Tmail do
       tmail.content_type.should == "multipart/alternative"
       tmail.mime_version.should == "1.0"
       we.deliver
-      delivered_emails.size.should == 1
+      delivered_notifiers.size.should == 1
     end
     
     it "should handle attachments" do
-      delivered_emails.should be_empty
+      delivered_notifiers.should be_empty
       we = WelcomeEmail.new
       we.to = "mbates@helium.com"
       we.from = "mark@mackframework.com"
@@ -72,8 +72,8 @@ describe Mack::Notifier::Adapters::Tmail do
       attachment_part.content_type.should == "application/octet-stream"
       attachment_part['Content-Disposition'].to_s.should == "attachment; filename=mark-simpson.png"
       we.deliver
-      delivered_emails.size.should == 1
-      delivered_emails.should include(we)
+      delivered_notifiers.size.should == 1
+      delivered_notifiers.should include(we)
     end
     
     it "should handle Array based destination fields" do

@@ -1,7 +1,5 @@
 if Mack.env == "test"
   
-  alias_deprecated_method :delivered_emails, :delivered_notifiers, '0.7.1', '0.8.0'
-  
   # Used for testing this method will return any emails that have been 'sent' using Mack::Notifier::DeliveryHandlers::Test.
   # These emails will get 'flushed' after each test.
   def delivered_notifiers
