@@ -4,6 +4,9 @@ module Mack
       class Haml < Mack::Rendering::Engine::Base
         
         def render(io, binding)
+          if io.is_a?(File)
+            io = io.read
+          end
           ::Haml::Engine.new(io).render(binding)
         end
         

@@ -4,6 +4,9 @@ module Mack
       class Pdf < Mack::Rendering::Engine::Base
 
         def render(io, binding)
+          if io.is_a?(File)
+            io = io.read
+          end
           @_pdf = ::PDF::Writer.new
           self.view_template.instance_variable_set("@_pdf", @_pdf)
           eval(io, binding)

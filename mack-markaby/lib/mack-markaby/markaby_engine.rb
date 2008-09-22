@@ -4,6 +4,9 @@ module Mack
       class Markaby < Mack::Rendering::Engine::Base
         
         def render(io, binding)
+          if io.is_a?(File)
+            io = io.read
+          end
           @_markaby = ::Markaby::Builder.new({}, self.view_template)
           self.view_template.instance_variable_set("@_markaby", @_markaby)
           eval(io, binding)
