@@ -10,9 +10,11 @@ $: << File.expand_path(File.join(fl, "dm_patches"))
 
 [:core, :aggregates, :migrations, :serializer, :timestamps, :validations, :observer, :types].each do |g|
   gem "dm-#{g}", "0.9.5"
-  require "dm-#{g}"
+  require "dm-#{g}" unless g == :types
 end
 
+autoload :Serial, 'dm-types/serial'
+autoload :Yaml, 'dm-types/yaml'
 
 require File.join(fl, "database")
 require File.join(fl, "database_migrations")
