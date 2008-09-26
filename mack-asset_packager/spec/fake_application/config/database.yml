@@ -1,11 +1,63 @@
-development:
-  adapter: sqlite3
-  database: db/fake_application_development.db 
-    
-test:
-  adapter: sqlite3
-  database: <%= Mack::Paths.db("fake_application_test.db") %>
+# development:
+#   default:
+#     adapter: mysql
+#     database: fake_application_development
+#     host: localhost
+#     username: root
+#     password: 
+#     
+# test:
+#   default:
+#     adapter: mysql
+#     database: fake_application_test
+#     host: localhost
+#     username: root
+#     password:
+# 
+# production:
+#   default:
+#     adapter: mysql
+#     database: fake_application_production
+#     host: localhost
+#     username: root
+#     password:
 
+# development:
+#   default:
+#     adapter: postgres
+#     database: fake_application_development
+#     host: localhost
+#     username: root
+#     password: 
+#     
+# test:
+#   default:
+#     adapter: postgres
+#     database: fake_application_test
+#     host: localhost
+#     username: root
+#     password:
+# 
+# production:
+#   default:
+#     adapter: postgres
+#     database: fake_application_production
+#     host: localhost
+#     username: root
+#     password:
+
+development:
+  default:
+    adapter: sqlite3
+    database: <%= Mack::Paths.db("fake_application_development.db") %>
+ 
+test:
+  default:
+    adapter: sqlite3
+    database: <%= Mack::Paths.db("fake_application_test.db") %>
+ 
 production:
-  adapter: sqlite3
-  database: db/fake_application_production.db
+  default:
+    adapter: sqlite3
+    database: <%= Mack::Paths.db("fake_application_production.db") %>
+

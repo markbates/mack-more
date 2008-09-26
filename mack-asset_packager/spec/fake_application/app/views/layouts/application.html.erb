@@ -1,8 +1,22 @@
-<html>
-  <head>
-    <title><%= @page_title || "Application Layout" %></title>
-  </head>
-  <body>
-    <%= yield_to :view %>
-  </body>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title><%= controller.controller_name %>: <%= controller.action_name %></title>
+  <%= stylesheet 'scaffold.css' %>
+</head>
+<body>
+
+<div id="wrapper">
+
+  <% if tell[:notice] -%>
+    <div id="tell_notice"><%= tell[:notice] %></div>
+  <% end -%>
+
+  <div><%= yield_to :view  %></div>
+
+</div>
+
+</body>
 </html>
