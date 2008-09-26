@@ -11,17 +11,17 @@ module Mack
         end
         
         base.class_eval do
+
+          # Alias the Validatable methods to look like DataMapper methods,
+          # if that's the kind of thing you're used to. :)          
+          alias_class_method :validates_acceptance_of, :validates_is_accepted
+          alias_class_method :validates_confirmation_of, :validates_is_confirmed
+          alias_class_method :validates_format_of, :validates_format
+          alias_class_method :validates_length_of, :validates_length
+          alias_class_method :validates_numericality_of, :validates_is_number
+          alias_class_method :validates_presence_of, :validates_present
           
           class << self
-            
-            # Alias the Validatable methods to look like DataMapper methods,
-            # if that's the kind of thing you're used to. :)
-            alias_method :validates_is_accepted, :validates_acceptance_of
-            alias_method :validates_is_confirmed, :validates_confirmation_of
-            alias_method :validates_format, :validates_format_of
-            alias_method :validates_length, :validates_length_of
-            alias_method :validates_is_number, :validates_numericality_of
-            alias_method :validates_present, :validates_presence_of
             
             # Adds common validations to your Mack::Notifier class.
             # These include:

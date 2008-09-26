@@ -1,7 +1,7 @@
 class String
   include Style
   
-  alias_method :underscore, :snakecase
+  alias_instance_method :snakecase, :underscore
   
   def methodize
     x = self

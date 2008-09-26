@@ -42,7 +42,7 @@ if Mack.env == "test"
         module ExampleMethods # :nodoc:
           include Mack::Testing::DataMapperHelpers
 
-          alias_method :dm_spec_execute, :execute
+          alias_instance_method :execute, :dm_spec_execute
 
           def execute(options, instance_variables)
             rollback_transaction do
@@ -62,7 +62,7 @@ if Mack.env == "test"
   
           # Let's alias the run method in the class above us so we can create a new one here
           # but still reference it.
-          alias_method :dm_test_case_run, :run # :nodoc:
+          alias_instance_method :run, :dm_test_case_run # :nodoc:
   
           # We need to wrap the run method so we can do things like
           # run a cleanup method if it exists

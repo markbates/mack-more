@@ -21,7 +21,6 @@ require File.join(fl, "database_migrations")
 require File.join(fl, "generators")
 require File.join(fl, "helpers", "orm_helpers")
 require File.join(fl, "resource")
-require File.join(fl, "runner")
 require File.join(fl, "test_extensions")
 
 
@@ -36,16 +35,21 @@ module DataMapper # :nodoc:
   class Logger # :nodoc:
     
     [:debug, :info, :warn, :error, :fatal].each do |m|
-      unless method_defined?("dm_#{m}")
-        eval %{
-          alias_method :dm_#{m}, :#{m}
-    
-          def #{m}(message)
-            Mack.logger.#{m}(message)
-            dm_#{m}(message)
-          end
-        }
+      alias_instance_method m
+      define_method(m) do |message|
+        Mack.logger.send(m, message)
+        self.send("_original_#{m}", message)
       end
+      # unless method_defined?("dm_#{m}")
+      #   eval %{
+      #     alias_instance_method :#{m}, :dm_#{m}
+      #     
+      #     def #{m}(message)
+      #       Mack.logger.#{m}(message)
+      #       dm_#{m}(message)
+      #     end
+      #   }
+      # end
     end
     
   end
