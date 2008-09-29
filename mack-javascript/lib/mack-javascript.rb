@@ -30,7 +30,7 @@ if configatron.mack.js_framework
   end
   
   file_list.each do |file|
-    assets.defaults do |a|
+    assets_mgr.defaults do |a|
       a.add_js file
     end
   end
