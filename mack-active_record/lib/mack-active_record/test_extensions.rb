@@ -13,16 +13,7 @@ if Mack.env == "test"
     module Mack
       module Testing
         AR_TEST_EXTENSIONS = 1
-        # module Helpers
-        #   alias_method :mack_rake_task, :rake_task
-        # 
-        #   def rake_task(name, env = {}) # :nodoc:
-        #     DataMapper::MigrationRunner.reset!
-        #     mack_rake_task(name, env, [File.join(File.dirname(__FILE__), "tasks", "db_create_drop_tasks.rake"),
-        #                                File.join(File.dirname(__FILE__), "tasks", "db_migration_tasks.rake")])
-        #   end
-        # end # Helpers
-            
+        
         module ActiveRecordHelpers
           def rollback_transaction
             begin
@@ -46,7 +37,7 @@ if Mack.env == "test"
         module ExampleMethods # :nodoc:
           include Mack::Testing::ActiveRecordHelpers
 
-          alias_method :ar_spec_execute, :execute
+          alias_instance_method :execute, :ar_spec_execute
           
           def before_spec_extension
           end
@@ -78,7 +69,7 @@ if Mack.env == "test"
   
           # Let's alias the run method in the class above us so we can create a new one here
           # but still reference it.
-          alias_method :ar_test_case_run, :run # :nodoc:
+          alias_instance_method :run, :ar_test_case_run # :nodoc:
   
           # We need to wrap the run method so we can do things like
           # run a cleanup method if it exists

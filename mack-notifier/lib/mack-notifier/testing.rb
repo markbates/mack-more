@@ -1,7 +1,5 @@
 if Mack.env == "test"
   
-  alias_deprecated_method :delivered_emails, :delivered_notifiers, '0.7.1', '0.8.0'
-  
   # Used for testing this method will return any emails that have been 'sent' using Mack::Notifier::DeliveryHandlers::Test.
   # These emails will get 'flushed' after each test.
   def delivered_notifiers
@@ -13,8 +11,8 @@ if Mack.env == "test"
       module ExampleMethods # :nodoc:
         include Mack::Routes::Urls
         include Mack::Testing::Helpers
-
-        alias_method :email_spec_execute, :execute
+        
+        alias_instance_method :execute, :email_spec_execute
 
         def execute(options, instance_variables)
           @__res = email_spec_execute(options, instance_variables)
@@ -32,7 +30,7 @@ if Mack.env == "test"
 
         # Let's alias the run method in the class above us so we can create a new one here
         # but still reference it.
-        alias_method :super_run, :run # :nodoc:
+        alias_instance_method :run, :super_run
 
         # We need to wrap the run method so we can do things like
         # run a cleanup method if it exists

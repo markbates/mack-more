@@ -23,7 +23,7 @@ require 'extlib/hook'
   require path
 end
 
-[:array, :class, :hash, :kernel, :math, :module, :object, :string, :symbol, :nil_class, :date_time].each do |k|
+[:array, :class, :hash, :kernel, :math, :module, :object, :string, :symbol, :nil_class, :date_time, :file].each do |k|
   path = File.join(fl, "extensions", "#{k}")
   require path
 end

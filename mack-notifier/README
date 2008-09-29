@@ -25,7 +25,7 @@ Currently implemented delivery handlers are: SMTP (default), sendmail, and test.
 
 == Testing
 
-When testing you can get access to delivered emails with the delivered_emails
+When testing you can get access to delivered emails with the delivered_notifiers
 method. After each tests these emails will be flushed our of the test handler.
 
 == Rake tasks

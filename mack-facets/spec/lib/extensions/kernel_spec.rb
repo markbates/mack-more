@@ -3,6 +3,65 @@ require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
 
 describe Kernel do
   
+  describe 'alias_instance_method' do
+    
+    class Corn
+      def poppy
+        10
+      end
+      def corny
+        'corn'
+      end
+    end
+    
+    class Popcorn < Corn
+      alias_instance_method :poppy
+      alias_instance_method :corny, :old_corny
+      def poppy
+        2 * _original_poppy
+      end
+      def corny
+        'pop' + old_corny
+      end
+    end
+    
+    it 'should alias an instance method' do
+      pc = Popcorn.new
+      pc.poppy.should == 20
+      pc.corny.should == 'popcorn'
+    end
+    
+  end
+  
+  describe 'alias_class_method' do
+    
+    class President
+      def self.good
+        'Clinton'
+      end
+      def self.bad
+        'Bush'
+      end
+    end
+    
+    class President
+      alias_class_method :good
+      alias_class_method :bad, :old_bad
+      def self.good
+        'Bill ' + _original_good
+      end
+      def self.bad
+        "Either #{old_bad}"
+      end
+    end
+    
+    it 'should alias a class method' do
+      President.good.should == 'Bill Clinton'
+      President.bad.should == 'Either Bush'
+    end
+    
+  end
+  
   describe "pp_to_s" do
     
     it "should return pp to a string" do

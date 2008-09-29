@@ -1,8 +1,7 @@
 module Mack # :nodoc:
   module Routes # :nodoc:
     module Urls
-      
-      alias_deprecated_method :droute_url, :distributed_url, '0.7.0', '>=0.8.0'
+
       # Retrieves a distributed route from a DRb server.
       # 
       # Example:

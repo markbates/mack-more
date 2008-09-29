@@ -7,7 +7,7 @@ module Mack
       class DefaultWorker
         
         def initialize
-          @aes_key = EzCrypto::Key.with_password(configatron.retrieve(:default_secret_key, String.randomize(40)), Mack::VERSION)
+          @aes_key = EzCrypto::Key.with_password(configatron.retrieve(:default_secret_key, String.randomize(40)), '_mackery_')
         end
         
         # Encrypts a string using the EzCrypto library and the secret key found in
