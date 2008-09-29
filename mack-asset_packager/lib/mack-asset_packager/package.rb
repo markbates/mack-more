@@ -29,7 +29,7 @@ module Mack
         processed_files = []
         
         # find all bundled files listed in the file_list
-        groups = assets.groups_by_asset_type(self.asset_type)
+        groups = assets_mgr.groups_by_asset_type(self.asset_type)
         groups.each do |group|
           if self.files.include?(group.to_s)
             processed_files << compress_bundle(group.to_s)
@@ -61,7 +61,7 @@ module Mack
         
         # now read data from all the files defined in the bundle
         raw = ""
-        assets.send(self.asset_type, group).each do |file|
+        assets_mgr.send(self.asset_type, group).each do |file|
           path = File.join(base_dir, file)
           raw += File.read(path)
         end

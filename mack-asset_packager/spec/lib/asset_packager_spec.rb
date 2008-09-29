@@ -16,7 +16,7 @@ describe "Asset Packager" do
   describe Mack::Assets::Package do
     
     before(:all) do
-      assets.test_group do |a|
+      assets_mgr.test_group do |a|
         a.add_css "scaffold"
         a.add_js "my_script"
       end
@@ -101,7 +101,7 @@ describe "Asset Packager" do
     include Mack::ViewHelpers::LinkHelpers
     
     before(:all) do
-      assets.test_group do |a|
+      assets_mgr.test_group do |a|
         a.add_css "scaffold"
         a.add_js "my_script"
       end
