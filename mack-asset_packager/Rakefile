@@ -6,7 +6,7 @@ require File.join(crt, "rake_task_requires")
   s.version = GEM_VERSION
   s.summary = %{Asset Packager}
   s.description = %{Asset Packager for Mack Framework}
-  s.author = "Darsono Sutedja. Adapted from: Asset Packager Rails plugin by Scott Becker"
+  s.author = "Darsono Sutedja"
   s.email = "darsono.sutedja@gmail.com"
   s.homepage = "http://www.mackframework.com"
 

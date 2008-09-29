@@ -6,6 +6,11 @@ module Mack
       attr_accessor :files
       attr_accessor :asset_type
       
+      # 
+      # Should we merge the asset bundle into 1 asset file?
+      # Yes, only if configatron.mack.asset_packager.disable_bundle_merge is not set,
+      # and environment is production.
+      #
       def merge?
         if Mack.env == "production"
           return true if !configatron.mack.asset_packager.disable_bundle_merge

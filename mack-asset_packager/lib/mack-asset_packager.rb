@@ -6,13 +6,5 @@ fl = File.join(File.dirname(__FILE__), "mack-asset_packager")
   require file
 end
 
-module Mack
-  module AssetPackage
-    class Constants
-      
-    end
-  end
-end
-
 # default configuration
 configatron.mack.asset_packager.disable_bundle_merge = false
