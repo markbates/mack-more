@@ -22,7 +22,7 @@ dir_globs.each do |d|
 end
 
 if configatron.mack.js_framework
-  case configatron.mack.js_framework
+  case configatron.mack.js_framework.to_s
     when 'prototype'
       file_list = ["controls.js", "dragdrop.js", "effects.js", "prototype.js"]
     when 'jquery'
