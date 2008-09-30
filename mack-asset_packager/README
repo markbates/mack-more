@@ -1,1 +1,25 @@
 Asset Packager
+===========================================================
+
+Summary:
+Allow application to bundle up (and compress) asset files and include the compressed file in the view.
+This will make the application more efficient, because the browser won't need to make multiple 
+request for each single asset files.
+The packaging/compression will only be performed in production mode, or when configatron.mack.asset_packager.disable_bundle_merge is not set.
+
+Usage:
+First you will need to define asset group/bundle that you want to package up by doing the following:
+1. Create an assets.rb file in config/initializers folder
+2. In that file do the following:
+    assets_mgr.my_bundle_1 do |a|
+        a.add_js "foo.js"
+        a.add_js "jquery"
+        a.add_css "scaffold"
+    end
+   So the above code will create a new bundle called my_bundle_1, and in that group, you'll add 2 javascript files and 1 css file.
+3. Once you have that defined, next step would be in your layout file (or whereever you refer to the asset file):
+    <%= stylesheet 'my_bundle_1 %>
+    <%= javascript 'my_bundle_1 %>
+4. That's it.  When run in development mode, the javascript tag will be evaluated into 4 <script> tags, and the stylesheet scriptlet
+   will get evaluated into 1 <stylesheet> tag.  In production (assuming disable_bundle_merge configuration is not set), then 
+   each scriptlet tag will get evaluated into 1 tag (each will refer to the packaged and compressed asset file)

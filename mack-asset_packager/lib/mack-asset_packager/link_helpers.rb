@@ -1,6 +1,6 @@
 module Mack
   module ViewHelpers
-    module LinkHelpers
+    module LinkHelpers # :nodoc:
       alias_method :old_javascripts, :javascript
       alias_method :old_stylesheets, :stylesheet
 

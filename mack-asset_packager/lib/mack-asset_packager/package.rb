@@ -1,5 +1,13 @@
 module Mack
   module Assets
+    #
+    # This class represent the 'package' for the application's asset files.
+    # The responsibility of this class is to package up all the asset files
+    # into one asset file so the application can use 1 instead of 10 different 
+    # asset files. The packaging/compression will only happen if and only if
+    # configatron.mack.asset_packager.disable_bundle_merge is not set and the
+    # app is running in production mode.
+    #
     class Package
       ASSET_LOAD_TIME = Time.now
       
@@ -18,11 +26,21 @@ module Mack
         return false
       end
       
-      def initialize(list, type)
+      def initialize(list, type) # :nodoc:
         self.files = list
         self.asset_type = type
       end
       
+      # 
+      # Return a list of asset files (this is so the caller can generate
+      # proper asset tag--e.g. javascript/css tag).
+      #
+      # Calling this method will result in the merge and compression
+      # of the asset files (if merge? is true).  
+      #
+      # The previously compressed/merged file will be deleted once 
+      # per applicaiton's life time.
+      #
       def contents
         return [self.files].flatten if !merge?
         self.files = self.files.collect {|s| s.to_s}
