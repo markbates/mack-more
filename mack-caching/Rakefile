@@ -15,7 +15,7 @@ require File.join(crt, "rake_task_requires")
   s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*', 'bin/**/*.*']
   s.require_paths << 'lib'
   
-  s.add_dependency('cachetastic', '1.9.9.100')
+  s.add_dependency('cachetastic', '2.0.0')
 
   s.extra_rdoc_files = ["README"]
   s.has_rdoc = true
