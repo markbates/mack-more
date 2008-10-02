@@ -39,7 +39,7 @@ module Mack
       # of the asset files (if merge? is true).  
       #
       # The previously compressed/merged file will be deleted once 
-      # per applicaiton's life time.
+      # per application's life time.
       #
       def contents
         return [self.files].flatten if !merge?
