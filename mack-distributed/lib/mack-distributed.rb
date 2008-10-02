@@ -5,19 +5,12 @@ require 'mack-caching'
 
 base = File.join(File.dirname(__FILE__), "mack-distributed")
 
-config = {
-  :mack => {
-    :distributed => {
-      :share_routes => false,
-      :share_objects => false,
-      :share_views => false,
-      :app_name => nil,
-      :site_domain => 'http://localhost:3000',
-      :timeout => 0
-    }
-  }
-}
-configatron.configure_from_hash(config.recursive_merge(configatron.to_hash))
+configatron.mack.distributed.set_default(:share_routes, false)
+configatron.mack.distributed.set_default(:share_objects, false)
+configatron.mack.distributed.set_default(:share_views, false)
+configatron.mack.distributed.set_default(:app_name, nil)
+configatron.mack.distributed.set_default(:site_domain, 'http://localhost:3000')
+configatron.mack.distributed.set_default(:timeout, 0)
 
 # load *.rb files
 Dir.glob(File.join(base, "**", "*.rb")).each do |f|
