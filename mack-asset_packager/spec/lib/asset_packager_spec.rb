@@ -1,6 +1,7 @@
 require File.join(File.dirname(__FILE__), "..", "spec_helper.rb")
 
 describe "Asset Packager" do
+  include Mack::ViewHelpers
   
   describe "Configuration" do
     it "should have ASSET_LOAD_TIME defined" do
@@ -173,9 +174,9 @@ describe "Asset Packager" do
       
       it "should handle non-bundle tag properly" do
         data = stylesheet([:test_group, :foo, :bar])
-        exp  = [%{<link href="/stylesheets/test_group.css"},
-                %{<link href="/stylesheets/foo.css"},
-                %{<link href="/stylesheets/bar.css"}]
+        exp  = [%{<link href="/stylesheets/test_group.css},
+                %{<link href="/stylesheets/foo.css},
+                %{<link href="/stylesheets/bar.css}]
         exp.each do |line|
           data.should match(line)
         end          
@@ -185,9 +186,9 @@ describe "Asset Packager" do
         configatron.temp do 
           configatron.mack.asset_packager.disable_bundle_merge = true
           data = stylesheet([:test_group, :foo, :bar])
-          exp  = [%{<link href="/stylesheets/scaffold.css"},
-                  %{<link href="/stylesheets/foo.css"},
-                  %{<link href="/stylesheets/bar.css"}]
+          exp  = [%{<link href="/stylesheets/scaffold.css},
+                  %{<link href="/stylesheets/foo.css},
+                  %{<link href="/stylesheets/bar.css}]
           exp.each do |line|
             data.should match(line)
           end          
