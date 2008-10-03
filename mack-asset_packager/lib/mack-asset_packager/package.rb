@@ -77,6 +77,10 @@ module Mack
         # check if we need to delete the existing file.
         delete_file(file_path, true)
         
+        # if the file still exists, that means it's not time to expire the previously compressed doc
+        # just return the file_name
+        return file_name if File.exists?(file_path)
+        
         # now read data from all the files defined in the bundle
         raw = ""
         assets_mgr.send(self.asset_type, group).each do |file|
