@@ -88,8 +88,12 @@ module Mack
         jsmin_path = File.join(File.dirname(__FILE__), "jsmin.rb")
         tmp_file = File.join(base_dir, "#{self.asset_type}_#{rand(10000)}")
         File.open(tmp_file, "w") { |f| f.write(raw) }
-        `ruby #{jsmin_path} < #{tmp_file} > #{file_path} \n`
-        
+        if asset_type.to_s == "javascripts"
+          `ruby #{jsmin_path} < #{tmp_file} > #{file_path} \n`
+        elsif asset_type.to_s == "stylesheets"
+          min_data = CSSMin.new(raw).minimize
+          File.open(file_path, "w") { |f| f.write(min_data) }
+        end
         # now that we're done, let's delete the tmp file
         delete_file(tmp_file)
         

@@ -1,6 +1,6 @@
 fl = File.join(File.dirname(__FILE__), "mack-asset_packager")
 
-[:link_helpers, :package].each do |f|
+[:link_helpers, :package, :cssmin].each do |f|
   file = File.join(fl, "#{f}.rb")
   # puts "requiring #{file}"
   require file
