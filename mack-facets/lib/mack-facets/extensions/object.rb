@@ -1,5 +1,12 @@
 class Object
   
+  def define_instance_method(sym, &block)
+    mod = Module.new do
+      define_method(sym, &block)
+    end
+    self.extend mod
+  end
+  
   # Includes a module into the current Class, and changes all the module's public methods to protected.
   # 
   # Example:

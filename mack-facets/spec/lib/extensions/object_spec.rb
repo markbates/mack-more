@@ -19,6 +19,34 @@ describe Object do
     end
   end
   
+  describe 'defined_instance_method' do
+    
+    class Foo
+
+      def initialize(options = {})
+        options.each do |k,v|
+          define_instance_method(k) do |m|
+            v * m
+          end
+        end
+      end
+
+    end
+    
+    it 'should create a method for that instance only' do
+      f1 = Foo.new(:bar => 1)
+      f2 = Foo.new(:bar => 2)
+      f1.bar(10).should == 10
+      f2.bar(20).should == 40
+      f1.define_instance_method(:me) do
+        'mark'
+      end
+      f1.me.should == 'mark'
+      lambda {f2.me}.should raise_error(NoMethodError)
+    end
+    
+  end
+  
   describe "safely_include_module" do
     
     it "should include a single modules methods as protected" do
