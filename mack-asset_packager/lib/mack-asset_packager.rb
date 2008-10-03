@@ -1,10 +1,14 @@
 fl = File.join(File.dirname(__FILE__), "mack-asset_packager")
 
-[:link_helpers, :package, :cssmin].each do |f|
+[:package_collection, :link_helpers, :cssmin].each do |f|
   file = File.join(fl, "#{f}.rb")
   # puts "requiring #{file}"
   require file
 end
 
 # default configuration
-configatron.mack.asset_packager.disable_bundle_merge = false
+if Mack.env == "production"
+  configatron.mack.assets.set_default(:enable_bundle_merge, true)
+else
+  configatron.mack.assets.set_default(:enable_bundle_merge, false)
+end

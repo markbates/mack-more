@@ -3,99 +3,65 @@ require File.join(File.dirname(__FILE__), "..", "spec_helper.rb")
 describe "Asset Packager" do
   include Mack::ViewHelpers
   
+  def cleanup_bundle_files
+    Mack::Assets::PackageCollection.instance.destroy_compressed_bundles
+  end
+  
   describe "Configuration" do
-    it "should have ASSET_LOAD_TIME defined" do
-      Mack::Assets::Package.const_defined?('ASSET_LOAD_TIME').should == true
-    end
-    
     it "should have configatron setting" do
-      configatron.mack.asset_packager.disable_bundle_merge.should_not == {}
-      configatron.mack.asset_packager.disable_bundle_merge.should == false
+      configatron.mack.assets.enable_bundle_merge.should_not == {}
+      configatron.mack.assets.enable_bundle_merge.should == false
     end
   end
   
-  describe Mack::Assets::Package do
-    
+  describe "Package collection" do
     before(:all) do
-      assets_mgr.test_group do |a|
-        a.add_css "scaffold"
-        a.add_js "my_script"
-      end
-      
-      @js_bundle = Mack::Paths.javascripts("test_group.js")
-      @css_bundle = Mack::Paths.stylesheets("test_group.css")
-      
-      File.exists?(@js_bundle).should_not == true
-      File.exists?(@css_bundle).should_not == true
+      cleanup_bundle_files
     end
     
-    after(:each) do
-      begin
-        FileUtils.rm_rf(@js_bundle)
-        FileUtils.rm_rf(@css_bundle)
-      rescue => ex
+    after(:all) do 
+      cleanup_bundle_files
+      assets_mgr.groups_by_asset_type(:javascripts).each do |group|
+        path = Mack::Paths.javascripts(group + ".js")
+        File.exists?(path).should_not == true
+      end
+      assets_mgr.groups_by_asset_type(:stylesheets).each do |group|
+        path = Mack::Paths.stylesheets(group + ".css")
+        File.exists?(path).should_not == true
       end
     end
-        
-    it "should package and compress javascript file in production mode" do      
-      old_env = Mack.env
-      ENV["MACK_ENV"] = "production"
-      pkg = Mack::Assets::Package.new('test_group', 'javascripts')
-      contents = pkg.contents
-      contents.should_not be_nil
-      contents.should_not be_empty
-      contents.size.should == 1
-      contents[0].should == 'test_group.js'
-      File.exists?(@js_bundle).should == true
-      File.size(@js_bundle).should <= File.size(Mack::Paths.javascripts('my_script.js'))
-      ENV["MACK_ENV"] = old_env
-    end
     
-    it "should not package and compress javascript file if it's disabled" do
-      old_env = Mack.env
-      ENV["MACK_ENV"] = "production"
+    it "should generate compressed file if config is turned on, but should not recompress in subsequent calls" do
+      configatron.mack.assets.enable_bundle_merge = true
       
-      configatron.temp do 
-        configatron.mack.asset_packager.disable_bundle_merge = true
-        pkg = Mack::Assets::Package.new('test_group', 'javascripts')
-        contents = pkg.contents
-        contents.should_not be_nil
-        contents.should_not be_empty
-        contents.size.should == 1
-        contents[0].should == 'test_group'
-        File.exists?(@js_bundle).should_not == true
+      Mack::Assets::PackageCollection.instance.compress_bundles
+      js_times = {}
+      css_times = {}
+      assets_mgr.groups_by_asset_type(:javascripts).each do |group|
+        path = Mack::Paths.javascripts(group + ".js")
+        js_times[path] = File.ctime(path)
+      end
+      assets_mgr.groups_by_asset_type(:stylesheets).each do |group|
+        path = Mack::Paths.stylesheets(group + ".css")
+        css_times[path] = File.ctime(path)
       end
       
-      ENV["MACK_ENV"] = old_env
+      # call the compress 100 times
+      1000.times { |x| Mack::Assets::PackageCollection.instance.compress_bundles }
+      
+      # the ctime for each compressed file should not change
+      assets_mgr.groups_by_asset_type(:javascripts).each do |group|
+        path = Mack::Paths.javascripts(group + ".js")
+        File.ctime(path).should == js_times[path]
+      end
+      assets_mgr.groups_by_asset_type(:stylesheets).each do |group|
+        path = Mack::Paths.stylesheets(group + ".css")
+        File.ctime(path).should == css_times[path]
+      end
+
+      configatron.mack.assets.enable_bundle_merge = false
     end
     
-    it "should only package and compress asset bundles" do
-      old_env = Mack.env
-      ENV["MACK_ENV"] = "production"
-      pkg = Mack::Assets::Package.new(['test_group', 'foo', 'bar.js'], 'javascripts')
-      contents = pkg.contents
-      contents.should_not be_nil
-      contents.should_not be_empty
-      contents.size.should == 3
-      contents.should == ['test_group.js', 'foo', 'bar.js']
-      File.exists?(@js_bundle).should == true
-      File.size(@js_bundle).should <= File.size(Mack::Paths.javascripts('my_script.js'))
-      ENV["MACK_ENV"] = old_env
-    end
-    
-    it "should also process stylesheets" do
-      old_env = Mack.env
-      ENV["MACK_ENV"] = "production"
-      pkg = Mack::Assets::Package.new(['test_group', 'foo', 'bar.css'], 'stylesheets')
-      contents = pkg.contents
-      contents.should_not be_nil
-      contents.should_not be_empty
-      contents.size.should == 3
-      contents.should == ['test_group.css', 'foo', 'bar.css']
-      File.exists?(@css_bundle).should == true
-      File.size(@css_bundle).should <= File.size(Mack::Paths.stylesheets('scaffold.css'))
-      ENV["MACK_ENV"] = old_env
-    end
   end
   
   describe 'LinkHelpers Extension' do
@@ -115,20 +81,15 @@ describe "Asset Packager" do
     end
     
     after(:each) do
-      begin
-        FileUtils.rm_rf(@js_bundle)
-        FileUtils.rm_rf(@css_bundle)
-      rescue => ex
-      end
+      cleanup_bundle_files
     end
     
     describe "javascript" do
       before(:each) do
-        @old_env = Mack.env
-        ENV["MACK_ENV"] = "production"
+        configatron.mack.assets.enable_bundle_merge = true
       end
       after(:each) do
-        ENV["MACK_ENV"] = @old_env
+        configatron.mack.assets.enable_bundle_merge = false
       end
       
       it "should return proper tag" do
@@ -147,7 +108,7 @@ describe "Asset Packager" do
       
       it "should expand the bundle if compression is disabled" do
         configatron.temp do 
-          configatron.mack.asset_packager.disable_bundle_merge = true
+          configatron.mack.assets.enable_bundle_merge = false
           data = javascript([:test_group, :foo, :bar])
           exp  = [%{<script src="/javascripts/my_script.js?},
                   %{<script src="/javascripts/foo.js?},
@@ -161,11 +122,10 @@ describe "Asset Packager" do
     
     describe "stylesheets" do
       before(:each) do
-        @old_env = Mack.env
-        ENV["MACK_ENV"] = "production"
+        configatron.mack.assets.enable_bundle_merge = true
       end
       after(:each) do
-        ENV["MACK_ENV"] = @old_env
+        configatron.mack.assets.enable_bundle_merge = false
       end
       
       it "should return proper tag" do
@@ -184,7 +144,7 @@ describe "Asset Packager" do
       
       it "should expand the bundle if compression is disabled" do
         configatron.temp do 
-          configatron.mack.asset_packager.disable_bundle_merge = true
+          configatron.mack.assets.enable_bundle_merge = false
           data = stylesheet([:test_group, :foo, :bar])
           exp  = [%{<link href="/stylesheets/scaffold.css},
                   %{<link href="/stylesheets/foo.css},
