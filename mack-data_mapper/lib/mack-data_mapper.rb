@@ -1,8 +1,11 @@
 require 'rubygems'
 require 'genosaurus'
+
+configatron.mack.set_default(:disable_transactional_tests, false)
+configatron.mack.data_mapper_session_store.set_default(:expiry_time, 4.hours)
+
 require 'mack-orm'
 
-configatron.mack.data_mapper_session_store.set_default(:expiry_time, 4.hours)
 
 fl = File.join(File.dirname(__FILE__), "mack-data_mapper")
 
@@ -40,16 +43,6 @@ module DataMapper # :nodoc:
         Mack.logger.send(m, message)
         self.send("_original_#{m}", message)
       end
-      # unless method_defined?("dm_#{m}")
-      #   eval %{
-      #     alias_instance_method :#{m}, :dm_#{m}
-      #     
-      #     def #{m}(message)
-      #       Mack.logger.#{m}(message)
-      #       dm_#{m}(message)
-      #     end
-      #   }
-      # end
     end
     
   end
