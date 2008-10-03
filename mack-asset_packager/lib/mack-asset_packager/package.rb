@@ -20,10 +20,7 @@ module Mack
       # and environment is production.
       #
       def merge?
-        if Mack.env == "production"
-          return true if !configatron.mack.asset_packager.disable_bundle_merge
-        end
-        return false
+        return configatron.mack.asset_packager.enable_bundle_merge
       end
       
       def initialize(list, type) # :nodoc:
@@ -64,8 +61,8 @@ module Mack
       private    
           
       def extension
-        return "js" if self.asset_type == "javascripts"
-        return "css" if self.asset_type == "stylesheets"
+        return "js" if self.asset_type.to_s == "javascripts"
+        return "css" if self.asset_type.to_s == "stylesheets"
         return ""
       end
       

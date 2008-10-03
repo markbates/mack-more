@@ -7,4 +7,8 @@ fl = File.join(File.dirname(__FILE__), "mack-asset_packager")
 end
 
 # default configuration
-configatron.mack.asset_packager.disable_bundle_merge = false
+configatron.mack.asset_packager.enable_bundle_merge = true
+
+if Mack.env == "production"
+  configatron.mack.asset_packager.enable_bundle_merge = true
+end
