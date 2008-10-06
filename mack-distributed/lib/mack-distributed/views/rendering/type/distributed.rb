@@ -5,8 +5,8 @@ module Mack
 
         # render(:distributed, "distributed://host/resource")
         def render
-            uri = Addressable::URI.parse(self.render_value)
-            raise InvalidAddressableURIFormat.new("#{self.render_value}") if uri.host.nil? or uri.path.nil?
+            uri = Addressable::URI.parse(self._render_value)
+            raise InvalidAddressableURIFormat.new("#{self._render_value}") if uri.host.nil? or uri.path.nil?
             
             app_name = uri.host
             resource = File.join("app", "views", uri.path)
@@ -17,15 +17,15 @@ module Mack
               Mack::Rendering::Engine::Registry.engines[:distributed].each do |e|
                 @engine = find_engine(e).new(self.view_template)
 
-                view_path = "#{resource}.#{self.options[:format]}.#{@engine.extension}"
+                view_path = "#{resource}.#{self._options[:format]}.#{@engine.extension}"
                 raw = data.get(view_path)
                 break if !raw.nil?
               end
               
-              raise Mack::Errors::ResourceNotFound.new("#{self.options[:distributed]}") if raw.nil?
+              raise Mack::Errors::ResourceNotFound.new("#{self._options[:distributed]}") if raw.nil?
               
-              old_render_value = self.view_template.render_value.dup
-              self.view_template.render_value = raw
+              old_render_value = self.view_template._render_value.dup
+              self.view_template._render_value = raw
               Mack::Rendering::Type::Inline.new(self.view_template).render
               # self.view_template.render_value = old_render_value
             end

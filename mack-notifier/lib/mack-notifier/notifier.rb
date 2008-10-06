@@ -154,7 +154,7 @@ module Mack # :nodoc:
     def build_template(format)
       begin
         vt = Mack::Rendering::ViewTemplate.new(:notifier, self.class.to_s.underscore, {:locals => {:notifier => self}, :format => format.to_s})
-        return vt.compile_and_render
+        return vt._compile_and_render
       rescue Mack::Errors::ResourceNotFound => e
       end
       return nil
