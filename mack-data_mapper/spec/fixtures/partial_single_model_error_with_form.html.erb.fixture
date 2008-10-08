@@ -1,9 +1,6 @@
-<div class="errorExplanation" id="errorExplanation">
-  <h2>1 error occured.</h2>
-  <ul>
-      <li>Username must not be blank</li>
-  </ul>
-</div>
+<p>1 error occured.</p>
+  * Username must not be blank<br>
+
 
 <form action="/users" class="new_user" id="new_user" method="post">
   <p>
