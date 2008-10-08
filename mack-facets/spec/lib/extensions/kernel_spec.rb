@@ -62,6 +62,29 @@ describe Kernel do
     
   end
   
+  describe 'run_once' do
+    
+    before(:each) do
+      @foo_tmp = File.join(File.dirname(__FILE__), '..', '..', 'foo.tmp')
+      FileUtils.rm @foo_tmp if File.exists?(@foo_tmp)
+    end
+    
+    after(:each) do
+      FileUtils.rm @foo_tmp if File.exists?(@foo_tmp)
+    end
+    
+    it 'should only run the code once' do
+      File.should_not be_exists(@foo_tmp)
+      load File.join(File.dirname(__FILE__), '..', '..', 'example.rb')
+      File.should be_exists(@foo_tmp)
+      FileUtils.rm @foo_tmp
+      File.should_not be_exists(@foo_tmp)
+      load File.join(File.dirname(__FILE__), '..', '..', 'example.rb')
+      File.should_not be_exists(@foo_tmp)
+    end
+    
+  end
+  
   describe "pp_to_s" do
     
     it "should return pp to a string" do
