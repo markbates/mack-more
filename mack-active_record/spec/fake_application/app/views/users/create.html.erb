@@ -1,1 +1,10 @@
 <%= error_messages_for :user %>
+
+<% form(users_create_url, :id => "new_user") do %>
+  <p>
+    <%= :user.text_field :username, :label => false, :error_class => "my_error" %>
+  </p>
+  <p>
+    <%= submit_button("Create") %>
+  </p>
+<% end %>

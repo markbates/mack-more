@@ -31,7 +31,7 @@ describe Mack::ViewHelpers::DataMapperHelpers do
       FileUtils.mkdir_p(Mack::Paths.views("application"))
       File.open(Mack::Paths.views("application", "_error_messages.html.erb"), "w") {|f| f.puts fixture("partial_single_model_error.html.erb")}
       post users_create_url, :user => {:id => 1}
-      response.body.should == fixture("partial_single_model_error.html.erb")
+      response.body.should == fixture("partial_single_model_error_with_form.html.erb")
       FileUtils.rm_rf(Mack::Paths.views("application"))
     end
     

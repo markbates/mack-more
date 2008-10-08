@@ -21,6 +21,22 @@ describe Mack::Notifier::Validatable do
     @ae = AnswerEmail.new
   end
   
+  describe "form error handler" do
+    include Mack::ViewHelpers
+    
+    it "should add extra style to form if there's an error" do
+      @ae.should_not be_valid
+      text_field(:ae, :to, :error_class => "my_error").should match(/class=\"my_error\"/)
+    end
+    
+    it "should not add extra style to form if there's no error" do
+      @my_qe = QuestionEmail.new
+      @my_qe.subject = "hello world"
+      @my_qe.should be_valid
+      text_field(:my_qe, :subject, :error_class => "my_error").should_not match(/class=\"my_error\"/)
+    end
+  end
+  
   describe "common_notifier_validations" do
     
     it "should validates_presence_of :to, :from, :subject" do
