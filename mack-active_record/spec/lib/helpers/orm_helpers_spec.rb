@@ -15,7 +15,7 @@ describe Mack::ViewHelpers::ActiveRecordHelpers do
     
     it "should default to the inline ERB template" do
       post users_create_url, :user => {}
-      
+      puts response.body
       response.body.strip.should == %{
 <div class="errorExplanation" id="errorExplanation">
   <h2>1 error occured.</h2>
@@ -23,6 +23,16 @@ describe Mack::ViewHelpers::ActiveRecordHelpers do
       <li>User username can't be blank</li>
   </ul>
 </div>
+
+<form action="/users" class="new_user" id="new_user" method="post">
+  <p>
+    <input class="my_error" id="user_username" label="false" name="user[username]" type="text" value="" />
+  </p>
+  <p>
+    <button type="submit">Create</button>
+  </p>
+
+</form>
       }.strip
     end
     
@@ -50,7 +60,8 @@ describe Mack::ViewHelpers::ActiveRecordHelpers do
       FileUtils.mkdir_p(Mack::Paths.views("application"))
       File.open(Mack::Paths.views("application", "_error_messages.html.erb"), "w") {|f| f.puts fixture("partial_single_model_error.html.erb")}
       post users_create_url, :user => {:id => 1}
-      response.body.should == fixture("partial_single_model_error.html.erb")
+      puts response.body
+      response.body.should == fixture("partial_single_model_error_with_form.html.erb")
       FileUtils.rm_rf(Mack::Paths.views("application"))
     end
     

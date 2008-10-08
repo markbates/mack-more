@@ -1,0 +1,13 @@
+<p>1 error occured.</p>
+  * User username can't be blank<br>
+
+
+<form action="/users" class="new_user" id="new_user" method="post">
+  <p>
+    <input class="my_error" id="user_username" label="false" name="user[username]" type="text" value="" />
+  </p>
+  <p>
+    <button type="submit">Create</button>
+  </p>
+
+</form>
