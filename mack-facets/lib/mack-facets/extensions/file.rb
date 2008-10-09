@@ -12,8 +12,8 @@ class File
     end
     
     def join_from_here(*args)
-      f = caller.first.match(/(.+):.+/).captures.first
-      File.expand_path(File.join(File.dirname(f), *args))
+      caller.first.match(/(.+):.+/)
+      File.expand_path(File.join(File.dirname($1), *args))
     end
     
   end
