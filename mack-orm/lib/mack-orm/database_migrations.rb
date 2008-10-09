@@ -23,7 +23,11 @@ module Mack
       
       # Returns a list of the all migration files.
       def self.migration_files
-        Dir.glob(Mack::Paths.migrations("*.rb"))
+        migs = []
+        Mack.search_path(:db).each do |path|
+          migs << Dir.glob(File.join(path, 'migrations', '*.rb'))
+        end
+        migs.flatten.compact.uniq
       end
       
     end # Migrations
