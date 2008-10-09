@@ -9,7 +9,7 @@ module Kernel
       yield
       $__already_run_block << path
     end
-    puts "$__already_run_block: #{$__already_run_block}"
+    # puts "$__already_run_block: #{$__already_run_block.inspect}"
   end
   
   # Aliases an instance method to a new name. It will only do the aliasing once, to prevent
