@@ -3,6 +3,15 @@ require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
 
 describe String do
   
+  describe '/' do
+    
+    it 'should join strings together like File.join' do
+      ('a' / 'b').should == File.join('a', 'b')
+      ('a' / 'b' / :c).should == File.join('a', 'b', 'c')
+    end
+    
+  end
+  
   describe "methodize" do
     
     it "should convert the String into a Ruby method friendly String" do
