@@ -35,6 +35,16 @@ describe Mack::Notifier::Validatable do
       @my_qe.should be_valid
       text_field(:my_qe, :subject, :error_class => "my_error").should_not match(/class=\"my_error\"/)
     end
+    
+    describe 'errors_for' do
+      
+      it 'should return the errors for a particular field' do
+        @ae.should_not be_valid
+        @ae.errors_for(:to).should include("can't be empty")
+      end
+      
+    end
+    
   end
   
   describe "common_notifier_validations" do

@@ -81,9 +81,8 @@ module Mack
         return true
       end
       
-      def error_for(name)
-        errs = self.errors.on(name.to_sym)
-        return (!errs.nil? and !errs.empty?)
+      def errors_for(name)
+        self.errors.on(name.to_sym)
       end
       
     end # Validatable

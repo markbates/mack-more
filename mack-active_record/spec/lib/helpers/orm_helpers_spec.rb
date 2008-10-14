@@ -7,15 +7,16 @@ describe Mack::ViewHelpers::ActiveRecordHelpers do
     
     before(:all) do
       ActiveRecord::Migrator.up(migrations_directory)
+      FileUtils.rm_rf(Mack::Paths.views("application")) 
     end
 
     after(:all) do
       ActiveRecord::Migrator.down(migrations_directory)
+      FileUtils.rm_rf(Mack::Paths.views("application"))
     end
     
     it "should default to the inline ERB template" do
       post users_create_url, :user => {}
-      puts response.body
       response.body.strip.should == %{
 <div class="errorExplanation" id="errorExplanation">
   <h2>1 error occured.</h2>
@@ -60,7 +61,6 @@ describe Mack::ViewHelpers::ActiveRecordHelpers do
       FileUtils.mkdir_p(Mack::Paths.views("application"))
       File.open(Mack::Paths.views("application", "_error_messages.html.erb"), "w") {|f| f.puts fixture("partial_single_model_error.html.erb")}
       post users_create_url, :user => {:id => 1}
-      puts response.body
       response.body.should == fixture("partial_single_model_error_with_form.html.erb")
       FileUtils.rm_rf(Mack::Paths.views("application"))
     end
