@@ -23,3 +23,5 @@ end
 def fixture_location(name)
   File.join(File.dirname(__FILE__), "fixtures", "#{name}.fixture")
 end
+
+# configatron.mack.disable_transactional_tests = true

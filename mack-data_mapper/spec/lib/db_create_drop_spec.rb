@@ -3,6 +3,14 @@ require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 
 describe Mack::Database do
   
+  def before_spec_extension
+    configatron.mack.disable_transactional_tests = true
+  end
+  
+  def after_spec_extension
+    configatron.mack.disable_transactional_tests = false
+  end
+  
   class Zombie
     include DataMapper::Resource
     
@@ -16,6 +24,11 @@ describe Mack::Database do
       @db_yml = File.read(Mack::Paths.config("database.yml"))
       File.open(Mack::Paths.config("database.yml"), "w") {|f| f.puts fixture("mysql_database.yml")}
       DataMapper.setup(:mysql_test_tmp, "mysql://root@localhost/mysql")
+      repository(:mysql_test_tmp) do |repo|
+        repo.adapter.execute("DROP DATABASE IF EXISTS `mack_data_mapper2_test`")
+        repo.adapter.execute("DROP DATABASE IF EXISTS `mack_data_mapper2_development`")
+        repo.adapter.execute("DROP DATABASE IF EXISTS `mack_data_mapper2_production`")
+      end
     end
     
     after(:all) do

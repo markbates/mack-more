@@ -15,11 +15,17 @@ if Mack.env == "test"
       
         class DmTestTransactionWrapper # :nodoc:
           include DataMapper::Resource
+          
+          property :id, Serial
         end
+        Mack::Database.establish_connection
+        DmTestTransactionWrapper.auto_migrate!
       
         def rollback_transaction
           begin
+            puts 'about to start transaction'
             Mack::Testing::DmTestTransactionWrapper.transaction do
+              puts 'in transaction'
             # DataMapper::Transaction.new.commit do
               yield if block_given?
               raise "Rollback!"

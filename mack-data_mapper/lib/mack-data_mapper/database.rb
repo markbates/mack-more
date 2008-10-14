@@ -63,8 +63,7 @@ module Mack
       when /Postgres/
         `pg_dump -i -U "#{uri.user}" -s -x -O -n #{ENV["SCHEMA"] ||= "public"} -f #{output_file} #{uri.basename}`
       when /Sqlite3/
-        db_dir = Mack::Paths.db
-        `sqlite3 #{File.join(db_dir, uri.basename)} .schema > #{output_file}`
+        puts `sqlite3 #{uri.path} .schema > #{output_file}`
       else
         raise "Task not supported for '#{repository(repis).adapter.class.name}'"
       end
@@ -97,10 +96,9 @@ module Mack
           repo.adapter.execute "CREATE DATABASE #{uri.basename} ENCODING = 'utf8'"
         end
       when /Sqlite3/
-        db_dir = Mack::Paths.db
-        puts "Creating (SQLite3): #{uri.basename}"
-        FileUtils.mkdir_p(db_dir)
-        FileUtils.touch(File.join(db_dir, uri.basename))
+        puts "Creating (SQLite3): #{uri.path}"
+        FileUtils.mkdir_p(File.dirname(uri.path), :verbose => true)
+        FileUtils.touch(uri.path, :verbose => true)
       else
         raise "Task not supported for '#{repository(repis).adapter.class.name}'"
       end
@@ -122,9 +120,8 @@ module Mack
           repo.adapter.execute "DROP DATABASE IF EXISTS #{uri.basename}"
         end
       when /Sqlite3/
-        puts "Dropping (SQLite3): #{uri.basename}"
-        db_dir = Mack::Paths.db
-        FileUtils.rm_rf(File.join(db_dir.to_s, uri.basename))
+        puts "Dropping (SQLite3): #{uri.path}"
+        FileUtils.rm_rf(uri.path)
       else
         raise "Task not supported for '#{repository(repis).adapter.class.name}'"
       end

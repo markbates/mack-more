@@ -6,7 +6,7 @@ module Mack
       
       # Migrates the database to the latest version
       def self.migrate
-        Mack::Database.establish_connection
+        # Mack::Database.establish_connection
         ::DataMapper::MigrationRunner.reset!
         migration_files.each { |mig| load mig }
         ::DataMapper::MigrationRunner.migrate_up!
