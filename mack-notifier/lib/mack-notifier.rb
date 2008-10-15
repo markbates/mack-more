@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'validatable'
 require 'tmail'
+require 'xmpp4r/client'
 
 fl = File.join(File.dirname(__FILE__), "mack-notifier")
 
