@@ -3,6 +3,10 @@ class String
   
   alias_instance_method :snakecase, :underscore
   
+  def /(other)
+    File.join(self, other.to_s)
+  end
+  
   def methodize
     x = self
     
