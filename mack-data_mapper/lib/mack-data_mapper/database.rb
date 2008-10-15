@@ -59,6 +59,7 @@ module Mack
           structure += show.attributes["create table".to_sym]
           structure += ";\n\n"
         end
+        structure.gsub!('MyISAM', 'InnoDB')
         File.open(output_file, "w") {|f| f.puts structure}
       when /Postgres/
         `pg_dump -i -U "#{uri.user}" -s -x -O -n #{ENV["SCHEMA"] ||= "public"} -f #{output_file} #{uri.basename}`

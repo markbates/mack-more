@@ -15,25 +15,16 @@ if Mack.env == "test"
       
         class DmTestTransactionWrapper # :nodoc:
           include DataMapper::Resource
-          
-          property :id, Serial
         end
-        Mack::Database.establish_connection
-        DmTestTransactionWrapper.auto_migrate!
       
         def rollback_transaction
           begin
-            puts 'about to start transaction'
             Mack::Testing::DmTestTransactionWrapper.transaction do
-              puts 'in transaction'
             # DataMapper::Transaction.new.commit do
               yield if block_given?
-              puts 'finished block'
               raise "Rollback!"
             end
           rescue => ex
-            puts 'transaction exception has been raised'
-            puts ex.message
             # we need to do this so we can throw up actual errors!
             unless ex.to_s == "Rollback!"
               raise ex
