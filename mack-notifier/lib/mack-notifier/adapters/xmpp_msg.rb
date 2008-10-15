@@ -18,6 +18,7 @@ module Mack
           @xmpp_msg.set_to(mack_notifier.to)
           @xmpp_msg.set_from(mack_notifier.from)
           @xmpp_msg.set_subject(mack_notifier.subject)
+          @xmpp_msg.set_type(settings.message_type)
           
           unless mack_notifier.body(:plain).blank?
             @xmpp_msg.set_body(mack_notifier.body(:plain))
