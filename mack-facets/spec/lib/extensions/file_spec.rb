@@ -23,4 +23,12 @@ describe File do
     
   end
   
+  describe 'join_from_here' do
+    
+    it 'should build a full expanded path from the current file location' do
+      File.join_from_here('..', 'foo.rb').should == File.expand_path(File.join(File.dirname(__FILE__), '..', 'foo.rb'))
+    end
+    
+  end
+  
 end

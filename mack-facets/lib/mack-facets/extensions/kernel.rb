@@ -3,6 +3,15 @@ require 'stringio'
 
 module Kernel
   
+  def run_once
+    path = File.expand_path(caller.first)
+    unless ($__already_run_block ||= []).include?(path)
+      yield
+      $__already_run_block << path
+    end
+    # puts "$__already_run_block: #{$__already_run_block.inspect}"
+  end
+  
   # Aliases an instance method to a new name. It will only do the aliasing once, to prevent
   # issues with reloading a class and causing a StackLevel too deep error.
   # The method takes two arguments, the first is the original name of the method, the second,

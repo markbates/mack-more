@@ -11,6 +11,11 @@ class File
       _original_join(fs.collect{|c| c.to_s})
     end
     
+    def join_from_here(*args)
+      caller.first.match(/(.+):.+/)
+      File.expand_path(File.join(File.dirname($1), *args))
+    end
+    
   end
   
 end

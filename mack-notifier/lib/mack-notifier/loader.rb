@@ -2,6 +2,8 @@
 FileUtils.mkdir_p(Mack::Paths.notifiers)
 
 # Require all notifiers
-Dir.glob(Mack::Paths.notifiers("**/*.rb")).each do |notifier|
-  require notifier
+Mack.search_path(:app).each do |path|
+  Dir.glob(File.join(path, 'notifiers', "**/*.rb")).each do |notifier|
+    require File.expand_path(notifier)
+  end
 end
