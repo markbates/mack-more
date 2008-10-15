@@ -33,6 +33,7 @@ describe "Transactional Tests" do
     end
     
     it "should roll back the database after the test is finished (2)" do
+      # rollback_transaction do
       Canoe.count.should == 1
       Canoe.create
       Canoe.count.should == 2

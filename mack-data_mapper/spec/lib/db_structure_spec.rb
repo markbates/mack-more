@@ -20,6 +20,8 @@ describe Mack::Database do
   
   before(:each) do
     @dump = Mack::Paths.db("test_schema_structure.sql")
+    FileUtils.rm_rf(Mack::Paths.db)
+    FileUtils.mkdir_p(Mack::Paths.db)
   end
   
   after(:each) do
