@@ -28,9 +28,12 @@ if Mack.env == "test"
               puts 'in transaction'
             # DataMapper::Transaction.new.commit do
               yield if block_given?
+              puts 'finished block'
               raise "Rollback!"
             end
           rescue => ex
+            puts 'transaction exception has been raised'
+            puts ex.message
             # we need to do this so we can throw up actual errors!
             unless ex.to_s == "Rollback!"
               raise ex

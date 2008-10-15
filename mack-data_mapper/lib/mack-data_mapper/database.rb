@@ -115,6 +115,7 @@ module Mack
         end
       when /Postgres/
         setup_temp(uri, "postgres")
+        DataObjects::Postgres::Connection.__pools.each {|k, v| v.dispose}
         repository(:tmp) do |repo|
           puts "Dropping (PostgreSQL): #{uri.basename}"
           repo.adapter.execute "DROP DATABASE IF EXISTS #{uri.basename}"

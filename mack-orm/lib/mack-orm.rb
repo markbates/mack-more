@@ -10,7 +10,6 @@ require File.join(base, "database_migrations")
 require File.join(base, "generators")
 require File.join(base, "genosaurus_helpers")
 require File.join(base, "model_column")
-require File.join(base, "core-extensions", "object")
 require File.join(base, "test_extensions")
 require File.join(base, "scaffold_generator", "scaffold_generator")
 
