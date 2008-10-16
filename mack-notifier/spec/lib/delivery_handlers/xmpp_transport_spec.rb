@@ -7,7 +7,7 @@ describe Mack::Notifier::DeliveryHandlers::XmppTransport do
     
     it "should send the message" do
       configatron.temp do
-        configatron.mack.notifier.xmpp_settings.wait_for_response = false
+        configatron.mack.notifier.xmpp.wait_for_response = false
         we = WelcomeEmail.new
         we.to = "h_test2@jabber80.com"
         we.from = "h_test@jabber80.com"
@@ -26,7 +26,7 @@ describe Mack::Notifier::DeliveryHandlers::XmppTransport do
     
     it "should raise Authentication error" do
       configatron.temp do 
-        configatron.mack.notifier.xmpp_settings.password = 'foo'
+        configatron.mack.notifier.xmpp.password = 'foo'
         we = WelcomeEmail.new
         we.to = "h_test2@jabber80.com"
         we.from = "h_test@jabber80.com"

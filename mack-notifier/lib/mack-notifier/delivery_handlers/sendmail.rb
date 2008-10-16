@@ -5,7 +5,7 @@ module Mack
       module Sendmail
         
         def self.deliver(mail)
-          sendmail_settings = configatron.mack.notifier.sendmail_settings
+          sendmail_settings = configatron.mack.notifier.sendmail
           sendmail_args = sendmail_settings.arguments
           sendmail_args += " -f \"#{mail.reply_to}\"" if mail.reply_to
           IO.popen("#{sendmail_settings.location} #{sendmail_args}","w+") do |sm|

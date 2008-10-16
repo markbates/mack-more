@@ -5,7 +5,7 @@ module Mack
       module XmppTransport
         
         def self.deliver(xmpp_msg)
-            xmpp_settings = configatron.mack.notifier.xmpp_settings
+            xmpp_settings = configatron.mack.notifier.xmpp
             jid_str = xmpp_settings.jid
             jid_str += ("/" + xmpp_settings.jid_resource) if !jid_str.index("/")
             password = xmpp_settings.password
@@ -69,7 +69,7 @@ module Mack
         
         # def self.deliver(xmpp_msg)
         #   # debugger
-        #   xmpp_settings = configatron.mack.notifier.xmpp_settings
+        #   xmpp_settings = configatron.mack.notifier.xmpp
         #   
         #   jid_str = xmpp_settings.jid
         #   jid_str += ("/" + xmpp_settings.jid_resource) if !jid_str.index("/")
