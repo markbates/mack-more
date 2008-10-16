@@ -19,6 +19,12 @@ module Mack
       end
     end
     
+    class XmppUserNotOnline < StandardError
+      def initialize(user)
+        super("user #{user} is not online")
+      end
+    end
+    
     class XmppSendError < StandardError
       attr_reader :code
       attr_reader :msg
