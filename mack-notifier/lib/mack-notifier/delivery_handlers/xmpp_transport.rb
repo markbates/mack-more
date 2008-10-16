@@ -1,11 +1,8 @@
-require 'xmpp4r-simple'
-
 module Mack
   module Notifier
     module DeliveryHandlers # :nodoc:
       # Delivers Mack::Notifier objects using XMPP (Jabber)
       module XmppTransport
-        # include Jabber
         
         def self.deliver(xmpp_msg)
             xmpp_settings = configatron.mack.notifier.xmpp_settings
@@ -60,6 +57,8 @@ module Mack
                     raise @error
                   end # if online
                 end # timeout
+              rescue Timeout::Error => ex
+                @error = ex
               rescue Exception => ex
                 puts ex
               end
