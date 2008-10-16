@@ -15,6 +15,7 @@ module Mack
         def convert
           settings = configatron.mack.notifier.xmpp_settings
           @xmpp_msg = Message::new
+          @xmpp_msg.set_type(:normal)
           @xmpp_msg.set_to(mack_notifier.to)
           @xmpp_msg.set_from(mack_notifier.from)
           @xmpp_msg.set_subject(mack_notifier.subject)
