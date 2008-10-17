@@ -65,9 +65,7 @@ module Mack
         raw = ""
         assets_mgr.send(asset_type, group).each do |file|
           
-          # TODO: once Mark checked in the code to get search_path - local
-          # change this to [public_path + search_path(public) - local]
-          Mack.search_path(:public).reverse.each do |p|
+          Mack.search_path_local_first(:public).each do |p|
             path = File.join(p, asset_type.to_s, file)
             if File.exists?(path)
               raw += File.read(path)
