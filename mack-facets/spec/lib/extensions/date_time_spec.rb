@@ -2,6 +2,13 @@ require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
 
 describe DateTime do
+  
+  before(:all) do
+    sec = DateTime.now.sec.to_i
+    if sec == 0 || sec == 59 || DateTime.now.sec == 1
+      sleep(5)
+    end
+  end
 
   describe 'add_seconds' do
     
