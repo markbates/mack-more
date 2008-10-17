@@ -1,4 +1,19 @@
+require File.join(File.dirname(__FILE__), 'kernel.rb')
 class Array
+  
+  # alias_method :original_include?, :include?
+  alias_instance_method :include?
+  
+  def include?(pat)
+    if pat.is_a?(Regexp)
+      self.each do |v|
+        return true if v.to_s.match(pat)
+      end
+      return false
+    else
+      return _original_include?(pat)
+    end
+  end
   
   # This method is useful when you have a method that looks like this:
   # def foo(*args)
