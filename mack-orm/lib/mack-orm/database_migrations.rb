@@ -23,11 +23,16 @@ module Mack
       
       # Returns a list of the all migration files.
       def self.migration_files
-        migs = []
-        Mack.search_path(:db).each do |path|
-          migs << Dir.glob(File.join(path, 'migrations', '*.rb'))
+        allmigs = {}
+        Mack.search_path_local_first(:db).each do |path|
+          Dir.glob(File.join(path, 'migrations', '*.rb')).each do |f|
+            base = File.basename(f).match(/\d+_(.+)/).captures.first.downcase
+            unless allmigs[base]
+              allmigs[base] = f
+            end
+          end
         end
-        migs.flatten.compact.uniq
+        allmigs.collect {|k,v| v}.sort
       end
       
     end # Migrations

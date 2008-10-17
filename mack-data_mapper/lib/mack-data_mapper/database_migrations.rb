@@ -29,7 +29,7 @@ module Mack
         end
         ::DataMapper::MigrationRunner.migrations.clear
       end
-            
+      
     end # Migrations
   end # Database
 end # Mack
