@@ -6,7 +6,7 @@ module Mack
       module Smtp
         
         def self.deliver(mail)
-          smtp_settings = configatron.mack.notifier.smtp_settings
+          smtp_settings = configatron.mack.notifier.smtp
           Net::SMTP.start(smtp_settings.address, smtp_settings.port, 
                           smtp_settings.domain, smtp_settings.retrieve(:user_name, nil), 
                           smtp_settings.retrieve(:password, nil), smtp_settings.retrieve(:authentication, nil)) do |smtp|

@@ -7,5 +7,33 @@ module Mack
       end
     end # UnconvertedNotifier
     
+    class XmppError < StandardError
+      def initialize(msg)
+        super(msg)
+      end
+    end
+    
+    class XmppAuthenticationError < StandardError
+      def initialize(user)
+        super("Cannot authenticate: #{user} to xmpp server")
+      end
+    end
+    
+    class XmppUserNotOnline < StandardError
+      def initialize(user)
+        super("user #{user} is not online")
+      end
+    end
+    
+    class XmppSendError < StandardError
+      attr_reader :code
+      attr_reader :msg
+      
+      def initialize(code, msg)
+        super("Cannot send message. Code=#{code}, Msg=#{msg}")
+        @code = code
+        @msg = msg
+      end
+    end
   end # Errors
 end # Mack
