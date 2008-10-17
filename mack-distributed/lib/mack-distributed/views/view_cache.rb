@@ -3,7 +3,7 @@ module Mack
     class ViewCache < Cachetastic::Caches::Base
       
       class << self
-        include Mack::ViewHelpers::LinkHelpers
+        include Mack::ViewHelpers
       
         def get(path)
           raw = super(path) do
