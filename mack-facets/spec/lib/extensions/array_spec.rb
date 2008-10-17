@@ -3,6 +3,16 @@ require Pathname(__FILE__).dirname.expand_path.parent.parent + 'spec_helper'
 
 describe Array do
   
+  describe 'include?' do
+    
+    it 'should also work with Regexs' do
+      a = ['mark', 'bates']
+      a.should be_include('mark')
+      a.should be_include(/ar/)
+    end
+    
+  end
+  
   describe "parse_splat_args" do
     
     it "should return an array from an array" do
