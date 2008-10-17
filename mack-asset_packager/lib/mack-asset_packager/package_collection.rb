@@ -2,6 +2,7 @@ module Mack
   module Assets
     class PackageCollection # :nodoc:
       include Singleton
+      ASSET_LOAD_TIME = Time.now
       
       attr_accessor :bundle_processed
       
@@ -63,8 +64,15 @@ module Mack
         # now read data from all the files defined in the bundle
         raw = ""
         assets_mgr.send(asset_type, group).each do |file|
-          path = File.join(base_dir, file)
-          raw += File.read(path)
+          
+          # TODO: once Mark checked in the code to get search_path - local
+          # change this to [public_path + search_path(public) - local]
+          Mack.search_path(:public).reverse.each do |p|
+            path = File.join(p, asset_type.to_s, file)
+            if File.exists?(path)
+              raw += File.read(path)
+            end
+          end
         end
         
         # save it to some tmp file, and compress it
