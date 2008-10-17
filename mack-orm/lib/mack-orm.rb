@@ -32,21 +32,32 @@ Mack::Portlet::Unpacker.registered_items[:migrations] = Proc.new do |force|
     fname = File.basename(f)
     base = fname.match(/\d+_(.+)/).captures.first
     if local_files.include?(/\d+_#{base}/) && !force
-      puts "Skipping: #{f}"
+      puts "Skipping: #{base}"
     elsif local_files.include?(/\d+_#{base}/) && force
       local_files.each do |lf|
         if lf.match(/\d+_#{base}/)
-          puts "Overwriting: #{lf}"
+          n = lf.match(/(\d+)_#{base}/).captures.first
+          puts "Overwriting: #{base}"
+          src = File.read(f)
+          src.scan(/migration\D+\d+/).each do |line|
+            src.gsub!(line, line.gsub(/\d+/, n))
+          end
           File.open(lf, 'w') do |w|
-            w.puts File.read(f)
+            w.puts src
           end
           break
         end
       end
     else
-      puts "Copying: #{f}"
+      puts "Creating: #{"#{num}_#{base}"}"
       num = num.succ
-      FileUtils.cp(f, Mack::Paths.migrations("#{num}_#{base}"))
-    end
-  end
-end
+      src = File.read(f)
+      src.scan(/migration\D+\d+/).each do |line|
+        src.gsub!(line, line.gsub(/\d+/, num))
+      end
+      File.open(Mack::Paths.migrations("#{num}_#{base}"), 'w') do |w|
+        w.puts src
+      end # File.open
+    end # if
+  end # files.each
+end # Proc
