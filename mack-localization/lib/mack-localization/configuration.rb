@@ -5,22 +5,49 @@
 # {config_dir}/localization/ inside the application directory.
 # If the file doesn't exist then it will just load default configuration.
 #
-module Mack
-  module Localization # :nodoc:
-    module Configuration
 
-      configatron.mack.localization.base_language = 'en'
-      configatron.mack.localization.supported_languages = %w{bp en fr it de es}
-      configatron.mack.localization.char_encoding = 'us-ascii'
-      configatron.mack.localization.dynamic_translation = false
-      configatron.mack.localization.base_directory = Mack::Paths.app('lang')
-      configatron.mack.localization.content_expiry = 3600
-      
-      path = Mack::Paths.config("localization", "localization.rb")
-      if File.exists?(path)
-        require path
+module Mack
+  module Localization
+    
+    class Configuration
+      include Singleton
+      def initialize
+        @storage = Mack::Localization::Storage.new
       end
-    end 
+      
+      def setup
+        yield @storage
+      end
+      
+      def method_missing(sym, *args)
+        @storage.send(sym, *args)
+      end
+    end
+    
+    class Storage
+      
+      def base_directory= (path)
+        arr = configatron.mack.localization.base_directory
+        arr = [] if arr.is_a?(Configatron::Store) and !arr.is_a?(Array)
+        arr << path
+        arr.uniq!
+        configatron.mack.localization.base_directory = arr
+      end
+      
+      def base_directory
+        arr = configatron.mack.localization.base_directory
+        arr = [Mack::Paths.app('lang')] if arr.is_a?(Configatron::Store) and !arr.is_a?(Array)
+        return (arr.size == 1) ? arr[0] : arr
+      end
+      
+      def method_missing(sym, *args)
+        supported_settings = [:base_language, :supported_languages, :char_encoding, :dynamic_translation, :content_expiry,
+                              :base_language=, :supported_languages=, :char_encoding=, :dynamic_translation=, :content_expiry=]
+        if supported_settings.include?(sym)
+          configatron.mack.localization.send(sym, *args)
+        end
+      end
+    end
   end
 end
 
@@ -30,6 +57,6 @@ class Object
   # Give access to the mack l10n config object from anywhere inside the application
   #
   def l10n_config
-    configatron.mack.localization
+    Mack::Localization::Configuration.instance
   end
 end

@@ -68,3 +68,11 @@ dir_globs = Dir.glob(File.join(File.dirname(__FILE__), "mack-localization", "**/
 dir_globs.each do |d|
   require d
 end
+
+
+configatron.mack.localization.set_default(:base_language, 'en')
+configatron.mack.localization.set_default(:supported_languages, %w{bp en fr it de es})
+configatron.mack.localization.set_default(:char_encoding, 'us-ascii')
+configatron.mack.localization.set_default(:dynamic_translation, false)
+configatron.mack.localization.set_default(:base_directory, [Mack::Paths.app('lang')])
+configatron.mack.localization.set_default(:content_expiry, 3600)

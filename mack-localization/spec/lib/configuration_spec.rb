@@ -2,11 +2,7 @@ require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 
 describe Mack::Localization::Configuration do
-  
-  it "should not blow up" do 
-    true
-  end
-  
+    
   it "should contain proper Object level methods" do
     self.should.respond_to?(:l10n_config)
     l10n_config.should.eql?(configatron.mack.localization)
@@ -15,7 +11,6 @@ describe Mack::Localization::Configuration do
   end
   
   it "should properly load config from app" do
-    
     (base_lang = l10n_config.base_language).should_not be_nil
     base_lang.should_not be_empty
     
