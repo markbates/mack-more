@@ -4,9 +4,9 @@ module Mack
     class Paginator
       
       def paginate
-        order_clause = [self.options.delete(:order)].flatten.compact
+        order_clause = [self.query_options.delete(:order)].flatten.compact
           
-        self.total_rows = self.klass.count(self.options)
+        self.total_rows = self.klass.count(self.query_options)
         self.total_pages = (self.total_rows.to_f / self.results_per_page).ceil
         
         self.current_page = self.total_pages if self.current_page > self.total_pages
@@ -17,19 +17,19 @@ module Mack
           end
         end
 
-        self.options.reverse_merge!({
+        self.query_options.reverse_merge!({
           :order => order_clause
         })
         
         offset = (self.current_page - 1) * self.results_per_page
         offset = 0 if offset < 0
         
-        options.merge!({
+        self.query_options.merge!({
           :limit => self.results_per_page, 
           :offset => offset
         })
         
-        self.results = self.klass.all(options)
+        self.results = self.klass.all(self.query_options)
         self
       end # paginate
       
@@ -41,8 +41,8 @@ module DataMapper # :nodoc:
   module Resource # :nodoc:
     module ClassMethods # :nodoc:
       
-      def paginate(options = {})
-        paginator = Mack::Database::Paginator.new(self, options)
+      def paginate(options = {}, query_options = {})
+        paginator = Mack::Database::Paginator.new(self, options, query_options)
         paginator.paginate
       end
       

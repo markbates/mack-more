@@ -31,7 +31,7 @@ describe Mack::Database::Paginator do
   end
   
   it 'should paginate Apples desc' do
-    paginator = Mack::Database::Paginator.new(Apple, :order => [:id.desc])
+    paginator = Mack::Database::Paginator.new(Apple, {}, :order => [:id.desc])
     paginator.paginate
     paginator.total_rows.should == 51
     paginator.total_pages.should == 6

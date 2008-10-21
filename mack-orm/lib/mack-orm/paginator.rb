@@ -1,8 +1,8 @@
 module Mack
   module Database
     
-    def self.paginate(klass, options = {})
-      paginator = Mack::Database::Paginator.new(klass, options)
+    def self.paginate(klass, options = {}, query_options = {})
+      paginator = Mack::Database::Paginator.new(klass, options, query_options)
       paginator.paginate
     end
     
@@ -10,15 +10,17 @@ module Mack
       
       attr_accessor :klass
       attr_accessor :options
+      attr_accessor :query_options
       attr_accessor :total_rows
       attr_accessor :total_pages
       attr_accessor :results
       attr_accessor :current_page
       attr_accessor :results_per_page
       
-      def initialize(klass, options = {})
+      def initialize(klass, options = {}, query_options = {})
         self.klass = klass
         self.options = options
+        self.query_options = query_options
         self.current_page = (self.options.delete(:current_page) || 1).to_i
         self.results_per_page = (self.options.delete(:results_per_page) || configatron.mack.database.pagination.results_per_page).to_i
       end
