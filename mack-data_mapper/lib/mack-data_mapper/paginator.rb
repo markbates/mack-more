@@ -3,6 +3,7 @@ module Mack
     
     class Paginator
       
+      # Implements the paginate method from the Mack::Database::Paginator spec in mack-orm.
       def paginate
         order_clause = [self.query_options.delete(:order)].flatten.compact
           
