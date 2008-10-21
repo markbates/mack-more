@@ -28,6 +28,7 @@ require File.join(fl, "helpers", "orm_helpers")
 require File.join(fl, "resource")
 require File.join(fl, "test_extensions")
 require File.join(fl, "repo_runner_helper")
+require File.join(fl, "paginator")
 
 
 [:helpers, :migration_generator, :model_generator, :scaffold_generator, :dm_patches, :sessions].each do |folder|

@@ -25,3 +25,11 @@ def fixture_location(name)
 end
 
 # configatron.mack.disable_transactional_tests = true
+
+class StringIO
+  def write_method(*args)
+    puts args.inspect
+  end
+end
+
+DataMapper.setup(:in_memory, 'sqlite3::memory:')
