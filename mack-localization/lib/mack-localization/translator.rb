@@ -31,7 +31,7 @@ module Mack
         raise Mack::Localization::Errors::UnsupportedLanguage.new(base_lang) if !l10n_config.supported_languages.include?(base_lang)
         
         cache_key = "#{view_sym}_#{base_lang}_content"
-        path      = File.join(l10n_config.base_directory, "views", "#{view_name}", "content_#{base_lang}.yml")
+        path      = File.join("views", "#{view_name}", "content_#{base_lang}.yml")
         content_hash = load_content_hash(cache_key, base_lang, path)
       
         raise Mack::Localization::Errors::UnknownStringKey.new(key) if content_hash[key] == nil
@@ -60,7 +60,7 @@ module Mack
         raise Mack::Localization::Errors::UnsupportedLanguage.new(base_lang) if !l10n_config.supported_languages.include?(base_lang)
         
         cache_key = "rules_content_#{base_lang}"
-        path      = File.join(l10n_config.base_directory, "rules", "inflection_#{base_lang}.yml")
+        path      = File.join("rules", "inflection_#{base_lang}.yml")
         content_hash = load_content_hash(cache_key, base_lang, path)
         
         hash = content_hash[type]
@@ -81,17 +81,27 @@ module Mack
             
       private 
       
-      def load_content_hash(cache_key, base_lang, path)
+      def load_content_hash(cache_key, base_lang, rsc_path)
         # content_hash = l10n_config.send("#{cache_key}")
         content_hash = l10n_cache.get("#{cache_key}")
         
         if content_hash.nil?
           raise Mack::Localization::Errors::InvalidConfiguration.new if base_lang.nil?
-          raise Mack::Localization::Errors::LanguageFileNotFound.new(path) if !File.exists?(path)
           
-          data = File.read(path)
-          content_hash = YAML.load(data)
-          l10n_cache.set("#{cache_key}", content_hash, l10n_config.content_expiry)
+          base_dir_arr = [l10n_config.base_directory].flatten
+          found_path = false
+          base_dir_arr.each do |base_dir|
+            path = File.join(base_dir, rsc_path)
+            found_path = File.exists?(path)
+            if found_path
+              data = File.read(path)
+              content_hash = YAML.load(data)
+              l10n_cache.set("#{cache_key}", content_hash, l10n_config.content_expiry)
+              break
+            end
+          end
+          
+          raise Mack::Localization::Errors::LanguageFileNotFound.new(rsc_path) if !found_path
         end
         
         return content_hash
