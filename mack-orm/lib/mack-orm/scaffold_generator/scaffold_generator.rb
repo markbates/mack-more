@@ -8,7 +8,7 @@ class ScaffoldGenerator < Genosaurus
   
   def setup # :nodoc:
     @name_singular = param(:name).singular.underscore
-    @name_plural = param(:name).plural.underscore
+    @name_plural = @name_singular.plural.underscore
     @name_singular_camel = @name_singular.camelcase
     @name_plural_camel = @name_plural.camelcase
     @test_framework = configatron.mack.testing_framework

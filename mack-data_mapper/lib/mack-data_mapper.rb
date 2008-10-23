@@ -3,6 +3,8 @@ require 'genosaurus'
 
 configatron.mack.set_default(:disable_transactional_tests, false)
 configatron.mack.data_mapper_session_store.set_default(:expiry_time, 4.hours)
+configatron.mack.data_mapper.set_default(:repository_runner_context, :default)
+configatron.mack.data_mapper.set_default(:use_repository_runner, false)
 
 require 'mack-orm'
 
@@ -25,6 +27,8 @@ require File.join(fl, "generators")
 require File.join(fl, "helpers", "orm_helpers")
 require File.join(fl, "resource")
 require File.join(fl, "test_extensions")
+require File.join(fl, "repo_runner_helper")
+require File.join(fl, "paginator")
 
 
 [:helpers, :migration_generator, :model_generator, :scaffold_generator, :dm_patches, :sessions].each do |folder|
