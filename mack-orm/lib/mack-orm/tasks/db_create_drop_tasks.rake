@@ -1,6 +1,8 @@
 require 'rake'
 namespace :db do
   
+  task :init => [:recreate, :migrate]
+  
   desc "Drops (if it exists) the database and then creates it for your environment."
   task :recreate => :environment do
     Mack::Database.drop(Mack.env, repis)
