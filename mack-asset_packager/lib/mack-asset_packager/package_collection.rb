@@ -69,6 +69,7 @@ module Mack
             path = File.join(p, asset_type.to_s, file)
             if File.exists?(path)
               raw += File.read(path)
+              break
             end
           end
         end
