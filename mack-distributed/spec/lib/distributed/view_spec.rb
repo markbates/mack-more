@@ -42,6 +42,41 @@ describe "Distributed Views" do
       get global_animals_url
       response.body.should match(/var2/)
     end
+    
+    it "should be not cache layout if not told to" do
+      configatron.temp do 
+        configatron.mack.distributed.enable_view_cache = false
+        get local_animals_url
+        response.body.should match(/Distributed Layout 2/)
+        
+        path = Mack::Paths.layouts("server_layout2.html.erb")
+        old_data = File.read(path)
+        new_data = old_data.gsub("Distributed Layout 2!", "Hey! I've just changed the layout!")
+        File.open(path, "w") { |f| f.write(new_data) }
+        get local_animals_url
+        response.body.should match(/Hey! I've just changed the layout!/)
+        
+        File.open(path, "w") { |f| f.write(old_data) }
+      end
+    end
+    
+    it "should not reload layout content if cache is enabled" do
+      configatron.temp do 
+        configatron.mack.distributed.enable_view_cache = true
+        
+        get local_animals_url
+        response.body.should match(/Distributed Layout 2/)
+        
+        path = Mack::Paths.layouts("server_layout2.html.erb")
+        old_data = File.read(path)
+        new_data = old_data.gsub("Distributed Layout 2!", "Hey! I've just changed the layout!")
+        File.open(path, "w") { |f| f.write(new_data) }
+        get local_animals_url
+        response.body.should match(/Distributed Layout 2/)
+        
+        File.open(path, "w") { |f| f.write(old_data) }
+      end
+    end
   end
   
   describe "View" do
