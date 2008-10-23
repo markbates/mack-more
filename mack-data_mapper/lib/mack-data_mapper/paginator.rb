@@ -7,8 +7,8 @@ module Mack
       def paginate
         order_clause = [self.query_options.delete(:order)].flatten.compact
           
-        self.total_rows = self.klass.count(self.query_options)
-        self.total_pages = (self.total_rows.to_f / self.results_per_page).ceil
+        self.total_results = self.klass.count(self.query_options)
+        self.total_pages = (self.total_results.to_f / self.results_per_page).ceil
         
         self.current_page = self.total_pages if self.current_page > self.total_pages
         

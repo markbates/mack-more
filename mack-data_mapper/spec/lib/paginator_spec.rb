@@ -25,7 +25,7 @@ describe Mack::Database::Paginator do
   it 'should paginate Apples' do
     paginator = Mack::Database::Paginator.new(Apple)
     paginator.paginate.should be_is_a(Mack::Database::Paginator)
-    paginator.total_rows.should == 51
+    paginator.total_results.should == 51
     paginator.total_pages.should == 6
     paginator.results.should == Apple.all(:order => [:id.asc], :limit => 10)
   end
@@ -33,7 +33,7 @@ describe Mack::Database::Paginator do
   it 'should paginate Apples desc' do
     paginator = Mack::Database::Paginator.new(Apple, {}, :order => [:id.desc])
     paginator.paginate
-    paginator.total_rows.should == 51
+    paginator.total_results.should == 51
     paginator.total_pages.should == 6
     paginator.results.should == Apple.all(:order => [:id.desc], :limit => 10)
   end
@@ -43,7 +43,7 @@ describe Mack::Database::Paginator do
       configatron.mack.database.pagination.results_per_page = 5
       paginator = Mack::Database::Paginator.new(Apple)
       paginator.paginate
-      paginator.total_rows.should == 51
+      paginator.total_results.should == 51
       paginator.total_pages.should == 11
       paginator.results.should == Apple.all(:order => [:id.asc], :limit => 5)
     end
@@ -60,32 +60,32 @@ describe Mack::Database::Paginator do
   it 'should paginate Apples should offset pages' do
     paginator = Mack::Database::Paginator.new(Apple, :current_page => 2)
     paginator.paginate
-    paginator.total_rows.should == 51
+    paginator.total_results.should == 51
     paginator.total_pages.should == 6
     paginator.results.should == Apple.all(:order => [:id.asc], :limit => 10, :offset => 10)
   end
   
-  it 'should handle has_next? and has_prev? correctly' do
+  it 'should handle has_next? and has_previous? correctly' do
     paginator = Mack::Database::Paginator.new(Apple)
     paginator.paginate
     paginator.should be_has_next
-    paginator.should_not be_has_prev
+    paginator.should_not be_has_previous
     
     paginator = Mack::Database::Paginator.new(Apple, :current_page => 2)
     paginator.paginate
     paginator.should be_has_next
-    paginator.should be_has_prev
+    paginator.should be_has_previous
     
     paginator = Mack::Database::Paginator.new(Apple, :current_page => 6)
     paginator.paginate
     paginator.should_not be_has_next
-    paginator.should be_has_prev
+    paginator.should be_has_previous
   end
   
   it 'should paginate Apples w/ page n == the last page' do
     paginator = Mack::Database::Paginator.new(Apple, :current_page => 200)
     paginator.paginate
-    paginator.total_rows.should == 51
+    paginator.total_results.should == 51
     paginator.total_pages.should == 6
     paginator.current_page.should == 6
     paginator.results.should == Apple.all(:order => [:id.asc], :limit => 10, :offset => 50)

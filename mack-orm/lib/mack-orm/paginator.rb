@@ -18,7 +18,7 @@ module Mack
       # Options for the queries to be run
       attr_accessor :query_options
       # The total rows returned by the Paginator
-      attr_accessor :total_rows
+      attr_accessor :total_results
       # The total pages available
       attr_accessor :total_pages
       # The actual records themselves
@@ -39,7 +39,7 @@ module Mack
       end
       
       # Implement this method in your ORM package. It should return <tt>self</tt> and set the following
-      # accessors: <tt>total_rows</tt>, <tt>total_pages</tt>, <tt>results</tt>.
+      # accessors: <tt>total_results</tt>, <tt>total_pages</tt>, <tt>results</tt>.
       def paginate
         raise NoMethodError.new('paginate')
       end
@@ -50,8 +50,25 @@ module Mack
       end
       
       # Is there a previous page?
-      def has_prev?
+      def has_previous?
         return self.current_page != 1 && self.total_pages > 1
+      end
+      
+      # The starting index for this group of results.
+      # Useful for building things like:
+      #   Displaying 11 - 20 of 56 results.
+      def start_index
+        return 0 if self.total_results == 0
+        si = ((self.current_page - 1) * self.results_per_page)
+        return (si >= 0 ? si + 1 : 0)
+      end
+      
+      # The ending index for this group of results.
+      # Useful for building things like:
+      #   Displaying 11 - 20 of 56 results.
+      def end_index
+        ei = self.current_page * self.results_per_page
+        return (ei < self.total_results ? ei : self.total_results)
       end
       
       def ==(other) # :nodoc:
