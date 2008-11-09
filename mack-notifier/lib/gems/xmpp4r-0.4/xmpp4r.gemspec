@@ -281,7 +281,7 @@ Gem::Specification.new do |s|
  "tools/xmpp4r-gemspec-test.rb",
  "xmpp4r.gemspec"]
   s.required_rubygems_version = ">= 0"
-  # s.has_rdoc = true
+  s.has_rdoc = true
   s.specification_version = "2"
   s.email = "xmpp4r-devel@gna.org"
   s.version = "0.4"

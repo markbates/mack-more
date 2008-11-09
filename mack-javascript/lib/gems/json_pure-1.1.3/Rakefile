@@ -183,7 +183,7 @@ if defined? Gem
     s.executables = ["edit_json.rb"]
     s.default_executable = "edit_json.rb"
 
-    # s.has_rdoc = true
+    s.has_rdoc = true
     s.rdoc_options <<
       '--title' <<  'JSON -- A JSON implemention' <<
       '--main' << 'JSON' << '--line-numbers'
@@ -220,7 +220,7 @@ if defined? Gem
     s.executables = ["edit_json.rb"]
     s.default_executable = "edit_json.rb"
 
-    # s.has_rdoc = true
+    s.has_rdoc = true
     s.rdoc_options <<
       '--title' <<  'JSON -- A JSON implemention' <<
       '--main' << 'JSON' << '--line-numbers'
@@ -258,7 +258,7 @@ if defined? Gem
       s.executables = ["edit_json.rb", "prettify_json.rb"]
       s.default_executable = "edit_json.rb"
 
-      # s.has_rdoc = true
+      s.has_rdoc = true
       s.rdoc_options <<
         '--title' <<  'JSON -- A JSON implemention' <<
         '--main' << 'JSON' << '--line-numbers'

@@ -16,7 +16,7 @@ require File.join(crt, "rake_task_requires")
   # s.add_dependency("pdf-writer", "1.1.8")
   s.require_paths << 'lib'
   
-  # s.has_rdoc = true
+  s.has_rdoc = true
   s.rdoc_options << '--exclude=gems/'
   s.rubyforge_project = "magrathea"
 end

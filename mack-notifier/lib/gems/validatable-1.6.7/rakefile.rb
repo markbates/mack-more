@@ -36,7 +36,7 @@ specification = Gem::Specification.new do |s|
   s.homepage = 'http://validatable.rubyforge.org'
   s.rubyforge_project = 'validatable'
 
-  # s.has_rdoc = true
+  s.has_rdoc = true
   s.extra_rdoc_files = ['README']
   s.rdoc_options << '--title' << 'Validatable' << '--main' << 'README' << '--line-numbers'
 

@@ -18,7 +18,7 @@ require File.join(crt, "rake_task_requires")
   # s.add_dependency("validatable", "1.6.7")
   # s.add_dependency("xmpp4r", "0.4")
   # s.add_dependency('xmpp4r-simple', '0.8.8')
-  # s.has_rdoc = true
+  s.has_rdoc = true
   s.rdoc_options << '--exclude=gems/'
   s.rubyforge_project = "magrathea"
 end

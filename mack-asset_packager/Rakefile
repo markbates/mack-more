@@ -15,7 +15,7 @@ require File.join(crt, "rake_task_requires")
   s.files = FileList['lib/**/*', 'README', 'doc/**/*.*']
   s.require_paths << 'lib'
   
-  # s.has_rdoc = true
+  s.has_rdoc = true
   s.rdoc_options << '--exclude=gems/'
   s.rubyforge_project = "magrathea"
 end

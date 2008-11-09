@@ -76,7 +76,7 @@ def setup_gem(pkg_name, pkg_version, author, summary, dependencies, test_file)
         s.author = author
         s.summary = summary
         s.test_file = test_file
-        # s.has_rdoc = true
+        s.has_rdoc = true
         s.extra_rdoc_files = [ "README" ]
         dependencies.each do |dep|
             s.add_dependency(*dep)
