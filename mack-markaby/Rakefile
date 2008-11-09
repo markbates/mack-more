@@ -12,11 +12,12 @@ require File.join(crt, "rake_task_requires")
 
   s.test_files = FileList['test/**/*']
 
-  s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*']
-  s.add_dependency("markaby", "0.5.0")
+  s.files = FileList['lib/**/*', 'README', 'doc/**/*.*']
+  # s.add_dependency("markaby", "0.5.0")
   s.require_paths << 'lib'
   
-  s.has_rdoc = true
+  # s.has_rdoc = true
+  s.rdoc_options << '--exclude=gems/'
   s.rubyforge_project = "magrathea"
 end
 

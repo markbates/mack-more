@@ -2,7 +2,7 @@ module Mack
   VERSION = 'testing'
 end
 
-require 'rubygems'
+# require 'rubygems'
 gem 'rspec'
 require 'spec'
 require 'mack-facets'

@@ -1,0 +1,81 @@
+= Subversion Changelog
+
+== 2008-02-06  transami
+
+* Fixed namspaces and fixed metaphone buggy option. (57)
+* Remove obfiscate test --no longer used. (56)
+* Update tasks to pure ruby. (55)
+* Added task directory. (54)
+* Moving replace task dir. (53)
+* Update metadata. (52)
+* Moved ad_rdoc.html to ads/rdoc.html, and added .rsync_filter. (51)
+* Added doc/ads directory. (50)
+* Added tests. (49)
+* Removed doc/note directory. (48)
+* Added CHANGES and NOTES files. (47)
+* Added log directory. (46)
+* Created .roll and .reap files. (45)
+* Removed Language module. (44)
+* Escaped regexp properly. (43)
+* Fixed test fixtures. Added test for similarity. (42)
+
+== 2007-12-20  transami
+
+* Updated README. (41)
+* Added some tests. (40)
+* Added jumble.rb. (39)
+* Added porter_stemming and levenshtien. (38)
+* Added double_metaphone test. (37)
+
+== 2007-12-19  transami
+
+* Remove old doc/site directory. (36)
+* Move website to doc/. (35)
+* Added roll file. (34)
+* Update project metadata. (33)
+* Added roman.rb (32)
+* Added tests. (31)
+* Removed wordfilter.rb (30)
+* Merged wordfilter.rb into censor.rb. (29)
+* Renamed metaphone.rb to double_metaphone.rb. (28)
+* Improved soundex.rb. (27)
+* Removed rewrite.rb. (26)
+* Merged rewrite.rb into censor.rb. (25)
+* No subdirs. (24)
+* Move remaining string files up. (23)
+* Remove jumble.rb which is part of obfuscate.rb instead. (22)
+* Remake obfuscate.rb. (21)
+* Lots of updates. (20)
+
+== 2007-10-14  transami
+
+* moved String#similarity to compare.rb instead (19)
+* worked namespaces a little (18)
+
+== 2007-10-12  transami
+
+* spell checked webpage (17)
+
+== 2007-10-10  transami
+
+* updated rdoc task and metadata (16)
+* updated tasks (15)
+* move site to doc/site (14)
+* removed .txt extension from README and COPYING (13)
+* update COPYING.txt in include copyright notice (12)
+* moved note dir to doc/note (11)
+* moved tool to task (10)
+* added doc directory (9)
+* imporoved modularization of inflect.rb (8)
+* simplified and improved inflect.rb (7)
+
+== 2007-09-03  transami
+
+* moved dresner.rb to obfuscate.rb (6)
+* added jumble method (5)
+
+== 2007-08-02  transami
+
+* fixed up website (4)
+* dang it all! missed the trunk. fixing... (2)
+

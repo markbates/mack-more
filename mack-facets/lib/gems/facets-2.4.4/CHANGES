@@ -1,0 +1,1584 @@
+2008-09-02   transami
+
+        * Tag 2.4.4 [Other Enhancements]
+        * Added news section to reap config. [Other Enhancements]
+        * Adjusted tests to match recent fixes. [Other Enhancements]
+        * Added warning to annotations.rb. [Other Enhancements]
+        * Fixed facets.rb to use relative paths. [Other Enhancements]
+        * Added Time#advance.  [Minor Enhancements]
+        * date.rb (stamp) fixed ref to constant FORMAT. [Other Enhancements]
+        * Updated all per-class loaders to use relative paths. [Other Enhancements]
+        * Added qua_class.rb. Yea. It really is my favorite. [Other Enhancements]
+        * Moved variablize methods out of metaid.rb and into separate files (string/ and symbol/).  [Minor Enhancements]
+        * Deprecated String#to_time.
+          * This method reqiures the loading of a number of other standard libs.
+          * We can reconsider adding it again if we decide these other libs should be core.
+          * Or if we find a more suitable way to define the method. [Other Enhancements]
+
+
+2008-09-01   transami
+
+        * Deprecated kernel/suppress. Use Exception.suppress from now on.  [Major Enhancements]
+        * Fixed require of string/xor in bicrypt.rb.  [Bug Fixes]
+        * Fixed cgi.rb (CGI is a class not a module). [Other Enhancements]
+        * Update reap rdoc services. [Other Enhancements]
+        * Added a benchmark for measuring how fast Facets loads. (Core < 1sec!) [Other Enhancements]
+        * Place old news posts in doc/news.
+          * Until 2.4.0 these are mostly just changelog entries. [Other Enhancements]
+        * Moved README.* to doc/. [Other Enhancements]
+        * Added simple functional test that loads all of Facets. [Other Enhancements]
+        * Updated tests to head syntax warnings. [Other Enhancements]
+        * Added doc/book. [Other Enhancements]
+        * Remove doc/notes and add README.* files. [Other Enhancements]
+        * Added Instantise as a synonym for Instantize. [Other Enhancements]
+        * General improvements to More libs to correct syntax warnings. [Other Enhancements]
+        * Much improved date.rb extension now in Lore library.  [Major Enhancements]
+        * adjusted Ruby 1.9 condition [Other Enhancements]
+        * Made Module#alias_method_chaing a public method (for better Rails support). [Other Enhancements]
+        * Wrapped Nilclass#to_f in 1.9 condition. [Other Enhancements]
+        * float/round.rb redirects to numeric/round.rb. [Other Enhancements]
+        * numeric/float.rb holds rounding methods for all classed Numeric, Integer and Float. [Other Enhancements]
+        * Replace Kernel#instance_exec with Mauricio's version. [Other Enhancements]
+        * Fixed warning about parenthesis. [Other Enhancements]
+        * Minor improvements to Time extensions. [Other Enhancements]
+        * Wrapped String#to_time in Ruby 1.9 condition. [Other Enhancements]
+        * Improved String#each_char to work like Ruby 1.9.
+          * This loads strscan.rb.
+          * It is wrapped in a 1.9 condition. [Other Enhancements]
+        * Removed a comment from pathname.rb. [Other Enhancements]
+        * OpenStruct#to_h dups internal table.  [Bug Fixes]
+        * Re-added date.rb to lore library, and removed from core.  [Major Enhancements]
+
+
+2008-08-31   transami
+
+        * Add facets class files (eg. facets/string) have been made dynamic.  [Minor Enhancements]
+        * Removed Time#to_date. 
+          * Due to clobberd RI Docs (!) this should have been in Lore lib date.rb
+          * Moved to Lore date.rb. [Major Enhancements]
+        * Added Symbol#plain?, Symbol#query? and Symbol#setter?  [Major Enhancements]
+        * Move admin/sow to admin/share. [Other Enhancements]
+        * Moved old changelogs to archive. [Other Enhancements]
+        * Added a log/archive. [Other Enhancements]
+        * Fixed tests for BasicObject and Hash#slice. [Other Enhancements]
+        * Added admin/share dirctory. [Other Enhancements]
+        * Moved Hash#<< from hash/update.rb to hash/op_push.rb  [Minor Enhancements]
+        * Array#index accepts a block (one of the few core overrides).  [Minor Enhancements]
+        * Module#instance_method_define? now only applies to public methods.  [Minor Enhancements]
+        * Renamed string/subtract to string/op_sub. 
+          Old name will remain for time being for compatability. [Minor Enhancements]
+        * Hash#<< now return self  [Bug Fixes]
+        * BasicObject is now just a synonm for BlankSlate unless Ruby 1.9.  [Major Enhancements]
+        * Added #glob and #glob_first as extensions to Pathname. [Other Enhancements]
+        * Moved style.rb to string/stylize.rb  [Minor Enhancements]
+        * Added string/mask providing powerful string manipulation.  [Major Enhancements]
+        * Added warning to bytes --use RichUnits instead. [Other Enhancements]
+        * Added Jim Weirich's BlankSlate class.
+          * This is a temporary measure be compatible w/ AcitveSupport's BasicObject. [Other Enhancements]
+
+
+2008-08-29   transami
+
+        * Added block to Array#index.
+          * This is one of the few core overrides in Facets.
+          * It is a feature already in Ruby 1.9. [Other Enhancements]
+
+
+2008-08-25   transami
+
+        * Added niclass/ergo whic points back to kernel/ergo. [Other Enhancements]
+
+
+2008-08-23   transami
+
+        * Added reap and sow to admin/. [Other Enhancements]
+        * Made core/facets/hash.rb dynamic. [Other Enhancements]
+        * Renamed arguments.rb and CLI::Arguments to argvector.rb and Argvector.* [Other Enhancements]
+        * Added #bump method to VersionNumber class.* [Other Enhancements]
+        * Updated warn line fore eventual deprecation of fileshell and arguments.* [Other Enhancements]
+
+
+2008-08-18   transami
+
+        * Added facets-load.rb to allow old school cherry picking.*
+          * Between 2.0 and 2.4 require 'facets' simply added core to LOAD_PATH.
+          * Starting with 2.4 it loads all of core automatically instead.
+          * facets-load.rb provides a way to use the old behavior.
+                require 'facets-load.rb
+                require 'kernel/with'
+                require 'symbol/to_proc'
+          * It adds the path to the end of LOAD_PATH to prevent any load conflicts. [Other Enhancements]
+        * Added file/split_root.* [Other Enhancements]
+        * Made module/alias_method_chain and alias_accessor separate files.* [Other Enhancements]
+
+
+2008-08-15   transami
+
+        * Split module/alias.rb up into alias_accessor, alias_module_function and alias_method_chain. [Other Enhancements]
+
+
+2008-08-14   transami
+
+        * Renamed Instantise to Instantize. [Other Enhancements]
+
+
+2008-08-13   transami
+
+        * Modified script/test to display $LOAD_PATH before running tests. [Other Enhancements]
+        * Fixed dir tests to require 'fileutils'. [Other Enhancements]
+        * Upped version to 2.4.3. [Other Enhancements]
+        * Updated NEWS and CHANGES. [Other Enhancements]
+        * Moved Indexable and Stackable to core. [Other Enhancements]
+        * Update news and added svn entry to reap.yaml. [Other Enhancements]
+        * Fixed string/pathize. [Other Enhancements]
+        * Move test_partial to more tests. [Other Enhancements]
+        * Split out Enumerable#probability tests, etc. [Other Enhancements]
+        * Split tests for String#words, etc. [Other Enhancements]
+        * Remove module/test_clone. [Other Enhancements]
+        * Modified website copyright notice section. [Other Enhancements]
+        * Split out String #word_wrap, #words and #each_word. [Other Enhancements]
+        * Split out enumerable methods probability, commonality, entropy and frequency. [Other Enhancements]
+        * Remove more/facets/module --there's nothing in it. [Other Enhancements]
+        * Worked through core lib breaking up a few remaining large method bunches. [Other Enhancements]
+        * Added module directory to more lib, as well as hash/symbolize_keys and stringify_keys. [Other Enhancements]
+        * Split revise.rb up into separate methods. [Other Enhancements]
+        * Split kernel/load.rb into require_all.rb and require_local.rb. [Other Enhancements]
+        * Deprecate Hash#keys_to_s and Hash#keys_to_sym.
+          * These are the original versions of these methods.
+          * But now we can use #rekey(:to_s) and #rekey(:to_sym) instead. [Other Enhancements]
+        * Added had directory to more library. [Other Enhancements]
+        * Renamed Class#to_pathname and #to_methodname to #pathize and #methodize. [Other Enhancements]
+        * Moved binding/opvars from core to more. [Other Enhancements]
+        * Added a binding directory to more lib. [Other Enhancements]
+        * Deprecated Console:: namespace for ANSICode. [Other Enhancements]
+
+
+2008-08-12   transami
+
+        * Added sow generation forms. [Other Enhancements]
+        * Updated READMEs. [Other Enhancements]
+        * Spilt Time#trunc into separate file. [Other Enhancements]
+        * Remove old log files --shouldn't version control these. [Other Enhancements]
+        * Added note to FileList to add glob options parameter. [Other Enhancements]
+
+
+2008-08-10   transami
+
+        * Added Ken Bloom's DictionaryMatcher class from Ruby Quiz #103.
+          * Note this class will probably be renamed in the future. [Other Enhancements]
+        * IMPORTANT! Changed File#rewrite to not use the inplace change of the string.
+          * If you were using the function, change your code to use File#rewrite! instead.
+          * Or, modify your code ot use the new behavior.
+          * This change can make for a slippery bug, so be sure to check for it! [Other Enhancements]
+        * Moved test-old to test/more. [Other Enhancements]
+        * Remove test/more --we'll just copy test-old at this point. [Other Enhancements]
+        * Move "lore" tests to test/lore (lore are extensions to Ruby's standard lib). [Other Enhancements]
+        * Moved test-old core test to test/core. [Other Enhancements]
+        * Added test/core, test/lore and test/more. [Other Enhancements]
+        * Added new test directory. [Other Enhancements]
+        * Temporarily move test to test-old. [Other Enhancements]
+        * Added time/test_round.rb [Other Enhancements]
+        * Updated user scripts. [Other Enhancements]
+        * Updated reap configuration. [Other Enhancements]
+        * Updated test to correspond with previous changs. [Other Enhancements]
+        * Adjusted require path for facets.rb. [Other Enhancements]
+        * Added array/recursively. [Other Enhancements]
+        * Added time/round. [Other Enhancements]
+        * Time#to_date makes the public (it already existed in Ruby!) [Other Enhancements]
+        * Fixed Time#hence to flip year correctly when adding months. [Other Enhancements]
+        * Split hash/recurisve_merge out from hash/recursively. [Other Enhancements]
+        * Added optional argument to Dictionary#first and #last. [Other Enhancements]
+        * Moved facets.rb to core/. [Other Enhancements]
+        * Removed intermediate facets directory. [Other Enhancements]
+        * Moved live.rb to facets-live.rb. [Other Enhancements]
+        * Removed intermediate facets directory for lib/. [Other Enhancements]
+
+
+2008-08-09   transami
+
+        * Move facets to more/. [Other Enhancements]
+        * Recreate more directory. [Other Enhancements]
+        * Temporarily move more to facets/. [Other Enhancements]
+        * Move facets to lore/. [Other Enhancements]
+        * Recreate lore directory. [Other Enhancements]
+        * Temorarily move lore to facets/. [Other Enhancements]
+        * Moved facets to core/. [Other Enhancements]
+        * Added core directory back. [Other Enhancements]
+        * Temporary move of core to facets. [Other Enhancements]
+        * Removed remaining requires of 'ruby.rb'. [Other Enhancements]
+        * Completed moving test_ruby.rb tests to separate files. [Other Enhancements]
+        * Removed test/test_ruby. [Other Enhancements]
+        * Updated tests. [Other Enhancements]
+        * Removed test_ruby/array. [Other Enhancements]
+        * Updated array test which were moved from ruby.rb. [Other Enhancements]
+        * Moved history.rdoc and notes.rodc to doc/notes. [Other Enhancements]
+        * Added doc/notes directory. [Other Enhancements]
+        * Moved doc/html to admin/site/doc. [Other Enhancements]
+        * Removed site/doc --only to be relplaced by doc/html. [Other Enhancements]
+        * Update web docs. [Other Enhancements]
+        * Added kernel/instance method which provides a fluent interface to private object space. [Other Enhancements]
+        * Work on documentation using new Sow system. [Other Enhancements]
+        * Moved meta.rb to more/kernel/meta.rb and merged facets/core.rb into facets.rb. [Other Enhancements]
+        * Added more/kernel directory --hey not every extension can be core. [Other Enhancements]
+        * Adjusted loadpath and moved lazy.rb to core! [Other Enhancements]
+        * Moved remaing files to subdirectory locations. [Other Enhancements]
+        * Moved most core libs to core/. [Other Enhancements]
+        * Move most more files to the more directory. [Other Enhancements]
+        * Added lore and more directories. [Other Enhancements]
+        * Added facets/core directory. Yes, I'm spiliting the lib again.
+          * Loadpath will be used, so user inteface will stay the same.
+          * Setup.rb will be adjusted to recognaize loadpath. [Other Enhancements]
+
+
+2008-08-08   transami
+
+        * Update metadata and added admin/config to repository. [Other Enhancements]
+
+
+2008-08-07   transami
+
+        * Removed work directory. [Other Enhancements]
+        * Finished moving old work content to depot. [Other Enhancements]
+        * Move work/old to depot/deprecated. [Other Enhancements]
+        * Moved work/ref to depot/reference. [Other Enhancements]
+        * Moved work/new and work/sandbox to depot. [Other Enhancements]
+        * Added depot to admin directory to store odd files.
+          * This used to be calle work/.
+          * Is used to store scrap code, reference code, etc. [Other Enhancements]
+        * Moved setup.rb to script/setup.
+          * This will either be replaced with configure/install scripts.
+          * Or, depend on a separate ruby setup.rb project. [Other Enhancements]
+        * Metadata modifications. [Other Enhancements]
+        * Moved work to admin. [Other Enhancements]
+        * Added recorder.rb to consider in work directory. [Other Enhancements]
+        * Moved site to admin. [Other Enhancements]
+        * Moved log/ to admin/. [Other Enhancements]
+        * Update to testlog and changelog. [Other Enhancements]
+        * Added admin directory. [Other Enhancements]
+        * Added doc/news to store archives of part release notes. [Other Enhancements]
+        * Added website images. [Other Enhancements]
+        * Added test for paramix.rb. [Other Enhancements]
+        * Updated website with cleaner look. [Other Enhancements]
+        * Added "TO BE DEPRECATED" message to ruby.rb. [Other Enhancements]
+        * Added all methods from ruby.rb as individual core methods.
+          * These are the methods that overlap with 1.9.
+          * They are encased in 'unless RUBY_VERSION' caluses. [Other Enhancements]
+
+
+2008-08-02   transami
+
+        * Imporved file/rootname --now much more robust. [Other Enhancements]
+
+
+2008-08-01   transami
+
+        * Added Kernel#to_yamlfrag to yaml.rb as way to output yaml w/o the "---" header.
+          * Perhaps not the most robust solution, but okay for now.
+          * Maybe a poor name for the method, but you got a better one? [Other Enhancements]
+
+
+2008-06-11   tylerrick
+
+        * Made FileUtils#whereis a module_function again like it used to be. Because:
+          (1) that seems to be the way most other FileUtils methods are (cd, mkdir, cp, ...) and the most obvious way that users would WANT to use FileUtils: FileUtils.whereis("ruby"). 
+          (3) I see module_function used in other comparible parts of Facets: UploadUtils, ConsoleUtils, ZipUtils, FileUtils#safe_ln, ...
+          (3) My code that relied on the old module_function behavior was breaking
+          What were you thinkin changing it?? ;) [Other Enhancements]
+
+
+2008-04-05   transami
+
+        * Paramix is all spiffy again.
+          * There a no longer capitialize module methods at all.
+          * Use Module#[] and mixin_params[] instead. [Other Enhancements]
+
+
+2008-04-03   transami
+
+        * Update to notes and changes. [Other Enhancements]
+        * Added doc/notes.rdoc [Other Enhancements]
+        * Renamed. [Other Enhancements]
+        * Update metadata for 2.4.1. [Other Enhancements]
+        * Added new logs. [Other Enhancements]
+        * Removed old logs. [Other Enhancements]
+        * Removed old xml changelogs. [Other Enhancements]
+        * Added .rsync-filter and .htaccess to site/. [Other Enhancements]
+        * Fixed methods and conflicts scripts to compare extension libraries. [Other Enhancements]
+        * Updated tests for reatomizations. [Other Enhancements]
+        * Continued work on reatomizing core extensions (nearly complete now). [Other Enhancements]
+
+
+2008-03-31   transami
+
+        * Work on kernel instance methods. [Other Enhancements]
+
+
+2008-03-27   transami
+
+        * Added basex.rb and deprecated bahavior.rb. [Other Enhancements]
+
+
+2008-03-24   transami
+
+        * Updated website a little. [Other Enhancements]
+        * Split off some time tests. [Other Enhancements]
+        * Updated logs. [Other Enhancements]
+        * Update CHANGES and NOTES. [Other Enhancements]
+        * Fixed minor bugs to pass tests. [Other Enhancements]
+        * Split up include.rb. [Other Enhancements]
+        * Split up include.rb. [Other Enhancements]
+        * Moved test/test_one_nine.rb to test/test_ruby.rb. [Other Enhancements]
+        * Removed use of Console namepspace. command.rb and arguments.rb now use CLI. [Other Enhancements]
+        * Renamed ArgVector to CLI::Arguments [Other Enhancements]
+        * Removed rdoc script (will replace in future). [Other Enhancements]
+        * Added ri generation to setup.rb. [Other Enhancements]
+        * Added site/doc soft link to doc/html. [Other Enhancements]
+        * Moved one_nine.rb to ruby.rb [Other Enhancements]
+        * Update d requires for "one_nine" to just "ruby" b/c of backports to 1.8.7. [Other Enhancements]
+        * Added some work files. [Other Enhancements]
+        * Added some expirments in "safe" extensions. [Other Enhancements]
+        * Added html docs. [Other Enhancements]
+        * Added tests. [Other Enhancements]
+        * Added amazon books. [Other Enhancements]
+        * Add some addition separation to extensions. [Other Enhancements]
+        * Renamed task/ to script/, since the community is used to it b/c of Rails. [Other Enhancements]
+        * Fixed up tasks. [Other Enhancements]
+        * Clean up task system and docs. [Other Enhancements]
+        * Update metadata. [Other Enhancements]
+        * Test updates. [Other Enhancements]
+        * Minor updates. [Other Enhancements]
+
+
+2008-03-22   transami
+
+        * Update annotations for to_hash.rb. [Other Enhancements]
+        * Added headers to docs. [Other Enhancements]
+        * Updated docs. [Other Enhancements]
+
+
+2008-03-16   transami
+
+        * Added the new split-off tests. [Other Enhancements]
+        * Splinter remaining clumped tests. [Other Enhancements]
+        * Removed test_array. [Other Enhancements]
+        * Splintered array tests. [Other Enhancements]
+        * Added some finer-grain to core method. [Other Enhancements]
+        * Some deprecated libs added to work/old. [Other Enhancements]
+        * Tests are now to th epoint of passing again. Yea! [Other Enhancements]
+        * Continued touching up tests. [Other Enhancements]
+
+
+2008-03-15   transami
+
+        * Moved some old tests to proper place in work/old. [Other Enhancements]
+        * Deprecated files moved to work/old. [Other Enhancements]
+        * Coninuted work on tests. [Other Enhancements]
+
+
+2008-03-14   transami
+
+        * Adjusted module tests. [Other Enhancements]
+        * Removed cli directory. [Other Enhancements]
+        * Removed prime test directory and moved cli test up a level. [Other Enhancements]
+        * Adjust test to match lib (again). [Other Enhancements]
+        * Some deprecated extensions place in work/old for possible future reference. [Other Enhancements]
+
+
+2008-03-13   transami
+
+        * Umph... there it is. [Other Enhancements]
+
+
+2008-03-12   transami
+
+        * Removed prime directory. [Other Enhancements]
+        * Make way for class extensions. [Other Enhancements]
+        * Added warning to Rick Kilmers's unit system.
+          * Moving Rich Kilmers's units system to it's own package.
+          * Three are alternate unit systems available and Facets should work with any of them.
+          * Will keep a fair amount of the Time extensions though. [Other Enhancements]
+
+
+2008-03-10   transami
+
+        * Move core method decisions (I sware there are only a few more!) [Other Enhancements]
+        * Moved cli libs to toplevel. Added a few methods to prime library. [Other Enhancements]
+        * And so on... [Other Enhancements]
+
+
+2008-03-09   transami
+
+        * Cleandup symbol and class extra extensions. [Other Enhancements]
+
+
+2008-03-08   transami
+
+        * Moved nil/status.rb to nilstatus.rb [Other Enhancements]
+        * Got rid of Method#curry and Method#partial since they just convert to Procs. [Other Enhancements]
+        * Divied prime methods to sepearate files after all. [Other Enhancements]
+        * General cleanup pushing toward 3.0 release. [Other Enhancements]
+
+
+2008-03-07   transami
+
+        * Finished the reorganization of Enumerable extensions. [Other Enhancements]
+        * Loose end additions. [Other Enhancements]
+        * Cleanup module tests. [Other Enhancements]
+        * Cleanup hash tests. [Other Enhancements]
+        * Cleanup enumerable tests. [Other Enhancements]
+        * Added new test/kernel directory. [Other Enhancements]
+        * Removed old test/kernel directory. [Other Enhancements]
+        * Moved test_let to prime/kernel in order to move prime/kernel. [Other Enhancements]
+        * Cleanup array and time tests. [Other Enhancements]
+        * Cleanup file tests. [Other Enhancements]
+        * Cleanup string tests. [Other Enhancements]
+        * Continued test cleanup. Oh, so, fun fun ;) [Other Enhancements]
+        * Removed uneeded test directories. [Other Enhancements]
+        * Continued organizing tests. [Other Enhancements]
+        * Move integer tests cleanup. [Other Enhancements]
+        * Cleaned up integer tests. [Other Enhancements]
+        * Continued fixing tests. [Other Enhancements]
+        * Working on test organization. [Other Enhancements]
+        * Cleaned up binding tests. [Other Enhancements]
+        * Removed old core/more test directories. [Other Enhancements]
+        * Moved remaining tests to top test directory. [Other Enhancements]
+        * MOved extra extension test to toplevel. [Other Enhancements]
+        * Again moved more files to top level. [Other Enhancements]
+        * MOved more test to toplevel. [Other Enhancements]
+        * Moved remaining core test to top test level. [Other Enhancements]
+        * Moved ext/core to prime/.
+          * Will not combine the per-method tests for the moment.
+          * Will save that for later (unless we decide to div prime again :p) [Other Enhancements]
+        * Fixed requires for prime/ directory. [Other Enhancements]
+        * Moved all "prime" libs to subdir (yes, like they were). [Other Enhancements]
+        * Cleaned up remaining extranerous files. [Other Enhancements]
+
+
+2008-03-06   transami
+
+        * Further touchups to website. [Other Enhancements]
+        * Added some extra pages to website. [Other Enhancements]
+        * OVerhaul website for version 3. [Other Enhancements]
+
+
+2008-03-05   transami
+
+        * Made op_esc.rb a separate module rather thanan extension. [Other Enhancements]
+        * REmoved more extraneous files and moved a few to work area. [Other Enhancements]
+
+
+2008-03-04   transami
+
+        * Added some tasks and a couple of file to work old. [Other Enhancements]
+        * Cleaned up extra binding extensions. [Other Enhancements]
+        * Continued considations (almost there). [Other Enhancements]
+        * Continued consolidation and removing extraneous files. [Other Enhancements]
+        * Deprecated with_reader, with_writer and with_accessor for attr_singleton_reader, &c. [Other Enhancements]
+        * Removed extraneous Enumerable files. [Other Enhancements]
+        * Removed extraneous module alias and attr files. [Other Enhancements]
+
+
+2008-03-03   transami
+
+        * Deprecated Hash#pairs_at. Use Hash#slice instead from core. [Other Enhancements]
+        * Removed extraneous kernel extension files. [Other Enhancements]
+        * Removed extraneous String extextion files. [Other Enhancements]
+        * Removed some work folders. [Other Enhancements]
+        * Partial adjustments for work area dure to organization changes. [Other Enhancements]
+        * Scrap code. [Other Enhancements]
+        * Removed vestiges of transfers to core extensions and consolidations. [Other Enhancements]
+        * Fixed require in core libraries. [Other Enhancements]
+        * Fixed the namespaces of some extensions. [Other Enhancements]
+        * It is finished! [Other Enhancements]
+        * Move all "prime" libs to top. [Other Enhancements]
+        * Removed extra/. [Other Enhancements]
+        * Moved extra/continuation to top. [Other Enhancements]
+        * Move the rest of extra directories. [Other Enhancements]
+        * Moved all "extra" extensions to top facets/ directory. [Other Enhancements]
+        * Few more. [Other Enhancements]
+        * Added some file that were added before in the transition. [Other Enhancements]
+        * Removed remains vestigaes of old organization. (Now just ot fix the new one!) [Other Enhancements]
+        * The big wadoozy. [Other Enhancements]
+        * Remove empty directories for more/ext. [Other Enhancements]
+        * Move add classes and module to facets/. [Other Enhancements]
+        * Move more extensions to facets/extra. [Other Enhancements]
+        * Move a few more/ext to prime. [Other Enhancements]
+        * Moved core/facets to facets/extra. [Other Enhancements]
+        * Removed empty ext directories. [Other Enhancements]
+        * Added prime directory and files. [Other Enhancements]
+        * Removed some dir methods that are now in prime. [Other Enhancements]
+
+
+2008-03-02   transami
+
+        * Remove some now empty directories from core/ext, due to the "prime" transfer. [Other Enhancements]
+        * Removed all "prime" extension files. [Other Enhancements]
+        * Move mattr to module. [Other Enhancements]
+
+
+2008-03-01   transami
+
+        * Fixed require bug in time methods. [Other Enhancements]
+        * Reverted memomize.rb back to original code --will come back to later. [Other Enhancements]
+        * Moved random.rb to sys/. [Other Enhancements]
+        * Added stylizer.rb to replace stylize.rb [Other Enhancements]
+        * Removed old stylize.rb library --see new stylizer.rb. [Other Enhancements]
+        * Array #recursively is not only called #traverse. [Other Enhancements]
+        * Added case/stylize methods to more/facets/string. [Other Enhancements]
+        * Renamed more/string/facets/titlecase to captialize_all. [Other Enhancements]
+
+
+2008-02-29   transami
+
+        * Added uri and xoxo tests. [Other Enhancements]
+        * Cleaning up more/ext tests. [Other Enhancements]
+        * Some more reorganization in test/core. [Other Enhancements]
+        * Removed finaly vestage of old dir structure. [Other Enhancements]
+        * Moved remaing test to more/add. [Other Enhancements]
+        * Removed some outdated test and organized. [Other Enhancements]
+        * Moved more/ext tests out of more/add/. [Other Enhancements]
+        * Added ext, cli and sys to test/more/. [Other Enhancements]
+        * Removed test/mixin. [Other Enhancements]
+        * Moved test from mixin to more/add. [Other Enhancements]
+        * Moved add to test/more. [Other Enhancements]
+        * Added test/more. [Other Enhancements]
+        * Moved test/more to add. [Other Enhancements]
+        * Moved ext tests to core subdir. [Other Enhancements]
+        * Added test/core. [Other Enhancements]
+        * Move text/core to test/ext. [Other Enhancements]
+        * Updated .roll file for new organization. [Other Enhancements]
+        * Updated .reap file. [Other Enhancements]
+        * Updated metadata to fit new organization. (Happy Days!) [Other Enhancements]
+        * Moved facets.rb up a level. [Other Enhancements]
+        * Temporarily moved console libs to cli --mainly to ease working on them. [Other Enhancements]
+        * Moved condole to add. [Other Enhancements]
+        * Moved system to more/sys. [Other Enhancements]
+        * Moved "lore" to add/. Yea! [Other Enhancements]
+        * Moved libs to ext. [Other Enhancements]
+        * Added more/ext directory. [Other Enhancements]
+        * Progressive work on memoize and elementor. [Other Enhancements]
+        * Moved systematic libs from ext/ to sys/. [Other Enhancements]
+        * Moved classes and modules from ext/ to add/. [Other Enhancements]
+        * Added facets directory to add/ directory. [Other Enhancements]
+        * dded add/ directory to core/. [Other Enhancements]
+        * Moved facets/ to ext/. [Other Enhancements]
+        * Added ext directory. [Other Enhancements]
+        * Minor doc change. [Other Enhancements]
+        * Functor no longer privatizes =, == and =~. [Other Enhancements]
+        * Minor doc fix. [Other Enhancements]
+        * Properly split conversion.rb. [Other Enhancements]
+        * Some string methods extracted from stylize.rb. [Other Enhancements]
+        * Continued structuring. [Other Enhancements]
+
+
+2008-02-28   transami
+
+        * Moved lore/console up a notch. [Other Enhancements]
+        * Moved lore/system up a notch. [Other Enhancements]
+        * Moved random.rb to more/. [Other Enhancements]
+        * Renamed namespace.eb to methodspace.rb. [Other Enhancements]
+        * Moved autoreload to more/facets/kernel. [Other Enhancements]
+        * Moved four remaing web libs to common directory (use web/ subdir?). [Other Enhancements]
+
+
+2008-02-26   transami
+
+        * Moved some modules from system to common. [Other Enhancements]
+        * Moved all mixins back in with classes. [Other Enhancements]
+        * Moved class/facets up a level. [Other Enhancements]
+        * Removed old curry.rb. [Other Enhancements]
+        * More as standard and extraneous core extensions is progressing. [Other Enhancements]
+        * Added enumerable directory to more. [Other Enhancements]
+        * Moved some libs from system to more. [Other Enhancements]
+        * Added string directory to more. [Other Enhancements]
+        * Added kernel directory to more extensions. [Other Enhancements]
+        * Recreated more to house standard extensions. [Other Enhancements]
+        * More as standard extensions, and Lore (?) for the rest. [Other Enhancements]
+        * Added some web related libraries. [Other Enhancements]
+
+
+2008-02-25   transami
+
+        * Added cgi.rb with some standard extensions. [Other Enhancements]
+        * Fixed bug with #peek in stackable. [Other Enhancements]
+        * Deprecated paramix.rb. [Other Enhancements]
+
+
+2008-02-24   transami
+
+        * Added xmlhash.rb and returned uri.rb extensions to the library. [Other Enhancements]
+        * Moved getoptlong/rb to standard extensions folder. [Other Enhancements]
+        * Added #method_name to Date class. [Other Enhancements]
+
+
+2008-02-23   transami
+
+        * Removed extraneous level in doc. [Other Enhancements]
+
+
+2008-02-22   transami
+
+        * REmove cut-bases AOP, now in it's own library. [Other Enhancements]
+        * Converted compare_on.rb to Paramtric Mixins. [Other Enhancements]
+        * Split fileutils up into individual methods. [Other Enhancements]
+        * Update metadata to reflect organization changes. [Other Enhancements]
+        * Moved standard library extensions to more/extend. [Other Enhancements]
+        * Added facets directory to more/extend. [Other Enhancements]
+        * Continued organization. [Other Enhancements]
+
+
+2008-02-21   transami
+
+        * Moved console related libs to more/console. [Other Enhancements]
+        * Added facets subdir to console. [Other Enhancements]
+        * Added more/console; trying something a bit different in organization. [Other Enhancements]
+        * Added more/class/facets/net and moved set and ostruct to class as well. [Other Enhancements]
+        * more/system, rather than systems. [Other Enhancements]
+        * Moved class, mixin, and system to more. [Other Enhancements]
+        * Added new more directory. [Other Enhancements]
+        * Moved more to systems. [Other Enhancements]
+
+
+2008-02-20   transami
+
+        * Added test for command.rb. [Other Enhancements]
+        * Renamed console.rb to whate it should be consoleutils.rb. [Other Enhancements]
+        * Update to command.rb integrating MasterCommand and Command into a single class.
+          * The Console::Command is not nice and simple command parser I've been aiming torward.
+          * Barring some major oversite, this class will not change in an incompatible way ever again.
+          * Basic tests pass. More eleborate test will follow to ensure more complex designs also work. [Other Enhancements]
+
+
+2008-02-19   transami
+
+        * Added doc directory. [Other Enhancements]
+        * Updated README and allowed doc/ to be included in package. [Other Enhancements]
+
+
+2008-02-18   transami
+
+        * Added site/rdoc, which is a symlink. [Other Enhancements]
+        * Added log/Changelog.txt too. [Other Enhancements]
+        * Update logs. (Should these even be under version control?) [Other Enhancements]
+        * Added Rakefile to redirect to task/*. [Other Enhancements]
+        * Fixed bug in Kernel#object_hexid. [Other Enhancements]
+        * Fixed test for hash/collate. [Other Enhancements]
+        * Added test task and temporary rdoc task. [Other Enhancements]
+        * Added options back into multiglob_r. [Other Enhancements]
+        * Fixed bug in multiglob_r so it will NOT follow symlinks. [Other Enhancements]
+        * Moved work/reference to work/ref. [Other Enhancements]
+        * Moved work/current to new (can you tell I have a new naming scheme for work/?) [Other Enhancements]
+        * Moved work/outdated to old. [Other Enhancements]
+        * Added some outdated tasks to work. Will eventually delete. [Other Enhancements]
+
+
+2008-02-11   transami
+
+        * Moved doc/ to site/. [Other Enhancements]
+        * Added remaining doc files. [Other Enhancements]
+        * Converted website to XML. [Other Enhancements]
+
+
+2008-02-10   transami
+
+        * Automated learn and quick doc menus. [Other Enhancements]
+
+
+2008-02-09   transami
+
+        * Convert website from html to xml. [Other Enhancements]
+        * Finishing touches for next release. [Other Enhancements]
+        * Saved old rdoc script. [Other Enhancements]
+
+
+2008-02-06   transami
+
+        * Updates to tests as embedded tests are no more. [Other Enhancements]
+        * Finally completed removal of all embedded tests. [Other Enhancements]
+        * Organized tests according to new lib organization. [Other Enhancements]
+        * Improved cloneable.rb to be a true deep dup/clone mixin using Ken Bloom's suggestion. [Other Enhancements]
+
+
+2008-02-05   transami
+
+        * Working on end-user tasks. [Other Enhancements]
+        * Added work/outdated/task. [Other Enhancements]
+        * Updated the way rdocs are generated. [Other Enhancements]
+        * Organized all libs between core, more, class and mixin. [Other Enhancements]
+        * Moved class libraries to lib/class/facets. [Other Enhancements]
+        * Added lib/class. [Other Enhancements]
+        * Added tasksystem.rb. [Other Enhancements]
+        * Remove some admin task files no longer needed thanks to Reap. [Other Enhancements]
+        * Move admin/ to work/outdated. We'll be using reap instead. [Other Enhancements]
+        * Moved meta/facets.roll to .roll.
+          * This is related to an update of Rolls...
+          * It's better to have good SOC here regardless of some metadata redundancy. [Other Enhancements]
+        * Added meta/authors. [Other Enhancements]
+        * Moved old changelogs to log/ and move meta/config.yaml to .reap per new reap design. [Other Enhancements]
+        * Updaed reap config and removed icli.yaml. [Other Enhancements]
+        * Added doc/ads directory. [Other Enhancements]
+        * Removed dev/ directory. [Other Enhancements]
+        * Moved remaining dev files to work/ (will cleanup later). [Other Enhancements]
+        * Moved dev/sandbox to work/. [Other Enhancements]
+        * Moved dev/task and reference material to work directory. [Other Enhancements]
+        * Moved outdated dev libs to work. [Other Enhancements]
+        * Moved current dev to work directory. [Other Enhancements]
+        * Update to admin/tasks. [Other Enhancements]
+        * Update to project file. [Other Enhancements]
+        * Added enumerable/combinations. [Other Enhancements]
+        * Added openhash and tracepoint. [Other Enhancements]
+        * Added work directory. [Other Enhancements]
+        * Added some development scraps, plan to move dev/ to work/. [Other Enhancements]
+
+
+2008-01-19   transami
+
+        * Remove admin/log. [Other Enhancements]
+        * Convert changelog to pure ruby. [Other Enhancements]
+        * Remove admin/svn subdir. [Other Enhancements]
+        * Organize admin tasks better. [Other Enhancements]
+        * Add admin tasks. [Other Enhancements]
+        * Moved admin tasks to admin directory. [Other Enhancements]
+        * Added admin directory. [Other Enhancements]
+        * Removed task/doc subdir. [Other Enhancements]
+        * Moved some tasks. [Other Enhancements]
+        * Convert tasks to pure ruby. [Other Enhancements]
+
+
+2008-01-16   transami
+
+        * Move test/unit to test/core. [Other Enhancements]
+        * Moved remaining more test to test/more. [Other Enhancements]
+        * Added test/more/hash directory. [Other Enhancements]
+        * Moved more tests to test/more directory. [Other Enhancements]
+        * Added test/more. [Other Enhancements]
+        * Fixed test_keyize.rb. [Other Enhancements]
+        * binding/test_cflow renamed to test_caller [Other Enhancements]
+
+
+2008-01-09   transami
+
+        * Added test for new hash/collate. [Other Enhancements]
+        * Added demo benchmarks. [Other Enhancements]
+        * Update publish task. [Other Enhancements]
+        * Update quick.html and wiki code. [Other Enhancements]
+        * Added TODO to toplevel. [Other Enhancements]
+        * Added a couple of missing binding requires to repo. [Other Enhancements]
+        * Moved More lib hash_keyize.rb to hash/keyize.rb. [Other Enhancements]
+
+
+2007-12-30   transami
+
+        * Move source_material to just source. [Other Enhancements]
+
+
+2007-12-28   transami
+
+        * ANd so it goes with work reorganization. [Other Enhancements]
+
+
+2007-12-27   transami
+
+        * Moved dev/play to dev/sandbox. [Other Enhancements]
+        * Further reorganiztion of work area. [Other Enhancements]
+        * Some reorganization of developemnt area. [Other Enhancements]
+
+
+2007-12-22   transami
+
+        * Moved doc/wiki to apiwiki b/c of Rubyforge's wiki. [Other Enhancements]
+        * Removed doc/api dir. [Other Enhancements]
+        * Added wiki. [Other Enhancements]
+        * Prepare for 2.2.1 release. [Other Enhancements]
+        * Update per-module/class files. [Other Enhancements]
+        * Moved binding/cflow.rb to caller.rb. [Other Enhancements]
+        * Fixed up binding extensions. [Other Enhancements]
+        * Update tests and prepare for next version. [Other Enhancements]
+        * Ditto. [Other Enhancements]
+        * Renamed a couple test tasks. [Other Enhancements]
+
+
+2007-12-21   transami
+
+        * Moved methods and groups task to trash. [Other Enhancements]
+        * Moved core hash/keyize to more. [Other Enhancements]
+        * Added test class/remove_descendents.rb. [Other Enhancements]
+        * Added all remaining per-method require libs from methods/ --will need to wrok through these over time. [Other Enhancements]
+        * Added trash work directory. [Other Enhancements]
+        * Adjust text according to per-method file changes. [Other Enhancements]
+
+
+2007-12-20   transami
+
+        * All hash method, but the conversion methods, are now rpresented in core/facets/hash. [Other Enhancements]
+        * Added a few more Hash per-method files. [Other Enhancements]
+        * Add per-method libs for hash. [Other Enhancements]
+        * Updated facets/string.rb. [Other Enhancements]
+        * Moved string/format.rb to string/wrap.rb. [Other Enhancements]
+        * Updated String#brief. [Other Enhancements]
+
+
+2007-12-17   transami
+
+        * Renamed ROLLRC to facets.roll. [Other Enhancements]
+
+
+2007-12-13   transami
+
+        * Fixed project.yaml summary. [Other Enhancements]
+        * Update AUTHORS list. [Other Enhancements]
+        * Update release notes. [Other Enhancements]
+        * Update CHANGES for 2.2.0. [Other Enhancements]
+        * VERSION 2.2.0 [Other Enhancements]
+        * Added some missing tests dur to recent separations. [Other Enhancements]
+        * Minor update to test/general. [Other Enhancements]
+        * Updated tests to reflect recent changes. [Other Enhancements]
+        * Fixed test for continuation and removed test for pp_s.rb. [Other Enhancements]
+        * Move task/docpkg to task/doc/zip. [Other Enhancements]
+        * Moved task/config.yaml to meta/ per new Ratch. [Other Enhancements]
+        * Moved task/special to task/doc. [Other Enhancements]
+        * Minor updates to test and install tasks. [Other Enhancements]
+        * Updated todo list (in dev/). [Other Enhancements]
+        * Copied log/history.rd to CHANGES. [Other Enhancements]
+        * Removed log/history.rd and log/todo.rd [Other Enhancements]
+        * Fixed stylize.rb for use with 1.9 (fixed case statement). [Other Enhancements]
+        * Separated kernel/returning, now that #tap will be in 1.9. [Other Enhancements]
+        * Updated facets.rb for use with 1.9. [Other Enhancements]
+        * Separated time/stamp.rb. [Other Enhancements]
+        * Divided binding up into a few more pieces. [Other Enhancements]
+        * Fixed kernel/instance to play nice with 1.9. [Other Enhancements]
+        * Added test for string/op.rb. [Other Enhancements]
+
+
+2007-12-12   transami
+
+        * Renamed accessor #attributes to #instance_attributes. [Other Enhancements]
+
+
+2007-12-10   transami
+
+        * Removed continuation from core. [Other Enhancements]
+        * Removed pp_s.rb (use pretty_inspect) add continuation.rb. [Other Enhancements]
+        * Documentaiton improvements and moved continuation extension to more lib. [Other Enhancements]
+        * Added 1.9 check in continuation/create.rb. [Other Enhancements]
+        * Added op.rb to string.rb. [Other Enhancements]
+        * Added String/op.rb with String#- method. [Other Enhancements]
+
+
+2007-12-09   transami
+
+        * Minor edit to basicobject.rb in light of 1.9. [Other Enhancements]
+        * Minor adjustments to lazy.rb to fix warnings by Ruby 1.9. [Other Enhancements]
+        * Added Matthew Harris' Duration class. [Other Enhancements]
+        * Added Hash#slice and Hash#except (didn't we have this before?) [Other Enhancements]
+
+
+2007-12-05   transami
+
+        * Minor adjust to website. [Other Enhancements]
+
+
+2007-12-04   transami
+
+        * Improved on tests in relation to doc work. [Other Enhancements]
+        * Handled some minor bugs found while documenting. [Other Enhancements]
+        * Mode doc improvements. [Other Enhancements]
+
+
+2007-12-02   transami
+
+        * Add a couple new task for rdoc gen. [Other Enhancements]
+        * Added nbsp to quickopts task. [Other Enhancements]
+        * Website updates. [Other Enhancements]
+        * Work on website using siteparts. [Other Enhancements]
+        * Added registerable.rb, updated history. [Other Enhancements]
+        * Added #include_as to facets/namespace.rb. [Other Enhancements]
+        * Cleanup test hearders. [Other Enhancements]
+        * Rdoc improvements. [Other Enhancements]
+
+
+2007-12-01   transami
+
+        * Removed test for kernel/require_esc.rb [Other Enhancements]
+        * Remove kernel/require_esc.rb. [Other Enhancements]
+        * Updated integer docs. [Other Enhancements]
+        * Updates to kernel test headers. [Other Enhancements]
+        * Documentation updates to kernel extensions. [Other Enhancements]
+
+
+2007-11-30   transami
+
+        * Update docs continued. [Other Enhancements]
+        * Update hash test headers. [Other Enhancements]
+        * Updated hash extension docs. [Other Enhancements]
+        * Updated docs. [Other Enhancements]
+        * Added some missing tests. [Other Enhancements]
+        * Continued docs update. [Other Enhancements]
+        * Update docs. [Other Enhancements]
+        * Added test_collect.rb split-offs and test_mash inplace of test_collate. [Other Enhancements]
+        * Updated lots of test headers. [Other Enhancements]
+        * Renamed Enumerable #collate to #mash. (old name, along with graph, will be an alias for time being) [Other Enhancements]
+        * Lots of doc updates. [Other Enhancements]
+        * Updated documentation for array extensions. [Other Enhancements]
+        * Updated AUTHORS. [Other Enhancements]
+        * Divided enumerable/collect into split.rb and each.rb as well. [Other Enhancements]
+        * Moved mapsend.rb to thread.rb. [Other Enhancements]
+        * Updated mapsend.rb to focus on threads. [Other Enhancements]
+
+
+2007-11-28   transami
+
+        * VERSION 2.1.3 [Other Enhancements]
+        * Fixed bug is test/load. [Other Enhancements]
+        * Array#to_h used flatten, but it needs to be flatten(1). [Other Enhancements]
+        * Doc updates. [Other Enhancements]
+        * Fixed minor issue with collate. [Other Enhancements]
+        * Cleaned-up tests headers. [Other Enhancements]
+
+
+2007-11-27   transami
+
+        * Fixed bug with main.rb <=> facets.rb. [Other Enhancements]
+        * Move core/main.rb back to core/facets.rb as it conflicts with lib in more/. [Other Enhancements]
+
+
+2007-11-22   transami
+
+        * Updated manifest. [Other Enhancements]
+        * Remove task/config directory. [Other Enhancements]
+        * Added some missing tests to repo. [Other Enhancements]
+        * Added some missing tasks to repo. [Other Enhancements]
+        * Added some missing dev files (many of these can be deleted actually). [Other Enhancements]
+        * Added some missing files from repo. [Other Enhancements]
+        * Added log files. [Other Enhancements]
+        * Touch-up before release. [Other Enhancements]
+        * Update to metadata. [Other Enhancements]
+        * VERSION 2.1.2 [Other Enhancements]
+        * Renamed core/facets/facets.rb to main.rb (Rolls default). [Other Enhancements]
+        * Added copyright notice to COPYING file. [Other Enhancements]
+        * Renamed LICENSE to COPYING according to offical GPL policy. [Other Enhancements]
+        * Touch-up to logger.rb. [Other Enhancements]
+        * Added exception#details. [Other Enhancements]
+        * Move all test scripts to task/test/. [Other Enhancements]
+        * Added test subdir. [Other Enhancements]
+        * Prepare to make a test task subdir. [Other Enhancements]
+        * Continued fixes to metadata. [Other Enhancements]
+        * Fixes to metadata. [Other Enhancements]
+        * Added setup task. [Other Enhancements]
+
+
+2007-11-17   transami
+
+        * Prepare for version 2.1.1 [Other Enhancements]
+
+
+2007-11-16   transami
+
+        * Removed debug code. [Other Enhancements]
+        * Fixed options bug in command.rb [Other Enhancements]
+
+
+2007-11-15   transami
+
+        * Moved nilclass/ergo to kernel/ergo. [Other Enhancements]
+        * Update Kernel#ergo. [Other Enhancements]
+        * Added missing libs. [Other Enhancements]
+        * Added pp_s.rb (Questionable addition, but we'll leave it for now.) [Other Enhancements]
+        * Added validation.rb. This is here for Nitro's sake --better techinques may replace it in the future. [Other Enhancements]
+        * Removed tracepoint.rb --now part of Ratchets project. [Other Enhancements]
+        * Added Console::Logger to logger.rb (may be separated in future). [Other Enhancements]
+        * Added option arity to command.rb. [Other Enhancements]
+
+
+2007-11-10   transami
+
+        * Update to prepare task. manifest interface is better now ;) [Other Enhancements]
+        * Added UniversalOptions module. [Other Enhancements]
+        * Fixed minor bug in arguments.rb that prevented proper repeat parameters. [Other Enhancements]
+        * Removed extraneous symbol marks (:). [Other Enhancements]
+        * Fixed bug in to_console. [Other Enhancements]
+        * Adjustment to docs. [Other Enhancements]
+        * Some task improvements. [Other Enhancements]
+        * Moved common alias methods from attr.rb to alias.rb. [Other Enhancements]
+        * Added clobber/ tasks. [Other Enhancements]
+        * Updated tests. [Other Enhancements]
+        * VERSION 2.1.0 [Other Enhancements]
+        * MasterCommand now passes (args, opts), until 1.9 is main stream. [Other Enhancements]
+        * Added BiCrypt class for simple two-way encryption. [Other Enhancements]
+        * Added dev/test [Other Enhancements]
+        * Renamed RELEASE to WHATSNEW [Other Enhancements]
+        * Added injecting test and cleaned up. [Other Enhancements]
+        * Fixed bud in enumerable/cluster_by (returned nil instead of []). [Other Enhancements]
+        * Cleaned up enumerable/permutation.rb [Other Enhancements]
+
+
+2007-11-09   transami
+
+        * minor space removal [Other Enhancements]
+        * Complete rewrite of command.rb. [Other Enhancements]
+        * Added comment for potential future #is. [Other Enhancements]
+        * Added "tester" attribues attr_xxx!. Also added alias_xxx for all attr_xxx methods. [Other Enhancements]
+        * Added top-level log directory. [Other Enhancements]
+
+
+2007-11-08   transami
+
+        * Added -q option to zip method in ZipUtils. [Other Enhancements]
+
+
+2007-11-05   transami
+
+        * Remove #q reference from RELEASE. [Other Enhancements]
+        * Cleanup of test_initializer.rb. [Other Enhancements]
+        * VERSION 2.0.5 [Other Enhancements]
+        * Fixed return bug in hash/op.rb. [Other Enhancements]
+        * Ok. #p is back. This will in fact be in 1.9, so we're good. [Other Enhancements]
+        * Allowed Class#initializer to return the attribute names.
+            * This should allow things like: 'private *initializer(...)' [Other Enhancements]
+
+
+2007-11-04   transami
+
+        * Added missing (*args) in #initialize on Hash.new. [Other Enhancements]
+        * Renamed #p to #q, because of multiple args problem.
+            * I don't know how Ruby 1.9 plans to handle multiple args.
+            * Will deprecate for 1.9 anyway so doesn't matter much. [Other Enhancements]
+        * Fixed package name in icli.yaml. [Other Enhancements]
+        * Added name field to meta/icli.yaml. [Other Enhancements]
+        * Added meta/icli.yaml. [Other Enhancements]
+        * Added a RELEASE file to hold current release notes. [Other Enhancements]
+        * Added log task. [Other Enhancements]
+        * Added changelog file in doc/log/. [Other Enhancements]
+        * Up'd version to 2.0.4. [Other Enhancements]
+        * Update task/groups. [Other Enhancements]
+        * Fixed to_h in Command::Options [Other Enhancements]
+        * Fixed bug in initialize. [Other Enhancements]
+
+
+2007-11-03   transami
+
+        * Removed extest task. We will no longer need it. [Other Enhancements]
+        * Fixed bug in Hash#- Thanks to Xavier Shay. [Other Enhancements]
+        * Minor update to rdoc.yaml. [Other Enhancements]
+        * Renamed old changelogs. [Other Enhancements]
+        * Touch up to methods task. [Other Enhancements]
+        * Update rsync filter [Other Enhancements]
+        * Minor updates fixing issues highlighted by running crosstest. [Other Enhancements]
+        * Many minor bug fixes after running against crosstest. [Other Enhancements]
+        * Added usage support for __foo options. [Other Enhancements]
+        * Fixed a many a test after running against crosstest. [Other Enhancements]
+        * Removed load task. It did not isolate the libs, so wasn't effective. [Other Enhancements]
+        * Added a number of new tasks. [Other Enhancements]
+        * Rename SMTP_TLS to Smtp_tls for Rdocs. [Other Enhancements]
+
+
+2007-11-02   transami
+
+        * Moved rdoc.yaml to config/. [Other Enhancements]
+        * moved task/config to task/config/general. [Other Enhancements]
+        * Update tasks. [Other Enhancements]
+
+
+2007-11-01   transami
+
+        * Added array/only,  symbol/to_proc (where did it go?) and hash/select. [Other Enhancements]
+        * Update roll file. [Other Enhancements]
+        * Moved test_command_options to test_command. [Other Enhancements]
+        * Update dictionary test to check dup and autohash. [Other Enhancements]
+
+
+2007-10-31   transami
+
+        * Fixed autohash and dup bugs. [Other Enhancements]
+        * Verbatim support for Rails' version of #alias_method_chain. [Other Enhancements]
+        * Remove site/ directory. [Other Enhancements]
+        * Moved rsync filter up too. [Other Enhancements]
+        * Moved doc/site/ up to doc/. [Other Enhancements]
+        * Added javascript directory to doc/. [Other Enhancements]
+
+
+2007-10-30   transami
+
+        * Updates across the board. [Other Enhancements]
+        * Updates to stylize and command.rb. [Other Enhancements]
+        * Made facets.rb a shortcut to facets/facets.rb (this is for Rolls, better way?) [Other Enhancements]
+        * Oh smack. Lots of stuff fixed. [Other Enhancements]
+
+
+2007-10-29   transami
+
+        * Remove version.txt. No longer needed. [Other Enhancements]
+        * Removed meta/project.yaml, replaced by facets roll file. [Other Enhancements]
+
+
+2007-10-28   transami
+
+        * Modifications to command.rb, snapshot and rbsystem.
+            * Merged command.rb and command_options.rb into command.rb.
+            * Added to_data aliases to snapshot.rb
+            * Minor additions to rbsystem. Rather than System, maybe Ruby? [Other Enhancements]
+
+
+2007-10-27   transami
+
+        * Removed embedded test from overload.rb. [Other Enhancements]
+        * Allow OpenStruct#initialize to take a setter block. [Other Enhancements]
+        * Downloader needs 'wb' flag rather then just 'w'. [Other Enhancements]
+        * Fixed typo and removed embedded test. [Other Enhancements]
+        * Fixed bug in command_options.rb, putting the class back in the Console namespace. [Other Enhancements]
+
+
+2007-10-17   transami
+
+        * improved module/traits.rb [Other Enhancements]
+
+
+2007-10-08   transami
+
+        * cleaned up some test and updated version to 2.0.2 [Other Enhancements]
+        * update methods to eleminate duplicate file names between lib/core and lib/methods [Other Enhancements]
+
+
+2007-10-07   transami
+
+        * doc session - clean up array methods [Other Enhancements]
+        * fixed enumerable/test_collect.rb [Other Enhancements]
+        * doc update some tasks [Other Enhancements]
+        * updated version to 2.0.1 [Other Enhancements]
+        * minor bugs fixes [Other Enhancements]
+        * update methods task to display each file as it process it [Other Enhancements]
+        * added benchmarks for some enumerable methods. [Other Enhancements]
+        * moved demo/bench/bench_factorial to an demo/bench/integer subclass [Other Enhancements]
+        * added Erik Veenstra to AUHTORS for work on enumerable/group_by and cluster_by [Other Enhancements]
+        * minor improvement to test task to specifically read test_*.rb files [Other Enhancements]
+        * removed enumerable/partition.rb [Other Enhancements]
+        * move enumerable/partition.rb methods to collect.rb. [Other Enhancements]
+
+
+2007-10-06   transami
+
+        * Improved Integer#of. [Other Enhancements]
+        * Minor improvements to collect.rb and partition.rb [Other Enhancements]
+        * Deprecated nonuniq!, bug fixed cluster_by and aliased group_by and partition_by. [Other Enhancements]
+        * Rennamed Enumerable#partition_by to group_by (like RUby 1.9) and fixed bug in cluster_by. [Other Enhancements]
+        * update quick docs [Other Enhancements]
+        * Doc updates [Other Enhancements]
+
+
+2007-10-03   transami
+
+        * Added Oliver Renaud to the AUTHORS list (oops!) [Other Enhancements]
+
+
+2007-10-02   transami
+
+        * update README to not use folded lines [Other Enhancements]
+        * spellchecked README [Other Enhancements]
+        * update test task and test_aop.rb [Other Enhancements]
+        * minor update to meta/project.yaml [Other Enhancements]
+        * updates to groups task and methods task and version to 'stable' [Other Enhancements]
+        * updated test task to allow 'live' test [Other Enhancements]
+        * update AUTHORS [Other Enhancements]
+        * update test task and move AUTHORS file to toplevel [Other Enhancements]
+        * moved note/ to doc/notes [Other Enhancements]
+        * update tasks for core/fore move and moved todo to dev/ [Other Enhancements]
+        * moved fore to core (and core to methods) [Other Enhancements]
+
+
+2007-09-20   transami
+
+        * update test and install tasks [Other Enhancements]
+        * require fixes to cut.rb and attributes.rb [Other Enhancements]
+        * fixed tests for string/nchar and kernel/silence [Other Enhancements]
+        * Fixed String#brief in format.rb [Other Enhancements]
+
+
+2007-09-13   transami
+
+        * removed 1stClassMethod from "more" docs [Other Enhancements]
+        * removed 1stClassMethod as a rdoc target (now in Core target) [Other Enhancements]
+        * update install and rdoc tasks [Other Enhancements]
+        * moved string/test_index.rb to string/test_nchar.rb [Other Enhancements]
+        * updated indexable tests [Other Enhancements]
+        * update string.rb to include string/nchar.rb [Other Enhancements]
+        * moved index.rb to nchar.rb [Other Enhancements]
+        * clean up string/index.rb [Other Enhancements]
+        * moved facets.rb to fore directory [Other Enhancements]
+        * add comment to groups task [Other Enhancements]
+        * added groups task [Other Enhancements]
+        * updated all extrension group files (array.rb, binding.rb, etc.) [Other Enhancements]
+
+
+2007-09-12   transami
+
+        * uncapitalize meta files [Other Enhancements]
+        * update methods task a bit more, plus related configuration [Other Enhancements]
+        * updated methods task [Other Enhancements]
+        * removed lib/core --this is generated content (may be renamed too) [Other Enhancements]
+        * added load and stats tasks [Other Enhancements]
+        * update install task --this replaces setup b/c of Facets' special install needs [Other Enhancements]
+        * update project file [Other Enhancements]
+        * removed lib/facets [Other Enhancements]
+        * moved remaining libs to fore (will later consider an additional subdivision) [Other Enhancements]
+        * move facets/fore to fore/facets [Other Enhancements]
+        * move facets/more to more/facets [Other Enhancements]
+        * added ;ob/core, more and fore [Other Enhancements]
+        * move memorize [Other Enhancements]
+
+
+2007-09-10   transami
+
+        * removed io and net directories [Other Enhancements]
+        * moved io/redirect.rb to more/ioredirect.rb and net/smtp_tls.rb and net/uploadutils.rb libs to more too. [Other Enhancements]
+        * few more libs moved to more/ directory [Other Enhancements]
+        * moved all the most obvious more libs to the more directory [Other Enhancements]
+        * moved fore "grouping" libs to fore directory [Other Enhancements]
+        * moved "fore" libs to fore directory [Other Enhancements]
+        * create for and more directories (yes, you know what's coming ;) [Other Enhancements]
+        * renamed remain.rb (was main_as_module.rb) to just main.rb [Other Enhancements]
+        * improved rdoc task and project.yaml file [Other Enhancements]
+        * better docs for OpenObject [Other Enhancements]
+        * improved method hiding [Other Enhancements]
+
+
+2007-09-07   transami
+
+        * documentation touch ups [Other Enhancements]
+        * fixes for conversion.rb rather than conversions.rb [Other Enhancements]
+        * updated to website docs [Other Enhancements]
+        * moved demos to demo/sample [Other Enhancements]
+        * added bench and sample dir to demo [Other Enhancements]
+
+
+2007-09-06   transami
+
+        * moved spy.html to light.html [Other Enhancements]
+        * menum change to webpage, fixed core doc link [Other Enhancements]
+        * moved metadata files to meta/ (info/ or box/ would be better?) [Other Enhancements]
+        * updated test_conversion.rb for to_h/to_hash [Other Enhancements]
+        * reverse_each instead of each for after advice in advice.rb [Other Enhancements]
+        * final fix to to_h/to_hash discrepency [Other Enhancements]
+        * added a Path and Root features to Pathname (good idea?) [Other Enhancements]
+
+
+2007-09-05   transami
+
+        * update advice.rb test and moved old cut test to dev/scrap [Other Enhancements]
+        * updated advice; removed preinitialize.rb to trinkets project (it was too expiremental) [Other Enhancements]
+        * command_filter.rb needs to considered/developed; moved to dev/new/ [Other Enhancements]
+        * fixed interface.rb fo singelton methods [Other Enhancements]
+        * updates to tests [Other Enhancements]
+        * whole lot of small bug fixes [Other Enhancements]
+        * add tests to revision control [Other Enhancements]
+        * removed old cut test (moved to dev/scrap) [Other Enhancements]
+        * working on tests [Other Enhancements]
+        * added read.rb (taken from readwrite.rb) [Other Enhancements]
+        * split readwrite.rb into read.rb and write.rb [Other Enhancements]
+
+
+2007-09-04   transami
+
+        * remove string/unpack.rb, offset can be had using '@' format instead [Other Enhancements]
+        * renamed conversions.rb to conversion.rb, fixed some requires [Other Enhancements]
+        * improved attr.rb [Other Enhancements]
+        * some cleanup of enumerable extensions [Other Enhancements]
+        * setup annotations demo [Other Enhancements]
+        * add non-embedded tests [Other Enhancements]
+
+
+2007-09-03   transami
+
+        * finally brough over toadcode prototype.rb and cleaned it up enough to be useful [Other Enhancements]
+        * removed annotations subdir [Other Enhancements]
+        * moved annotations/ann.rb and attr.rb to annotations.rb and attributes.rb [Other Enhancements]
+        * remove annotations.rb [Other Enhancements]
+        * moved annotations/settings.rb up a dir [Other Enhancements]
+        * remove settings.rb [Other Enhancements]
+
+
+2007-09-02   transami
+
+        * chnaged multiton_id(e) to multiton_id(*e,&b) [Other Enhancements]
+        * updated test task [Other Enhancements]
+        * added Christoph Rippel to authors lists [Other Enhancements]
+        * added doc header to new multiton class [Other Enhancements]
+        * update to new version of multiton [Other Enhancements]
+        * playing around with multiton2.rb [Other Enhancements]
+        * renamed dev/try to dev/new [Other Enhancements]
+        * created dev/old to temporarily house old versions of libs that have been replaced. [Other Enhancements]
+        * fixed quick.html documentation [Other Enhancements]
+        * used old wiki.gif as email.gif instead [Other Enhancements]
+        * fixed config.yaml publish entry [Other Enhancements]
+        * some minor updates to index.html [Other Enhancements]
+        * moved site to doc/site [Other Enhancements]
+        * update to publish task [Other Enhancements]
+        * updates of tasks [Other Enhancements]
+        * added kernel/report.rb to hold debug/warn extensions. [Other Enhancements]
+        * renamed reporting.rb to silence.rb [Other Enhancements]
+        * update reporting.rb (created report.rb from it) [Other Enhancements]
+
+
+2007-09-01   transami
+
+        * task work [Other Enhancements]
+        * clean up dev finis [Other Enhancements]
+        * cleanup dev just a bit more [Other Enhancements]
+        * continue cleanup of dev directory [Other Enhancements]
+        * moved dev/twiki to misc/ [Other Enhancements]
+        * removed dev/core [Other Enhancements]
+        * moved require_directory.rb to misc/ [Other Enhancements]
+        * added dev/misc for code scraps that might be useful but are not straight lib or task code [Other Enhancements]
+        * more dev changes [Other Enhancements]
+        * organize dev better [Other Enhancements]
+        * cleanup of dev continues [Other Enhancements]
+        * cleanup of dev dir [Other Enhancements]
+        * clean up dev dir more [Other Enhancements]
+        * some cleanup of dev directory [Other Enhancements]
+        * almost completed advice lib [Other Enhancements]
+        * added comment about possible update [Other Enhancements]
+        * deprecate instance_send and instance_map [Other Enhancements]
+
+
+2007-08-31   transami
+
+        * work on rdoc task [Other Enhancements]
+        * work on rdoc task [Other Enhancements]
+        * added dev/cut dir [Other Enhancements]
+
+
+2007-08-29   transami
+
+        * no reason to track .config [Other Enhancements]
+        * clean up trunk [Other Enhancements]
+        * added todo comment [Other Enhancements]
+        * added advice.rb to replace old aspects.rb [Other Enhancements]
+        * removed aspects.rb (sucked), added prototype.rb (infancy) and adjusted to class_extension.rb [Other Enhancements]
+        * removed #to_roman (now part of the English project) [Other Enhancements]
+        * cont. work on aop and cuts [Other Enhancements]
+        * fixed IMG tag bug [Other Enhancements]
+        * added yaml.rb [Other Enhancements]
+        * move #here convenience method to binding/eval (separate?) [Other Enhancements]
+        * added in order to remove kernel/misc.rb [Other Enhancements]
+        * consolidate string/regesc [Other Enhancements]
+        * added module/methods [Other Enhancements]
+        * updates to include and attr [Other Enhancements]
+
+
+2007-08-28   transami
+
+        * fixed Range#umbrella [Other Enhancements]
+        * more organization of docs [Other Enhancements]
+        * orginizing docs [Other Enhancements]
+
+
+2007-08-27   transami
+
+        * update val.rb [Other Enhancements]
+        * added proc/fn.rb (from kernel/misc.rb) and fixed typo in compose.rb [Other Enhancements]
+        * moved misc.rb to val.rb [Other Enhancements]
+        * better organization of some kernel methods [Other Enhancements]
+        * moved #here alias to eval.rb [Other Enhancements]
+        * minor updates and some bug fixes (modspace what broke) [Other Enhancements]
+        * removed file/yaml.rb in favor or just yaml.rb [Other Enhancements]
+        * moved this to facets/yaml.rb [Other Enhancements]
+
+
+2007-08-25   transami
+
+        * work on aop system [Other Enhancements]
+        * Added aop.rb, and cut.r and recursive.rb [Other Enhancements]
+        * moved cut.rb to dev (old version will be deprecated) [Other Enhancements]
+        * added to_hash to Dictionary, and minor mods to others [Other Enhancements]
+
+
+2007-08-24   transami
+
+        * oops, no need for enumerator directory [Other Enhancements]
+        * moved threaded_send.rb to mapsend.rb [Other Enhancements]
+        * moved threaded_send out of enumerable/ dir [Other Enhancements]
+        * updates to elementor.rb [Other Enhancements]
+        * merged instance_map into threaded_send [Other Enhancements]
+        * removed map_send [Other Enhancements]
+        * merging map_send with threaded_send [Other Enhancements]
+
+
+2007-08-23   transami
+
+        * cont work on elementwise methods [Other Enhancements]
+        * divide elementwise functions betwee two libs [Other Enhancements]
+        * uniq.rb is merged into count.rb [Other Enhancements]
+        * removed count.rb (uniq.rb will become count.rb) [Other Enhancements]
+        * more refinement to enumerable extensions [Other Enhancements]
+        * continued refinement of enumerable extensions [Other Enhancements]
+        * general improvements to the organization of enumerable extensions [Other Enhancements]
+
+
+2007-08-22   transami
+
+        * moved rake/ back to task/ [Other Enhancements]
+        * added a couple of tasks [Other Enhancements]
+        * renamed rake files as task file [Other Enhancements]
+        * update some tasks [Other Enhancements]
+        * moved methods.rake to methods [Other Enhancements]
+        * updated methods task to use ratch [Other Enhancements]
+        * Okay, were going to use Ratch --heaven help me. [Other Enhancements]
+
+
+2007-08-19   transami
+
+        * removed facets/cli dir [Other Enhancements]
+        * moved all cli libs from facets/cli to facets/ [Other Enhancements]
+        * removed src/ directory [Other Enhancements]
+        * finished cli lib move [Other Enhancements]
+        * made dev/cli [Other Enhancements]
+        * almost finished integrating cli libs [Other Enhancements]
+        * moved cli support files to facets locations [Other Enhancements]
+        * moved cli lib to facets main (also modified functor) [Other Enhancements]
+        * preparing to move cli libs to facets main [Other Enhancements]
+
+
+2007-08-18   transami
+
+        * renamed hash/reverse to hash/merge (it contains #reverse_merge) [Other Enhancements]
+
+
+2007-08-13   transami
+
+        * updated Project.yaml [Other Enhancements]
+        * remove Manifest.txt from repository [Other Enhancements]
+        * more and more task work [Other Enhancements]
+        * removed info/ and added Project.yaml [Other Enhancements]
+        * moved info/ content to top-level [Other Enhancements]
+        * more task work [Other Enhancements]
+        * removed rake.rake [Other Enhancements]
+        * more task work [Other Enhancements]
+        * basic tasks are almost ready [Other Enhancements]
+        * continued work on rake tasks [Other Enhancements]
+
+
+2007-08-12   transami
+
+        * more work on rake tasks [Other Enhancements]
+        * tweak methods.rake [Other Enhancements]
+        * cont. improvement of rake tasks [Other Enhancements]
+        * added clean.rake [Other Enhancements]
+        * more updates to rake tasks [Other Enhancements]
+        * got rid of setup in favor of a simply install.rake [Other Enhancements]
+        * added a rake support file [Other Enhancements]
+        * renamed tasks with *.rb [Other Enhancements]
+        * updated tasks to be rake tasks [Other Enhancements]
+        * moved methods to methods.rake [Other Enhancements]
+        * update methods to be a rake file [Other Enhancements]
+        * Will use rake adn be done with it. [Other Enhancements]
+
+
+2007-08-11   transami
+
+        * cont. clean up of metadata [Other Enhancements]
+        * clean up of metadata [Other Enhancements]
+        * remove instance_intercept (trinket code) [Other Enhancements]
+        * continued modification of those tasky tools [Other Enhancements]
+        * removed lib/more (this is it!) [Other Enhancements]
+        * moved M-Z of more/facets to facets (this is it!) [Other Enhancements]
+        * moved A-L of more/facets to facets (this is it!) [Other Enhancements]
+
+
+2007-08-10   transami
+
+        * removed lib/core (this is it!) [Other Enhancements]
+        * moved lib/core/facets.rb to lib/facets.rb (this is it!) [Other Enhancements]
+        * moved lib/core/facets to lib/facets (this is it!) [Other Enhancements]
+        * added file/yaml.rb [Other Enhancements]
+        * added a list of libraries considered "core" [Other Enhancements]
+        * continued work on build tools [Other Enhancements]
+        * change tools for core/more convergence (so help us god!) [Other Enhancements]
+        * added conversion requirement to some core libs [Other Enhancements]
+        * update methods task [Other Enhancements]
+
+
+2007-08-06   transami
+
+        * update quick.html to mirror rdoc changes --still needs work though [Other Enhancements]
+        * remove old rdoc task [Other Enhancements]
+        * added rdoc section (minimal) to tool/config.yaml [Other Enhancements]
+        * nope. remove site/rdoc [Other Enhancements]
+        * add rdoc dir, should we? [Other Enhancements]
+        * remove site/rdoc in preperation for new way [Other Enhancements]
+        * facets.rb belongs to core/ [Other Enhancements]
+        * renamed some doc files [Other Enhancements]
+        * removed src/core [Other Enhancements]
+        * move src/core/lin to lib/core [Other Enhancements]
+        * added kernel/constant [Other Enhancements]
+        * remove src/core/web [Other Enhancements]
+        * moving more of core to top-level (svn sucks!) [Other Enhancements]
+        * moving core support files to top-level [Other Enhancements]
+        * removed src/more [Other Enhancements]
+        * move src/more/lib to lib/more [Other Enhancements]
+        * made lib dir (to replace src) [Other Enhancements]
+        * added settings.rb which points to annotations/settings.rb [Other Enhancements]
+        * moved svn to annotations/ subdir [Other Enhancements]
+        * moved dev files to top-level as part of more transition [Other Enhancements]
+        * temporarily removed dev/more [Other Enhancements]
+        * moved annotations demo to demo dir [Other Enhancements]
+        * added demo folder [Other Enhancements]
+        * add dev/more [Other Enhancements]
+        * remove struct again! (stupid svn) [Other Enhancements]
+        * moved file to top-level doc as part of more transisiton [Other Enhancements]
+        * bullshit svn crap [Other Enhancements]
+        * ann moved back to more (strongly considering annotations for it's own project) [Other Enhancements]
+        * build moved back to more [Other Enhancements]
+        * aop moved back to more [Other Enhancements]
+        * cast moved back to more [Other Enhancements]
+        * crypt moved back to more [Other Enhancements]
+        * exts moved back to more [Other Enhancements]
+        * file moved back to more [Other Enhancements]
+        * meta moved back to more [Other Enhancements]
+        * misc moved back to more [Other Enhancements]
+        * model moved back to more [Other Enhancements]
+        * struct moved to back to more [Other Enhancements]
+        * moved sync back to more [Other Enhancements]
+
+
+2007-08-05   transami
+
+        * minor modification to core's method task [Other Enhancements]
+        * finished removing facets/core from revision control [Other Enhancements]
+        * remove facets/core/ method libs from revision control [Other Enhancements]
+        * fixed task/methods, update facets/core (which will be removed from revision ctrl) [Other Enhancements]
+        * updated methods task to point to facets/core/ [Other Enhancements]
+        * moved lib/facets_by_method/ to facets/core/ for backward compatibility [Other Enhancements]
+
+
+2007-08-04   transami
+
+        * updated some tools [Other Enhancements]
+
+
+2007-08-03   transami
+
+        * moved commandoptions.rb to command_options.rb [Other Enhancements]
+        * rewrote command and command options libs [Other Enhancements]
+
+
+2007-08-02   transami
+
+        * fixed up website [Other Enhancements]
+        * moved web to site [Other Enhancements]
+        * added splash.html (really trash but we'll hang on to it fot now) [Other Enhancements]
+        * added .rsync_filter to wesite, for publish task [Other Enhancements]
+        * moved 'task' to 'tool' (was 'util' before that) [Other Enhancements]
+        * removed web/home.html, replaced with index.html [Other Enhancements]
+        * update website to look better on Widows [Other Enhancements]
+        * moved facets-by-method/ to facets_by_method/. note: this was the old facets/core/. [Other Enhancements]
+
+
+2007-08-01   transami
+
+        * rearranged web directory (no more cover page) [Other Enhancements]
+
+
+2007-07-31   transami
+
+        * removed core ri files and series 1.8 packages [Other Enhancements]
+        * initial import [Other Enhancements]
+

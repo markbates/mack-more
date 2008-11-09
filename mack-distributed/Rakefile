@@ -14,15 +14,16 @@ require File.join(crt, "rake_task_requires")
 
   s.bindir = "bin"
   s.executables << "mack_ring_server"
-  s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*']
+  s.files = FileList['lib/**/*', 'README', 'doc/**/*.*']
   
-  s.add_dependency("addressable", "1.0.4")
+  # s.add_dependency("addressable", "1.0.4")
   s.add_dependency('mack-caching', GEM_VERSION)
   
   s.require_paths << 'bin'
   s.require_paths << 'lib'
   
-  s.has_rdoc = true
+  # s.has_rdoc = true
+  s.rdoc_options << '--exclude=gems/'
   s.rubyforge_project = "magrathea"
 end
 

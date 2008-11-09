@@ -1,4 +1,4 @@
-require 'rubygems'
+# require 'rubygems'
 gem 'rspec'
 require 'spec'
 require 'rake'

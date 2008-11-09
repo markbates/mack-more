@@ -1,4 +1,7 @@
-require 'rubygems'
+puts "***** #{File.basename(__FILE__)} ****"
+add_gem_path(File.expand_path(File.join(File.dirname(__FILE__), 'gems')))
+
+# require 'rubygems'
 require 'genosaurus'
 
 configatron.mack.set_default(:disable_transactional_tests, false)
@@ -14,7 +17,7 @@ fl = File.join(File.dirname(__FILE__), "mack-data_mapper")
 $: << File.expand_path(File.join(fl, "dm_patches"))
 
 [:core, :aggregates, :migrations, :serializer, :timestamps, :validations, :observer, :types].each do |g|
-  gem "dm-#{g}", "0.9.6"
+  # gem "dm-#{g}", "0.9.6"
   require "dm-#{g}" unless g == :types
 end
 

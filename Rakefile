@@ -6,14 +6,32 @@ namespace :install do
   desc "Installs all the mack-more gems"
   task :all do
     GEMS.each do |gem|
-      sh("cd mack-#{gem} && rake install")
+      sh("cd mack-#{gem} && rake install --trace")
     end
   end
   
   GEMS.each do |gem|
     desc "Installs the mack-#{gem} gem."
     task "#{gem}" do
-      sh("cd mack-#{gem} && rake install")
+      sh("cd mack-#{gem} && rake install --trace")
+    end
+  end
+  
+end
+
+namespace :freeze do
+  
+  desc "Installs all the mack-more gems"
+  task :all do
+    GEMS.each do |gem|
+      sh("cd mack-#{gem} && rake gem:package:freezer")
+    end
+  end
+  
+  GEMS.each do |gem|
+    desc "Installs the mack-#{gem} gem."
+    task "#{gem}" do
+      sh("cd mack-#{gem} && rake gem:package:freezer")
     end
   end
   

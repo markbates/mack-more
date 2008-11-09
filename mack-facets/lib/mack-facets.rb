@@ -1,5 +1,8 @@
+puts "***** #{File.basename(__FILE__)} ****"
+add_gem_path(File.expand_path(File.join(File.dirname(__FILE__), 'gems')))
+
 fl = File.join(File.dirname(__FILE__), "mack-facets")
-require 'rubygems'
+# require 'rubygems'
 require 'digest'
 require File.join(fl, "extensions", "time") # we need this here, otherwise facets 2.4.3 breaks!
 require 'facets'

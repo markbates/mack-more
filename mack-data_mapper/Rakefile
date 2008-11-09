@@ -12,16 +12,17 @@ require File.join(crt, "rake_task_requires")
 
   s.test_files = FileList['test/**/*']
 
-  s.files = FileList['lib/**/*.*', 'README', 'doc/**/*.*', 'bin/**/*.*']
+  s.files = FileList['lib/**/*', 'README', 'doc/**/*.*', 'bin/**/*.*']
   s.require_paths << 'lib'
 
-  [:core, :aggregates, :migrations, :serializer, :timestamps, :validations, :observer, :types].each do |g|
-    s.add_dependency("dm-#{g}", "0.9.6")
-  end
+  # [:core, :aggregates, :migrations, :serializer, :timestamps, :validations, :observer, :types].each do |g|
+  #   s.add_dependency("dm-#{g}", "0.9.6")
+  # end
   s.add_dependency("mack-orm", GEM_VERSION)
   
   s.extra_rdoc_files = ["README"]
-  s.has_rdoc = true
+  # s.has_rdoc = true
+  s.rdoc_options << '--exclude=gems/'
   s.required_ruby_version = ">= 1.8.6"
   s.rubyforge_project = "magrathea"
 end

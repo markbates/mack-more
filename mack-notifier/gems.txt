@@ -1,0 +1,4 @@
+tmail, 1.2.3.1
+validatable, 1.6.7
+xmpp4r, 0.4
+xmpp4r-simple, 0.8.8

@@ -1,5 +1,5 @@
 #!/usr/local/bin/ruby
-require 'rubygems'
+# require 'rubygems'
 require 'daemons'
 require 'rinda/ring'
 require 'rinda/tuplespace'

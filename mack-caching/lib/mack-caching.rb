@@ -1,4 +1,6 @@
-require 'rubygems'
+puts "***** #{File.basename(__FILE__)} ****"
+add_gem_path(File.expand_path(File.join(File.dirname(__FILE__), 'gems')))
+
 require 'cachetastic'
 
 configatron.mack.caching.set_default(:use_page_caching, false)

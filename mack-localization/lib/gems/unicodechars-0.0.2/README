@@ -1,0 +1,35 @@
+README for unicodechars
+=======================
+UnicodeChars is a gemification of Rails' support for unicode via #chars.
+
+The original code is at: https://fngtps.com/projects/multibyte_for_rails
+
+It was written by: 
+ * Julian Tarkhanov <me@julik.nl>
+ * Manfred Stienstra <m.stienstra@fngtps.com>
+ * Jan Behrens <jan.behrens@flexidesk.de>
+ * Thijs van der Vossen <thijs@fngtps.com>
+
+
+Very little of the code is original, but there are some improvements:
+ * [n], in the Rails version, provides a codepoint. Since .slice(n) already
+   provides a codepoint, [n] is modified here so it provides the nth character.
+ * Updated #inspect on the Chars class so it appears to be a string in the console
+ * Updated is_a? so a unicode string responds true to is_a?(String)
+ * Added iterator methods each, collect, and inject so they iterate over the
+   list of characters.
+ * Updated to_a so it returns an array of characters
+ * An additional kernel-level method is added: "u", so you can do stuff like:
+     y = u"ᗷɭoℊẚᗰսɳᑯѲ"
+     y.reverse 							    => "Ѳᑯɳսᗰẚℊoɭᗷ"
+     y.length  							    => 10
+     y.map {|x| "#{x}, "}.join  => "ᗷ, ɭ, o, ℊ, ẚ, ᗰ, ս, ɳ, ᑯ, Ѳ, "
+     y.to_a.join(", ")					=> "ᗷ, ɭ, o, ℊ, ẚ, ᗰ, ս, ɳ, ᑯ, Ѳ"
+     y.is_a?(String)						=> true
+     y.class										=> ActiveSupport::Multibyte::Chars
+     y.chars										=> "ᗷɭoℊẚᗰսɳᑯѲ"
+		 y.normalize(:c)						=> "ᗷɭoℊẚᗰսɳᑯѲ"
+		 y.normalize(:d)						=> "ᗷɭoℊẚᗰսɳᑯѲ"
+
+As in the original Rails code, all of the original string methods work, and are
+updated to work correctly with unicode.
