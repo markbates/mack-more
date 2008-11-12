@@ -1,22 +1,4 @@
-puts "***** #{File.basename(__FILE__)} ****"
-# gem_path = File.expand_path(File.join(File.dirname(__FILE__), 'gems'))
-# add_gem_path(gem_path)
-# 
-# Dir.glob(File.join(gem_path, 'facets-*', 'lib', '*')).each do |g|
-#   add_gem_path(File.expand_path(g))
-# end
-
 require File.join(File.dirname(__FILE__), 'gems')
-
-begin
-  gem 'facets', '>= 2.4.4'
-rescue Gem::LoadError
-  $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), 'gems', 'facets-2.4.4')))
-  $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), 'gems', 'facets-2.4.4', 'lib', 'core')))
-  $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), 'gems', 'facets-2.4.4', 'lib', 'more')))
-  $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), 'gems', 'facets-2.4.4', 'lib', 'lore')))
-end
-
 
 fl = File.join(File.dirname(__FILE__), "mack-facets")
 # require 'rubygems'
