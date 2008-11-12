@@ -67,7 +67,7 @@ class VersionNumber #< Tuple
     0
   end
 
-  # For pessimistic constraint (like '~>' in gems)
+  # For pessimistic constraint (like '>=' in gems)
 
   def =~( other )
     #other = other.to_t
@@ -117,10 +117,10 @@ class VersionNumber #< Tuple
 
   def self.parse_constraint( constraint )
     constraint = constraint.strip
-    re = %r{^(=~|~>|<=|>=|==|=|<|>)?\s*(\d+(:?[-.]\d+)*)$}
+    re = %r{^(=~|>=|<=|>=|==|=|<|>)?\s*(\d+(:?[-.]\d+)*)$}
     if md = re.match( constraint )
       if op = md[1]
-        op = '=~' if op == '~>'
+        op = '=~' if op == '>='
         op = '==' if op == '='
         val = new( *md[2].split(/\W+/) )
       else

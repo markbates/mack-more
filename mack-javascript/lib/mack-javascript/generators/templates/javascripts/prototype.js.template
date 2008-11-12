@@ -3353,7 +3353,7 @@ Object.extend(Selector, {
   findChildElements: function(element, expressions) {
     var exprs = expressions.join(',');
     expressions = [];
-    exprs.scan(/(([\w#:.~>+()\s-]+|\*|\[.*?\])+)\s*(,|$)/, function(m) {
+    exprs.scan(/(([\w#:.>=+()\s-]+|\*|\[.*?\])+)\s*(,|$)/, function(m) {
       expressions.push(m[1].strip());
     });
     var results = [], h = Selector.handlers;

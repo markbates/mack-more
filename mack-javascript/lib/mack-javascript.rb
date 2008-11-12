@@ -1,6 +1,6 @@
 puts "***** #{File.basename(__FILE__)} ****"
-add_gem_path(File.expand_path(File.join(File.dirname(__FILE__), 'gems')))
-
+# add_gem_path(File.expand_path(File.join(File.dirname(__FILE__), 'gems')))
+require File.join(File.dirname(__FILE__), 'gems')
 
 # require all supporting files
 fl = File.join(File.dirname(__FILE__), "mack-javascript")

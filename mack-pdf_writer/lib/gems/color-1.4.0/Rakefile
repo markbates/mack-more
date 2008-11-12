@@ -38,7 +38,7 @@ Hoe.new PKG_NAME, PKG_VERSION do |p|
   p.changes         = p.paragraphs_of("History.txt", 0..1).join("\n\n")
   p.description     = p.paragraphs_of("Readme.txt", 1..1).join("\n\n")
 
-  p.extra_deps      << [ "archive-tar-minitar", "~>0.5.1" ]
+  p.extra_deps      << [ "archive-tar-minitar", ">=0.5.1" ]
 
   p.clean_globs     << "coverage"
 

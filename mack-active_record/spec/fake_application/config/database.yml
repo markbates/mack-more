@@ -1,11 +1,13 @@
 development:
-  adapter: sqlite3
-  database: <%= Mack::Paths.db("fake_application.db") %>
-
+  adapter: mysql
+  database: foo_development
+  host: localhost
+  username: root
+  password: 
+    
 test:
-  adapter: sqlite3
-  database: <%= Mack::Paths.db("fake_application.db") %>
-
-production:
-  adapter: sqlite3
-  database: <%= Mack::Paths.db("fake_application.db") %>
+  adapter: mysql
+  database: foo_test
+  host: localhost
+  username: root
+  password:

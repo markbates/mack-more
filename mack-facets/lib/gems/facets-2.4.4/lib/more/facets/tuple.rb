@@ -196,7 +196,7 @@ public
     0
   end
 
-  # For pessimistic constraint (like '~>' in gems)
+  # For pessimistic constraint (like '>=' in gems)
   def =~( other )
     other = other.to_t
     upver = other.dup
@@ -267,10 +267,10 @@ public
 
     def parse_constraint( constraint, &yld )
       constraint = constraint.strip
-      re = %r{^(=~|~>|<=|>=|==|=|<|>)?\s*(\d+(:?[-.]\d+)*)$}
+      re = %r{^(=~|>=|<=|>=|==|=|<|>)?\s*(\d+(:?[-.]\d+)*)$}
       if md = re.match( constraint )
         if op = md[1]
-          op = '=~' if op == '~>'
+          op = '=~' if op == '>='
           op = '==' if op == '='
           val = cast_from_string( md[2], &yld ) #instance( md[2] )
         else

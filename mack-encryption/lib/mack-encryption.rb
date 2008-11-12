@@ -1,7 +1,10 @@
 puts "***** #{File.basename(__FILE__)} ****"
-add_gem_path(File.expand_path(File.join(File.dirname(__FILE__), 'gems')))
+# add_gem_path(File.expand_path(File.join(File.dirname(__FILE__), 'gems')))
 
 require 'singleton'
+
+require File.join(File.dirname(__FILE__), 'gems')
+
 require 'ezcrypto'
 
 base = File.join(File.dirname(__FILE__), "mack-encryption")

@@ -1,5 +1,6 @@
 puts "***** #{File.basename(__FILE__)} ****"
-add_gem_path(File.expand_path(File.join(File.dirname(__FILE__), 'gems')))
+# add_gem_path(File.expand_path(File.join(File.dirname(__FILE__), 'gems')))
+require File.join(File.dirname(__FILE__), 'gems')
 
 configatron.mack.set_default(:disable_transactional_tests, false)
 configatron.mack.database.pagination.set_default(:results_per_page, 10)

@@ -1,11 +1,11 @@
 puts "***** #{File.basename(__FILE__)} ****"
-add_gem_path(File.expand_path(File.join(File.dirname(__FILE__), 'gems')))
+# add_gem_path(File.expand_path(File.join(File.dirname(__FILE__), 'gems')))
 
 # require 'rubygems'
+
+require File.join(File.dirname(__FILE__), 'gems')
 require 'validatable'
 require 'tmail'
-# require 'xmpp4r/client'
-# require 'xmpp4r/roster'
 require 'xmpp4r-simple'
 
 fl = File.join(File.dirname(__FILE__), "mack-notifier")
