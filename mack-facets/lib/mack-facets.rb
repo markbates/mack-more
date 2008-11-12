@@ -14,11 +14,11 @@ require 'facets/module'
 require 'facets/infinity'
 require 'facets/times'
 require 'facets/time'
-require 'facets/string/style'
 require 'english/inflect'
 require 'english/numerals'
 require 'extlib/assertions'
 require 'extlib/hook'
+require 'extlib/inflection'
 
 [:inflector, :inflections, :options_merger, :registry_list, :registry_map, :blank_slate].each do |k|
   path = File.join(fl, "utils", "#{k}")

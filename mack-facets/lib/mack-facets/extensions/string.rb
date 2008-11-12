@@ -1,5 +1,4 @@
 class String
-  include Style
   
   alias_instance_method :snakecase, :underscore
   
@@ -78,6 +77,16 @@ class String
     x.gsub!(orig_middle, n_middle)
     x.gsub!("_=", "=")
     x
+  end
+  
+  # Capitalizes the first word and turns underscores into spaces and strips _id.
+  # Like titleize, this is meant for creating pretty output.
+  #
+  # Examples
+  #   "employee_salary" #=> "Employee salary"
+  #   "author_id" #=> "Author"
+  def humanize
+    self.gsub(/_id$/, "").gsub(/_/, " ").capitalize
   end
   
   # Returns a constant of the string.
