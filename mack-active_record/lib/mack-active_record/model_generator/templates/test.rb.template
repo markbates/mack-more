@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper.rb'
 
-class <%= param(:name).singular.camelcase %>Test < Test::Unit::TestCase
+class <%= @name_singular_camel %>Test < Test::Unit::TestCase
   
   def test_truth
     assert true

@@ -1,4 +1,4 @@
-migration <%= @current_migration_number.to_i %>, :<%= param(:name) %> do
+migration <%= @current_migration_number.to_i %>, :<%= param(:name).underscore %> do
 
   up do
 <%

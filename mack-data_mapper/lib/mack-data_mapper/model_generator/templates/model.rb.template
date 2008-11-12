@@ -1,4 +1,4 @@
-class <%= param(:name).singular.camelcase %>
+class <%= @name_singular_camel %>
   include DataMapper::Resource
 
 <% 

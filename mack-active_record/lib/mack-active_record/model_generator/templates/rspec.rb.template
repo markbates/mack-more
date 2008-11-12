@@ -1,6 +1,6 @@
 require File.join(File.dirname(__FILE__), "..", "spec_helper.rb")
 
-describe "<%= param(:name).singular.camelcase %>" do
+describe "<%= @name_singular_camel %>" do
 
   it "should not blow up" do
     true

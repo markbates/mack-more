@@ -38,9 +38,16 @@
 class ModelGenerator < Genosaurus
   
   require_param :name
+  
+  def setup # :nodoc:
+    @name_singular = param(:name).singular.underscore
+    @name_plural = @name_singular.plural.underscore
+    @name_singular_camel = @name_singular.camelcase
+    @name_plural_camel = @name_plural.camelcase
+  end
 
   def after_generate # :nodoc:
-    MigrationGenerator.run(@options.merge({"name" => "create_#{param(:name).plural}"}))
+    MigrationGenerator.run(@options.merge({"name" => "create_#{@name_plural}"}))
   end
   
   def testing_framework # :nodoc:
