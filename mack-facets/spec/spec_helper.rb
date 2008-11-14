@@ -1,6 +1,7 @@
-# require 'rubygems'
+require 'rubygems'
 require 'pathname'
 require 'spec'
+# require 'mack'
 
 require File.join(File.dirname(__FILE__), "..", "lib", "mack-facets")
 

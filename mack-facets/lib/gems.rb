@@ -1,3 +1,8 @@
+module Gem
+  class << self
+    public :set_paths
+  end
+end
 path = File.expand_path(File.join(File.dirname(__FILE__), 'gems'))
 Gem.set_paths(path)
 
