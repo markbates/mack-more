@@ -1,1 +1,1 @@
-addressable, 1.0.4
+addressable, 2.0.0
