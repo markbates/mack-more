@@ -29,7 +29,7 @@ CREATE TABLE cottages (
 
 CREATE TABLE houses (
     id integer NOT NULL,
-    color character varying(255) DEFAULT NULL::character varying,
+    color character varying(255),
     address text
 );
 
