@@ -21,10 +21,14 @@ module Mack
         
         # See Mack::Rendering::Type::FileBase render_file for more information.
         def render
-          self.options[:format] = "js"
-          self.controller.response["Content-Type"] = Mack::Utils::MimeTypes[self.options[:format]]
-          x_file = File.join(self.controller_view_path, "#{self._render_value}.#{self.options[:format]}")
+          self._options[:format] = "js"
+          self.controller.response["Content-Type"] = Mack::Utils::MimeTypes[self._options[:format]]
+          x_file = File.join(self.controller_view_path, "#{self._render_value}.#{self._options[:format]}")
           render_file(x_file, :js)
+        end
+        
+        def allow_layout?
+          false
         end
         
       end # Xml

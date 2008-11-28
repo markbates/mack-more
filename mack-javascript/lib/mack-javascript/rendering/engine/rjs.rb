@@ -5,6 +5,9 @@ module Mack
       class Rjs < Mack::Rendering::Engine::Base
         
         def render(io, binding)
+          if io.is_a?(File)
+            io = io.read
+          end
           @_jsp_page = Mack::JavaScript::ScriptGenerator.new
           view_template.instance_variable_set("@_jsp_page", @_jsp_page)
           eval(io, binding)
