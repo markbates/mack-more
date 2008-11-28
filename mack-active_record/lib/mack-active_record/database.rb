@@ -19,10 +19,10 @@ module Mack
         ENV['PGHOST']     = dbs[:host] if dbs[:host]
         ENV['PGPORT']     = dbs[:port].to_s if dbs[:port]
         ENV['PGPASSWORD'] = dbs[:password].to_s if dbs[:password]
-        ActiveRecord::Base.clear_active_connections!
+        ActiveRecord::Base.clear_all_connections!
         create_postgresql_db(env, dbs)
       when "sqlite3"
-        ActiveRecord::Base.clear_active_connections!
+        ActiveRecord::Base.clear_all_connections!
       end
     end
     
@@ -38,10 +38,10 @@ module Mack
         ENV['PGHOST']     = dbs[:host] if dbs[:host]
         ENV['PGPORT']     = dbs[:port].to_s if dbs[:port]
         ENV['PGPASSWORD'] = dbs[:password].to_s if dbs[:password]
-        ActiveRecord::Base.clear_active_connections!
+        ActiveRecord::Base.clear_all_connections!
         drop_postgresql_db(env, dbs)
       when "sqlite3"
-        ActiveRecord::Base.clear_active_connections!
+        ActiveRecord::Base.clear_all_connections!
         FileUtils.rm_rf(dbs[:database])
       end
     end

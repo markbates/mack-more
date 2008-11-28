@@ -119,10 +119,19 @@ module Spec
           ret_val = true
           begin
             ENV["MACK_ENV"] = env
-            Mack::Database.establish_connection(env)
+            # Mack::Database.establish_connection(env)
+            ActiveRecord::Base.establish_connection(
+              :adapter => "postgresql",
+              :host => "localhost",
+              :database => "postgres",
+              :username => ENV["DB_USERNAME"] || "ruby",
+              :password => ENV["DB_PASSWORD"] || "password"
+            )
             pg_result = ActiveRecord::Base.connection.execute "select datname from pg_database"
             pg_result.result.flatten.include?(name)
           rescue Exception => ex
+            puts "ex.message: #{ex.message}"
+            # puts ex.backtrace
             ret_val = false
           end
           ret_val
