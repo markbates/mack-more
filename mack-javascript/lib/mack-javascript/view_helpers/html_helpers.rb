@@ -41,6 +41,17 @@ module Mack
         Mack::JavaScript::ScriptGenerator.new
       end
       
+      # Returns a button that links to a remote function. 
+      # 
+      # Example:
+      #   button_to_remote('Create', :url => '/foo') # => <button onclick="new Ajax.Request('/foo', {asynchronous:true, evalScripts:true, parameters:Form.serialize(this.form)}); return false" type="submit">Create</button>
+      def button_to_remote(value = "Submit", options = {}, *original_args)
+        with = options.delete(:with) || 'Form.serialize(this.form)'
+        url = options.delete(:url) || '#'
+        options[:onclick] = remote_function(:with => with, :url => url) + '; return false'
+        submit_button(value, options, *original_args)
+      end
+      
     end
   end
 end
