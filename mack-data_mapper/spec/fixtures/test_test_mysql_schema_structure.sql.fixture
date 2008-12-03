@@ -1,13 +1,13 @@
 CREATE TABLE `cottages` (
-  `id` int(11) NOT NULL auto_increment,
-  `created_at` datetime default NULL,
-  PRIMARY KEY  (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `houses` (
-  `id` int(11) NOT NULL auto_increment,
-  `color` varchar(50) default NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `color` varchar(50) DEFAULT NULL,
   `address` text,
-  PRIMARY KEY  (`id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
