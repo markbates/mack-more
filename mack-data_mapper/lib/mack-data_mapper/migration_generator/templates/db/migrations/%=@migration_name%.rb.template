@@ -8,7 +8,7 @@ migration <%= @current_migration_number.to_i %>, :<%= param(:name).underscore %>
 <%
       for column in migration_columns
 -%>
-      column :<%= column.column_name %>, <%= get_column_type(column) %>
+      column :<%= column.column_name %>, <%= get_column_type(column) %>, :nullable? => false
 <%
       end
 -%>

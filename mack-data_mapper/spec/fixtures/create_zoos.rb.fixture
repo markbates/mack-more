@@ -2,14 +2,14 @@ migration 1, :create_zoos do
 
   up do
     create_table :zoos do
-      column :id, Serial
-      column :name, String
-      column :description, Text
-      column :password, String
-      column :birth_date, Date
-      column :member_since, DateTime
-      column :created_at, DateTime
-      column :updated_at, DateTime
+      column :id, Serial, :nullable? => false
+      column :name, String, :nullable? => false
+      column :description, Text, :nullable? => false
+      column :password, String, :nullable? => false
+      column :birth_date, Date, :nullable? => false
+      column :member_since, DateTime, :nullable? => false
+      column :created_at, DateTime, :nullable? => false
+      column :updated_at, DateTime, :nullable? => false
     end
   end
 

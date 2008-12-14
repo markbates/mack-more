@@ -39,7 +39,28 @@ module SQL # :nodoc:
       @adapter.property_schema_statement(schema)
     end
 
-  end # TableModifier  
+  end # TableModifier
+  
+  class TableCreator # :nodoc:
+
+    class Column # :nodoc:
+
+      def build_type(type_class)
+        schema = {:name => @name, :quote_column_name => quoted_name}.merge(@opts)
+        schema[:serial?] = [schema[:serial?], schema[:serial], false].compact.first
+        schema[:nullable?] = [schema[:nullable?], schema[:nullable], (!schema[:not_null] unless schema[:not_null].nil?), true].compact.first
+        if type_class.is_a?(String)
+          schema[:primitive] = type_class
+        else
+          schema = @adapter.class.type_map[type_class].merge(schema)
+        end
+        @adapter.property_schema_statement(schema)
+      end
+      
+    end # Column
+
+  end # TableCreator
+    
 end # SQL
 
 module DataMapper # :nodoc:
