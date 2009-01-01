@@ -91,12 +91,4 @@ module Kernel
     RUBY_VERSION == v
   end
   
-  def v1_8?
-    RUBY_VERSION >= '1.8.0' && RUBY_VERSION < '1.9.0'
-  end
-  
-  def v1_9?
-    RUBY_VERSION >= '1.9.0' && RUBY_VERSION < '2.0.0'
-  end
-  
 end
