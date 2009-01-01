@@ -19,7 +19,11 @@ Dir.glob(File.join(path, '*')).each do |p|
   end
   
   begin
-    gem gem_name, ">= #{version}"
+    if RUBY_VERSION >= '1.9.1'
+      gem gem_name
+    else
+      gem gem_name, ">= #{version}"
+    end
   rescue Gem::LoadError 
   end
 end
