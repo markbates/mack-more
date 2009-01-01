@@ -19,6 +19,28 @@ namespace :install do
   
 end
 
+namespace :multiruby do
+  
+  namespace :install do
+
+    desc "Installs all the mack-more gems into multiruby"
+    task :all do
+      GEMS.each do |gem|
+        sh("cd mack-#{gem} && rake multiruby:install")
+      end
+    end
+
+    GEMS.each do |gem|
+      desc "Installs the mack-#{gem} gem."
+      task "#{gem}" do
+        sh("cd mack-#{gem} && rake multiruby:install")
+      end
+    end
+
+  end
+  
+end
+
 namespace :freeze do
   
   desc "Installs all the mack-more gems"
