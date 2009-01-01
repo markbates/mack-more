@@ -65,11 +65,6 @@ class Array
     end
   end
   
-  # This will pick a random value from the array
-  def pick_random
-    self[rand(self.length)]
-  end
-  
   # This allows you to easily recurse of the array randomly.
   def random_each
     self.randomize.each {|x| yield x}

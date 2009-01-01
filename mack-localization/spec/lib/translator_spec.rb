@@ -7,16 +7,6 @@ describe Mack::Localization::Translator do
     true
   end
   
-  it "should be able to properly handle multibyte string" do
-    a = "çã"
-    # ruby < 1.9 doesn't have unicode support
-    a.size.should_not == 2
-    
-    a = u("çã")
-    a.size.should == 2
-    a.reverse.should == "ãç"
-  end
-  
   it "should be able to retrieve data for EN language" do
     key = :sale
     str = l10n_translator.gets(:items, key, :en)

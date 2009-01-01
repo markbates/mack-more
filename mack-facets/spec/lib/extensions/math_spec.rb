@@ -6,8 +6,8 @@ describe Math do
   describe "log2" do
     
     it "should return the log2 of a given number" do
-      Math.log2(5).round_at(5).should == 2.32193
-      Math.log2(25).round_at(5).should == 4.64386
+      Math.log2(5).round_with_precision(5).should == 2.32193
+      Math.log2(25).round_with_precision(5).should == 4.64386
     end
     
   end

@@ -59,11 +59,11 @@ describe Array do
     
   end
   
-  describe "pick_random" do
+  describe "rand" do
     
     it "should pick a random value from an array" do
       a = (0..1000).to_a
-      a.pick_random.should_not == 0
+      a.rand.should_not == 0
     end
     
   end
