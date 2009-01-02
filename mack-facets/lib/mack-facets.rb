@@ -26,7 +26,7 @@ require 'extlib/assertions'
 require 'extlib/hook'
 require 'extlib/inflection'
 
-[:inflector, :inflections, :options_merger, :registry_list, :registry_map].each do |k|
+[:inflector, :inflections, :options_merger, :registry_list, :registry_map, :method_list].each do |k|
   path = File.join(fl, "utils", "#{k}")
   require path
 end
