@@ -1,2 +1,2 @@
-cachetastic, 2.0.0
+cachetastic, 2.1.0
 memcache-client, 1.5.0
