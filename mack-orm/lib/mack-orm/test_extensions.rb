@@ -1,6 +1,3 @@
-require "test/unit"
-require 'spec'
-
 if Mack.env == "test"
   module Mack
     module Testing # :nodoc: 
@@ -54,26 +51,28 @@ if Mack.env == "test"
       end # Example
     end # Spec
   
-    module Test # :nodoc:
-      module Unit # :nodoc:
-        class TestCase # :nodoc:
-          include Mack::Testing
+    unless v1_9?
+      module Test # :nodoc:
+        module Unit # :nodoc:
+          class TestCase # :nodoc:
+            include Mack::Testing
   
-          # Let's alias the run method in the class above us so we can create a new one here
-          # but still reference it.
-          alias_instance_method :run, :mack_test_case_run # :nodoc:
+            # Let's alias the run method in the class above us so we can create a new one here
+            # but still reference it.
+            alias_instance_method :run, :mack_test_case_run # :nodoc:
   
-          # We need to wrap the run method so we can do things like
-          # run a cleanup method if it exists
-          def run(result, &progress_block) # :nodoc:
-            rollback_transaction do
-              mack_test_case_run(result, &progress_block)
+            # We need to wrap the run method so we can do things like
+            # run a cleanup method if it exists
+            def run(result, &progress_block) # :nodoc:
+              rollback_transaction do
+                mack_test_case_run(result, &progress_block)
+              end
             end
-          end
   
-        end # TestCase
-      end # Unit
-    end # Test
+          end # TestCase
+        end # Unit
+      end # Test
+    end
   
   end
   
