@@ -82,9 +82,6 @@ module Extlib
     class InvalidResourceError < StandardError
     end
 
-    class ThreadStopError < StandardError
-    end
-
     def self.included(target)
       target.class_eval do
         class << self
@@ -165,17 +162,12 @@ module Extlib
               instance.instance_variable_set(:@__allocated_in_pool, Time.now)
               @used[instance.object_id] = instance
             else
-              # Let's see whether we have multiple threads
-              # If we do, there is a chance we might be released
-              # at some point in the future and thus we wait.
-              # If there are no other threads, we exhaust the pool
-              # here and there is no more hope... So we throw an
-              # exception.
-              if ThreadGroup::Default.list.size <= 2
-                raise ThreadStopError.new(size)
-              else
-                wait.wait(lock)
-              end
+              # Wait for another thread to release an instance.
+              # If we exhaust the pool and don't release the active instance,
+              # we'll wait here forever, so it's *very* important to always
+              # release your services and *never* exhaust the pool within
+              # a single thread.
+              wait.wait(lock)
             end
           end
         end until instance
@@ -183,8 +175,8 @@ module Extlib
       end
 
       def release(instance)
-        instance.instance_variable_set(:@__allocated_in_pool, Time.now)
         lock.synchronize do
+          instance.instance_variable_set(:@__allocated_in_pool, Time.now)
           @used.delete(instance.object_id)
           @available.push(instance)
           wait.signal
@@ -196,6 +188,7 @@ module Extlib
         lock.synchronize do
           instance.instance_variable_set(:@__pool, nil)
           @used.delete(instance.object_id)
+          wait.signal
         end
         nil
       end
@@ -221,12 +214,11 @@ module Extlib
 
       def expired?
         @available.each do |instance|
-          if Extlib.exiting || instance.instance_variable_get(:@__allocated_in_pool) + Extlib::Pooling.scavenger_interval <= Time.now
+          if Extlib.exiting || instance.instance_variable_get(:@__allocated_in_pool) + Extlib::Pooling.scavenger_interval <= (Time.now + 0.02)
             instance.dispose
             @available.delete(instance)
           end
         end
-
         size == 0
       end
 

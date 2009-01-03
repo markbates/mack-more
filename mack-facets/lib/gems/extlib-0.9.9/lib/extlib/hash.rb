@@ -2,15 +2,13 @@ class Hash
   class << self
     # Converts valid XML into a Ruby Hash structure.
     #
-    # @param xml<String> A string representation of valid XML.
+    # Mixed content is treated as text and any tags in it are left unparsed
     #
-    # @note Mixed content is treated as text and any tags in it are left unparsed
-    # @note Any attributes other than type on a node containing a text node will be
-    #   discarded
+    # Any attributes other than type on a node containing a text node will be
+    # discarded
     #
-    # @details [Typecasting]
-    #   Typecasting is performed on elements that have a +type+ attribute:
-    #   integer::
+    # [Typecasting is performed on elements that have a +type+ attribute:]
+    #   integer:: Returns an Integer
     #   boolean:: Anything other than "true" evaluates to false.
     #   datetime::
     #     Returns a Time object. See Time documentation for valid Time strings.
@@ -19,7 +17,8 @@ class Hash
     #
     # Keys are automatically converted to +snake_case+
     #
-    # @example [Simple]
+    # [Simple]
+    #
     #   <user gender='m'>
     #     <age type='integer'>35</age>
     #     <name>Home Simpson</name>
@@ -28,7 +27,7 @@ class Hash
     #     <is-cool type='boolean'>true</is-cool>
     #   </user>
     #
-    #   evaluates to
+    # Becomes:
     #
     #   { "user" => {
     #       "gender"    => "m",
@@ -40,48 +39,56 @@ class Hash
     #     }
     #   }
     #
-    # @example [Mixed Content]
+    # [Mixed Content]
+    #
     #   <story>
     #     A Quick <em>brown</em> Fox
     #   </story>
     #
-    #   evaluates to
+    # Evaluates to:
     #
     #   { "story" => "A Quick <em>brown</em> Fox" }
     #
-    # @details [Attributes other than type on a node containing text]
+    # [Attributes other than type on a node containing text]
+    #
     #   <story is-good='false'>
     #     A Quick <em>brown</em> Fox
     #   </story>
     #
-    #   evaluates to
+    # Are ignored:
     #
     #   { "story" => "A Quick <em>brown</em> Fox" }
     #
+    # [Other attributes in addition to +type+]
+    #
     #   <bicep unit='inches' type='integer'>60</bicep>
     #
-    #   evaluates with a typecast to an integer. But unit attribute is ignored.
+    # Evaluates with a typecast to an integer. But unit attribute is ignored:
     #
     #   { "bicep" => 60 }
+    #
+    # @param [String] xml A string representation of valid XML.
+    #
+    # @return [Hash] A hash created by parsing +xml+
     def from_xml( xml )
       ToHashParser.from_xml(xml)
     end
   end
-  
-  # This class has semantics of ActiveSupport's HashWithIndifferentAccess
-  # and we only have it so that people can write
+
+  # Convert to Mash. This class has semantics of ActiveSupport's
+  # HashWithIndifferentAccess and we only have it so that people can write
   # params[:key] instead of params['key'].
   #
-  # @return <Mash> This hash as a Mash for string or symbol key access.
+  # @return [Mash] This hash as a Mash for string or symbol key access.
   def to_mash
     hash = Mash.new(self)
     hash.default = default
     hash
   end
 
-  # @return <String> This hash as a query string
+  ##
+  # Convert to URL query param string
   #
-  # @example
   #   { :name => "Bob",
   #     :address => {
   #       :street => '111 Ruby Ave.',
@@ -90,18 +97,27 @@ class Hash
   #     }
   #   }.to_params
   #     #=> "name=Bob&address[city]=Ruby Central&address[phones][]=111-111-1111&address[phones][]=222-222-2222&address[street]=111 Ruby Ave."
+  #
+  # @return [String] This hash as a query string
+  #
+  # @api public
   def to_params
     params = self.map { |k,v| normalize_param(k,v) }.join
     params.chop! # trailing &
     params
   end
 
-  # @param key<Object> The key for the param.
-  # @param value<Object> The value for the param.
+  ##
+  # Convert a key, value pair into a URL query param string
+  #
+  #   normalize_param(:name, "Bob")   #=> "name=Bob&"
+  #
+  # @param [Object] key The key for the param.
+  # @param [Object] value The value for the param.
   #
   # @return <String> This key value pair as a param
   #
-  # @example normalize_param(:name, "Bob") #=> "name=Bob&"
+  # @api public
   def normalize_param(key, value)
     param = ''
     stack = []
@@ -127,26 +143,33 @@ class Hash
     param
   end
 
-  # @param *allowed<Array[(String, Symbol)]> The hash keys to include.
+  ##
+  # Create a hash with *only* key/value pairs in receiver and +allowed+
   #
-  # @return <Hash> A new hash with only the selected keys.
+  #   { :one => 1, :two => 2, :three => 3 }.only(:one)    #=> { :one => 1 }
   #
-  # @example
-  #   { :one => 1, :two => 2, :three => 3 }.only(:one)
-  #     #=> { :one => 1 }
+  # @param [Array[String, Symbol]] *allowed The hash keys to include.
+  #
+  # @return [Hash] A new hash with only the selected keys.
+  #
+  # @api public
   def only(*allowed)
     hash = {}
     allowed.each {|k| hash[k] = self[k] if self.has_key?(k) }
     hash
   end
 
-  # @param *rejected<Array[(String, Symbol)] The hash keys to exclude.
+  ##
+  # Create a hash with all key/value pairs in receiver *except* +rejected+
   #
-  # @return <Hash> A new hash without the selected keys.
-  #
-  # @example
-  #   { :one => 1, :two => 2, :three => 3 }.except(:one)
+  #    { :one => 1, :two => 2, :three => 3 }.except(:one)
   #     #=> { :two => 2, :three => 3 }
+  #
+  # @param [Array[String, Symbol]] *rejected The hash keys to exclude.
+  #
+  # @return [Hash] A new hash without the selected keys.
+  #
+  # @api public
   def except(*rejected)
     hash = self.dup
     rejected.each {|k| hash.delete(k) }
@@ -188,7 +211,7 @@ class Hash
   #
   # @return <Array> An array of they hash's keys
   #
-  # @example 
+  # @example
   #   hash = { One => 1, Two => 2 }.proctect_keys!
   #   hash # => { "One" => 1, "Two" => 2 }
   def protect_keys!

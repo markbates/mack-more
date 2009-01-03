@@ -28,8 +28,8 @@ module Mack # :nodoc:
             eval %{
               alias_method :__original_#{m_name}, :#{m_name}
             
-              def #{m_name}
-                Mack::Utils::MethodList.new(__original_#{m_name})
+              def #{m_name}(*args)
+                Mack::Utils::MethodList.new(__original_#{m_name}(*args))
               end
             }
           rescue Exception => e
