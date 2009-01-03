@@ -1,18 +1,8 @@
-module Kernel
-  
-  def v1_8?
-    RUBY_VERSION >= '1.8.0' && RUBY_VERSION < '1.9.0'
-  end
-  
-  def v1_9?
-    RUBY_VERSION >= '1.9.0' && RUBY_VERSION < '2.0.0'
-  end
-  
-end
+fl = File.join(File.dirname(__FILE__), "mack-facets")
+
+require File.join(fl, "extensions", 'kernel')
 
 require File.join(File.dirname(__FILE__), 'gems')
-
-fl = File.join(File.dirname(__FILE__), "mack-facets")
 
 if v1_9?
   $:.unshift(File.expand_path(File.join(fl, '1_9')))
@@ -31,7 +21,7 @@ require 'extlib/inflection'
   require path
 end
 
-[:array, :class, :duration, :hash, :kernel, :math, :module, :object, :string, :symbol, :nil_class, :date_time, :file, :time].each do |k|
+[:array, :class, :duration, :hash, :math, :module, :object, :string, :symbol, :nil_class, :date_time, :file, :time].each do |k|
   path = File.join(fl, "extensions", "#{k}")
   require path
 end
