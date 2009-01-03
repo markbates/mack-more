@@ -6,6 +6,12 @@ class String
     File.join(self, other.to_s)
   end
   
+  if v1_9?
+    def each(&block)
+      self.each_line(&block)
+    end
+  end
+  
   def methodize
     x = self
     
