@@ -1,6 +1,3 @@
-require "test/unit"
-require 'spec'
-
 if Mack.env == "test"
   module Mack
     module Testing # :nodoc: 
