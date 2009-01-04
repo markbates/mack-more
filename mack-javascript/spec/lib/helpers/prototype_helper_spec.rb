@@ -94,6 +94,7 @@ describe Mack::JavaScript::Framework::PrototypeSelector do
     @p.to_s.should == "$$('.cCon').invoke('morph',{backgroundColor: '#fff'});"
   end
   
+  
   it "should trigger visual effects" do
     #effect without options
     @p.select('.cCon').effect(:slideUp)
@@ -102,7 +103,15 @@ describe Mack::JavaScript::Framework::PrototypeSelector do
     #effect with options
     @p = Mack::JavaScript::ScriptGenerator.new
     @p.select('.cCon').effect(:blindDown, :duration => 4000, :easing => 'spring')
-    @p.to_s.should == "$$('.cCon').invoke('visualEffect','blindDown',{transition: function(){return Effect.Transitions.spring}(),duration: 4.0});"
+    starter = "$$('.cCon').invoke('visualEffect','blindDown',{".gsub(/[()${}]/){|s| "\\#{s}"}
+    ender = "});".gsub(/[()${}]/){|s| "\\#{s}"}
+    @p.to_s =~ /^(#{starter})(.*)(#{ender})$/
+    $1.should_not be(nil)
+    $3.should_not be(nil)
+    $2.split(',').each do |pair|
+      ["transition: function(){return Effect.Transitions.spring}()",
+       "duration: 4.0"].should include(pair)
+    end
   end
   
   it "should show selected elements" do
@@ -149,8 +158,15 @@ describe Mack::JavaScript::Framework::PrototypeSelector do
   end
   
   it "should make elements draggable" do
-    @p.select('.cCon').draggable(:revert => false, :ghosting => true)
-    @p.to_s.should == "$$('.cCon').each(function(elem){new Draggable(elem, {ghosting: true,revert: false})});"
+    @p.select('.cCon').draggable(:revert => false, :ghosting => true)    
+    starter = "$$('.cCon').each(function(elem){new Draggable(elem, {".gsub(/[()${}]/){|s| "\\#{s}"}
+    ender = "})});".gsub(/[()${}]/){|s| "\\#{s}"}
+    @p.to_s =~ /^(#{starter})(.*)(#{ender})$/
+    $1.should_not be(nil)
+    $3.should_not be(nil)
+    $2.split(',').each do |pair|
+      ["ghosting: true","revert: false"].should include(pair)
+    end
   end
   
   
@@ -159,7 +175,14 @@ describe Mack::JavaScript::Framework::PrototypeSelector do
     @p.select('.aCon').droppable options do |p|
       p.select('.bCon').effect(:highlight)
     end
-    @p.to_s.should == "$$('.aCon').each(function(elem){Droppables.add(elem, {onDrop: function(elem){new Ajax.Request('/stuff', {asynchronous:true, evalScripts:true, method:'post', parameters:'id=' + elem.id});$$('.bCon').invoke('visualEffect','highlight');}})});"
+    starter = "$$('.aCon').each(function(elem){Droppables.add(elem, {onDrop: function(elem){new Ajax.Request('/stuff', {".gsub(/[()${}]/){|s| "\\#{s}"}
+    ender = "});$$('.bCon').invoke('visualEffect','highlight');}})});".gsub(/[()${}]/){|s| "\\#{s}"}
+    @p.to_s =~ /^(#{starter})(.*)(#{ender})$/
+    $1.should_not be(nil)
+    $3.should_not be(nil)
+    $2.split(',').each do |pair|
+      ["asynchronous:true", "evalScripts:true", "method:'post'", "parameters:'id=' + elem.id"].should include(pair.strip)
+    end
   end
       
 end
@@ -172,7 +195,14 @@ describe 'Deprecated Prototype methods' do
   
   it "should translate tbe deprecated 'page.remote_function' to 'page.ajax'" do
     @p.remote_function(:url => '/stuff', :method => :put)
-    @p.to_s.should == "new Ajax.Request('/stuff', {asynchronous:true, evalScripts:true, method:'post', parameters:'_method=put'});"
+    starter = "new Ajax.Request('/stuff', {".gsub(/[()${}]/){|s| "\\#{s}"}
+    ender = "});".gsub(/[()${}]/){|s| "\\#{s}"}
+    @p.to_s =~ /^(#{starter})(.*)(#{ender})$/
+    $1.should_not be(nil)
+    $3.should_not be(nil)
+    $2.split(',').each do |pair|
+      ["asynchronous:true", "evalScripts:true", "method:'post'", "parameters:'_method=put'"].should include(pair.strip)
+    end
   end
   
   it "should translate the deprecated 'page.insert_html' to selector equivalent" do
