@@ -1,32 +1,8 @@
 require File.join(File.dirname(__FILE__), "..", "..", "spec_helper.rb")
 
-class Mack::JavaScript::Framework::FirstFramework
-  class << self
-    def replace
-      "I'm in Framework 1"
-    end
-  end
-end
-
-class Mack::JavaScript::Framework::SecondFramework
-  class << self
-    def replace
-      "I'm in Framework 2"
-    end
-  end
-end
-
 describe Mack::JavaScript::ScriptGenerator do
   before(:each) do
     @p = Mack::JavaScript::ScriptGenerator.new
-  end
-
-  it "should respond to 'framework'" do
-    Mack::JavaScript::ScriptGenerator.framework = 'first_framework'
-    Mack::JavaScript::ScriptGenerator.framework.should == Mack::JavaScript::Framework::FirstFramework
-
-    Mack::JavaScript::ScriptGenerator.framework = 'second_framework'
-    Mack::JavaScript::ScriptGenerator.framework.should == Mack::JavaScript::Framework::SecondFramework
   end
 
   it "should respond to 'alert'" do
@@ -52,10 +28,10 @@ describe Mack::JavaScript::ScriptGenerator do
   end
 
   it "should respond to 'delay'" do
-    del = @p.delay(2) do |page|
+    @p.delay(2) do |page|
       page.alert("wait...look out!")
     end
-    del.should == "setTimeout(function() {\n\nalert('wait...look out!');}, 2000);" 
+    @p.to_s.should == "setTimeout(function(){alert('wait...look out!');}, 2000);" 
   end
 
   it "should respond to 'call'" do
@@ -67,12 +43,18 @@ describe Mack::JavaScript::ScriptGenerator do
     @p.to_s.should == %{myFunc({"stuff":3});}
   end
 
-  it "should properly handle method_missing" do
-    Mack::JavaScript::ScriptGenerator.framework = 'first_framework'
-    @p.replace.should == "I'm in Framework 1;"
-
-    @p = Mack::JavaScript::ScriptGenerator.new
-    Mack::JavaScript::ScriptGenerator.framework = 'second_framework'
-    @p.replace.should == "I'm in Framework 2;"
+  
+  it "should generate function" do
+    func = @p.function.body {|page| page.alert('my_func')}
+    func.should == "function(){alert('my_func');}"
+    
+    func = @p.function << 'pureJs()'
+    func.should == "function(){pureJs();}"
+    
+    func = @p.function('elem', 'other_elem')  << 'pureJs(elem, other_elem)'
+    func.should == "function(elem, other_elem){pureJs(elem, other_elem);}"
+    
+    func = @p.function(3)  << 'pureJs(obj1, obj2, obj3)'
+    func.should == "function(obj1, obj2, obj3){pureJs(obj1, obj2, obj3);}"
   end
 end

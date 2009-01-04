@@ -21,7 +21,7 @@ module Mack
       end
       
       def link_to_remote(link_text, ajax_options, options = {})
-        link_to_function(link_text, remote_function(ajax_options), options)
+        link_to_function(link_text, ajax(ajax_options), options)
       end
       
       def link_to_function(link_text, *args, &block)
@@ -33,12 +33,14 @@ module Mack
       end
       
       # Returns javascript that does an Ajax call
-      def remote_function(options)
-        Mack::JavaScript::ScriptGenerator.framework.remote_function(options)
+      def ajax(options)
+        Mack::JavaScript::ScriptGenerator.new(session.id).ajax(options).to_s
       end
       
+      alias_deprecated_method :remote_function, :ajax, '0.8.3', '>=0.8.4'
+      
       def js
-        Mack::JavaScript::ScriptGenerator.new
+        Mack::JavaScript::ScriptGenerator.new(session.id)
       end
       
       # Returns a button that links to a remote function. 
@@ -48,8 +50,19 @@ module Mack
       def button_to_remote(value = "Submit", options = {}, *original_args)
         with = options.delete(:with) || 'Form.serialize(this.form)'
         url = options.delete(:url) || '#'
-        options[:onclick] = remote_function(:with => with, :url => url) + '; return false'
+        options[:onclick] = ajax(:with => with, :url => url) + '; return false'
         submit_button(value, options, *original_args)
+      end
+      
+      def form_remote(action, options = {}, &block)
+        options[:form] = true
+        options[:url] = action
+        options[:html] ||= {}
+        options[:html][:onsubmit] = 
+          (options[:html][:onsubmit] ? options[:html][:onsubmit] + "; " : "") + 
+          "#{ajax(options)}; return false;"
+
+        form(action, options[:html], &block)
       end
       
     end

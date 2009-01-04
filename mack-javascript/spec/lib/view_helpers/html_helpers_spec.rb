@@ -33,7 +33,7 @@ describe Mack::ViewHelpers::HtmlHelpers do
       it 'should create a button that does a remote post' do
         configatron.temp do
           configatron.mack.js_framework = 'prototype'
-          button_to_remote('Create', :url => '/foo').should == %{<button onclick="new Ajax.Request('/foo', {asynchronous:true, evalScripts:true, parameters:Form.serialize(this.form)}); return false" type="submit">Create</button>}
+          button_to_remote('Create', :url => '/foo').should == %{<button onclick="new Ajax.Request('/foo', {asynchronous:true, evalScripts:true, method:'post', parameters:Form.serialize(this.form)}); return false" type="submit">Create</button>}
         end
       end
       

@@ -20,10 +20,6 @@ describe JavascriptGenerator do
     it "should generate prototype's .js files in public/javascripts" do
       File.exists?(@js_path).should_not == true
       JavascriptGenerator.run
-      
-      File.exists?(File.join(@js_path, "dragdrop.js")).should == true
-      File.exists?(File.join(@js_path, "effects.js")).should == true
-      File.exists?(File.join(@js_path, "controls.js")).should == true
       File.exists?(File.join(@js_path, "prototype.js")).should == true
     end
   end
@@ -42,9 +38,6 @@ describe JavascriptGenerator do
       temp_app_config(:mack => {:js_framework => "jquery"}) do
         File.exists?(@js_path).should_not == true
         JavascriptGenerator.run
-        
-        File.exists?(File.join(@js_path, "jquery-ui.js")).should == true
-        File.exists?(File.join(@js_path, "jquery-fx.js")).should == true
         File.exists?(File.join(@js_path, "jquery.js")).should == true
       end
     end

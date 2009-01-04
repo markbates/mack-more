@@ -24,16 +24,7 @@ dir_globs.each do |d|
 end
 
 if configatron.mack.js_framework
-  case configatron.mack.js_framework.to_s
-    when 'prototype'
-      file_list = ["controls.js", "dragdrop.js", "effects.js", "prototype.js"]
-    when 'jquery'
-      file_list = ["jquery.js", "jquery-ui.js", "jquery-fx.js"]
-  end
-  
-  file_list.each do |file|
-    assets_mgr.defaults do |a|
-      a.add_js file
-    end
+  assets_mgr.defaults do |a|
+    a.add_js "#{configatron.mack.js_framework.to_s}.js"
   end
 end

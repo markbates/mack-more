@@ -8,10 +8,14 @@ module Mack
           if io.is_a?(File)
             io = io.read
           end
-          @_jsp_page = Mack::JavaScript::ScriptGenerator.new
+          @_jsp_page = Mack::JavaScript::ScriptGenerator.new(view_template.controller.session.id)
           view_template.instance_variable_set("@_jsp_page", @_jsp_page)
           eval(io, binding)
-          @_jsp_page.to_s
+          resp = @_jsp_page.to_s
+          if Mack.env == 'development'
+            resp = "try {#{resp}}catch(e){alert('RJS error:\\n\\n' + e.toString());throw e};"
+          end
+          resp
         end
         
         def extension

@@ -1,16 +1,4 @@
-<% case configatron.mack.js_framework -%>
-<% when 'prototype' -%>
-<% ["controls.js", "dragdrop.js", "effects.js", "prototype.js"].each do |f| -%>
-<%= f %>_javascript_file:
+<%= configatron.mack.js_framework %>_javascript_file:
   type: file
-  template_path: <%= File.join(templates_directory_path, "javascripts", "#{f}.template") %>
-  output_path: <%= Mack::Paths.public("javascripts", f) %>
-<% end -%>
-<% when 'jquery' -%>
-<% ["jquery.js", "jquery-ui.js", "jquery-fx.js"].each do |f| -%>
-<%= f %>_javascript_file:
-  type: file
-  template_path: <%= File.join(templates_directory_path, "javascripts", "#{f}.template") %>
-  output_path: <%= Mack::Paths.public("javascripts", f) %>
-<% end -%>
-<% end -%>
+  template_path: <%= File.join(templates_directory_path, "javascripts", "#{configatron.mack.js_framework}.js.template") %>
+  output_path: <%= Mack::Paths.public("javascripts", "#{configatron.mack.js_framework}.js") %>
