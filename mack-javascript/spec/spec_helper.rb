@@ -1,5 +1,4 @@
-# require 'rubygems'
-gem 'rspec'
+require 'rubygems'
 require 'spec'
 require 'rake'
 require 'fileutils'

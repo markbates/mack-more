@@ -5,9 +5,8 @@ if Mack.env == "test"
   end
 
   # Wrap it so we don't accidentally alias the run method n times and run out of db connections!
-  unless Mack::Testing.const_defined?("ORM_LOADED")
-    
-    ORM_LOADED = true
+  run_once do
+
     module Mack
       module Testing
         
