@@ -163,12 +163,12 @@ describe Mack::JavaScript::Framework::JquerySelector do
   
   
   it "should make elements droppable" do
-    options = {:accept => '.cCon', :remote => {:url => '/stuff'}}
+    options = {:remote => {:url => '/stuff'}}
     @p.select('.aCon').droppable options do |p|
       p.select('.bCon').effect(:highlight)
     end
     starter = "$('.aCon').droppable({drop: function(ev, ui){$.ajax({".gsub(/[()${}]/){|s| "\\#{s}"}
-    ender = "});$('.bCon').show('highlight');},accept: '.cCon'});".gsub(/[()${}]/){|s| "\\#{s}"}
+    ender = "});$('.bCon').show('highlight');}});".gsub(/[()${}]/){|s| "\\#{s}"}
     @p.to_s =~ /^(#{starter})(.*)(#{ender})$/
     $1.should_not be(nil)
     $3.should_not be(nil)
