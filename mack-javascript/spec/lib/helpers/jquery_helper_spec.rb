@@ -97,7 +97,14 @@ describe Mack::JavaScript::Framework::JquerySelector do
     #effect with options
     @p = Mack::JavaScript::ScriptGenerator.new
     @p.select('.cCon').effect(:drop_in, :duration => 4000, :easing => 'easeOutBounce')
-    @p.to_s.should == "$('.cCon').show('drop',{easing: 'easeOutBounce',direction: 'up',duration: 4000});"
+    starter = "$('.cCon').show('drop',{".gsub(/[()${}]/){|s| "\\#{s}"}
+    ender = "});".gsub(/[()${}]/){|s| "\\#{s}"}
+    @p.to_s =~ /^(#{starter})(.*)(#{ender})$/
+    $1.should_not be(nil)
+    $3.should_not be(nil)
+    $2.split(',').each do |pair|
+      ["easing: 'easeOutBounce'","direction: 'up'","duration: 4000"].should include(pair.strip)
+    end
   end
   
   it "should show selected elements" do
@@ -154,13 +161,20 @@ describe Mack::JavaScript::Framework::JquerySelector do
     @p.to_s.should == "$('.cCon').draggable({revert: 'invalid'});"
   end
   
+  
   it "should make elements droppable" do
     options = {:accept => '.cCon', :remote => {:url => '/stuff'}}
     @p.select('.aCon').droppable options do |p|
       p.select('.bCon').effect(:highlight)
     end
-    @p.to_s.should == "$('.aCon').droppable({drop: function(ev, ui){$.ajax({async:true, data:'id=' + $(ui.draggable).attr('id'), dataType:'script', type:'post', url:'/stuff'});$('.bCon').show('highlight');},accept: '.cCon'});"
-    
+    starter = "$('.aCon').droppable({drop: function(ev, ui){$.ajax({".gsub(/[()${}]/){|s| "\\#{s}"}
+    ender = "});$('.bCon').show('highlight');},accept: '.cCon'});".gsub(/[()${}]/){|s| "\\#{s}"}
+    @p.to_s =~ /^(#{starter})(.*)(#{ender})$/
+    $1.should_not be(nil)
+    $3.should_not be(nil)
+    $2.split(',').each do |pair|
+      ["async:true", "data:'id=' + $(ui.draggable).attr('id')", "dataType:'script'", "type:'post'", "url:'/stuff'"].should include(pair.strip)
+    end
   end
       
 end
@@ -173,7 +187,14 @@ describe 'Deprecated Jquery methods' do
   
   it "should translate tbe deprecated 'page.remote_function' to 'page.ajax'" do
     @p.remote_function(:url => '/stuff', :method => :put)
-    @p.to_s.should == "$.ajax({async:true, data:'_method=put', dataType:'script', type:'post', url:'/stuff'});"
+    starter = "$.ajax({".gsub(/[()${}]/){|s| "\\#{s}"}
+    ender = "});".gsub(/[()${}]/){|s| "\\#{s}"}
+    @p.to_s =~ /^(#{starter})(.*)(#{ender})$/
+    $1.should_not be(nil)
+    $3.should_not be(nil)
+    $2.split(',').each do |pair|
+      ["async:true", "data:'_method=put'", "dataType:'script'", "type:'post'", "url:'/stuff'"].should include(pair.strip)
+    end
   end
   
   it "should translate the deprecated 'page.insert_html' to selector equivalent" do
