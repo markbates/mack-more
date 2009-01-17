@@ -10,8 +10,8 @@ module Mack # :nodoc:
         @__array.include?(v1_9? ? name.to_sym : name.to_s)
       end
       
-      def method_missing(sym, *args)
-        @__array.send(sym, *args)
+      def method_missing(sym, *args, &block)
+        @__array.send(sym, *args, &block)
       end
       
     end # MethodList
