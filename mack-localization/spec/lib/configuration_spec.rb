@@ -4,10 +4,10 @@ require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 describe Mack::Localization::Configuration do
     
   it "should contain proper Object level methods" do
-    self.should.respond_to?(:l10n_config)
+    Mack::Localization::Configuration.should.respond_to?(:l10n_config)
     l10n_config.should.eql?(configatron.mack.localization)
-    self.should.respond_to?(:l10n_formatter)
-    self.should.respond_to?(:l10n_translator)
+    Mack::Localization::Configuration.should.respond_to?(:l10n_formatter)
+    Mack::Localization::Configuration.should.respond_to?(:l10n_translator)
   end
   
   it "should properly load config from app" do
