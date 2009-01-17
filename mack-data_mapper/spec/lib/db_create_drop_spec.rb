@@ -63,7 +63,7 @@ describe Mack::Database do
         Mack::Database.create
         Zombie.should_not be_storage_exists
         Zombie.auto_migrate!
-        Zombie.should be_storage_exist
+        Zombie.should be_storage_exists
         Mack::Database.drop
         Zombie.should_not be_storage_exists
       end
@@ -73,7 +73,7 @@ describe Mack::Database do
         Mack::Database.create("production")
         Zombie.should_not be_storage_exists
         Zombie.auto_migrate!
-        Zombie.should be_storage_exist
+        Zombie.should be_storage_exists
         Mack::Database.drop("production")
         Zombie.should_not be_storage_exists
         ENV["MACK_ENV"] = "test"
