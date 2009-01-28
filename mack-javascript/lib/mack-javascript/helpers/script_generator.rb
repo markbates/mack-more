@@ -161,6 +161,10 @@ module Mack
         @generator.<<(".#{statement}", :add_to_last => true)
         self
       end
+      
+      def to_s
+        @generator.to_s
+      end
 
     end
     
@@ -186,11 +190,9 @@ module Mack
         to_s
       end
       
-      
       def to_s
         "function(#{@arguments.join(', ')}){#{@generator.to_s}}"
       end
-      
       
     end
   end

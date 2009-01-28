@@ -41,7 +41,7 @@ module Mack
             
             if options[:method] && options[:method].to_sym == :put || options[:method] == :delete
               js_options['data'] = append_ajax_data(js_options['data'], "_method=#{options[:method]}")
-    				end
+            end
             
             if js_options['type'] == "'post'" && options[:authenticity_token]
               js_options['data'] = append_ajax_data(js_options['data'], "__authenticity_token=#{options.delete(:authenticity_token)}")
@@ -52,11 +52,11 @@ module Mack
           
           def append_ajax_data(data, new_data)
             if data
-							data << " + '&"
-						else
-							data = "'"
-						end
-						data << "#{new_data}'"
+              data << " + '&"
+            else
+              data = "'"
+            end
+            data << "#{new_data}'"
           end
 
           def options_for_javascript(options)
@@ -127,12 +127,12 @@ module Mack
         # page.select('.rakim').children would give you a collection consisting of
         # the ul element, the p element, and the div with id 'technique'       
         def children
-      	  add "children()"
+          add "children()"
         end
         
         # returns a collection of the immediate parent of each selected element
-      	def parent
-      	  add "parent()"
+        def parent
+          add "parent()"
         end
         
         # returns a collection of every parent up the chain to the root of the document
@@ -154,38 +154,38 @@ module Mack
         # of both divs and the ul. 
         # page.select('#featuring').ancestors('#long_live') will give you the div with
         # id 'long_live'
-      	def ancestors(selector = nil)
-      	  add "parents(#{optional_selector(selector)})"
+        def ancestors(selector = nil)
+          add "parents(#{optional_selector(selector)})"
         end
         
         # gets all siblings for each element selected
         # Takes an optional selector as an argument
-      	def siblings(selector = nil)
-      	  add "siblings(#{optional_selector(selector)})"
+        def siblings(selector = nil)
+          add "siblings(#{optional_selector(selector)})"
         end
         
         # gets the next immediate sibling for each element selected
         # Takes an optional selector as an argument
-      	def next(selector = nil)
-      	  add "next(#{optional_selector(selector)})"
+        def next(selector = nil)
+          add "next(#{optional_selector(selector)})"
         end
         
         # gets the previous immediate sibling for each element selected
         # Takes an optional selector as an argument
-      	def previous(selector = nil)
-      	  add "prev(#{optional_selector(selector)})"
+        def previous(selector = nil)
+          add "prev(#{optional_selector(selector)})"
         end
         
         # gets every next sibling for each element selected
         # Takes an optional selector as an argument
-      	def all_next(selector = nil)
-      	  add "nextAll(#{optional_selector(selector)})"
+        def all_next(selector = nil)
+          add "nextAll(#{optional_selector(selector)})"
         end
         
         # gets every previous sibling for each element selected
         # Takes an optional selector as an argument
-      	def all_previous(selector = nil)
-      	  add "prevAll(#{optional_selector(selector)})"
+        def all_previous(selector = nil)
+          add "prevAll(#{optional_selector(selector)})"
         end
 
 
@@ -200,8 +200,8 @@ module Mack
         
         
         def remove_class(klass = '')
-        	add "removeClass('#{klass}')"
-      	end
+          add "removeClass('#{klass}')"
+        end
 
         def set_attribute(name, value)
           value = "'#{value}'" if value.is_a? String
@@ -209,17 +209,17 @@ module Mack
         end
 
         def remove_attribute(name)
-        	add "removeAttr('#{name}')"
-      	end
+          add "removeAttr('#{name}')"
+        end
 
 
 
 
-      	#-- DOM Manipulation --#
+        #-- DOM Manipulation --#
         
         # inserts html into the selected place for the specfied elemets
         #
-      	# +position+ may be one of:
+        # +position+ may be one of:
         # 
         # <tt>:top</tt>::    HTML is inserted inside the element, before the 
         #                    element's existing content.
@@ -264,7 +264,7 @@ module Mack
         #
         # Tip: use this with a partial containing your html:
         # page.select('.rakim').insert(:before, render(:partial, 'the_r', :format => :html))
-      	def insert(position, html)
+        def insert(position, html)
           position = {:bottom => 'append', :top => 'prepend'}[position.to_sym] || position.to_s
           add "#{position}('#{escape_javascript(html)}')"
         end
@@ -318,7 +318,7 @@ module Mack
 
 
 
-      	#-- Effects --#
+        #-- Effects --#
         # 
         # All five effects methods in JquerySelector (morph, effect, show, hide, toggle)
         # take the same options hash. This can consist of:
@@ -338,79 +338,79 @@ module Mack
         # http://www.robertpenner.com/easing/easing_demo.html
         #
         # The full list of jquery easing options:
-      	# linear, swing, easeInQuad, easeOutQuad, easeInOutQuad, easeInCubic, easeOutCubic, 
-      	# easeInOutCubic, easeInQuart, easeOutQuart, easeInOutQuart, easeInQuint, easeOutQuint,
-      	# easeInOutQuint, easeInSine, easeOutSine, easeInOutSine, easeInExpo, easeOutExpo, 
-      	# easeInOutExpo, easeInCirc, easeOutCirc, easeInOutCirc, easeInElastic, easeOutElastic,
-      	# easeInOutElastic, easeInBack, easeOutBack, easeInOutBack, easeInBounce, easeOutBounce,
-      	# easeInOutBounce:
-      	#
-      	# --Callback--
-      	#
-      	# this is a function that will get called when your effect is done. You can use 
-      	# page.function to build it. Note: This function gets called for each element selected.
-      	# For instance, in the following example, if there are 10 elements with the class 'rakim'
-      	# then the function will be called 10 times. If you want to target each of the 10 elements
-      	# in the callback function, use page.select('this')
-      	#
-      	# func = page.function.body do |p|
+        # linear, swing, easeInQuad, easeOutQuad, easeInOutQuad, easeInCubic, easeOutCubic, 
+        # easeInOutCubic, easeInQuart, easeOutQuart, easeInOutQuart, easeInQuint, easeOutQuint,
+        # easeInOutQuint, easeInSine, easeOutSine, easeInOutSine, easeInExpo, easeOutExpo, 
+        # easeInOutExpo, easeInCirc, easeOutCirc, easeInOutCirc, easeInElastic, easeOutElastic,
+        # easeInOutElastic, easeInBack, easeOutBack, easeInOutBack, easeInBounce, easeOutBounce,
+        # easeInOutBounce:
+        #
+        # --Callback--
+        #
+        # this is a function that will get called when your effect is done. You can use 
+        # page.function to build it. Note: This function gets called for each element selected.
+        # For instance, in the following example, if there are 10 elements with the class 'rakim'
+        # then the function will be called 10 times. If you want to target each of the 10 elements
+        # in the callback function, use page.select('this')
+        #
+        # func = page.function.body do |p|
         #          p.select('this').insert(:top, '<h1>Cool Effects</h1>').effect(:highlight)
         #        end
-      	# page.select('.rakim').effect(:slide_down, :callback => func)
-      	#
-      	# The above code will make every element with class 'rakim' slide down. When they are done
-      	# sliding, the h1 tag will be inserted in the top of each element, and each element will 
-      	# be highlighted. Instead of this, you could do the following
-      	# page.select('.rakim').effect(:slide_down).insert(:top, '<h1>Cool Effects</h1>').effect(:highlight)
-      	# But this way, the insertion won't wait for the first animation to be done before occurring.
-      	
-      	
-      	
-      	# Takes a hash of css properties you want the selected elements to 'morph' into.
-      	# Say you want all elements with class rakim to transition to only having half
-      	# the opacity and having a red background, and you want the transition to last 4
-      	# seconds
-      	# page.select('.rakim').morph({:opacity => 0.5, :backgroundColor => '#f00'}, :duration => 4000)
-      	# You can see a list of css properties here http://www.w3schools.com/CSS/css_reference.asp
-      	# The properties in your hash should be camelcase: :backgroundColor instead of
-      	# background-color
-      	def morph(hsh, options = nil)
+        # page.select('.rakim').effect(:slide_down, :callback => func)
+        #
+        # The above code will make every element with class 'rakim' slide down. When they are done
+        # sliding, the h1 tag will be inserted in the top of each element, and each element will 
+        # be highlighted. Instead of this, you could do the following
+        # page.select('.rakim').effect(:slide_down).insert(:top, '<h1>Cool Effects</h1>').effect(:highlight)
+        # But this way, the insertion won't wait for the first animation to be done before occurring.
+        
+        
+        
+        # Takes a hash of css properties you want the selected elements to 'morph' into.
+        # Say you want all elements with class rakim to transition to only having half
+        # the opacity and having a red background, and you want the transition to last 4
+        # seconds
+        # page.select('.rakim').morph({:opacity => 0.5, :backgroundColor => '#f00'}, :duration => 4000)
+        # You can see a list of css properties here http://www.w3schools.com/CSS/css_reference.asp
+        # The properties in your hash should be camelcase: :backgroundColor instead of
+        # background-color
+        def morph(hsh, options = nil)
           options[:complete] = options.delete(:callback) if options && options[:callback]
           args = [options_for_javascript(hsh), options_for_effects(options)]
-      	  add "animate(#{args.compact.join(',')})"
+          add "animate(#{args.compact.join(',')})"
         end
 
         #This general mapping taken from the awesome JRails plugin
-      	@@effects = {
-      		:appear => {:function => 'fadeIn'},
-      		:blind_down => {:mode => 'blind', :function => 'show', :options => {:direction => 'vertical'}},
-      		:blind_up => {:mode => 'blind', :function => 'hide', :options => {:direction => 'vertical'}},
-      		:blind_right => {:mode => 'blind', :function => 'show', :options => {:direction => 'horizontal'}},
-      		:blind_left => {:mode => 'blind', :function => 'hide', :options => {:direction => 'horizontal'}},
-      		:bounce_in => {:mode => 'bounce', :function => 'show', :options => {:direction => 'up'}},
-      		:bounce_out => {:mode => 'bounce', :function => 'hide', :options => {:direction => 'up'}},
-      		:drop_in => {:mode => 'drop', :function => 'show', :options => {:direction => 'up'}},
-      		:drop_out => {:mode => 'drop', :function => 'hide', :options => {:direction => 'down'}},
-      		:fade => {:function => 'fadeOut'},
-      		:fold_in => {:mode => 'fold', :function => 'hide'},
-      		:fold_out => {:mode => 'fold', :function => 'show'},
-      		:grow => {:mode => 'scale', :function => 'show'},
-      		:highlight => {:mode => 'highlight', :function => 'show'},
-      		:puff => {:mode => 'puff', :function => 'hide'},
-      		:pulsate => {:mode => 'pulsate', :function => 'show'},
-      		:shake => {:mode => 'shake', :function => 'show'},
-      		:shrink => {:mode => 'scale', :function => 'hide'},
-      		:slide_down => {:mode => 'slide', :function => 'show', :options => {:direction => 'up'}},
-      		:slide_up => {:mode => 'slide', :function => 'hide', :options => {:direction => 'up'}},
-      		:slide_right => {:mode => 'slide', :function => 'show', :options => {:direction => 'left'}},
-      		:slide_left => {:mode => 'slide', :function => 'hide', :options => {:direction => 'left'}},
-      		:squish => {:mode => 'scale', :function => 'hide', :options => {:origin => "['top','left']"}},
-      		:switch_on => {:mode => 'clip', :function => 'show', :options => {:direction => 'vertical'}},
-      		:switch_off => {:mode => 'clip', :function => 'hide', :options => {:direction => 'vertical'}},
-      		:toggle_appear => {:function => 'fadeToggle'},
-      		:toggle_slide => {:mode => 'slide', :function => 'toggle', :options => {:direction => 'up'}},
-      		:toggle_blind => {:mode => 'blind', :function => 'toggle', :options => {:direction => 'vertical'}},
-      	}
+        @@effects = {
+          :appear => {:function => 'fadeIn'},
+          :blind_down => {:mode => 'blind', :function => 'show', :options => {:direction => 'vertical'}},
+          :blind_up => {:mode => 'blind', :function => 'hide', :options => {:direction => 'vertical'}},
+          :blind_right => {:mode => 'blind', :function => 'show', :options => {:direction => 'horizontal'}},
+          :blind_left => {:mode => 'blind', :function => 'hide', :options => {:direction => 'horizontal'}},
+          :bounce_in => {:mode => 'bounce', :function => 'show', :options => {:direction => 'up'}},
+          :bounce_out => {:mode => 'bounce', :function => 'hide', :options => {:direction => 'up'}},
+          :drop_in => {:mode => 'drop', :function => 'show', :options => {:direction => 'up'}},
+          :drop_out => {:mode => 'drop', :function => 'hide', :options => {:direction => 'down'}},
+          :fade => {:function => 'fadeOut'},
+          :fold_in => {:mode => 'fold', :function => 'hide'},
+          :fold_out => {:mode => 'fold', :function => 'show'},
+          :grow => {:mode => 'scale', :function => 'show'},
+          :highlight => {:mode => 'highlight', :function => 'show'},
+          :puff => {:mode => 'puff', :function => 'hide'},
+          :pulsate => {:mode => 'pulsate', :function => 'show'},
+          :shake => {:mode => 'shake', :function => 'show'},
+          :shrink => {:mode => 'scale', :function => 'hide'},
+          :slide_down => {:mode => 'slide', :function => 'show', :options => {:direction => 'up'}},
+          :slide_up => {:mode => 'slide', :function => 'hide', :options => {:direction => 'up'}},
+          :slide_right => {:mode => 'slide', :function => 'show', :options => {:direction => 'left'}},
+          :slide_left => {:mode => 'slide', :function => 'hide', :options => {:direction => 'left'}},
+          :squish => {:mode => 'scale', :function => 'hide', :options => {:origin => "['top','left']"}},
+          :switch_on => {:mode => 'clip', :function => 'show', :options => {:direction => 'vertical'}},
+          :switch_off => {:mode => 'clip', :function => 'hide', :options => {:direction => 'vertical'}},
+          :toggle_appear => {:function => 'fadeToggle'},
+          :toggle_slide => {:mode => 'slide', :function => 'toggle', :options => {:direction => 'up'}},
+          :toggle_blind => {:mode => 'blind', :function => 'toggle', :options => {:direction => 'vertical'}},
+        }
 
         #custom effects. 'name' corresponds to the keys of the hash above
         def effect(name, options = nil)
@@ -463,17 +463,17 @@ module Mack
         # goes to its href url) isn't done.
         # This can also be used in conjunction with trigger to make and call custom events. 
         def peep(event_name, options = {}, &block)
-      	  add "bind('#{event_name}', #{event_function(options[:prevent_default], &block)})"
+          add "bind('#{event_name}', #{event_function(options[:prevent_default], &block)})"
         end
         
         #takes away any event listeners on the 'event_name' event fot the selected elements
-      	def stop_peeping(event_name)
-      	  add "unbind('#{event_name}')"
+        def stop_peeping(event_name)
+          add "unbind('#{event_name}')"
         end
         
         # triggers the 'event_name' event on the selected elements.
-      	def trigger(event_name)
-      	  add "trigger('#{event_name}')"
+        def trigger(event_name)
+          add "trigger('#{event_name}')"
         end
 
 
@@ -552,12 +552,12 @@ module Mack
           if remote_options || block_given?
             func =  Mack::JavaScript::Function.new(session_id, 'ev', 'ui')
             if remote_options
-    					remote_options[:with] ||= "'id=' + $(ui.draggable).attr('id')"
-    					func << Mack::JavaScript::ScriptGenerator.new(session_id).ajax(remote_options)
-    				end
-    				func.body(&block) if block_given?
-    				options.merge!(:drop => func)
-  				end
+              remote_options[:with] ||= "'id=' + $(ui.draggable).attr('id')"
+              func << Mack::JavaScript::ScriptGenerator.new(session_id).ajax(remote_options)
+            end
+            func.body(&block) if block_given?
+            options.merge!(:drop => func)
+          end
           add "droppable(#{drag_and_drop_options(options)})"
         end
 
