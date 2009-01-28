@@ -21,7 +21,7 @@ require 'extlib/inflection'
   require path
 end
 
-[:array, :class, :duration, :hash, :math, :module, :object, :string, :symbol, :nil_class, :date_time, :file, :time].each do |k|
+[:array, :class, :hash, :math, :module, :object, :string, :symbol, :nil_class, :date_time, :file, :time].each do |k|
   path = File.join(fl, "extensions", "#{k}")
   require path
 end
