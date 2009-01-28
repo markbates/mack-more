@@ -8,7 +8,7 @@ module Mack
       def self.migrate
         # Mack::Database.establish_connection
         ::DataMapper::MigrationRunner.reset!
-        migration_files.each { |mig| load mig }
+        migration_files.each { |mig| puts mig; load mig }
         ::DataMapper::MigrationRunner.migrate_up!
       end
       

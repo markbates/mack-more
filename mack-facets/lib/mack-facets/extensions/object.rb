@@ -1,5 +1,7 @@
 class Object
   
+  def meta_class() class << self; self end end
+  
   def define_instance_method(sym, &block)
     mod = Module.new do
       define_method(sym, &block)
