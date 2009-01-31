@@ -15,5 +15,10 @@ class Vtt::ViewTemplateController
     @last_name = "Simpson"
     render(:action, "maggie", :layout => false)
   end
+  
+  def maggie_html_haml_with_haml_layout
+    @last_name = "Simpson"
+    render(:action, "maggie", :layout => 'haml_layout')
+  end
 
 end

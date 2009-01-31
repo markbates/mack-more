@@ -26,6 +26,11 @@ describe "render(:action)" do
       get maggie_html_haml_without_layout_url
       response.body.should == "<div id='name'>Maggie Simpson</div>\n<div id='type'>HTML, HAML</div>\n"
     end
+    
+    it 'should render with a haml layout' do
+      get maggie_html_haml_with_haml_layout_url
+      validate_content('action_haml_with_haml_layout.txt')
+    end
 
   end # haml
 end

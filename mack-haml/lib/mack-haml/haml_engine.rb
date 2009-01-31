@@ -21,3 +21,4 @@ end
 
 # Register the engine with Mack's Renderer Registry
 Mack::Rendering::Engine::Registry.instance.register(:action, :haml)
+Mack::Rendering::Engine::Registry.instance.register(:layout, :haml)
