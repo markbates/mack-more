@@ -1,0 +1,8 @@
+<html>
+  <head>
+    <title>Haml Layout</title>
+  </head>
+  <body>
+    Bart Simpson
+  </body>
+</html>

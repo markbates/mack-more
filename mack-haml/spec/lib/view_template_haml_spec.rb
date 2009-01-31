@@ -31,6 +31,11 @@ describe "render(:action)" do
       get maggie_html_haml_with_haml_layout_url
       validate_content('action_haml_with_haml_layout.txt')
     end
+    
+    it 'should render with a global haml layout' do
+      get '/users/show'
+      validate_content('users_show.txt')
+    end
 
   end # haml
 end
