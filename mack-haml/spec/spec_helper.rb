@@ -24,3 +24,11 @@ require(File.join(File.dirname(__FILE__), "fake_application", "config", "routes.
 require Pathname(__FILE__).dirname.parent.expand_path + 'lib/mack-haml'
 
 #-------------- HELPER MODULES --------------------------#
+
+def fixture(file_name)
+  File.read(File.join(File.dirname(__FILE__), "fixtures", file_name))
+end
+
+def validate_content(file_name)
+  response.body.should == fixture(file_name)
+end

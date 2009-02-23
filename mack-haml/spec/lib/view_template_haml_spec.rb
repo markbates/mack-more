@@ -1,16 +1,8 @@
 require 'pathname'
 require Pathname(__FILE__).dirname.expand_path.parent + 'spec_helper'
 
-module RenderActionHelper
-  def validate_content(file_name)
-    body = File.read(File.join(File.dirname(__FILE__), "contents", file_name))
-    response.body.should == body
-  end
-end
-
 describe "render(:action)" do  
   describe "haml" do
-    include RenderActionHelper
     
     it "should render with a default layout" do
       get maggie_html_haml_with_layout_url
